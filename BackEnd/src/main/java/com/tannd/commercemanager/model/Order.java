@@ -18,8 +18,8 @@ public class Order extends AuditableEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @NotBlank(message = "ID is required")
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Name of Receiver is required")

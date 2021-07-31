@@ -13,13 +13,13 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 @SpringBootApplication
-@EnableJpaAuditing
+@EnableJpaAuditing(auditorAwareRef = "auditorAware")
 public class CommerceManagerApplication {
 
-//    @Bean
-//    public AuditorAware<String> auditorAware(){
-//        return new SpringSecurityAuditorAware();
-//    }
+    @Bean
+    public AuditorAware<String> auditorAware(){
+        return new SpringSecurityAuditorAware();
+    }
 
     @Bean
     public Docket api() {

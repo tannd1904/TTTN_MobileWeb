@@ -17,8 +17,8 @@ public class Product extends AuditableEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @NotBlank(message = "productId is required")
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "productName is required")

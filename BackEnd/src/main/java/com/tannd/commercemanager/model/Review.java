@@ -16,7 +16,7 @@ public class Review extends AuditableEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @NotBlank(message = "Id is required")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 

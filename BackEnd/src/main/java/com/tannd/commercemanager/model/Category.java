@@ -17,8 +17,8 @@ public class Category extends AuditableEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @NotBlank(message = "CategoryId is required")
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Category name is required")

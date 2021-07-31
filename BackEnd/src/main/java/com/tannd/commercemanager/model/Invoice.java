@@ -17,8 +17,8 @@ public class Invoice extends AuditableEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @NotBlank(message = "invoiceId is required")
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "date is required")

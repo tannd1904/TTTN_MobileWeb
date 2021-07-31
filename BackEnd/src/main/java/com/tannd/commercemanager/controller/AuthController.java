@@ -19,7 +19,6 @@ import com.tannd.commercemanager.repository.UserRepository;
 import com.tannd.commercemanager.security.jwt.JwtUtils;
 import com.tannd.commercemanager.security.services.UserDetailsImpl;
 import com.tannd.commercemanager.services.CaptchaService;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -56,6 +55,7 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        System.out.println("Sign In worked");
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
@@ -90,41 +90,41 @@ public class AuthController {
         return ResponseEntity.ok(jwtResponse);
     }
 
-//    @PostMapping("/signin-2")
-//    public ResponseEntity<?> signInWithoutCapcha(@Valid @RequestBody LoginRequest loginRequest) {
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-//
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        String jwt = jwtUtils.generateJwtToken(authentication);
-//
-//        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-//        List<String> roles = userDetails.getAuthorities().stream()
-//                .map(item -> item.getAuthority())
-//                .collect(Collectors.toList());
-//        String email = userDetails.getEmail();
-//        String role = roles.get(0);
-//        System.out.println(role);
-//
-//        User user = userRepository.findByEmail(email).get();
-//        JwtResponse jwtResponse = new JwtResponse();
+    @PostMapping("/signin2")
+    public ResponseEntity<?> signInWithoutCapcha(@Valid @RequestBody LoginRequest loginRequest) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+        String email = userDetails.getEmail();
+        String role = roles.get(0);
+        System.out.println(role);
+
+        User user = userRepository.findByEmail(email).get();
+        JwtResponse jwtResponse = new JwtResponse();
 //        boolean captchaVerified = captchaService.verify(loginRequest.getRecaptchaResponse());
 //        if(!captchaVerified) {
 //            jwtResponse.setMessage("Invalid captcha");
 //            jwtResponse.setStatus(400);
 //        }else {
-//            jwtResponse.setMessage("Success");
-//            jwtResponse.setStatus(200);
-//            jwtResponse.setToken(jwt);
-//            jwtResponse.setId(user.getId());
-//            jwtResponse.setEmail(user.getEmail());
-//            jwtResponse.setPhone(user.getPhone());
-//            jwtResponse.setAddress(user.getAddress());
-//            jwtResponse.setName(user.getName());
-//            jwtResponse.setRole(role);
+            jwtResponse.setMessage("Success");
+            jwtResponse.setStatus(200);
+            jwtResponse.setToken(jwt);
+            jwtResponse.setId(user.getId());
+            jwtResponse.setEmail(user.getEmail());
+            jwtResponse.setPhone(user.getPhone());
+            jwtResponse.setAddress(user.getAddress());
+            jwtResponse.setName(user.getName());
+            jwtResponse.setRole(role);
 //        }
-//        return ResponseEntity.ok(jwtResponse);
-//    }
+        return ResponseEntity.ok(jwtResponse);
+    }
 //
 //    @PostMapping("/signin")
 //    public ResponseEntity<?> authenticateUser2(@Valid @RequestBody LoginRequest loginRequest) {
@@ -163,7 +163,8 @@ public class AuthController {
 //    @ApiOperation(value = "Add an student")
 //    @Transactional
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
+        System.out.println("Sign Up worked");
         System.out.println(signUpRequest.toString());
         System.out.println("--------------\n");
         if (userRepository.findByEmail(signUpRequest.getEmail()).isPresent()) {
@@ -193,6 +194,7 @@ public class AuthController {
                 }
             });
         }
+
         User user = new User();
         user.setEmail(signUpRequest.getEmail());
         user.setPassword(encoder.encode(signUpRequest.getPassword()));
@@ -200,6 +202,7 @@ public class AuthController {
         user.setAddress(signUpRequest.getAddress());
         user.setPhone(signUpRequest.getPhone());
         user.setRoles(roles);
+        user.setStatus(0);
         System.out.println(user.toString());
         userRepository.save(user);
 

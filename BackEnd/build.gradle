@@ -44,6 +44,12 @@ dependencies {
     implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
     implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
     implementation group: 'commons-io', name: 'commons-io', version: '2.6'
+    // https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor
+    implementation group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.4.1.Final'
+    // https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor
+    implementation group: 'org.mapstruct', name: 'mapstruct', version: '1.4.1.Final'
+    annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.4.1.Final'
+
 }
 
 test {
