@@ -12,6 +12,7 @@ import com.tannd.commercemanager.model.ProductDetail;
 import com.tannd.commercemanager.repository.ProductDetailRepository;
 import com.tannd.commercemanager.repository.ProductRepository;
 import com.tannd.commercemanager.services.ProductDetailService;
+import com.tannd.commercemanager.services.ProductService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,78 +31,18 @@ import java.util.List;
 @PreAuthorize("hasRole('ADMIN') or ('USER')")
 public class ProductDetailController extends AbstractController<ProductDetailService, ProductDetailDTO, ProductDetail> {
 
-//    @Autowired
-//    ServletContext context;
-//
-//    @Autowired
-//    ProductDetailRepository productDetailRepository;
-//
-//    @Autowired
-//    SizeRepository sizeRepository;
-//
-//    @Autowired
-//    ColorRepository colorRepository;
-//
-//    @Autowired
-//    ProductRepository productRepository;
-//
-//    @Autowired
-//    ProductDetailService productDetailService;
-//
-//    @PostMapping("/add-product-detail")
-//    @PreAuthorize("hasRole('EMPLOYEE')")
-//    public ResponseEntity<?> createProductDetail (@RequestParam("file") MultipartFile file,
-//                                            @RequestParam("productDetail") String  productDetail) throws JsonParseException, JsonMappingException, Exception
-//    {
-//        System.out.println("Ok .............");
-//        ProductDetailRequest productDetailRequest = new ObjectMapper().readValue(productDetail, ProductDetailRequest.class);
-//        boolean isExit = new File(context.getRealPath("/Images/")).exists();
-//        if (!isExit)
-//        {
-//            new File (context.getRealPath("/Images/")).mkdir();
-//            System.out.println("mk dir.............");
-//        }
-//        String filename = file.getOriginalFilename();
-//        String newFileName = FilenameUtils.getBaseName(filename)+"."+FilenameUtils.getExtension(filename);
-//        File serverFile = new File (context.getRealPath("/Images/"+File.separator+newFileName));
-//        try
-//        {
-//            System.out.println("Image");
-//            FileUtils.writeByteArrayToFile(serverFile,file.getBytes());
-//
-//        }catch(Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        productDetailRequest.setImage(newFileName);
-//        ProductDetail productDetail1 = new ProductDetail();
-//        productDetail1.setQuantity(productDetailRequest.getQuantity());
-//        productDetail1.setPrice(productDetailRequest.getPrice());
-//        productDetail1.setImage(productDetailRequest.getImage());
-//        Size size = sizeRepository.findSizeBySizeId(productDetailRequest.getSizeId());
-//        productDetail1.setSize(size);
-//        Color color = colorRepository.findColorByColorId(productDetailRequest.getColorId());
-//        productDetail1.setColor(color);
-//        Product product = productRepository.findProductByProductId(productDetailRequest.getProductId());
-//        productDetail1.setProduct(product);
-//        productDetailRepository.save(productDetail1);
-//        if (productDetail1 != null)
-//        {
-//            return new ResponseEntity<MessageResponse>(new MessageResponse (""), HttpStatus.OK);
-//        }
-//        else
-//        {
-//            return new ResponseEntity<MessageResponse>(new MessageResponse("Product detail not saved"),HttpStatus.BAD_REQUEST);
-//        }
-//    }
-//
-//    @GetMapping("/product-detail/{productId}")
-//    @PreAuthorize("hasRole('EMPLOYEE')")
-//    public ResponseEntity<?> getAllProductDetailByProductId (@PathVariable(value = "productId") String productId) throws ResourceNotFoundException {
-//        System.out.println("aaa");
-//        List<ProductDetailDTO> productDetailDTOList = productDetailService.getAllProductDetail(productId);
-//        return ResponseEntity.ok().body(productDetailDTOList);
-//    }
+    @Autowired
+    ProductDetailService thisService;
+
+    @Override
+    public void initService() {
+        service = thisService;
+    }
+
+    @Override
+    public ProductDetailService getService() {
+        initService();
+        return service;
+    }
 
 }

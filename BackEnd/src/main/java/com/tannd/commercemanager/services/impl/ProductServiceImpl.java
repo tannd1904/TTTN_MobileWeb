@@ -8,6 +8,7 @@ import com.tannd.commercemanager.model.Product;
 import com.tannd.commercemanager.repository.CategoryRepository;
 import com.tannd.commercemanager.repository.ProductRepository;
 import com.tannd.commercemanager.services.ProductService;
+import com.tannd.commercemanager.services.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,36 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@ServiceHelper
 public class ProductServiceImpl extends AbstractServiceImpl<ProductRepository, ProductMapper, ProductDTO, Product>
         implements ProductService {
+
+    @Autowired
+    ProductRepository thisRepository;
+
+    private ProductMapper thisMapper;
+
+    @Override
+    public void initRepository() {
+        repository = thisRepository;
+    }
+
+    @Override
+    public void initMapper() {
+        mapper = thisMapper;
+    }
+
+    @Override
+    public ProductRepository getRepository() {
+        initRepository();
+        return repository;
+    }
+
+    @Override
+    public ProductMapper getMapper() {
+        initMapper(thisMapper.INSTANCE);
+        return mapper;
+    }
 
 //    @Autowired
 //    private ProductRepository productRepository;

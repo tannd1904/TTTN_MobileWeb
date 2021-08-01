@@ -45,7 +45,6 @@ public class Product extends AuditableEntity {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     @EqualsAndHashCode.Exclude
-    @ToString.Exclude
     private Category category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)

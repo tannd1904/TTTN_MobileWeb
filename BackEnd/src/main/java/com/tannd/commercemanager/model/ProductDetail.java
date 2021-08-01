@@ -34,7 +34,7 @@ public class ProductDetail extends AuditableEntity {
     @Column(name = "storage")
     private String storage;
 
-    @Column(name = "exten_memory")
+    @Column(name = "exten_memmory")
     private String extendMemory;
 
     @Column(name = "cam1")

@@ -3,6 +3,7 @@ package com.tannd.commercemanager.services.impl;
 import com.tannd.commercemanager.exception.ResourceNotFoundException;
 import com.tannd.commercemanager.maper.AbstractMapper;
 import com.tannd.commercemanager.maper.CycleAvoidingMappingContext;
+import com.tannd.commercemanager.repository.AbstractRepository;
 import com.tannd.commercemanager.services.AbstractService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +13,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class AbstractServiceImpl<R extends JpaRepository, M extends AbstractMapper, D , E>
+@SuppressWarnings({"rawtypes", "unchecked"})
+public class AbstractServiceImpl<R extends AbstractRepository, M extends AbstractMapper, D , E>
     implements AbstractService<D, E> {
 
     protected R repository;
@@ -31,6 +33,10 @@ public class AbstractServiceImpl<R extends JpaRepository, M extends AbstractMapp
     public void initRepository(R repository) {
         this.repository = repository;
     }
+
+    public void initRepository() {    }
+
+    public void initMapper() {  }
 
     public void initMapper(M mapper) {
         this.mapper = mapper;
@@ -99,16 +105,6 @@ public class AbstractServiceImpl<R extends JpaRepository, M extends AbstractMapp
     }
 
     @Override
-    public D findById(long id) {
-        // resetCycleAvoidingMappingContext();
-        Optional<E> optional = getRepository().findById(id);
-        if (optional.isEmpty()) {
-            throw new ResourceNotFoundException("Resource not found");
-        }
-        return (D) mapper.toDto(optional.get(), getCycleAvoidingMappingContext());
-    }
-
-    @Override
     public void delete(long id) {
         try {
             // resetCycleAvoidingMappingContext();
@@ -122,10 +118,22 @@ public class AbstractServiceImpl<R extends JpaRepository, M extends AbstractMapp
     @Override
     public List<D> findAll() {
         // resetCycleAvoidingMappingContext();
+        System.out.println(getRepository().toString());
         List<E> list = getRepository().findAll();
+        System.out.println(list.toString());
         return (List<D>) list.stream()
                 .map(entity -> getMapper().toDto(entity, getCycleAvoidingMappingContext()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public D findById(long id) {
+        // resetCycleAvoidingMappingContext();
+        Optional<E> optional = getRepository().findById(id);
+        if (optional.isEmpty()) {
+            throw new ResourceNotFoundException("Resource not found");
+        }
+        return (D) getMapper().toDto(optional.get(), getCycleAvoidingMappingContext());
     }
 
     @Override
@@ -137,7 +145,7 @@ public class AbstractServiceImpl<R extends JpaRepository, M extends AbstractMapp
                 // TODO BUG new Throwable("Element not found.");
                 throw new ResourceNotFoundException("Element not found.");
             }
-            return (D) mapper.toDto(optional.get(), getCycleAvoidingMappingContext());
+            return (D) getMapper().toDto(optional.get(), getCycleAvoidingMappingContext());
         } else {
             // TODO BUG ?
             // must be : throw new ResourceNotFoundException("Element not found.");

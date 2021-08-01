@@ -1,12 +1,15 @@
 package com.tannd.commercemanager.services.impl;
 
 import com.tannd.commercemanager.dto.CategoryDTO;
+import com.tannd.commercemanager.maper.CartMapper;
 import com.tannd.commercemanager.maper.CategoryMapper;
 import com.tannd.commercemanager.maper.CycleAvoidingMappingContext;
 import com.tannd.commercemanager.message.request.CategoryRequest;
 import com.tannd.commercemanager.model.Category;
+import com.tannd.commercemanager.repository.CartRepository;
 import com.tannd.commercemanager.repository.CategoryRepository;
 import com.tannd.commercemanager.services.CategoryService;
+import com.tannd.commercemanager.services.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +17,36 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@ServiceHelper
 public class CategoryServiceImpl extends AbstractServiceImpl<CategoryRepository, CategoryMapper, CategoryDTO, Category>
         implements CategoryService {
+
+    @Autowired
+    CategoryRepository thisRepository;
+
+    private CategoryMapper thisMapper;
+
+    @Override
+    public void initRepository() {
+        repository = thisRepository;
+    }
+
+    @Override
+    public void initMapper() {
+        mapper = thisMapper;
+    }
+
+    @Override
+    public CategoryRepository getRepository() {
+        initRepository();
+        return repository;
+    }
+
+    @Override
+    public CategoryMapper getMapper() {
+        initMapper(thisMapper.INSTANCE);
+        return mapper;
+    }
 
 //    @Autowired
 //    private CategoryRepository categoryRepository;
