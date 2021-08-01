@@ -27,7 +27,7 @@ public class Cart extends AuditableEntity {
     private Integer quantity;
 
     @OneToOne
-    @JoinTable(name = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)

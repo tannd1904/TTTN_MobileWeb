@@ -25,19 +25,23 @@ public class AbstractController<S extends AbstractService, D, E> {
     @GetMapping("/get-all")
     public ResponseEntity getAll() {
         System.out.println("Get All worked");
-        List<D> list = getService().findAll();
-        System.out.println(list);
-        return ResponseEntity.ok(new CustomResponse(200, "Request OK",
-                list));
+        var response = getService().findAll();
+        System.out.println(response);
+        return ResponseEntity.ok(new CustomResponse(200, "Request Get All OK",
+                response));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity getById(@PathVariable Long id) {
         System.out.println("Get Id worked with id: " + id);
         System.out.println(getService().toString());
-        D dto = (D) getService().findById(id.longValue());
+        var dto = (D) getService().findById(id.longValue());
+        if (dto == null) {
+            return ResponseEntity.ok(new CustomResponse(404, "Resource Not Found",
+                    null));
+        }
         System.out.println(dto.toString());
-        return ResponseEntity.ok(new CustomResponse(200, "Request OK",
+        return ResponseEntity.ok(new CustomResponse(200, "Request Get By Id OK",
                 dto));
     }
 }

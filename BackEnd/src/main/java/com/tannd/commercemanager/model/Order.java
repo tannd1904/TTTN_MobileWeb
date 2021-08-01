@@ -50,7 +50,7 @@ public class Order extends AuditableEntity {
     @Column(name = "status", nullable = false)
     private Integer status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

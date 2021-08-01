@@ -25,7 +25,7 @@ public class Image extends AuditableEntity {
     @Column(name = "images_url")
     private String path;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "pro_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

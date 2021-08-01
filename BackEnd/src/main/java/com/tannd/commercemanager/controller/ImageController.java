@@ -1,4 +1,4 @@
-package com.tannd.commercemanager.controller.admin;
+package com.tannd.commercemanager.controller;
 
 import com.tannd.commercemanager.controller.AbstractController;
 import com.tannd.commercemanager.dto.ImageDTO;

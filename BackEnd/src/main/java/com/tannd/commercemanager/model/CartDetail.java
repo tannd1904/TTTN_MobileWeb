@@ -28,7 +28,7 @@ public class CartDetail extends AuditableEntity {
     @JoinColumn(name = "product_detail_id")
     private ProductDetail productDetail;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

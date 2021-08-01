@@ -21,14 +21,14 @@ public class OrderDetail extends AuditableEntity {
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "product_details")
+    @JoinColumn(name = "product_detail_id")
     private ProductDetail productDetail;
 
     @NotBlank(message = "quantity is required")
     @Column(name = "qty", nullable = false)
     private Integer quantity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

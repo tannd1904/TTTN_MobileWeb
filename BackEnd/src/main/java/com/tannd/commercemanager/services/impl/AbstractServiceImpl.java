@@ -131,7 +131,7 @@ public class AbstractServiceImpl<R extends AbstractRepository, M extends Abstrac
         // resetCycleAvoidingMappingContext();
         Optional<E> optional = getRepository().findById(id);
         if (optional.isEmpty()) {
-            throw new ResourceNotFoundException("Resource not found");
+            return null;
         }
         return (D) getMapper().toDto(optional.get(), getCycleAvoidingMappingContext());
     }
