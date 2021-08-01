@@ -21,9 +21,9 @@ export class HomeComponent implements OnInit {
   constructor(private router:Router, private userService: UserService, private classBodyService: ClassBodyService, private pageService: PageService) { }
 
   ngOnInit(): void {
-    this.pageService.changePage(this.page);
-    this.classBodyService.changeClass(this.classBody);
-    this.getPage();
+    // this.pageService.changePage(this.page);
+    // this.classBodyService.changeClass(this.classBody);
+    // this.getPage();
   }
 
   getPage(){
