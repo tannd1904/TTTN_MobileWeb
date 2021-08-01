@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tannd.commercemanager.controller.AbstractController;
 import com.tannd.commercemanager.dto.ProductDetailDTO;
+import com.tannd.commercemanager.maper.ProductDetailMapper;
 import com.tannd.commercemanager.message.request.ProductDetailRequest;
 import com.tannd.commercemanager.message.response.MessageResponse;
 import com.tannd.commercemanager.model.Product;
@@ -29,7 +30,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/product-detail")
 @PreAuthorize("hasRole('ADMIN') or ('USER')")
-public class ProductDetailController extends AbstractController<ProductDetailService, ProductDetailDTO, ProductDetail> {
+public class ProductDetailController extends AbstractController<ProductDetailService, ProductDetailMapper, ProductDetailDTO, ProductDetail> {
 
     @Autowired
     ProductDetailService thisService;
@@ -43,6 +44,19 @@ public class ProductDetailController extends AbstractController<ProductDetailSer
     public ProductDetailService getService() {
         initService();
         return service;
+    }
+
+    private ProductDetailMapper thisMapper;
+
+    @Override
+    public void initMapper() {
+        mapper = thisMapper;
+    }
+
+    @Override
+    public ProductDetailMapper getMapper() {
+        initMapper();
+        return mapper;
     }
 
 }

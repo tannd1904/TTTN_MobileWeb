@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/product")
 @PreAuthorize("hasRole('ADMIN') or ('USER')")
-public class ProductController extends AbstractController<ProductService, ProductDTO, Product> {
+public class ProductController extends AbstractController<ProductService, ProductMapper, ProductDTO, Product> {
 
     @Autowired
     ProductService thisService;
@@ -32,5 +32,18 @@ public class ProductController extends AbstractController<ProductService, Produc
     public ProductService getService() {
         initService();
         return service;
+    }
+
+    private ProductMapper thisMapper;
+
+    @Override
+    public void initMapper() {
+        mapper = thisMapper;
+    }
+
+    @Override
+    public ProductMapper getMapper() {
+        initMapper();
+        return mapper;
     }
 }

@@ -2,6 +2,7 @@ package com.tannd.commercemanager.controller;
 
 import com.tannd.commercemanager.controller.AbstractController;
 import com.tannd.commercemanager.dto.CategoryDTO;
+import com.tannd.commercemanager.maper.CategoryMapper;
 import com.tannd.commercemanager.message.request.CategoryRequest;
 import com.tannd.commercemanager.model.Category;
 import com.tannd.commercemanager.services.CategoryService;
@@ -16,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/category")
 @PreAuthorize("hasRole('ADMIN') or ('USER')")
-public class CategoryController extends AbstractController<CategoryService, CategoryDTO, Category> {
+public class CategoryController extends AbstractController<CategoryService, CategoryMapper, CategoryDTO, Category> {
 
     @Autowired
     CategoryService thisService;
@@ -30,5 +31,18 @@ public class CategoryController extends AbstractController<CategoryService, Cate
     public CategoryService getService() {
         initService();
         return service;
+    }
+
+    private CategoryMapper thisMapper;
+
+    @Override
+    public void initMapper() {
+        mapper = thisMapper;
+    }
+
+    @Override
+    public CategoryMapper getMapper() {
+        initMapper();
+        return mapper;
     }
 }

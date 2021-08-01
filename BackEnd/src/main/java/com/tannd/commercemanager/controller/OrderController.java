@@ -2,6 +2,7 @@ package com.tannd.commercemanager.controller;
 
 import com.tannd.commercemanager.dto.InvoiceDTO;
 import com.tannd.commercemanager.dto.OrderDTO;
+import com.tannd.commercemanager.maper.OrderMapper;
 import com.tannd.commercemanager.model.Invoice;
 import com.tannd.commercemanager.model.Order;
 import com.tannd.commercemanager.services.InvoiceService;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/order")
 @PreAuthorize("hasRole('ADMIN') or ('USER')")
-public class OrderController extends AbstractController<OrderService, OrderDTO, Order> {
+public class OrderController extends AbstractController<OrderService, OrderMapper, OrderDTO, Order> {
 
     @Autowired
     OrderService thisService;
@@ -28,5 +29,18 @@ public class OrderController extends AbstractController<OrderService, OrderDTO, 
     public OrderService getService() {
         initService();
         return service;
+    }
+
+    private OrderMapper thisMapper;
+
+    @Override
+    public void initMapper() {
+        mapper = thisMapper;
+    }
+
+    @Override
+    public OrderMapper getMapper() {
+        initMapper();
+        return mapper;
     }
 }

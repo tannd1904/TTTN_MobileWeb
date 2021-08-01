@@ -2,6 +2,7 @@ package com.tannd.commercemanager.controller;
 
 import com.tannd.commercemanager.dto.CartDTO;
 import com.tannd.commercemanager.dto.CategoryDTO;
+import com.tannd.commercemanager.maper.CartMapper;
 import com.tannd.commercemanager.model.Cart;
 import com.tannd.commercemanager.model.Category;
 import com.tannd.commercemanager.services.CartService;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/cart")
 @PreAuthorize("hasRole('ADMIN') or ('USER')")
-public class CartController extends AbstractController<CartService, CartDTO, Cart> {
+public class CartController extends AbstractController<CartService, CartMapper, CartDTO, Cart> {
 
     @Autowired
     CartService thisService;
@@ -28,5 +29,18 @@ public class CartController extends AbstractController<CartService, CartDTO, Car
     public CartService getService() {
         initService();
         return service;
+    }
+
+    private CartMapper thisMapper;
+
+    @Override
+    public void initMapper() {
+        mapper = thisMapper;
+    }
+
+    @Override
+    public CartMapper getMapper() {
+        initMapper();
+        return mapper;
     }
 }
