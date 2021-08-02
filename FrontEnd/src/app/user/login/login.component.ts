@@ -34,9 +34,9 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService, private router:Router, private tokenStorageService: TokenStorageService, private cartService: CartService, private countService: CountService, private classBodyService: ClassBodyService, private pageService: PageService) { }
 
   ngOnInit(): void {
-    this.classBodyService.changeClass(this.classBody);
-    this.pageService.changePage(this.page);
-    this.infoForm();
+    // this.classBodyService.changeClass(this.classBody);
+    // this.pageService.changePage(this.page);
+    // this.infoForm();
   }
 
   infoForm(){

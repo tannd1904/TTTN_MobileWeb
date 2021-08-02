@@ -11,11 +11,13 @@ export class ProductGridComponent implements OnInit {
   classBody: string = "product-detail";
   page: number = 4;
 
-  constructor(private classBodyService: ClassBodyService, private pageService: PageService) { }
+  // constructor(private classBodyService: ClassBodyService, private pageService: PageService) { }
+
+  constructor() {}
 
   ngOnInit(): void {
-    this.classBodyService.changeClass(this.classBody);
-    this.pageService.changePage(this.page);
+    // this.classBodyService.changeClass(this.classBody);
+    // this.pageService.changePage(this.page);
   }
 
 }

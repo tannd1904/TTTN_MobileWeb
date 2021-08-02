@@ -27,6 +27,9 @@ import { TokenStorageService } from './service/token-storage.service';
 import { AuthInterceptor } from './service/auth.interceptor';
 import { ProductGridComponent } from './user/product-grid/product-grid.component';
 import { ProductDetailComponent } from './user/product-detail/product-detail.component';
+import { CheckoutComponent } from './user/checkout/checkout.component';
+import { CompareComponent } from './user/compare/compare.component';
+import { CartComponent } from './user/cart/cart.component';
 
 
 @NgModule({
@@ -41,6 +44,9 @@ import { ProductDetailComponent } from './user/product-detail/product-detail.com
     ChangeInfoComponent,
     ProductGridComponent,
     ProductDetailComponent,
+    CheckoutComponent,
+    CompareComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,
