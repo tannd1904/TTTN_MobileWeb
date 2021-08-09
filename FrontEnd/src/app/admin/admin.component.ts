@@ -25,4 +25,8 @@ export class AdminComponent implements OnInit {
     this.tokenStorageService.signOut();
   }
 
+  addActiveClass() {
+    
+  }
+
 }

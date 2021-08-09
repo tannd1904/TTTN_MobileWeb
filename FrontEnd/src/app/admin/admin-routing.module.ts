@@ -16,14 +16,14 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent, 
       children: [
         {path: '', component: HomeComponent},
-        {path: 'product', component: ProductComponent},
-        {path: 'category', component: ListCategoriesComponent},
-        {path: 'users', component: UsersComponent},
-        {path: 'edit-user/:id', component: EditUserComponent},
-        {path: 'inventory', component: InventoryReceivingVoucherComponent },
-        {path: 'inventory/add', component: AddInventoryReceivingVoucherDetailComponent },
-        {path: 'provider', component: ListProviderComponent },
-        {path: 'product/:id', component: ProductDetailComponent },
+        // {path: 'product', component: ProductComponent},
+        // {path: 'category', component: ListCategoriesComponent},
+        // {path: 'users', component: UsersComponent},
+        // {path: 'edit-user/:id', component: EditUserComponent},
+        // {path: 'inventory', component: InventoryReceivingVoucherComponent },
+        // {path: 'inventory/add', component: AddInventoryReceivingVoucherDetailComponent },
+        // {path: 'provider', component: ListProviderComponent },
+        // {path: 'product/:id', component: ProductDetailComponent },
         // { path: '**', component: PageNotFoundComponent}
       ]}
 ];
