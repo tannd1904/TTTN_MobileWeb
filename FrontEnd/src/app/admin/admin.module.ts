@@ -17,6 +17,7 @@ import { AddInventoryReceivingVoucherDetailComponent } from './add-inventory-rec
 import { ListProviderComponent } from './provider/list-provider/list-provider.component';
 import { ProductComponent } from './product/list_product/product.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { ProductDetailComponent } from './product/product-detail/product-detail.
     ReactiveFormsModule,
     NgxPaginationModule, 
     Ng2SearchPipeModule,
+    ChartsModule,
   ],
   providers: [],
   bootstrap: [AdminComponent]

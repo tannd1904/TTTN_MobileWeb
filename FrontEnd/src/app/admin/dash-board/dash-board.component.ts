@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActiveService } from 'src/app/service/active.service';
+import { ChartType, ChartOptions } from 'chart.js';
+import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
 
 @Component({
   selector: 'app-dash-board',
@@ -10,7 +12,10 @@ import { ActiveService } from 'src/app/service/active.service';
 export class DashBoardComponent implements OnInit {
   active!: number;
 
-  constructor(private activeService: ActiveService, private router: Router) { }
+  constructor(private activeService: ActiveService, private router: Router) {
+    monkeyPatchChartJsTooltip();
+    monkeyPatchChartJsLegend();
+   }
 
   ngOnInit(): void {
     this.activeService.currentActive.subscribe(active => this.active = active);
@@ -35,4 +40,16 @@ export class DashBoardComponent implements OnInit {
   reloadPage(): void {
     window.location.reload();
   }
+
+  // Test Chart
+
+  public pieChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  public pieChartLabels: Label[] = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
+  public pieChartData: SingleDataSet = [300, 500, 100];
+  public pieChartType: ChartType = 'pie';
+  public pieChartLegend = true;
+  public pieChartPlugins = [];
+
 }
