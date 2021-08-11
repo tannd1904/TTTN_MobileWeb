@@ -11,13 +11,15 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { UsersComponent } from './user_/users/users.component';
 import { EditUserComponent } from './user_/edit-user/edit-user.component';
 import { HeaderAdminComponent } from './header-admin/header-admin.component';
-import { DashBoardComponent } from './dash-board/dash-board.component';
 import { InventoryReceivingVoucherComponent } from './inventory-receiving-voucher/inventory-receiving-voucher.component';
 import { AddInventoryReceivingVoucherDetailComponent } from './add-inventory-receiving-voucher-detail/add-inventory-receiving-voucher-detail.component';
 import { ListProviderComponent } from './provider/list-provider/list-provider.component';
 import { ProductComponent } from './product/list_product/product.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ChartsModule } from 'ng2-charts';
+import { PieChartComponent} from './pie-chart/pie-chart.component';
+import { LineChartComponent } from './line-chart/line-chart.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 
 @NgModule({
@@ -28,12 +30,15 @@ import { ChartsModule } from 'ng2-charts';
     EditUserComponent,
     HomeComponent,
     HeaderAdminComponent,
-    DashBoardComponent,
     InventoryReceivingVoucherComponent,
     AddInventoryReceivingVoucherDetailComponent,
     ProductComponent,
     ListProviderComponent,
     ProductDetailComponent,
+    PieChartComponent,
+    LineChartComponent,
+    LineChartComponent,
+    CalendarComponent,
   ],
   imports: [
     CommonModule,

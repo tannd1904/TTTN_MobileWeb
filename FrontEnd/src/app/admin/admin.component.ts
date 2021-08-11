@@ -16,6 +16,7 @@ export class AdminComponent implements OnInit {
   @Input()
   ngClass!: string | string[] | Set<string> | { [klass: string]: any; }
     clickCategory = false;
+    toggleSideBar = false;
     isActive = [true, false, false, false, false, false, false, false];
 
   categories: Array<Category> = [];
