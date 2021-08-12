@@ -30,6 +30,7 @@ import { ProductDetailComponent } from './user/product-detail/product-detail.com
 import { CheckoutComponent } from './user/checkout/checkout.component';
 import { CompareComponent } from './user/compare/compare.component';
 import { CartComponent } from './user/cart/cart.component';
+import { WishlistComponent } from './user/wishlist/wishlist.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { CartComponent } from './user/cart/cart.component';
     CheckoutComponent,
     CompareComponent,
     CartComponent,
+    WishlistComponent,
   ],
   imports: [
     BrowserModule,

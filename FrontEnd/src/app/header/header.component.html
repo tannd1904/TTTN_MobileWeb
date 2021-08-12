@@ -159,7 +159,7 @@
                         <ul class="hm-menu">
                             <!-- Begin Header Middle Wishlist Area -->
                             <li class="hm-wishlist">
-                                <a href="wishlist.html">
+                                <a routerLink="wishlist">
                                     <span class="cart-item-count wishlist-item-count">0</span>
                                     <i class="fa fa-heart-o"></i>
                                 </a>
@@ -203,10 +203,10 @@
                                     </ul>
                                     <p class="minicart-total">SUBTOTAL: <span>£80.00</span></p>
                                     <div class="minicart-button">
-                                        <a href="shopping-cart.html" class="li-button li-button-fullwidth">
+                                        <a routerLink="cart" class="li-button li-button-fullwidth">
                                             <span>View Full Cart</span>
                                         </a>
-                                        <a href="checkout.html" class="li-button li-button-fullwidth">
+                                        <a routerLink="checkout" class="li-button li-button-fullwidth">
                                             <span>Checkout</span>
                                         </a>
                                     </div>
@@ -222,7 +222,7 @@
                                             <h6 style="text-align: center;"><a>Welcome to our Shop!</a></h6>
                                             <br>
                                         </div>
-                                        <a routerLink="login" class="li-button li-button-fullwidth">
+                                        <a (click)="directLoginPage()" class="li-button li-button-fullwidth">
                                             <span>Login</span>
                                         </a>
                                         <a routerLink="register" class="li-button li-button-fullwidth">

@@ -10,6 +10,7 @@ import { LoginComponent } from './user/login/login.component';
 import { ProductDetailComponent } from './user/product-detail/product-detail.component';
 import { ProductGridComponent } from './user/product-grid/product-grid.component';
 import { RegisterComponent } from './user/register/register.component';
+import { WishlistComponent } from './user/wishlist/wishlist.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'checkout', component: CheckoutComponent},
   { path: 'compare', component: CompareComponent},
   { path: 'cart', component: CartComponent},
+  { path: 'wishlist', component: WishlistComponent},
   //TODO: Add interceptor and Page Not Found Page
   // { path: '**', component: PageNotFoundComponent},
 

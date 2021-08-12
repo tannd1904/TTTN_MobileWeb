@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/model/product';
+import { Response } from 'src/app/model/response';
 import { ClassBodyService } from 'src/app/service/class-body.service';
 import { CountService } from 'src/app/service/count.service';
 import { PageService } from 'src/app/service/page.service';
@@ -16,7 +17,7 @@ export class HomeComponent implements OnInit {
   classBody: string = "home";
   products: Array<Product> = [];
   page: number = 0;
-  
+  response !: Response;
 
   constructor(private router:Router, private userService: UserService, private classBodyService: ClassBodyService, private pageService: PageService) { }
 
