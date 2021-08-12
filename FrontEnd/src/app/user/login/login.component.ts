@@ -9,7 +9,7 @@ import { CountService } from 'src/app/service/count.service';
 import { PageService } from 'src/app/service/page.service';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
 import { UserService } from 'src/app/service/user.service';
-declare var grecaptcha: any;
+declare var greCaptcha: any;
 
 
 @Component({
@@ -31,12 +31,17 @@ export class LoginComponent implements OnInit {
   invalidLogin: boolean = false;
   loginResponse!: string;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private tokenStorage: TokenStorageService, private router:Router, private tokenStorageService: TokenStorageService, private cartService: CartService, private countService: CountService, private classBodyService: ClassBodyService, private pageService: PageService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, 
+              private tokenStorage: TokenStorageService, private router:Router, 
+              private tokenStorageService: TokenStorageService, 
+              private cartService: CartService, private countService: CountService, 
+              private classBodyService: ClassBodyService, 
+              private pageService: PageService) { }
 
   ngOnInit(): void {
-    // this.classBodyService.changeClass(this.classBody);
-    // this.pageService.changePage(this.page);
-    // this.infoForm();
+    this.classBodyService.changeClass(this.classBody);
+    this.pageService.changePage(this.page);
+    this.infoForm();
   }
 
   infoForm(){
@@ -44,9 +49,10 @@ export class LoginComponent implements OnInit {
     this.dataForm = this.fb.group({
       email: ['', [Validators.required, Validators.pattern("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
       + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")]],   
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required, Validators.minLength(8)]]
     })
   }
+
   get f() { return this.dataForm.controls; }
 
   onSubmit(): void {
@@ -54,7 +60,7 @@ export class LoginComponent implements OnInit {
     if(this.dataForm.invalid){
       return;
     }
-    const response = grecaptcha.getResponse();
+    const response = greCaptcha.getResponse();
     if (response.length === 0) {
       this.captchaError = true;
       return;
@@ -71,7 +77,7 @@ export class LoginComponent implements OnInit {
           this.tokenStorage.saveToken(this.token);
           this.role = this.tokenStorage.getUser().role;
           const user = this.tokenStorageService.getUser();
-          if(this.role == "ROLE_CUSTOMER")
+          if(this.role == "ROLE_USER")
           {
             // this.cartService.countCartById(this.token, user.id)
             //                         .subscribe(
@@ -92,7 +98,7 @@ export class LoginComponent implements OnInit {
           this.invalidLogin = true;
           this.loginResponse = data.message;
         }
-        grecaptcha.reset();
+        greCaptcha.reset();
       },
       err => {  
         this.IsLogin = true;

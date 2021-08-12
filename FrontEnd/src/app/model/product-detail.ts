@@ -1,4 +1,3 @@
-import { ColorService } from "../service/color.service";
 import { Color } from "./color";
 import { Product } from "./product";
 import { Size } from "./size";

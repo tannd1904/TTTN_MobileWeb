@@ -1,0 +1,7 @@
+.hm-minicart:hover .minicart {
+    display: block;
+}
+
+.hm-wishlist:hover .minicart {
+    display: block;
+}

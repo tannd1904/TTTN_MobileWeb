@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.classBodyService.changeClass(this.classBody);
     this.pageService.changePage(this.page);
-    this.infoForm();
+    // this.infoForm();
   }
 
   infoForm(){

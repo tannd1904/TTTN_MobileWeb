@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/service/user.service';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
 import { ActiveService } from 'src/app/service/active.service';
-import { RoomService } from 'src/app/service/room.service';
 import { Room } from 'src/app/model/room';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/service/category.service';
@@ -22,26 +21,26 @@ export class ListCategoriesComponent implements OnInit {
   submitted = false;
   categories: Array<Category> = [];
 
-  constructor(private fb: FormBuilder, private userService: UserService, private tokenStorageService: TokenStorageService, private activeService: ActiveService, private roomService: RoomService, private categoryService: CategoryService) { }
+  constructor(private fb: FormBuilder, private userService: UserService, private tokenStorageService: TokenStorageService, private activeService: ActiveService,  private categoryService: CategoryService) { }
 
   ngOnInit(): void {
     this.activeService.changeActive(this.active);
     this.getCategory();
-    this.getRoom();
+    // this.getRoom();
     this.infoForm();
   }
 
-  getRoom(){
-    this.token = this.tokenStorageService.getToken();
-    this.roomService.getRoom(this.token)
-      .subscribe(
-        (data) => {
-          this.rooms = data;
-        },
-        error => {
-          console.log(error);
-        });
-  }
+  // getRoom(){
+  //   this.token = this.tokenStorageService.getToken();
+  //   this.roomService.getRoom(this.token)
+  //     .subscribe(
+  //       (data) => {
+  //         this.rooms = data;
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       });
+  // }
 
   infoForm(){
     this.dataForm = this.fb.group({

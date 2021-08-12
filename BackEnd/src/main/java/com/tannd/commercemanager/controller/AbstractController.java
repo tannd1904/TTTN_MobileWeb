@@ -35,8 +35,6 @@ public class AbstractController<S extends AbstractService, M extends AbstractMap
 
     public void initMapper() {}
 
-
-    @GetMapping("/get-all")
     public ResponseEntity getAll() {
         System.out.println("Get All worked");
         var response = getService().findAll();
@@ -45,7 +43,6 @@ public class AbstractController<S extends AbstractService, M extends AbstractMap
                 response));
     }
 
-    @GetMapping("/{id}")
     public ResponseEntity getById(@PathVariable Long id) {
         System.out.println("Get Id worked with id: " + id);
         System.out.println(getService().toString());
@@ -59,7 +56,6 @@ public class AbstractController<S extends AbstractService, M extends AbstractMap
                 dto));
     }
 
-    @PostMapping("")
     public ResponseEntity create(@RequestBody D dto) {
         var entity = getMapper().toEntity(dto, new CycleAvoidingMappingContext());
         try {
@@ -73,7 +69,6 @@ public class AbstractController<S extends AbstractService, M extends AbstractMap
                 respone));
     }
 
-    @DeleteMapping("/{id}")
     public ResponseEntity deleteById(@PathVariable Long id) {
         System.out.println("Delete worked with id: " + id);
         System.out.println(getService().toString());
@@ -87,7 +82,6 @@ public class AbstractController<S extends AbstractService, M extends AbstractMap
                 dto));
     }
 
-    @PutMapping("/{id}")
     public ResponseEntity update(@PathVariable Long id, @RequestBody D dto) {
         System.out.println("Update worked with id: " + id);
         System.out.println(getService().toString());

@@ -50,3 +50,17 @@
     color: red;
     margin-left: 10px;
 }
+
+.register-component {
+    width: 50%;
+    margin: auto;
+    padding-left: 300px;
+    padding-right: 300px;
+}
+
+@media screen and (max-width: 800px) {
+    .register-component {
+        width: 100%;
+        padding: 0%;
+    }
+}

@@ -17,8 +17,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/product")
-@PreAuthorize("hasRole('ADMIN') or ('USER')")
-public class ProductController extends AbstractController<ProductService, ProductMapper, ProductDTO, Product> {
+public class ProductController
+        extends AbstractController<ProductService, ProductMapper, ProductDTO, Product> {
 
     @Autowired
     ProductService thisService;
@@ -46,4 +46,10 @@ public class ProductController extends AbstractController<ProductService, Produc
         initMapper();
         return mapper;
     }
+
+    @GetMapping("/get-all")
+    public ResponseEntity<?> getAllProducts() {
+        return getAll();
+    }
+
 }

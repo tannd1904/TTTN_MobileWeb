@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/internal/operators/catchError';
 import { retry } from 'rxjs/internal/operators/retry';
 import { Cart } from '../cart';
 import { Checkout } from '../checkout';
+import { AbstracService } from './abstrac.service';
 
 const API_URL = 'http://localhost:8080/api/addcart/';
 const API_URL_ = 'http://localhost:8080/api/order/';
@@ -12,9 +13,9 @@ const API_URL_ = 'http://localhost:8080/api/order/';
 @Injectable({
   providedIn: 'root'
 })
-export class CartService {
+export class CartService extends AbstracService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { super(); }
 
   getCartDetailByUser(token: String, userId: number): Observable<Cart[]>{
     let tokenStr = 'Bearer ' + token;
@@ -109,20 +110,4 @@ export class CartService {
                       catchError(this.handleError)
                     );
   }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong,
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    // return an observable with a user-facing error message
-    return throwError(
-      'Something bad happened; please try again later.');
-  };
 }
