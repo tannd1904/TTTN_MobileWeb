@@ -1,5 +1,6 @@
 package com.tannd.commercemanager.model;
 
+import com.tannd.commercemanager.model.audit.AuditableEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,26 +11,28 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @Entity
-@Table(name="orders_detail")
+@Table(name="ct_phieudat")
 @ToString
 public class OrderDetail extends AuditableEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "MACTPD", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "product_detail_id")
+    @JoinColumn(name = "MASP")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private ProductDetail productDetail;
 
     @NotBlank(message = "quantity is required")
-    @Column(name = "qty", nullable = false)
+    @Column(name = "SOLUONG", nullable = false)
     private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "MAPD")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Order order;

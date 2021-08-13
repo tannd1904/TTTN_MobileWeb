@@ -1,5 +1,6 @@
 package com.tannd.commercemanager.model;
 
+import com.tannd.commercemanager.model.audit.AuditableEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,31 +11,31 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @Entity
-@Table(name= "review")
+@Table(name= "danhgia")
 @ToString
 public class Review extends AuditableEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "MADG", nullable = false)
     private Long id;
 
     @NotBlank(message = "Content is required")
-    @Column(name = "content")
+    @Column(name = "NOIDUNG")
     private String content;
 
-    @Column(name = "image")
+    @Column(name = "HINHANH")
     private String image;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @OneToOne
+    @JoinColumn(name = "MAPD")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private User user;
+    private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "MADONGSP")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Product product;

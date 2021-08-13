@@ -1,7 +1,11 @@
 package com.tannd.commercemanager.dto;
 
+import com.tannd.commercemanager.model.*;
 import lombok.*;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +27,9 @@ public class OrderDTO extends AbstractDTO {
 
     private Date dateOfOrder;
 
-    private String type;
+//    @NotBlank(message = "Type is required")
+//    @Column(name = "type", nullable = false)
+//    private String type;
 
     private String note;
 
@@ -31,6 +37,14 @@ public class OrderDTO extends AbstractDTO {
 
     private Long userId;
 
-    private List<OrderDetailDTO> orderDetails;
+    private Long employeeId;
+
+    private List<ImportVoucherDetailDTO> importVoucherDetails;
+
+    private Long returnId;
+
+    private Long invoiceId;
+
+    private Long reviewId;
 
 }

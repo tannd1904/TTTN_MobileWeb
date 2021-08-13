@@ -1,7 +1,14 @@
 package com.tannd.commercemanager.dto;
 
+import com.tannd.commercemanager.model.Category;
+import com.tannd.commercemanager.model.ImportVoucherDetail;
+import com.tannd.commercemanager.model.Review;
+import com.tannd.commercemanager.model.Wishlist;
 import lombok.*;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.util.Collection;
 import java.util.List;
 
 @AllArgsConstructor
@@ -16,21 +23,19 @@ public class ProductDTO extends AbstractDTO {
 
     private String name;
 
-    private String url;
-
-    private String intro;
-
-    private String promo;
-
-    private String tag;
-
     private Integer status;
+
+    private String image;
+
+    private String description;
+
+    private String type;
 
     private Long categoryId;
 
-    private List<ProductDetailDTO> productDetails;
+    private List<ImportVoucherDetailDTO> importVoucherDetails;
 
-    private List<ImageDTO> images;
+    private List<WishlistDTO> wishlists;
 
     private List<ReviewDTO> reviews;
 

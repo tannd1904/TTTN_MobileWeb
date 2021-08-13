@@ -1,13 +1,11 @@
 package com.tannd.commercemanager.controller;
 
 import com.tannd.commercemanager.maper.AbstractMapper;
-import com.tannd.commercemanager.maper.CycleAvoidingMappingContext;
+import com.tannd.commercemanager.maper.helper.CycleAvoidingMappingContext;
 import com.tannd.commercemanager.message.response.CustomResponse;
 import com.tannd.commercemanager.services.AbstractService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class AbstractController<S extends AbstractService, M extends AbstractMapper, D, E> {

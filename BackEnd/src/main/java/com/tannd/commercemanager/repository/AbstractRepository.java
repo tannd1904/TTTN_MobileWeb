@@ -1,5 +1,6 @@
 package com.tannd.commercemanager.repository;
 
+import com.tannd.commercemanager.repository.helper.AbstractRepositoryHelper;
 import com.tannd.commercemanager.util.FunctionUtil;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -7,7 +8,6 @@ import org.springframework.data.repository.NoRepositoryBean;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 

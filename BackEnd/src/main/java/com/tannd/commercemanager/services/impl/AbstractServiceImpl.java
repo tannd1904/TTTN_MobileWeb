@@ -2,10 +2,9 @@ package com.tannd.commercemanager.services.impl;
 
 import com.tannd.commercemanager.exception.ResourceNotFoundException;
 import com.tannd.commercemanager.maper.AbstractMapper;
-import com.tannd.commercemanager.maper.CycleAvoidingMappingContext;
+import com.tannd.commercemanager.maper.helper.CycleAvoidingMappingContext;
 import com.tannd.commercemanager.repository.AbstractRepository;
 import com.tannd.commercemanager.services.AbstractService;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
@@ -183,5 +182,10 @@ public class AbstractServiceImpl<R extends AbstractRepository, M extends Abstrac
             // TODO BUG new Throwable("Element not found.");
             throw new ResourceNotFoundException("Element not found.");
         }
+    }
+
+    @Transactional(readOnly = true)
+    public long getCountOfEntities() {
+        return getRepository().count();
     }
 }

@@ -1,13 +1,11 @@
 package com.tannd.commercemanager.services.impl;
 
 import com.tannd.commercemanager.dto.ReviewDTO;
-import com.tannd.commercemanager.maper.ProductDetailMapper;
 import com.tannd.commercemanager.maper.ReviewMapper;
 import com.tannd.commercemanager.model.Review;
-import com.tannd.commercemanager.repository.ProductDetailRepository;
 import com.tannd.commercemanager.repository.ReviewRepository;
 import com.tannd.commercemanager.services.ReviewService;
-import com.tannd.commercemanager.services.ServiceHelper;
+import com.tannd.commercemanager.services.helper.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
 package com.tannd.commercemanager;
 
-import com.tannd.commercemanager.model.SpringSecurityAuditorAware;
+import com.tannd.commercemanager.model.audit.SpringSecurityAuditorAware;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

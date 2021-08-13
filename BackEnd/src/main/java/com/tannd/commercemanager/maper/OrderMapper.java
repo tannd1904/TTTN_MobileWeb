@@ -1,6 +1,7 @@
 package com.tannd.commercemanager.maper;
 
 import com.tannd.commercemanager.dto.OrderDTO;
+import com.tannd.commercemanager.maper.helper.CycleAvoidingMappingContext;
 import com.tannd.commercemanager.model.Order;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;

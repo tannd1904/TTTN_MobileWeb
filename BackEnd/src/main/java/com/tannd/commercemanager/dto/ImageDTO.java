@@ -1,6 +1,6 @@
 package com.tannd.commercemanager.dto;
 
-import com.tannd.commercemanager.model.AuditableEntity;
+import com.tannd.commercemanager.model.audit.AuditableEntity;
 import lombok.*;
 
 @AllArgsConstructor

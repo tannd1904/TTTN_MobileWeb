@@ -16,9 +16,5 @@ public class CategoryDTO extends AbstractDTO {
 
     private String name;
 
-    private String url;
-
-    private Long parentId;
-
     private List<ProductDTO> products;
 }

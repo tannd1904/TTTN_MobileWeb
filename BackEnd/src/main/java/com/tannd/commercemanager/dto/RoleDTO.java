@@ -3,6 +3,8 @@ package com.tannd.commercemanager.dto;
 import com.tannd.commercemanager.model.ERole;
 import lombok.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -14,4 +16,6 @@ public class RoleDTO extends AbstractDTO{
     private Integer id;
 
     private ERole name;
+
+    private List<AccountDTO> accountDTOs;
 }

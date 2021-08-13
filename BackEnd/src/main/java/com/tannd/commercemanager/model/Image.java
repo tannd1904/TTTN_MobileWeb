@@ -1,5 +1,6 @@
 package com.tannd.commercemanager.model;
 
+import com.tannd.commercemanager.model.audit.AuditableEntity;
 import lombok.*;
 
 import javax.persistence.*;

@@ -1,20 +1,13 @@
 package com.tannd.commercemanager.services.impl;
 
 import com.tannd.commercemanager.dto.CategoryDTO;
-import com.tannd.commercemanager.maper.CartMapper;
 import com.tannd.commercemanager.maper.CategoryMapper;
-import com.tannd.commercemanager.maper.CycleAvoidingMappingContext;
-import com.tannd.commercemanager.message.request.CategoryRequest;
 import com.tannd.commercemanager.model.Category;
-import com.tannd.commercemanager.repository.CartRepository;
 import com.tannd.commercemanager.repository.CategoryRepository;
 import com.tannd.commercemanager.services.CategoryService;
-import com.tannd.commercemanager.services.ServiceHelper;
+import com.tannd.commercemanager.services.helper.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @ServiceHelper

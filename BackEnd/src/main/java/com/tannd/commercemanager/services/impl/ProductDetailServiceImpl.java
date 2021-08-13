@@ -1,20 +1,13 @@
 package com.tannd.commercemanager.services.impl;
 
 import com.tannd.commercemanager.dto.ProductDetailDTO;
-import com.tannd.commercemanager.maper.OrderMapper;
 import com.tannd.commercemanager.maper.ProductDetailMapper;
-import com.tannd.commercemanager.model.Product;
 import com.tannd.commercemanager.model.ProductDetail;
-import com.tannd.commercemanager.repository.OrderRepository;
 import com.tannd.commercemanager.repository.ProductDetailRepository;
-import com.tannd.commercemanager.repository.ProductRepository;
 import com.tannd.commercemanager.services.ProductDetailService;
-import com.tannd.commercemanager.services.ServiceHelper;
+import com.tannd.commercemanager.services.helper.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @ServiceHelper

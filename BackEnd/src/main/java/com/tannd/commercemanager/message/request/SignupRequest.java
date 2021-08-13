@@ -23,13 +23,18 @@ public class SignupRequest {
     private String password;
 
     @NotBlank(message = "role is required")
-    private Set<String> role;
+    private String role;
 
     @NotBlank(message = "name is required")
-    private String name;
+    private String firstName;
 
-    private Integer gender;
+    @NotBlank(message = "name is required")
+    private String lastName;
 
+    @NotBlank(message = "gender is required")
+    private String gender;
+
+    @NotBlank(message = "birthday is required")
     private Date birthday;
 
     @NotBlank(message = "Email is required")

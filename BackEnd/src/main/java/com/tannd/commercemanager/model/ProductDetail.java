@@ -1,5 +1,6 @@
 package com.tannd.commercemanager.model;
 
+import com.tannd.commercemanager.model.audit.AuditableEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,64 +10,59 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name="product_details")
+@Table(name="sanpham")
 @ToString
 public class ProductDetail extends AuditableEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "MASP", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "color")
+    @Column(name = "COLOR")
     private String color;
 
-    @Column(name = "cpu")
+    @Column(name = "CPU")
     private String cpu;
 
-    @Column(name = "ram")
+    @Column(name = "RAM")
     private String ram;
 
-    @Column(name = "screen")
+    @Column(name = "SCREEN")
     private String screen;
 
-    @Column(name = "storage")
-    private String storage;
+    @Column(name = "MEMMORY")
+    private String memmory;
 
-    @Column(name = "exten_memmory")
-    private String extendMemory;
+    @Column(name = "CAMERA")
+    private String camera;
 
-    @Column(name = "cam1")
-    private String cam1;
-
-    @Column(name = "cam2")
-    private String cam2;
-
-    @Column(name = "sim")
-    private String sim;
-
-    @Column(name = "connect")
-    private String connect;
-
-    @Column(name = "pin")
+    @Column(name = "PIN")
     private String pin;
 
-    @Column(name = "os")
+    @Column(name = "OS")
     private String os;
 
-    @Column(name = "note")
+    @Column(name = "GHICHU")
     private String note;
 
-    @Column(name = "quantity", nullable = false)
-    private Integer quantity;
-
-    @Column(name = "price", nullable = false)
+    @Column(name = "GIA", nullable = false)
     private Double price;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "pro_id", nullable = false)
+    @OneToOne(mappedBy = "productDetail")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Product product;
+    private OrderDetail orderDetail;
+
+    @OneToOne(mappedBy = "productDetail")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Return aReturn;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "MACTPN")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private ImportVoucherDetail importVoucherDetail;
 }

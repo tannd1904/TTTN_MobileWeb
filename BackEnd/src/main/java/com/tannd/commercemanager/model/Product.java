@@ -1,5 +1,6 @@
 package com.tannd.commercemanager.model;
 
+import com.tannd.commercemanager.model.audit.AuditableEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,51 +12,46 @@ import java.util.Collection;
 @Getter
 @Setter
 @Entity
-@Table(name="products")
+@Table(name="dongsp")
 @ToString
 public class Product extends AuditableEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "MADONGSP", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "productName is required")
-    @Column(name = "name", nullable = false)
+    @Column(name = "TENDONGSP", nullable = false)
     private String name;
 
-    @NotBlank(message = "URL is required")
-    @Column(name = "url", nullable = false)
-    private String url;
-
-    @NotBlank(message = "Intro is required")
-    @Column(name = "intro", nullable = false)
-    private String intro;
-
-    @Column(name = "promo", nullable = false)
-    private String promo;
-
-    @Column(name = "tag", nullable = false)
-    private String tag;
-
-    @Column(name = "status", nullable = false)
+    @Column(name = "TRANGTHAI", nullable = false)
     private Integer status;
 
+    @Column(name = "HINHANH", nullable = true)
+    private String image;
+
+    @Column(name = "MOTA", nullable = true)
+    private String description;
+
+    @Column(name = "LOAI", nullable = true)
+    private String type;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "MAHANG")
     @EqualsAndHashCode.Exclude
     private Category category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Collection<ProductDetail> productDetails;
+    private Collection<ImportVoucherDetail> importVoucherDetails;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Collection<Image> images;
+    private Collection<Wishlist> wishlists;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude

@@ -1,5 +1,6 @@
 package com.tannd.commercemanager.maper;
 
+import com.tannd.commercemanager.maper.helper.CycleAvoidingMappingContext;
 import org.mapstruct.Context;
 
 public interface AbstractMapper <D, E>{

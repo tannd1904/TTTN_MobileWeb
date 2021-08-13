@@ -1,5 +1,6 @@
 package com.tannd.commercemanager.model;
 
+import com.tannd.commercemanager.model.audit.AuditableEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,53 +13,74 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name="orders")
+@Table(name="phieudat")
 @ToString
 public class Order extends AuditableEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "MAPD", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Name of Receiver is required")
-    @Column(name = "name_receiver", nullable = false)
+    @Column(name = "HOTEN", nullable = false)
     private String nameOfReceiver;
 
     @NotBlank(message = "addressOfReceiver is required")
-    @Column(name = "address_receiver", nullable = false)
+    @Column(name = "DIACHI", nullable = false)
     private String addressOfReceiver;
 
     @NotBlank(message = "phoneOfReceiver is required")
-    @Column(name = "phone_receiver", nullable = false)
+    @Column(name = "SDT", nullable = false)
     private String phoneOfReceiver;
 
     @NotBlank(message = "dateOfOrder is required")
-    @Column(name = "date_order", nullable = false)
+    @Column(name = "NGAYDAT", nullable = false)
     private Date dateOfOrder;
 
-    @NotBlank(message = "Type is required")
-    @Column(name = "type", nullable = false)
-    private String type;
+//    @NotBlank(message = "Type is required")
+//    @Column(name = "type", nullable = false)
+//    private String type;
 
-    @NotBlank(message = "Note is required")
-    @Column(name = "note", nullable = false)
+//    @NotBlank(message = "Note is required")
+    @Column(name = "GHICHU", nullable = false)
     private String note;
 
     @NotBlank(message = "status is required")
-    @Column(name = "status", nullable = false)
+    @Column(name = "TRANGTHAI", nullable = false)
     private Integer status;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "MAKH")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "MANV")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Employee employee;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Collection<OrderDetail> orderDetails;
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Return aReturn;
+
+    @OneToOne(mappedBy = "order")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Invoice invoice;
+
+    @OneToOne(mappedBy = "order")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Review review;
 
 }

@@ -1,6 +1,11 @@
 package com.tannd.commercemanager.dto;
 
+import com.tannd.commercemanager.model.ImportVoucherDetail;
+import com.tannd.commercemanager.model.OrderDetail;
+import com.tannd.commercemanager.model.Return;
 import lombok.*;
+
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,17 +25,9 @@ public class ProductDetailDTO extends AbstractDTO {
 
     private String screen;
 
-    private String storage;
+    private String memmory;
 
-    private String extendMemory;
-
-    private String cam1;
-
-    private String cam2;
-
-    private String sim;
-
-    private String connect;
+    private String camera;
 
     private String pin;
 
@@ -38,9 +35,11 @@ public class ProductDetailDTO extends AbstractDTO {
 
     private String note;
 
-    private Integer quantity;
-
     private Double price;
 
-    private Long productId;
+    private Long orderDetailId;
+
+    private Long returnId;
+
+    private Long importVoucherDetailId;
 }
