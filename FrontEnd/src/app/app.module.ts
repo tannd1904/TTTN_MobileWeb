@@ -31,6 +31,7 @@ import { CheckoutComponent } from './user/checkout/checkout.component';
 import { CompareComponent } from './user/compare/compare.component';
 import { CartComponent } from './user/cart/cart.component';
 import { WishlistComponent } from './user/wishlist/wishlist.component';
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -57,9 +58,10 @@ import { WishlistComponent } from './user/wishlist/wishlist.component';
     ReactiveFormsModule,
     AdminModule,
     BrowserAnimationsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    DataTablesModule
   ],
-  // providers: [UserService, AuthService, CartService, CountService, TokenStorageService ,LoginGuard, 
+  //, providers: [UserService, AuthService, CartService, CountService, TokenStorageService ,LoginGuard, 
   //   {provide: HTTP_INTERCEPTORS, useClass:  AuthInterceptor, multi: true}
   // ],
   providers: [],

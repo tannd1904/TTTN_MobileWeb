@@ -97,7 +97,7 @@
                     <div class="header-middle-right">
                         <ul class="hm-menu">
                             <!-- Begin Header Middle Wishlist Area -->
-                            <li class="hm-wishlist">
+                            <li *ngIf="isLoggedIn()" class="hm-wishlist">
                                 <a routerLink="wishlist">
                                     <span class="cart-item-count wishlist-item-count">0</span>
                                     <i class="fa fa-heart-o"></i>

@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent, 
       children: [
         {path: '', component: HomeComponent},
-        // {path: 'product', component: ProductComponent},
+        {path: 'products', component: ProductComponent},
         // {path: 'category', component: ListCategoriesComponent},
         // {path: 'users', component: UsersComponent},
         // {path: 'edit-user/:id', component: EditUserComponent},

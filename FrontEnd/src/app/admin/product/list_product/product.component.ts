@@ -24,15 +24,22 @@ export class ProductComponent implements OnInit {
   products: Array<Product> = [];
   dataForm!: FormGroup;
   submitted = false;
+  toggleDeleteBtn = true;
+
+  dtOptions: DataTables.Settings = {};
 
   constructor(private router: Router, private fb: FormBuilder, private activeService: ActiveService, private tokenStorageService: TokenStorageService, private providerService: ProviderService, private categoryService: CategoryService,private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.activeService.changeActive(this.active);
-    this.getProvider();
-    this.getCategory();
-    this.getProduct();
-    this.infoForm();
+    // this.activeService.changeActive(this.active);
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      processing: true,
+    };
+    // this.getProvider();
+    // this.getCategory();
+    // this.getProduct();
+    // this.infoForm();
   }
 
   infoForm(){
@@ -114,5 +121,4 @@ export class ProductComponent implements OnInit {
   reloadPage(): void {
     window.location.reload();
   }
-
 }

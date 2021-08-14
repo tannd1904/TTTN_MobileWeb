@@ -19,6 +19,8 @@ import { ChartsModule } from 'ng2-charts';
 import { PieChartComponent} from './pie-chart/pie-chart.component';
 import { LineChartComponent } from './line-chart/line-chart.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { DataTablesModule } from 'angular-datatables';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
 @NgModule({
@@ -46,6 +48,8 @@ import { CalendarComponent } from './calendar/calendar.component';
     NgxPaginationModule, 
     Ng2SearchPipeModule,
     ChartsModule,
+    DataTablesModule,
+    NgxDatatableModule,
   ],
   providers: [],
   bootstrap: [AdminComponent]
