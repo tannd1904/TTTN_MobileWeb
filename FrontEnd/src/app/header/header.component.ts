@@ -20,7 +20,9 @@ export class HeaderComponent implements OnInit {
   count!: number;
   nameUser: string = "";
 
-  constructor(private router: Router, private tokenStorageService: TokenStorageService, private cartService: CartService, private countService: CountService) {
+  constructor(private router: Router, private tokenStorageService: TokenStorageService, 
+              private cartService: CartService, private countService: CountService,
+              private authService: AuthService) {
    }
 
   ngOnInit(): void {
@@ -60,6 +62,7 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.tokenStorageService.signOut();
+    this.router.navigate(['../']);
   }
 
   directPage(){

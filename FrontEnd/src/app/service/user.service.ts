@@ -257,7 +257,7 @@ export class UserService extends AbstracService {
   }
 
   doesEmailExist(email: string): Observable<boolean> {
-    let url = `${API_URL}customer/emailcheck`;
+    let url = `${API_URL}user/emailcheck`;
 
     let content: any = {};
     content.email = email;

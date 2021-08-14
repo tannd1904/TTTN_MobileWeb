@@ -10,7 +10,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { UsersComponent } from './user_/users/users.component';
 import { EditUserComponent } from './user_/edit-user/edit-user.component';
-import { HeaderAdminComponent } from './header-admin/header-admin.component';
 import { InventoryReceivingVoucherComponent } from './inventory-receiving-voucher/inventory-receiving-voucher.component';
 import { AddInventoryReceivingVoucherDetailComponent } from './add-inventory-receiving-voucher-detail/add-inventory-receiving-voucher-detail.component';
 import { ListProviderComponent } from './provider/list-provider/list-provider.component';
@@ -29,7 +28,6 @@ import { CalendarComponent } from './calendar/calendar.component';
     UsersComponent,
     EditUserComponent,
     HomeComponent,
-    HeaderAdminComponent,
     InventoryReceivingVoucherComponent,
     AddInventoryReceivingVoucherDetailComponent,
     ProductComponent,

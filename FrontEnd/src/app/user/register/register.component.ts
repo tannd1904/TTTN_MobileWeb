@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
 
   dataForm!: FormGroup;
   none: boolean = true;
-  role: String = "customer";
+  role: String = "user";
   classBody: string = "user-register blog";
   page: number = 1;
   submitted = false;
@@ -31,26 +31,25 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.classBodyService.changeClass(this.classBody);
     this.pageService.changePage(this.page);
-    // this.infoForm();
+    this.infoForm();
   }
 
   infoForm(){
     /*Create Form group*/
     this.birthday = new Date();
     this.dataForm = this.fb.group({
-      firstname: ['', [Validators.required]],
-      lastname: ['', [Validators.required]],  
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],  
       gender:  ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern("^[_0-9]{10}")]],
-      birthday:  ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
       + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")], [this.emailExistsValidator()]],    
       address: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      pwdd: ['', [Validators.required]],
+      cfmPassword: ['', [Validators.required]],
     },
     {
-      validators: this.MustMatch('password', 'pwdd')
+      validators: this.MustMatch('password', 'cfmPassword')
     })
   }
 
@@ -58,6 +57,9 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    if(this.dataForm.invalid){
+      return;
+    }
     const val = this.dataForm.value;
     console.log(val);
     this.addData();

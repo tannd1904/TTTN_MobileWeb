@@ -10,15 +10,15 @@ import org.mapstruct.factory.Mappers;
 public interface ProductMapper extends AbstractMapper<ProductDTO, Product>{
     ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
 
-    @Mappings({
-            @Mapping(source = "category.id", target = "categoryId")
-    })
-    ProductDTO toDtoWithAll(Product entity, @Context CycleAvoidingMappingContext context);
-
-    @Override
-    default ProductDTO toDto(Product entity, @Context CycleAvoidingMappingContext context) {
-        return toDtoWithAll(entity, context);
-    }
+//    @Mappings({
+//            @Mapping(source = "category.id", target = "categoryId")
+//    })
+//    ProductDTO toDtoWithAll(Product entity, @Context CycleAvoidingMappingContext context);
+//
+//    @Override
+//    default ProductDTO toDto(Product entity, @Context CycleAvoidingMappingContext context) {
+//        return toDtoWithAll(entity, context);
+//    }
 
 //    @Mappings({
 //            @Mapping(target = "productDetails", ignore = true),

@@ -47,10 +47,6 @@ public class User extends AuditableEntity {
     @Column(name = "DIACHI", nullable = false)
     private String address;
 
-    @NotBlank(message = "Birthday is required")
-    @Column(name = "NGAYSINH", nullable = false)
-    private Date birthday;
-
     @NotBlank(message = "Gender is required")
     @Column(name = "GIOITINH", nullable = false)
     private String gender;

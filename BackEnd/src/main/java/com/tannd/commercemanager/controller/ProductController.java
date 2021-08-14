@@ -2,6 +2,7 @@ package com.tannd.commercemanager.controller;
 
 import com.tannd.commercemanager.dto.ProductDTO;
 import com.tannd.commercemanager.maper.ProductMapper;
+import com.tannd.commercemanager.message.response.CustomResponse;
 import com.tannd.commercemanager.model.Product;
 import com.tannd.commercemanager.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,12 @@ public class ProductController
     @GetMapping("/get-all")
     public ResponseEntity<?> getAllProducts() {
         return getAll();
+    }
+
+    @GetMapping("/get-top-4-new")
+    public ResponseEntity<?> getTop4NewProduct() {
+        return ResponseEntity.ok().body(new CustomResponse(200, "Get Top 4 New Product",
+                (getService().getTop4ProductNewArrival())));
     }
 
 }

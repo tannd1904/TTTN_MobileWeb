@@ -15,16 +15,16 @@ export class AppComponent implements OnInit{
   
   classBody!: string;
   page!: number;
-  // constructor(public authService: AuthService, private classBodyService: ClassBodyService, private cdref: ChangeDetectorRef, private pageService: PageService) {}
-  constructor() {}
+  constructor(public authService: AuthService, private classBodyService: ClassBodyService, private cdref: ChangeDetectorRef, private pageService: PageService) {}
+  // constructor() {}
 
   ngOnInit(): void {
-    // this.classBodyService.currentClass.subscribe(classBody => this.classBody = classBody);
-    // this.pageService.currentPage.subscribe(page => this.page = page);
+    this.classBodyService.currentClass.subscribe(classBody => this.classBody = classBody);
+    this.pageService.currentPage.subscribe(page => this.page = page);
   }
   ngAfterContentChecked() {
 
-    // this.cdref.detectChanges();
+    this.cdref.detectChanges();
 
   }
 

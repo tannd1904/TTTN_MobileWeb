@@ -2,6 +2,7 @@ import { Category } from './../model/category';
 import { TokenStorageService } from './../service/token-storage.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '../service/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -23,7 +24,8 @@ export class AdminComponent implements OnInit {
 
   categoryName: string = '';
   constructor(private tokenStorageService: TokenStorageService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private router: Router) { }
 
   ngOnInit(): void {
     
@@ -31,6 +33,7 @@ export class AdminComponent implements OnInit {
 
   logout(): void {
     this.tokenStorageService.signOut();
+    this.router.navigate(['../']);
   }
 
 }

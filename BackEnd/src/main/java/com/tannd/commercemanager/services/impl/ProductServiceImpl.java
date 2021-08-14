@@ -2,12 +2,18 @@ package com.tannd.commercemanager.services.impl;
 
 import com.tannd.commercemanager.dto.ProductDTO;
 import com.tannd.commercemanager.maper.ProductMapper;
+import com.tannd.commercemanager.maper.helper.CycleAvoidingMappingContext;
 import com.tannd.commercemanager.model.Product;
 import com.tannd.commercemanager.repository.ProductRepository;
 import com.tannd.commercemanager.services.ProductService;
 import com.tannd.commercemanager.services.helper.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.swing.text.html.Option;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @ServiceHelper
@@ -40,6 +46,17 @@ public class ProductServiceImpl extends AbstractServiceImpl<ProductRepository, P
         initMapper(thisMapper.INSTANCE);
         return mapper;
     }
+
+    @Override
+    public List<ProductDTO> getTop4ProductNewArrival() {
+        Optional<Product> listEntity = getRepository().findTop4ByOrderByIdDesc();
+        List<ProductDTO> list = new ArrayList<>();
+        listEntity.stream().forEach(product -> {
+            list.add(getMapper().toDto(product, new CycleAvoidingMappingContext()));
+        });
+        return null;
+    }
+
 
 //    @Autowired
 //    private ProductRepository productRepository;

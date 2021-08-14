@@ -28,6 +28,8 @@ public class EmployeeDTO extends AbstractDTO {
 
     private String address;
 
+    private String gender;
+
 //    @Column(name = "remember_token", nullable = false)
 //    private String remember_token;
 //

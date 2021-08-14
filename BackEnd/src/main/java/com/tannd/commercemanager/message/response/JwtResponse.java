@@ -20,6 +20,4 @@ public class JwtResponse {
     private String gender;
     private Date birthday;
     private String role;
-    private int status;
-    private String message;
 }

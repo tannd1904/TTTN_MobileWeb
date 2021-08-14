@@ -16,32 +16,73 @@
         <div class="row">
             <div class="col-md-12 register-component">
                 <!-- Register Form -->
-                <form action="#">
+                <form [formGroup]="this.dataForm" (ngSubmit)="onSubmit()">
                     <div class="login-form">
                         <h4 class="login-title">Register</h4>
                         <div class="row">
                             <div class="col-md-6 col-12 mb-20">
-                                <label>First Name</label>
-                                <input class="mb-0" type="text" placeholder="First Name">
+                                <label>First Name*</label>
+                                <input formControlName="firstName" class="mb-0" type="text" placeholder="First Name">
+                                <div *ngIf="submitted && f.firstName.errors">
+                                    <div *ngIf="f.firstName.errors.required" class="errors"> * First name is required</div>
+                                    </div>
                             </div>
                             <div class="col-md-6 col-12 mb-20">
-                                <label>Last Name</label>
-                                <input class="mb-0" type="text" placeholder="Last Name">
+                                <label>Last Name*</label>
+                                <input formControlName="lastName" class="mb-0" type="text" placeholder="Last Name">
+                                <div *ngIf="submitted && f.lastName.errors">
+                                    <div *ngIf="f.lastName.errors.required" class="errors"> * Last name is required</div>
+                                    </div>
                             </div>
                             <div class="col-md-12 mb-20">
                                 <label>Email Address*</label>
-                                <input class="mb-0" type="email" placeholder="Email Address">
+                                <input formControlName="email" class="mb-0" type="email" placeholder="Email Address">
+                                <div *ngIf="submitted && f.email.errors">
+                                    <div *ngIf="f.email.errors.required" class="errors"> * Email is required</div>
+                                    <div *ngIf="f.email.errors.pattern" class="errors"> * Format email is wrong (Ex: tannd@gmail.com)</div>
+                                </div>
                             </div>
                             <div class="col-md-6 mb-20">
-                                <label>Password</label>
-                                <input class="mb-0" type="password" placeholder="Password">
+                                <label>Password*</label>
+                                <input formControlName="password" class="mb-0" type="password" placeholder="Password">
+                                <div *ngIf="submitted && f.password.errors">
+                                    <div *ngIf="f.password.errors.required" class="errors"> * Password is required</div>
+                                </div>
                             </div>
                             <div class="col-md-6 mb-20">
-                                <label>Confirm Password</label>
-                                <input class="mb-0" type="password" placeholder="Confirm Password">
+                                <label>Confirm Password*</label>
+                                <input formControlName="cfmPassword" class="mb-0" type="password" placeholder="Confirm Password">
+                                <div *ngIf="submitted && f.cfmPassword.errors">
+                                    <div *ngIf="f.cfmPassword.errors.required" class="errors"> * Confirm password is required</div>
+                                    <div *ngIf="f.cfmPassword.errors?.MustMatch" class="errors"> * Password does not match!</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-20">
+                                <label>Address*</label>
+                                <input formControlName="address" class="mb-0" type="text" placeholder="Address">
+                                <div *ngIf="submitted && f.address.errors">
+                                    <div *ngIf="f.address.errors.required" class="errors"> * Address is required</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-20">
+                                <label>Gender*</label>
+                                <input class="col-md-12 mb-20 " type="radio" name="gender" 
+                                    formControlName="gender" value="Nam" style="height: 13px; width: 13px;" checked>Male
+                                <input class="col-md-12 mb-20 ml-50" type="radio" name="gender" 
+                                    formControlName="gender" value="Nữ" style="height: 13px; width: 13px;">Female
+                                <div *ngIf="submitted && f.gender.errors">
+                                    <div *ngIf="f.gender.errors.required" class="errors"> * Gender is required</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-20">
+                                <label>Phone Number*</label>
+                                <input formControlName="phone" class="mb-0" type="text" placeholder="Phone Number">
+                                <div *ngIf="submitted && f.phone.errors">
+                                    <div *ngIf="f.phone.errors.required" class="errors"> * Phone is required</div>
+                                </div>
                             </div>
                             <div class="col-12">
-                                <button class="register-button mt-0">Register</button>
+                                <button type="submit" class="register-button mt-0">Register</button>
                             </div>
                         </div>
                     </div>

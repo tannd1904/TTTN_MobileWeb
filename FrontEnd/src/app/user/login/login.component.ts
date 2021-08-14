@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginRequest } from 'src/app/model/login-request';
+import { Response } from 'src/app/model/response';
+import { UserLogin } from 'src/app/model/userLogin';
 import { AuthService } from 'src/app/service/auth.service';
 import { CartService } from 'src/app/service/cart.service';
 import { ClassBodyService } from 'src/app/service/class-body.service';
@@ -60,19 +62,20 @@ export class LoginComponent implements OnInit {
     if(this.dataForm.invalid){
       return;
     }
-    const response = greCaptcha.getResponse();
-    if (response.length === 0) {
-      this.captchaError = true;
-      return;
-    }
+    // const response = greCaptcha.getResponse();
+    // if (response.length === 0) {
+    //   this.captchaError = true;
+    //   return;
+    // }
     let login = new LoginRequest();
     login.email = this.dataForm.controls.email.value;
     login.password = this.dataForm.controls.password.value;
-    login.recaptchaResponse = response;
-    this.authService.login(login).subscribe(
-      data => {
+    // login.recaptchaResponse = response;
+    this.authService.login2(login).subscribe(
+      (data: Response) => {
         if(data.status === 200) {
-          this.tokenStorage.saveUser(data);        
+          let userLogin = data.data;
+          this.tokenStorage.saveUser(userLogin);        
           this.token =  this.tokenStorage.getUser().token;
           this.tokenStorage.saveToken(this.token);
           this.role = this.tokenStorage.getUser().role;
@@ -92,13 +95,13 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['../']).then(this.reloadPage);
           }    
           else {
-            this.router.navigate(['admin']);
+            this.router.navigate(['admin']).then(this.reloadPage);
           }
         } else {
           this.invalidLogin = true;
           this.loginResponse = data.message;
         }
-        greCaptcha.reset();
+        // greCaptcha.reset();
       },
       err => {  
         this.IsLogin = true;

@@ -11,9 +11,10 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @Entity
-@Table(name="phieudat")
+@Table(name="taikhoan")
 @ToString
 public class Account extends AuditableEntity {
+
     @Id
     @Column(name = "EMAIL", nullable = false)
     private String email;

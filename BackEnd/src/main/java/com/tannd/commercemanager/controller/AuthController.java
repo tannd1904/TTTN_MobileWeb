@@ -81,10 +81,8 @@ public class AuthController {
         {
             Employee employee = employeeRepository.findByEmail(email).get();
             JwtResponse jwtResponse = new JwtResponse();
-            boolean captchaVerified = captchaService.verify(loginRequest.getRecaptchaResponse());
+//            boolean captchaVerified = captchaService.verify(loginRequest.getRecaptchaResponse());
 
-            jwtResponse.setMessage("Success");
-            jwtResponse.setStatus(200);
             jwtResponse.setToken(jwt);
             jwtResponse.setId(employee.getId());
             jwtResponse.setEmail(employee.getEmail());
@@ -93,7 +91,6 @@ public class AuthController {
             jwtResponse.setFirstName(employee.getFirstname());
             jwtResponse.setLastName(employee.getLastname());
             jwtResponse.setGender(employee.getGender());
-            jwtResponse.setBirthday(employee.getBirthday());
             jwtResponse.setRole(role);
 
             return ResponseEntity.ok().body(new CustomResponse(200, "Login successfully",
@@ -101,10 +98,8 @@ public class AuthController {
         } else {
             User customer = userRepository.findByEmail(email).get();
             JwtResponse jwtResponse = new JwtResponse();
-            boolean captchaVerified = captchaService.verify(loginRequest.getRecaptchaResponse());
+//            boolean captchaVerified = captchaService.verify(loginRequest.getRecaptchaResponse());
 
-            jwtResponse.setMessage("Success");
-            jwtResponse.setStatus(200);
             jwtResponse.setToken(jwt);
             jwtResponse.setId(customer.getId());
             jwtResponse.setEmail(customer.getEmail());
@@ -113,7 +108,6 @@ public class AuthController {
             jwtResponse.setFirstName(customer.getFirstname());
             jwtResponse.setLastName(customer.getLastname());
             jwtResponse.setGender(customer.getGender());
-            jwtResponse.setBirthday(customer.getBirthday());
             jwtResponse.setRole(role);
 
             return ResponseEntity.ok().body(new CustomResponse(200, "Login successfully",
@@ -145,8 +139,6 @@ public class AuthController {
                 return ResponseEntity.ok().body(new CustomResponse(400, "Invalid Capcha",
                         null));
             }else {
-                jwtResponse.setMessage("Success");
-                jwtResponse.setStatus(200);
                 jwtResponse.setToken(jwt);
                 jwtResponse.setId(employee.getId());
                 jwtResponse.setEmail(employee.getEmail());
@@ -155,7 +147,6 @@ public class AuthController {
                 jwtResponse.setFirstName(employee.getFirstname());
                 jwtResponse.setLastName(employee.getLastname());
                 jwtResponse.setGender(employee.getGender());
-                jwtResponse.setBirthday(employee.getBirthday());
                 jwtResponse.setRole(role);
             }
             return ResponseEntity.ok().body(new CustomResponse(200, "Login successfully",
@@ -168,8 +159,6 @@ public class AuthController {
                 return ResponseEntity.ok().body(new CustomResponse(400, "Invalid Capcha",
                         null));
             }else {
-                jwtResponse.setMessage("Success");
-                jwtResponse.setStatus(200);
                 jwtResponse.setToken(jwt);
                 jwtResponse.setId(customer.getId());
                 jwtResponse.setEmail(customer.getEmail());
@@ -178,7 +167,6 @@ public class AuthController {
                 jwtResponse.setFirstName(customer.getFirstname());
                 jwtResponse.setLastName(customer.getLastname());
                 jwtResponse.setGender(customer.getGender());
-                jwtResponse.setBirthday(customer.getBirthday());
                 jwtResponse.setRole(role);
             }
             return ResponseEntity.ok().body(new CustomResponse(200, "Login successfully",
@@ -193,7 +181,7 @@ public class AuthController {
         System.out.println("Sign Up worked");
         System.out.println(signUpRequest.toString());
         System.out.println("--------------\n");
-        if (userRepository.findByEmail(signUpRequest.getEmail()).isPresent()) {
+        if (accountRepository.findByEmail(signUpRequest.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body(new CustomResponse(400, "Email has been already existed!!!",
                     null));
         }
@@ -204,7 +192,7 @@ public class AuthController {
         if (role == null) {
             throw new RuntimeException("Error: Role is not found");
         } else {
-            if (role == "admin" || role == "employee") {
+            if (role.equals("admin") || role.equals("employee")) {
                 Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                         .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                 Account account = new Account(signUpRequest.getEmail(),encoder.encode(signUpRequest.getPassword()), adminRole);
@@ -213,8 +201,7 @@ public class AuthController {
                 Employee employee = new Employee();
                 employee.setEmail(signUpRequest.getEmail()).setFirstname(signUpRequest.getFirstName())
                         .setLastname(signUpRequest.getLastName()).setGender(signUpRequest.getGender())
-                        .setBirthday(signUpRequest.getBirthday()).setAddress(signUpRequest.getAddress())
-                        .setPhone(signUpRequest.getPhone());
+                        .setAddress(signUpRequest.getAddress()).setPhone(signUpRequest.getPhone());
                 employeeRepository.save(employee);
                 return ResponseEntity.ok(new CustomResponse(200, "User registered successfully!",
                         employee));
@@ -227,16 +214,11 @@ public class AuthController {
                 User user = new User();
                 user.setEmail(signUpRequest.getEmail()).setFirstname(signUpRequest.getFirstName())
                         .setLastname(signUpRequest.getLastName()).setGender(signUpRequest.getGender())
-                        .setBirthday(signUpRequest.getBirthday()).setAddress(signUpRequest.getAddress())
-                        .setPhone(signUpRequest.getPhone());
+                        .setAddress(signUpRequest.getAddress()).setPhone(signUpRequest.getPhone());
                 userRepository.save(user);
                 return ResponseEntity.ok(new CustomResponse(200, "User registered successfully!",
                         user));
             }
-
-
         }
-
-
     }
 }

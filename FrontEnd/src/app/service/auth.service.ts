@@ -42,17 +42,24 @@ export class AuthService {
     }, httpOptions);
   }
 
+  login2(credentials: any): Observable<any> {
+    return this.http.post(AUTH_API + 'signin2', {
+      email: credentials.email,
+      password: credentials.password,
+    }, httpOptions);
+  }
+
   register(user: any, role: String): Observable<any> {
     return this.http.post(AUTH_API + 'signup', {
       email: user.email,
       password: user.password,
-      birthday: user.birthday,
-      firstname: user.firstname,
-      lastname: user.lastname,
+      firstName: user.firstName,
+      lastName: user.lastName,
       phone: user.phone,
       address: user.address,
       gender: user.gender,
       role: role
     }, httpOptions);
   }
+  
 }

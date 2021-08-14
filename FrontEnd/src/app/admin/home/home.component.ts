@@ -64,9 +64,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getTop5Users();
-    this.getTop10Orders();
-    this.getStatistics();
+    // this.getTop5Users();
+    // this.getTop10Orders();
+    // this.getStatistics();
   }
 
 }
