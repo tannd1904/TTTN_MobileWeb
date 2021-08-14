@@ -1,11 +1,50 @@
-.row {
-    margin-left: -25px;
-    margin-right: -25px;
+@import url('../../../bower_components/bootstrap/dist/css/bootstrap.min.css');
+@import url('../../../bower_components/font-awesome/css/font-awesome.min.css');
+@import url('../../../bower_components/Ionicons/css/ionicons.min.css');
+@import url('../../../dist/css/AdminLTE.min.css');
+@import url('../../../dist/css/skins/_all-skins.min.css');
+@import url('../../../bower_components/morris.js/morris.css');
+@import url('../../../bower_components/jvectormap/jquery-jvectormap.css');
+@import url('../../../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css');
+@import url('../../../bower_components/bootstrap-daterangepicker/daterangepicker.css');
+@import url('../../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css');
+
+.dataTables_wrapper .dataTables_length {
+    float: left;
+    width: 30% !important;
+}
+
+.dataTables_wrapper .dataTables_length select {
+    border: 1px solid #aaa;
+    border-radius: 15px !important;
+    padding: 5px;
+    background-color: transparent;
+    padding: 4px;
 }
 
 .focus-label {
     font-weight: 500;
 }
+
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+  }
+
+  .fade {
+    opacity: 0;
+    -webkit-transition: opacity 0.15s linear;
+    -o-transition: opacity 0.15s linear;
+    transition: opacity 0.15s linear;
+  }
 
 .modal-wrapper {
     display: block !important;
