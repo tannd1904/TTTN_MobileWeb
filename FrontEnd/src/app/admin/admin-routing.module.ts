@@ -17,13 +17,13 @@ const routes: Routes = [
       children: [
         {path: '', component: HomeComponent},
         {path: 'products', component: ProductComponent},
-        // {path: 'category', component: ListCategoriesComponent},
+        {path: 'category', component: ListCategoriesComponent},
         // {path: 'users', component: UsersComponent},
         // {path: 'edit-user/:id', component: EditUserComponent},
         // {path: 'inventory', component: InventoryReceivingVoucherComponent },
         // {path: 'inventory/add', component: AddInventoryReceivingVoucherDetailComponent },
         // {path: 'provider', component: ListProviderComponent },
-        // {path: 'product/:id', component: ProductDetailComponent },
+        {path: 'products/product/:id', component: ProductDetailComponent },
         // { path: '**', component: PageNotFoundComponent}
       ]}
 ];

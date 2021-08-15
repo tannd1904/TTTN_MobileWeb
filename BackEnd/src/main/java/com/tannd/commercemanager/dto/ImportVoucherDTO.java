@@ -2,6 +2,7 @@ package com.tannd.commercemanager.dto;
 
 import com.tannd.commercemanager.model.ImportVoucherDetail;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@Accessors(chain = true)
 public class ImportVoucherDTO extends AbstractDTO {
     private static final long serialVersionUID = 1L;
 

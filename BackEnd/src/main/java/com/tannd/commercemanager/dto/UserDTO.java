@@ -3,6 +3,7 @@ package com.tannd.commercemanager.dto;
 import com.tannd.commercemanager.model.Order;
 import com.tannd.commercemanager.model.Wishlist;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -14,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@Accessors(chain = true)
 public class UserDTO extends AbstractDTO {
     private static final long serialVersionUID = 1L;
 

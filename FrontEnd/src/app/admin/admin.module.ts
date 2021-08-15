@@ -21,6 +21,7 @@ import { LineChartComponent } from './line-chart/line-chart.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DataTablesModule } from 'angular-datatables';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ImportComponent } from './product/import/import-product.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     LineChartComponent,
     LineChartComponent,
     CalendarComponent,
+    ImportComponent,
   ],
   imports: [
     CommonModule,

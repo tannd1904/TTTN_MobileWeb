@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
 import { Category } from 'src/app/model/category';
 import { Product } from 'src/app/model/product';
 import { Provider } from 'src/app/model/provider';
+import { Response } from 'src/app/model/response';
 import { ActiveService } from 'src/app/service/active.service';
 import { CategoryService } from 'src/app/service/category.service';
 import { ProductService } from 'src/app/service/product.service';
@@ -16,6 +19,11 @@ import { TokenStorageService } from 'src/app/service/token-storage.service';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+  
+  // @ViewChild(DataTableDirective, {static: true})
+  // dtElement!: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
 
   active: number = 2;
   token: any;
@@ -26,12 +34,10 @@ export class ProductComponent implements OnInit {
   submitted = false;
   toggleDeleteBtn = true;
 
-  dtOptions: DataTables.Settings = {};
-
   constructor(private router: Router, private fb: FormBuilder, private activeService: ActiveService, private tokenStorageService: TokenStorageService, private providerService: ProviderService, private categoryService: CategoryService,private productService: ProductService) { }
 
   ngOnInit(): void {
-    // this.activeService.changeActive(this.active);
+    this.activeService.changeActive(this.active);
     this.dtOptions = {
       pagingType: 'full_numbers',
       processing: true,
@@ -93,8 +99,10 @@ export class ProductComponent implements OnInit {
     this.token = this.tokenStorageService.getToken();
     this.productService.getProduct(this.token)
         .subscribe(
-          (data: Product[]) => {
-            this.products = data;
+          (data: Response) => {
+            this.categories = data.data;
+            this.dtTrigger.next();
+            console.log(this.categories);
           },
           error => {
             console.log(error);

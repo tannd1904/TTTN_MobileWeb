@@ -60,17 +60,14 @@ public class Employee extends AuditableEntity {
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
-    @ToString.Exclude
     private Collection<Order> orders;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
-    @ToString.Exclude
     private Collection<ImportVoucher> importVouchers;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
-    @ToString.Exclude
     private Collection<Return> returns;
 
 

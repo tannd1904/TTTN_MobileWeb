@@ -4,6 +4,7 @@ import com.tannd.commercemanager.model.ImportVoucherDetail;
 import com.tannd.commercemanager.model.OrderDetail;
 import com.tannd.commercemanager.model.Return;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
+@Accessors(chain = true)
 public class ProductDetailDTO extends AbstractDTO {
     private static final long serialVersionUID = 1L;
 

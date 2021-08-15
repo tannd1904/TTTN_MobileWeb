@@ -1,8 +1,8 @@
+import { Abstract } from './abstract';
 import { Product } from './product';
 import { Room } from './room';
 
-export class Category {
-    categoryId!: string;
-    categoryName!: string;
-    room!: Room;
+export class Category extends Abstract {
+    id!: number;
+    name!: string;
 }

@@ -5,6 +5,7 @@ import com.tannd.commercemanager.model.ImportVoucherDetail;
 import com.tannd.commercemanager.model.Review;
 import com.tannd.commercemanager.model.Wishlist;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -16,6 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@Accessors(chain = true)
 public class ProductDTO extends AbstractDTO {
     private static final long serialVersionUID = 1L;
 
@@ -30,6 +32,8 @@ public class ProductDTO extends AbstractDTO {
     private String description;
 
     private String type;
+
+    private Double price;
 
     private Long categoryId;
 

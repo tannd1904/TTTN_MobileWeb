@@ -15,19 +15,26 @@ export class CategoryService extends AbstracService {
 
   constructor(private http: HttpClient) { super(); }
 
-  createCategory(token: String, category: CatogeryRequest): Observable<Category> {
+  createCategory(token: String, category: Category): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.post<Category>(API_URL + 'admin/' + 'add-category', category, { headers: headers})
+    return this.http.post<Category>(API_URL + 'category/' + 'add-category', category, { headers: headers})
                   .pipe(
-                    retry(3), 
+                    catchError(this.handleError));
+  }
+
+  deleteCategory(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.delete<Category>(API_URL + 'category/' + id, { headers: headers})
+                  .pipe(
                     catchError(this.handleError));
   }
 
   getCategory(token: String): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.get<Category[]>(API_URL + 'admin/' + 'category', { headers: headers})
+    return this.http.get<Category[]>(API_URL + 'category/' + 'get-all', { headers: headers})
                   .pipe(
                     retry(3), 
                     catchError(this.handleError));

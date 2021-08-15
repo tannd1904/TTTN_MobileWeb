@@ -29,6 +29,5 @@ public class Image extends AuditableEntity {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "pro_id")
     @EqualsAndHashCode.Exclude
-    @ToString.Exclude
     private Product product;
 }

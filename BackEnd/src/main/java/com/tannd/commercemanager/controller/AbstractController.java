@@ -7,6 +7,8 @@ import com.tannd.commercemanager.services.AbstractService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class AbstractController<S extends AbstractService, M extends AbstractMapper, D, E> {
 
@@ -54,41 +56,16 @@ public class AbstractController<S extends AbstractService, M extends AbstractMap
                 dto));
     }
 
-    public ResponseEntity create(@RequestBody D dto) {
-        var entity = getMapper().toEntity(dto, new CycleAvoidingMappingContext());
-        try {
-            getService().save(entity);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new CustomResponse(500, "Request Not Ok",
-                    null));
-        }
-        var respone = getMapper().toDto(entity, new CycleAvoidingMappingContext());
-        return ResponseEntity.ok(new CustomResponse(200, "Request Post OK",
-                respone));
-    }
-
     public ResponseEntity deleteById(@PathVariable Long id) {
         System.out.println("Delete worked with id: " + id);
         System.out.println(getService().toString());
         var dto = (D) getService().findById(id.longValue());
-        if (dto == null) {
+        if (Objects.isNull(dto)) {
             return ResponseEntity.ok(new CustomResponse(404, "Resource Not Found",
                     null));
         }
         getService().delete(id);
         return ResponseEntity.ok().body(new CustomResponse(200, "Delete Request OK",
                 dto));
-    }
-
-    public ResponseEntity update(@PathVariable Long id, @RequestBody D dto) {
-        System.out.println("Update worked with id: " + id);
-        System.out.println(getService().toString());
-        var obj = (D) getService().findById(id.longValue());
-        if (obj == null) {
-            return ResponseEntity.ok(new CustomResponse(404, "Resource Not Found",
-                    null));
-        }
-        return ResponseEntity.ok().body(new CustomResponse(200, "Update Request OK",
-                obj));
     }
 }

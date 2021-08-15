@@ -38,6 +38,9 @@ public class Product extends AuditableEntity {
     @Column(name = "LOAI", nullable = true)
     private String type;
 
+    @Column(name = "GIA", nullable = false)
+    private Double price;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "MAHANG")
     @EqualsAndHashCode.Exclude

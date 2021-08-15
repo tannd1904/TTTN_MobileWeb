@@ -30,8 +30,8 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.productId = this.route.snapshot.params['id'];
-    this.getProductDetail(this.productId);
-    this.infoForm();
+    // this.getProductDetail(this.productId);
+    // this.infoForm();
   }
 
   infoForm(){
