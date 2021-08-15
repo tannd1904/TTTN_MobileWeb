@@ -15,12 +15,19 @@ export class ProductService extends AbstracService {
 
   constructor(private http: HttpClient) { super(); }
 
-  createProduct(token: String, productRequest: ProductRequest): Observable<Product> {
+  createProduct(token: String, formData: FormData): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.post<Product>(API_URL + 'admin/' + 'add-product', productRequest, { headers: headers})
+    return this.http.post<Product>(API_URL + 'product/' + 'add-product', formData, { headers: headers})
                   .pipe(
-                    retry(3), 
+                    catchError(this.handleError));
+  }
+
+  deleteProduct(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.delete<Product>(API_URL + 'product/' + id, { headers: headers})
+                  .pipe(
                     catchError(this.handleError));
   }
 

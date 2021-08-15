@@ -2,10 +2,14 @@ import { Provider } from "@angular/core";
 import { Category } from "./category";
 
 export class Product {
-    productId!: string;
-    productName!: string;
+    id!: string;
+    name!: string;
     status!: number;
+    price!: number;
+    type!: string;
+    image!: any;
+    imageFile!: any;
     description!: string;
-    providerDTO!: Provider;
-    categoryDTO!: Category;
+    categoryId!: number;
+    // TODO: update lists of product
 }

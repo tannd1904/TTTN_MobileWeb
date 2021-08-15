@@ -6,8 +6,10 @@ import com.tannd.commercemanager.model.Review;
 import com.tannd.commercemanager.model.Wishlist;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import javax.swing.plaf.multi.MultiLabelUI;
 import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.List;

@@ -27,14 +27,21 @@ export class ProductComponent implements OnInit {
 
   active: number = 2;
   token: any;
-  providers: Array<Provider> = [];
   categories: Array<Category> = [];
   products: Array<Product> = [];
   dataForm!: FormGroup;
   submitted = false;
   toggleDeleteBtn = true;
+  deleteId!: number;
+  message!: string;
+  imgURL: any;
+  imageFile: any;
+  imagePath!: any;
 
-  constructor(private router: Router, private fb: FormBuilder, private activeService: ActiveService, private tokenStorageService: TokenStorageService, private providerService: ProviderService, private categoryService: CategoryService,private productService: ProductService) { }
+  constructor(private router: Router, private fb: FormBuilder, 
+    private activeService: ActiveService, private tokenStorageService: TokenStorageService, 
+    private providerService: ProviderService, private categoryService: CategoryService,
+    private productService: ProductService) { }
 
   ngOnInit(): void {
     this.activeService.changeActive(this.active);
@@ -42,47 +49,36 @@ export class ProductComponent implements OnInit {
       pagingType: 'full_numbers',
       processing: true,
     };
-    // this.getProvider();
-    // this.getCategory();
-    // this.getProduct();
-    // this.infoForm();
+    this.getCategory();
+    this.getProduct();
+    this.infoForm();
   }
 
   infoForm(){
     this.dataForm = this.fb.group({
-      productName: ['', [Validators.required]],  
+      name: ['', [Validators.required]],  
+      price: ['', [Validators.required]], 
+      type: ['', [Validators.required]], 
       status:  ['', [Validators.required]],
       description: ['', [Validators.required]],  
-      providerId:  ['', [Validators.required]],
       categoryId: ['', [Validators.required]], 
+      image: [], 
     })
   }
 
   get f() { return this.dataForm.controls; }
 
-  getProvider(){
-    this.token = this.tokenStorageService.getToken();
-    this.providerService.getProvider(this.token)
-      .subscribe(
-        (data: Provider[]) => {
-          this.providers = data;
-          console.log(this.providers);
-        },
-        error => {
-          console.log(error);
-        });
-  }
-
   getCategory(){
     this.token = this.tokenStorageService.getToken();
     this.categoryService.getCategory(this.token)
-      .subscribe(
-        (data) => {
-          this.categories = data;
-        },
-        error => {
-          console.log(error);
-        });
+        .subscribe(
+          (data: Response) => {
+            this.categories = data.data;
+            console.log(this.categories);
+          },
+          error => {
+            console.log(error);
+          });
   }
 
   onSubmit(): void {
@@ -100,22 +96,77 @@ export class ProductComponent implements OnInit {
     this.productService.getProduct(this.token)
         .subscribe(
           (data: Response) => {
-            this.categories = data.data;
+            this.products = data.data;
             this.dtTrigger.next();
-            console.log(this.categories);
+            console.log(this.products);
           },
           error => {
             console.log(error);
           });
   }
 
+  onSelectFile(event:any){
+    if(event.target.files.length >0){
+      const file = event.target.files[0];
+      this.imageFile = file;
+      // this.f['image'].setValue(file);
+
+      var mimeType = event.target.files[0].type;
+      if(mimeType.match(/image\/*/) == null){
+        this.message = "Only images are supported";
+        return;
+      }
+      var reader = new FileReader();
+      this.imagePath = file;
+      console.log(this.imageFile);
+      console.log(JSON.stringify(this.imageFile));
+      console.log(JSON.stringify(this.imagePath));
+      reader.readAsDataURL(file);
+      reader.onload = (_event) => {
+        this.imgURL = reader.result;
+        console.log(this.imgURL);
+      }
+    }
+  }
+
   addProduct(){
     this.token = this.tokenStorageService.getToken();
-    let provider = this.dataForm.value;
-    this.productService.createProduct(this.token, provider)
+    let formData = new FormData();
+    let product = new Product();
+    product.name = this.f.name.value;
+    product.type = this.f.type.value;
+    product.price = this.f.price.value;
+    product.description = this.f.description.value;
+    product.status = this.f.status.value;
+    product.categoryId = this.f.categoryId.value;
+    console.log(this.imageFile);
+    console.log(product);
+    formData.append('product', JSON.stringify(product));
+    formData.append('file', this.imageFile);
+    this.productService.createProduct(this.token, formData)
         .subscribe(
-          (data) => {
-            this.reloadPage();
+          (data: Response) => {
+            if (data.status !== 200) {
+              this.message = "*" + data.message;
+            } else {
+              this.reloadPage();
+            }
+          },
+          error => {
+            console.log(error);
+          });
+  }
+
+  deleteProduct(id: number) {
+    this.token = this.tokenStorageService.getToken();
+    this.productService.deleteProduct(this.token, id)
+        .subscribe(
+          (data: Response) => {
+            if (data.status === 404) {
+              this.message = data.message;
+            } else {
+              this.reloadPage();
+            }
           },
           error => {
             console.log(error);
@@ -124,6 +175,10 @@ export class ProductComponent implements OnInit {
 
   toProductDetail(productId: string){
     this.router.navigate(['admin/product/' + productId]).then(this.reloadPage);
+  }
+
+  clickedDeleteBtn(id: number) {
+    this.deleteId = id;
   }
 
   reloadPage(): void {

@@ -24,177 +24,31 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <!-- TODO: add [dtTrigger] after hava data -->
-            <table datatable [dtOptions]="dtOptions" class="row-border hover"
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover"
                     >
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>First name</th>
-                  <th>Last name</th>
+                  <th>Product name</th>
+                  <th>Price</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Image</th>
                   <th class="text-right">Actions</th>
                 </tr>
               </thead>
-              <!-- <tbody *ngIf="products?.length != 0"> -->
-              <tbody>
-                <tr  >
-                  <td>1</td>
-                  <td>Foo</td>
-                  <td>Bar</td>
-                  <td class="text-right">
-                    <div class="dropdown dropdown-action">
-                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_expense"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                        </div>
-                    </div>
+              <tbody *ngIf="products?.length != 0">
+                <tr  *ngFor="let product of products">
+                  <td routerLink="product/{{product.id}}">{{product.id}}</td>
+                  <td routerLink="product/{{product.id}}">{{product.name}}</td>
+                  <td routerLink="product/{{product.id}}">${{product.price}}</td>
+                  <td routerLink="product/{{product.id}}">{{product.type}}</td>
+                  <td routerLink="product/{{product.id}}" *ngIf="product.status === 1">On Sales</td>
+                  <td routerLink="product/{{product.id}}" *ngIf="product.status === 0">Out of stock</td>
+                  <td routerLink="product/{{product.id}}">
+                    <img src="../../../../../../BackEnd/src/main/webapp/Images/Product/{{product.image}}" 
+                          alt="product-image">
                   </td>
-                </tr>
-                <tr  >
-                  <td>2</td>
-                  <td>Someone</td>
-                  <td>Youknow</td>
-                  <td class="text-right">
-                    <div class="dropdown dropdown-action">
-                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_expense"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                        </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr  >
-                  <td>3</td>
-                  <td>Iamout</td>
-                  <td>Ofinspiration</td>
-                  <td class="text-right">
-                    <div class="dropdown dropdown-action">
-                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_expense"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                        </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr  >
-                  <td>4</td>
-                  <td>Yoda</td>
-                  <td>Skywalker</td>
-                  <td class="text-right">
-                    <div class="dropdown dropdown-action">
-                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_expense"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                        </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr  >
-                  <td>5</td>
-                  <td>Patrick</td>
-                  <td>Dupont</td>
-                  <td class="text-right">
-                    <div class="dropdown dropdown-action">
-                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_expense"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                        </div>
-                    </div>
-                  </td> 
-                </tr>
-                <tr  >
-                  <td>6</td>
-                  <td>Barack</td>
-                  <td>Obama</td>
-                  <td class="text-right">
-                    <div class="dropdown dropdown-action">
-                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_expense"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                        </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr  >
-                  <td>7</td>
-                  <td>François</td>
-                  <td>Holland</td>
-                  <td class="text-right">
-                    <div class="dropdown dropdown-action">
-                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_expense"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                        </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr  >
-                  <td>8</td>
-                  <td>Michel</td>
-                  <td>Popo</td>
-                  <td class="text-right">
-                    <div class="dropdown dropdown-action">
-                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_expense"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                        </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr  >
-                  <td>9</td>
-                  <td>Chuck</td>
-                  <td>Norris</td>
-                  <td class="text-right">
-                    <div class="dropdown dropdown-action">
-                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_expense"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                        </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr  >
-                  <td>10</td>
-                  <td>Simon</td>
-                  <td>Robin</td>
-                  <td class="text-right">
-                    <div class="dropdown dropdown-action">
-                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_expense"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                        </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr  >
-                  <td>11</td>
-                  <td>Louis</td>
-                  <td>Lin</td>
-                  <td class="text-right">
-                    <div class="dropdown dropdown-action">
-                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_expense"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                        </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr  >
-                  <td>12</td>
-                  <td>Zelda</td>
-                  <td>Link</td>
                   <td class="text-right">
                     <div class="dropdown dropdown-action">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -224,23 +78,19 @@
 
   <!-- Delete Modal -->
 <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
+<div id="delete_expense" class="modal fade modal-wrapper" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="../../../../assets/admin/images/sent.png" alt="" width="50" height="46">
+                <h3>Are you sure want to delete this expense?</h3>
+                <div class="m-t-20"> 
+                    <button type="submit" class="btn btn-danger" (click)="deleteProduct(deleteId)">Delete</button>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
     </div>
-
-  </div>
 </div>
 
 <!-- Begin Quick View | Modal Area -->
@@ -248,7 +98,7 @@
     <div class="modal fade modal-wrapper" id="exampleModalCenter">
         <div class="modal-dialog modal-dialog-centered" role="document">
 
-            <div class="modal-content mt-200">
+            <div class="modal-content mt-120">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
@@ -256,14 +106,57 @@
                         </div>
                     </div>
                     <div class="row">
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Category:</label>
+                                <select formControlName="categoryId" class="form-control">
+                                    <option *ngFor="let category of categories" [ngValue]="category.id">
+                                        {{category.name}}
+                                      </option>
+                            </select>
+                                <div *ngIf="submitted && f.categoryId.errors">
+                                    <div *ngIf="f.categoryId.errors.required" class="errors"> * Category is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Status:</label>
+                                <select formControlName="status" class="form-control">
+                                <option value="1">On Sale</option>
+                                <option value="0">Out of stock</option>
+                            </select>
+                                <div *ngIf="submitted && f.status.errors">
+                                    <div *ngIf="f.status.errors.required" class="errors"> * Status is required</div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>Name: </label>
-                                <input placeholder="" class="form-control" type="text" formControlName="productName">
-                                <div *ngIf="submitted && f.productName.errors">
-                                    <div *ngIf="f.productName.errors.required" class="errors"> * Name is required</div>
+                                <input placeholder="" class="form-control" type="text" formControlName="name">
+                                <div *ngIf="submitted && f.name.errors">
+                                    <div *ngIf="f.name.errors.required" class="errors"> * Name is required</div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                              <label>Type: </label>
+                              <input placeholder="" class="form-control" type="text" formControlName="type">
+                              <div *ngIf="submitted && f.type.errors">
+                                  <div *ngIf="f.type.errors.required" class="errors"> * Type is required</div>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                              <label>Price: </label>
+                              <input placeholder="" class="form-control" type="text" formControlName="price">
+                              <div *ngIf="submitted && f.price.errors">
+                                  <div *ngIf="f.price.errors.required" class="errors"> * Price is required</div>
+                              </div>
+                          </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
@@ -276,47 +169,20 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label>Provider:</label>
-                                <select formControlName="providerId" class="form-control">
-                                <option *ngFor="let provider of providers" [ngValue]="provider.providerId">
-                                    {{provider.providerName}}
-                                  </option>
-                            </select>
-                                <div *ngIf="submitted && f.providerId.errors">
-                                    <div *ngIf="f.providerId.errors.required" class="errors"> * Provider is required</div>
-                                </div>
-                            </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>Image:</label>
+                            <input class="form-control" type="file" accept="image/*" (change)="onSelectFile($event)">
                         </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label>Category:</label>
-                                <select formControlName="categoryId" class="form-control">
-                                    <option *ngFor="let category of categories" [ngValue]="category.id">
-                                        {{category.id}}
-                                      </option>
-                            </select>
-                                <div *ngIf="submitted && f.categoryId.errors">
-                                    <div *ngIf="f.categoryId.errors.required" class="errors"> * Category is required</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label>Status:</label>
-                                <select formControlName="status" class="form-control">
-                                <option value="1">On Sale</option>
-                                <option value="2">Out of stock</option>
-                            </select>
-                                <div *ngIf="submitted && f.status.errors">
-                                    <div *ngIf="f.status.errors.required" class="errors"> * Status is required</div>
-                                </div>
-                            </div>
-                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <img [src]="imgURL" height="100" *ngIf="imgURL">
+                      </div>
                     </div>
+                    
                     <div class="m-t-20 text-center">
-                        <button class="btn btn-primary submit-btn btn-rounded" type="submit">ADD</button>
+                      <h4 style="color: red;">{{message}}</h4>  
+                      <button class="btn btn-primary submit-btn btn-rounded" type="submit">ADD</button>
                     </div>
                 </div>
             </div>

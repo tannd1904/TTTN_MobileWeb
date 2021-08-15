@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { ProductDetail } from '../model/product-detail';
 import { ProductRequest } from '../request/product-request';
+import { ProductDetailComponent } from '../user/product-detail/product-detail.component';
 import { AbstracService } from './abstrac.service';
 
 const API_URL = 'http://localhost:8080/api/';
@@ -18,7 +19,7 @@ export class ProductDetailService extends AbstracService {
   createProductDetail(token: String, formData: FormData): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.post(API_URL + 'admin/' + 'add-product-detail',formData, { headers: headers})
+    return this.http.post(API_URL + 'admin/' + 'add-product-detail', formData, { headers: headers})
                   .pipe(
                     retry(3), 
                     catchError(this.handleError));

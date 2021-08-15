@@ -59,4 +59,9 @@ public class ProductDetailController extends AbstractController<ProductDetailSer
         return mapper;
     }
 
+    @GetMapping("/get-all")
+    public ResponseEntity<?> getAll() {
+        return getAll();
+    }
+
 }
