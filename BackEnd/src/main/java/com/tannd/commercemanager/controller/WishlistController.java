@@ -37,7 +37,7 @@ public class WishlistController extends AbstractController<WishlistService, Wish
 
     @Override
     public WishlistMapper getMapper() {
-        initMapper();
+        initMapper(thisMapper.INSTANCE);
         return mapper;
     }
 }

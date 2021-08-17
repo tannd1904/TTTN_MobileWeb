@@ -7,6 +7,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
+import uk.co.jemos.podam.common.PodamExclude;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,5 +39,6 @@ public class ImportVoucher extends AuditableEntity {
     @OneToMany(mappedBy = "importVoucher", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Collection<ImportVoucherDetail> importVoucherDetails;
+    @PodamExclude
+    private List<ImportVoucherDetail> importVoucherDetails;
 }

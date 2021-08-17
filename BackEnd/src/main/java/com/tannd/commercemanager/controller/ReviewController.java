@@ -40,7 +40,7 @@ public class ReviewController extends AbstractController<ReviewService, ReviewMa
 
     @Override
     public ReviewMapper getMapper() {
-        initMapper();
+        initMapper(thisMapper.INSTANCE);
         return mapper;
     }
 }

@@ -45,7 +45,7 @@ public class EmployeeController extends AbstractController<EmployeeService, Empl
 
     @Override
     public EmployeeMapper getMapper() {
-        initMapper();
+        initMapper(thisMapper.INSTANCE);
         return mapper;
     }
 
@@ -61,12 +61,12 @@ public class EmployeeController extends AbstractController<EmployeeService, Empl
 
     @GetMapping("/get-all")
     @PreAuthorize("hasRole('ADMIN') or ('EMPLOYEE')")
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<?> getEmplAll() {
         return getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable Long id) {
+    public ResponseEntity<?> getEmplById(@PathVariable Long id) {
         return getById(id);
     }
 }
