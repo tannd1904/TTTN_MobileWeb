@@ -93,6 +93,10 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
     console.log(this.array.controls);
   }
 
+  test2() {
+    
+  }
+
   get initFormArray(){
     
     let array = [];
