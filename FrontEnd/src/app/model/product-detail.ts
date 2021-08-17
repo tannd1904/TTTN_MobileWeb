@@ -1,13 +1,17 @@
-import { Color } from "./color";
+
 import { Product } from "./product";
-import { Size } from "./size";
 
 export class ProductDetail {
-    productDetailId!: number;
-    quantity!: number;
+    id!: number;
     price!: number;
-    image!:string;
-    product!: Product;
-    color!: Color;
-    size!: Size;
+    color!: string;
+    cpu!: string;
+    ram!: string;
+    screen!: string;
+    memmory!: string;
+    camera!: string;
+    pin!: string;
+    os!: string;
+    note!: string;
+    importVoucherDetailId!: number;
 }

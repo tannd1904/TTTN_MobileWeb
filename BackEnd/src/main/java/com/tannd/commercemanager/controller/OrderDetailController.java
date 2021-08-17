@@ -40,7 +40,7 @@ public class OrderDetailController extends AbstractController<OrderDetailService
 
     @Override
     public OrderDetailMapper getMapper() {
-        initMapper();
+        initMapper(thisMapper.INSTANCE);
         return mapper;
     }
 }
