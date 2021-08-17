@@ -55,7 +55,7 @@ public class ProductDetailController extends AbstractController<ProductDetailSer
 
     @Override
     public ProductDetailMapper getMapper() {
-        initMapper();
+        initMapper(thisMapper.INSTANCE);
         return mapper;
     }
 

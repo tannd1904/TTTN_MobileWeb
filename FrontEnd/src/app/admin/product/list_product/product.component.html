@@ -46,7 +46,7 @@
                   <td routerLink="product/{{product.id}}" *ngIf="product.status === 1">On Sales</td>
                   <td routerLink="product/{{product.id}}" *ngIf="product.status === 0">Out of stock</td>
                   <td routerLink="product/{{product.id}}">
-                    <img src="../../../../../../BackEnd/src/main/webapp/Images/Product/{{product.image}}" 
+                    <img height="100px" width="auto" src="http://localhost:8080/api/image/{{product.id}}" 
                           alt="product-image">
                   </td>
                   <td class="text-right">

@@ -14,6 +14,9 @@ import com.tannd.commercemanager.services.helper.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @ServiceHelper
 public class ImportVoucherServiceImpl extends
@@ -46,6 +49,17 @@ public class ImportVoucherServiceImpl extends
     public ImportVoucherMapper getMapper() {
         initMapper(thisMapper.INSTANCE);
         return mapper;
+    }
+
+    @Override
+    public List<ImportVoucherDTO> findAll() {
+        // resetCycleAvoidingMappingContext();
+        System.out.println(getRepository().toString());
+        List<ImportVoucher> list = getRepository().findAll();
+        System.out.println(list.toString());
+        return (List<ImportVoucherDTO>) list.stream()
+                .map(entity -> getMapper().toDtoWithDetails(entity, getCycleAvoidingMappingContext()))
+                .collect(Collectors.toList());
     }
 
 //    @Autowired

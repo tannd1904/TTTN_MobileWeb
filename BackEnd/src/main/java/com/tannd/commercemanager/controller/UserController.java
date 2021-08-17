@@ -46,7 +46,7 @@ public class UserController extends AbstractController<UserService, UserMapper, 
 
     @Override
     public UserMapper getMapper() {
-        initMapper();
+        initMapper(thisMapper.INSTANCE);
         return mapper;
     }
 

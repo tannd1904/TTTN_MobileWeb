@@ -4,7 +4,6 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { ImageDetail } from '../model/image-detail';
 import { User } from '../model/user';
 import { OrderDetail } from '../order-detail';
 import { Checkout } from '../checkout';
@@ -97,25 +96,11 @@ export class UserService extends AbstracService {
                   );
   }
 
-  getImageDetail(imageId: number): Observable<ImageDetail[]>{
-    return this.http.get<ImageDetail[]>(API_URL + 'user/product/detail/' + imageId)
-                  .pipe(
-                    retry(3),
-                    catchError(this.handleError)
-                  );
-  }
 
-  createImageDetail(list: ImageDetail[]): Observable<any> {
-    return this.http.post<any>(API_URL + 'user/product/detail', list)
-          .pipe(
-            catchError(this.handleError)
-          );
-  }
-
-  getAllUsers(token: String): Observable<User[]> {
+  getAllUsers(token: String): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.get<User[]>(API_URL + 'admin/get-all', { headers: headers})
+    return this.http.get<User[]>(API_URL + 'user/' + 'get-all', { headers: headers})
                   .pipe(
                     retry(3),
                     catchError(this.handleError))
@@ -203,15 +188,6 @@ export class UserService extends AbstracService {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
     return this.http.put(API_URL + 'admin/product/' + id, product, { headers: headers})
-              .pipe(
-                catchError(this.handleError)
-              )
-  }
-
-  updateProductDetails(token: String, id: number, list: ImageDetail[]): Observable<any> {
-    let tokenStr = 'Bearer ' + token;
-    const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.put(API_URL + 'user/product/detail/' + id, list, { headers: headers})
               .pipe(
                 catchError(this.handleError)
               )

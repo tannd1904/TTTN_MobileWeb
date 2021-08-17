@@ -3,6 +3,7 @@ package com.tannd.commercemanager.dto;
 import com.tannd.commercemanager.model.ImportVoucherDetail;
 import lombok.*;
 import lombok.experimental.Accessors;
+import uk.co.jemos.podam.common.PodamExclude;
 
 import java.util.Date;
 import java.util.List;
@@ -22,5 +23,6 @@ public class ImportVoucherDTO extends AbstractDTO {
 
     private Long employeeId;
 
-    private List<ImportVoucherDetail> importVoucherDetails;
+    @PodamExclude
+    private List<ImportVoucherDetailDTO> importVoucherDetails;
 }
