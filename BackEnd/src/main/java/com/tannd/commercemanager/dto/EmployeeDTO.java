@@ -38,7 +38,7 @@ public class EmployeeDTO extends AbstractDTO {
 
     private List<OrderDTO> orders;
 
-    private List<ImportVoucherDTO> importVouchers;
+    private List<ImportVoucher> importVouchers;
 //
-    private List<ReturnDTO> returns;
+    private List<Return> returns;
 }

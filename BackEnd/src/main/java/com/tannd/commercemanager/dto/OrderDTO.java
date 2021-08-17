@@ -41,7 +41,7 @@ public class OrderDTO extends AbstractDTO {
 
     private Long employeeId;
 
-    private List<OrderDTO> orderDTOList;
+    private List<ImportVoucherDetailDTO> importVoucherDetails;
 
     private Long returnId;
 

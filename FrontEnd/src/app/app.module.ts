@@ -15,6 +15,7 @@ import { HomeComponent } from './user/home/home.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ChangeInfoComponent } from './user/change-info/change-info.component';
 
 import { LoginGuard } from './guard/login.guard';
 import { LoginInterceptor } from './interceptor/login.interceptor';
@@ -42,6 +43,7 @@ import { DataTablesModule } from 'angular-datatables';
     LoginComponent,
     RegisterComponent,
     PageNotFoundComponent,
+    ChangeInfoComponent,
     ProductGridComponent,
     ProductDetailComponent,
     CheckoutComponent,

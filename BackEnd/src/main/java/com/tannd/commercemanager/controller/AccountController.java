@@ -40,7 +40,7 @@ public class AccountController extends AbstractController<AccountService, Accoun
 
     @Override
     public AccountMapper getMapper() {
-        initMapper(thisMapper.INSTANCE);
+        initMapper();
         return mapper;
     }
 }

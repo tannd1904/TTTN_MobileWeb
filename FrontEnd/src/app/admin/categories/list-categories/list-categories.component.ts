@@ -3,6 +3,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular
 import { UserService } from 'src/app/service/user.service';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
 import { ActiveService } from 'src/app/service/active.service';
+import { Room } from 'src/app/model/room';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/service/category.service';
 import { Response } from 'src/app/model/response';

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CartComponent } from './user/cart/cart.component';
+import { ChangeInfoComponent } from './user/change-info/change-info.component';
 import { CheckoutComponent } from './user/checkout/checkout.component';
 import { CompareComponent } from './user/compare/compare.component';
 import { HomeComponent } from './user/home/home.component';

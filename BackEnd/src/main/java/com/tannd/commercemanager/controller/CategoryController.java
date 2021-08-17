@@ -45,7 +45,7 @@ public class CategoryController extends AbstractController<CategoryService, Cate
 
     @Override
     public CategoryMapper getMapper() {
-        initMapper(thisMapper.INSTANCE);
+        initMapper();
         return mapper;
     }
 

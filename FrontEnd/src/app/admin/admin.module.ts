@@ -8,6 +8,8 @@ import { AdminComponent } from './admin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { UsersComponent } from './user_/users/users.component';
+import { EditUserComponent } from './user_/edit-user/edit-user.component';
 import { InventoryReceivingVoucherComponent } from './inventory-receiving-voucher/inventory-receiving-voucher.component';
 import { AddInventoryReceivingVoucherDetailComponent } from './add-inventory-receiving-voucher-detail/add-inventory-receiving-voucher-detail.component';
 import { ListProviderComponent } from './provider/list-provider/list-provider.component';
@@ -26,6 +28,8 @@ import { ImportComponent } from './product/import/import-product.component';
   declarations: [
     AdminComponent,
     ListCategoriesComponent,
+    UsersComponent,
+    EditUserComponent,
     HomeComponent,
     InventoryReceivingVoucherComponent,
     AddInventoryReceivingVoucherDetailComponent,

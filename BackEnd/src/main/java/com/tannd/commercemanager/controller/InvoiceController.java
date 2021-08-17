@@ -40,7 +40,7 @@ public class InvoiceController extends AbstractController<InvoiceService, Invoic
 
     @Override
     public InvoiceMapper getMapper() {
-        initMapper(thisMapper.INSTANCE);
+        initMapper();
         return mapper;
     }
 }

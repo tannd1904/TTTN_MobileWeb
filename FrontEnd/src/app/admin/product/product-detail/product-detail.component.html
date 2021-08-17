@@ -68,13 +68,12 @@
                                 <tbody *ngFor="let productDetail of productDetails">
                                     <tr>
                                         <td>
-                                            AAA
-                                            <!-- <img class="card-img-top img-responsive" src="http://localhost:8080/api/image/imageProduct/{{productDetail.productDetailId}}" style="height :100px;width:100px"> -->
+                                            <img class="card-img-top img-responsive" src="http://localhost:8080/api/image/imageProduct/{{productDetail.productDetailId}}" style="height :100px;width:100px">
                                         </td>
-                                        <td>ABC</td>
-                                        <td>XYZ</td>
-                                        <td>123</td>
-                                        <td>456</td>
+                                        <td>{{productDetail.size.size}}</td>
+                                        <td>{{productDetail.color.colorName}}</td>
+                                        <td>{{productDetail.quantity}}</td>
+                                        <td>{{productDetail.price}}</td>
                                         <td class="text-right">
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
@@ -126,9 +125,9 @@
                             <div class="form-group ">
                                 <label>Size: </label>
                                 <select class="form-control " formControlName="sizeId">
-                                <!-- <option *ngFor="let size of sizes " [ngValue]="size.sizeId ">
+                                <option *ngFor="let size of sizes " [ngValue]="size.sizeId ">
                                     {{size.size}}
-                                  </option> -->
+                                  </option>
                             </select>
                                 <div *ngIf="submitted && f.sizeId.errors ">
                                     <div *ngIf="f.sizeId.errors.required " class="errors "> * Size is required</div>
@@ -139,9 +138,9 @@
                             <div class="form-group ">
                                 <label>Color:</label>
                                 <select class="form-control " formControlName="colorId">
-                                <!-- <option *ngFor="let color of colors " [ngValue]="color.colorId ">
+                                <option *ngFor="let color of colors " [ngValue]="color.colorId ">
                                     {{color.colorName}}
-                                  </option> -->
+                                  </option>
                             </select>
                                 <div *ngIf="submitted && f.colorId.errors ">
                                     <div *ngIf="f.colorId.errors.required " class="errors "> * Color is required</div>

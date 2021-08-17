@@ -1,415 +1,173 @@
-<section class="content-header"> 
-    <h1>
-      Data Tables
-      <small>advanced tables</small>
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Tables</a></li>
-      <li class="active">Data tables</li>
-    </ol>
-</section>
-
-<section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Hover Data Table</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div class="content">
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <form>
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <a class="btn btn-primary btn-rounded float-right" (click)="toggleForm[0] = !toggleForm[0]">
-                                            <i class="fa fa-plus"></i> Add product</a>
-                                    </div>
-                                </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <a class="btn btn-primary btn-rounded float-right" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-plus"></i> Add product</a>
                             </div>
-                            <div class="row" style="margin-top: 1rem;">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Code</th>
-                                                    <th>Fullname of employee</th>
-                                                    <th>Date of issue</th>
-                                                    <th>Amount</th>
-                                                    <th class="text-right">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody *ngIf="imports?.length == 0">
-                                                <tr>
-                                                  <td colspan="3" class="no-data-available">No data!</td>
-                                                </tr>
-                                            </tbody>
-                                            <tbody *ngIf="imports?.length != 0">
-                                                <tr *ngFor="let import of imports" data-toggle="modal">
-                                                    <td>{{import.id}}</td>
-                                                    <td>{{import.employeeFullName}}</td>
-                                                    <td>{{import.date | date}}</td>
-                                                    <td>123,456$</td>
-                                                    <td class="text-right">
-                                                        <div class="dropdown dropdown-action">
-                                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_expense"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="m-t-20 text-center">
-                                <button class="btn btn-primary submit-btn">Create Expense</button>
-                            </div>
-                            <div style="height: 100%; overflow: auto;">
-                                <form [formGroup]="this.dataForm" (ngSubmit)="onSubmit()" style="overflow: auto;">
-                                    <div class="modal fade modal-wrapper" id="exampleModalCenter" [ngClass]="{show: toggleForm[0]}">
-                                        <div class="modal-dialog modal-dialog-centered" role="document" style="width: 900px !important;">
-                                            <div class="modal-content mt-150">
-                                                <span style="z-index: 100;"><a class="btn float-right" style="margin-top: 15px; z-index: 100;"
-                                                    (click)="toggleForm[0] = !toggleForm[0]">
-                                                    <i class="fa fa-window-close" aria-hidden="true"></i></a></span>
-                                                <div class="modal-body" style="margin-top: -60px;">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <h2 class="text-center">PRODUCT DETAIL</h2>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <!-- Color -->
-                                                        
-                                                        <div *ngIf="!otherOption[0]" class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label>Color:</label>
-                                                                <select (change)="test(0, f.color.value)" formControlName="color" class="select">
-                                                                    <option *ngFor="let option of color" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[0]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label>Color:</label>
-                                                                <select (change)="test(0, f.color.value)" formControlName="color" class="select">
-                                                                    <option *ngFor="let option of color" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <!-- <input *ngIf="f.name.value == 'Other'" formControlName="color" class="select" type="text"> -->
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[0]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label for=""></label>
-                                                                <input formControlName="color" class="form-control" type="text" 
-                                                                    placeholder="Color">
-                                                            </div>
-                                                        </div>
-                                                    
-                                                        
-                                                        <!-- RAM -->
-                                                        
-                                                        <div *ngIf="!otherOption[1]" class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label>RAM:</label>
-                                                                <select (change)="test(1, f.ram.value)" formControlName="ram" class="select">
-                                                                    <option *ngFor="let option of ram" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[1]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label>RAM:</label>
-                                                                <select (change)="test(1, f.ram.value)" formControlName="ram" class="select">
-                                                                    <option *ngFor="let option of ram" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <!-- <input *ngIf="f.name.value == 'Other'" formControlName="color" class="select" type="text"> -->
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[1]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label for=""></label>
-                                                                <input formControlName="ram" class="form-control" type="text" 
-                                                                    placeholder="Color">
-                                                            </div>
-                                                        </div>
-                                                    
-                                                        <!-- CPU -->
-                                                        
-                                                        <div *ngIf="!otherOption[2]" class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label>CPU:</label>
-                                                                <select (change)="test(2, f.cpu.value)" formControlName="cpu" class="select">
-                                                                    <option *ngFor="let option of cpu" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[2]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label>CPU:</label>
-                                                                <select (change)="test(2, f.cpu.value)" formControlName="cpu" class="select">
-                                                                    <option *ngFor="let option of cpu" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <!-- <input *ngIf="f.name.value == 'Other'" formControlName="color" class="select" type="text"> -->
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[2]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label for=""></label>
-                                                                <input formControlName="cpu" class="form-control" type="text" 
-                                                                    placeholder="Color">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        
-                                                        <!-- Screen -->
-                                                        
-                                                        <div *ngIf="!otherOption[3]" class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label>Screen:</label>
-                                                                <select (change)="test(3, f.screen.value)" formControlName="screen" class="select">
-                                                                    <option *ngFor="let option of screen" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[3]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label>Screen:</label>
-                                                                <select (change)="test(3, f.screen.value)" formControlName="screen" class="select">
-                                                                    <option *ngFor="let option of screen" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <!-- <input *ngIf="f.name.value == 'Other'" formControlName="color" class="select" type="text"> -->
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[3]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label for=""></label>
-                                                                <input formControlName="screen" class="form-control" type="text" 
-                                                                    placeholder="Color">
-                                                            </div>
-                                                        </div>
-                                                    
-                                                        
-                                                        <!-- Memmory -->
-                                                        
-                                                        <div *ngIf="!otherOption[4]" class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label>Memory:</label>
-                                                                <select (change)="test(4, f.memmory.value)" formControlName="memmory" class="select">
-                                                                    <option *ngFor="let option of memmory" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[4]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label>Memory:</label>
-                                                                <select (change)="test(4, f.screen.value)" formControlName="memmory" class="select">
-                                                                    <option *ngFor="let option of memmory" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <!-- <input *ngIf="f.name.value == 'Other'" formControlName="color" class="select" type="text"> -->
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[4]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label for=""></label>
-                                                                <input formControlName="memmory" class="form-control" type="text" 
-                                                                    placeholder="Color">
-                                                            </div>
-                                                        </div>
-                                                    
-    
-                                                        <!-- Camera -->
-                                                        
-                                                        <div *ngIf="!otherOption[5]" class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label>Camera:</label>
-                                                                <select (change)="test(5, f.camera.value)" formControlName="camera" class="select">
-                                                                    <option *ngFor="let option of camera" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[5]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label>Camera:</label>
-                                                                <select (change)="test(5, f.camera.value)" formControlName="camera" class="select">
-                                                                    <option *ngFor="let option of camera" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <!-- <input *ngIf="f.name.value == 'Other'" formControlName="color" class="select" type="text"> -->
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[5]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label for=""></label>
-                                                                <input formControlName="camera" class="form-control" type="text" 
-                                                                    placeholder="Color">
-                                                            </div>
-                                                        </div>
-                                                    
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <!-- Pin -->
-                                                        
-                                                        <div *ngIf="!otherOption[6]" class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label>Pin:</label>
-                                                                <select (change)="test(6, f.pin.value)" formControlName="pin" class="select">
-                                                                    <option *ngFor="let option of pin" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[6]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label>Pin:</label>
-                                                                <select (change)="test(6, f.pin.value)" formControlName="pin" class="select">
-                                                                    <option *ngFor="let option of pin" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <!-- <input *ngIf="f.name.value == 'Other'" formControlName="color" class="select" type="text"> -->
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[6]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label for=""></label>
-                                                                <input formControlName="pin" class="form-control" type="text" 
-                                                                    placeholder="Color">
-                                                            </div>
-                                                        </div>
-                                                    
-                                                        <!-- OS -->
-                                                        
-                                                        <div *ngIf="!otherOption[7]" class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label>Operating System:</label>
-                                                                <select (change)="test(7, f.os.value)" formControlName="os" class="select">
-                                                                    <option *ngFor="let option of os" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[7]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label>Operating System:</label>
-                                                                <select (change)="test(7, f.os.value)" formControlName="os" class="select">
-                                                                    <option *ngFor="let option of os" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <!-- <input *ngIf="f.name.value == 'Other'" formControlName="color" class="select" type="text"> -->
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[7]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label for=""></label>
-                                                                <input formControlName="os" class="form-control" type="text" 
-                                                                    placeholder="Color">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label for="">Quantity</label>
-                                                                <input class="form-control" formControlName="quantity" type="number">
-                                                            </div>
-                                                        </div>
-                                                    
-                                                    </div>
-    
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <label for="">Note</label>
-                                                            <textarea name="" id="" cols="30" rows="2"></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group mt-20" style="width: 10%; margin: auto;">
-                                                        <button type="submit" class="btn btn-primary btn-rounded"  (click)="toggleForm[0] = !toggleForm[0]; infoSubForm()"
-                                                        data-toggle="modal" data-target="#exampleModalCenter1">
-                                                            <i class="fa fa-plus"></i> Add</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            
                         </div>
                     </div>
-                </div>
-
-                <!-- Form Serial -->
-                <form [formGroup]="this.testForm" (ngSubmit)="onSubmitSubForm()">
-                    <div class="modal fade modal-wrapper" id="exampleModalCenter1">
+                    <div class="row" style="margin-top: 1rem;">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped custom-table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Code</th>
+                                            <th>Fullname of employee</th>
+                                            <th>Date of issue</th>
+                                            <th>Amount</th>
+                                            <th class="text-right">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr data-toggle="modal">
+                                            <td>
+                                                <strong>PN00001</strong>
+                                            </td>
+                                            <td>TRAN MINH TUAN</td>
+                                            <td>22-07-2021</td>
+                                            <td>$125654</td>
+                                            <td class="text-right">
+                                                <div class="dropdown dropdown-action">
+                                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_expense"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-t-20 text-center">
+                        <button class="btn btn-primary submit-btn">Create Expense</button>
+                    </div>
+                    <div class="modal fade modal-wrapper" id="exampleModalCenter">
                         <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content mt-100">
+                            <div class="modal-content">
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <h2 class="text-center">SERIAL</h2>
+                                            <h2 class="text-center">Product</h2>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <div formArrayName="serialForm">
-                                                <div *ngFor="let f of array.controls; index as idx">
-                                                    <div [formGroupName]="idx" class="row">
-                                                        <label class="col-md-2" for="">Serial: </label>
-                                                        <input class="form-control col-md-10" type="text" formControlName="serial">
-                                                    </div>
-                                                </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>Product code:</label>
+                                                <select class="select">
+                                                    <option>Cash</option>
+                                                    <option>Cheque</option>
+                                                </select>
                                             </div>
                                         </div>
-                                    </div>     
-                                    <div class="col-sm-12">
-                                        <div class="form-group mt-20" style="width: 10%; margin: auto;">
-                                            <button type="submit" class="btn btn-primary btn-rounded float-right" 
-                                                style="margin-top: 1.8rem;"><i class="fa fa-plus"></i> Add</button>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>Size</label>
+                                                <select class="select">
+                                                    <option>Cash</option>
+                                                    <option>Cheque</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>           
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>Color</label>
+                                                <select class="select">
+                                                    <option>Cash</option>
+                                                    <option>Cheque</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>Quantity</label>
+                                                <input placeholder="$50" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label>Price</label>
+                                                <input placeholder="$50" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <a class="btn btn-primary btn-rounded float-right" style="margin-top: 1.8rem;" data-toggle="modal" data-target="#exampleModalCenter1"><i class="fa fa-plus"></i> Add</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
-          </div>
         </div>
     </div>
-</section>
+    <div class="modal fade modal-wrapper" id="exampleModalCenter1">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="text-center">Product</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Product code:</label>
+                                <select class="select">
+                                    <option>Cash</option>
+                                    <option>Cheque</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Size</label>
+                                <select class="select">
+                                    <option>Cash</option>
+                                    <option>Cheque</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Color</label>
+                                <select class="select">
+                                    <option>Cash</option>
+                                    <option>Cheque</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input placeholder="$50" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Price</label>
+                                <input placeholder="$50" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <a class="btn btn-primary btn-rounded float-right" style="margin-top: 1.8rem;"><i class="fa fa-plus"></i> Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

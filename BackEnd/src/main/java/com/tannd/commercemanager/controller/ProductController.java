@@ -59,7 +59,7 @@ public class ProductController
 
     @Override
     public ProductMapper getMapper() {
-        initMapper(thisMapper.INSTANCE);
+        initMapper();
         return mapper;
     }
 
@@ -120,70 +120,11 @@ public class ProductController
                     null));
         }
         System.out.println(entity.toString());
-//        ProductDTO response = new ProductDTO();
-//        response.setId(entity.getId()).setName(entity.getName()).setDescription(entity.getDescription())
-//                .setPrice(entity.getPrice()).setImage(entity.getImage()).setStatus(entity.getStatus())
-//                .setType(entity.getType()).setCategoryId(entity.getCategory().getId());
-        ProductDTO response = getMapper().toDtoWithoutList(entity, new CycleAvoidingMappingContext());
-        System.out.println(response);
-        return ResponseEntity.ok(new CustomResponse(200, "Request Post OK",
-                response));
-    }
-
-    @Transactional
-    @PostMapping("/add-product2")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> createProduct2(@RequestBody ProductDTO dto) throws JsonProcessingException {
-//        ProductRequest dto = new ObjectMapper().readValue(product, ProductRequest.class);
-//
-//        System.out.println(dto.toString());
-//
-//        boolean isExit = new File(context.getRealPath("/Images/Product")).exists();
-//        if (!isExit)
-//        {
-//            new File (context.getRealPath("/Images/Product")).mkdir();
-//            System.out.println("mk dir.............");
-//        }
-//        String filename = file.getOriginalFilename();
-//        String newFileName = FilenameUtils.getBaseName(filename)+"."+FilenameUtils.getExtension(filename);
-//        File serverFile = new File (context.getRealPath("/Images/Product"+File.separator+newFileName));
-//        try
-//        {
-//            System.out.println("Image");
-//            FileUtils.writeByteArrayToFile(serverFile,file.getBytes());
-//        } catch(Exception e) {
-//            e.printStackTrace();
-//        }
-
-        Product entity = new Product();
-        if (!checkParameter(dto)) {
-            return ResponseEntity.ok().body(new CustomResponse(400, "Product name has been existed!",
-                    null));
-        }
-        entity.setName(dto.getName());
-        entity.setPrice(dto.getPrice());
-        entity.setStatus(dto.getStatus());
-//        entity.setImage(newFileName);
-        entity.setImage(dto.getImage());
-        entity.setDescription(dto.getDescription());
-        entity.setType(dto.getType());
-        var category = categoryService.findEntityById(dto.getCategoryId());
-        entity.setCategory(category);
-        try {
-            entity = getService().save(entity);
-        } catch (Exception e) {
-            return ResponseEntity.ok().body(new CustomResponse(500, "Request Not Ok",
-                    null));
-        }
-        System.out.println(entity.toString());
-//        ProductDTO response = new ProductDTO();
-//        response.setId(entity.getId()).setName(entity.getName()).setDescription(entity.getDescription())
-//                .setPrice(entity.getPrice()).setImage(entity.getImage()).setStatus(entity.getStatus())
-//                .setType(entity.getType()).setCategoryId(entity.getCategory().getId());
         ProductDTO response = new ProductDTO();
-        var mapper = getMapper();
-        System.out.println(mapper.toString());
-        response = mapper.toDtoWithoutList(entity, new CycleAvoidingMappingContext());
+        response.setId(entity.getId()).setName(entity.getName()).setDescription(entity.getDescription())
+                .setPrice(entity.getPrice()).setImage(entity.getImage()).setStatus(entity.getStatus())
+                .setType(entity.getType()).setCategoryId(entity.getCategory().getId());
+//        ProductDTO response = getMapper().toDtoWithoutList(entity, new CycleAvoidingMappingContext());
         System.out.println(response);
         return ResponseEntity.ok(new CustomResponse(200, "Request Post OK",
                 response));

@@ -3,14 +3,15 @@ import { Role } from "./role";
 
 export class User {
     id!: number;
+    username!: string;
     email!: string;
+    password!: string;
     phone!: string;
     address!: string;
     firstname!: string;
     lastname!: string;
-    gender!: string;
-    orders!: any;
-    wishlistId!: number;
-    importVouchers!: any;
-    returns!: any;
+    roles!: Role;
+    deletestatus!: number;
+    reset_token!: string;
+    orders!: Checkout[]; 
 }

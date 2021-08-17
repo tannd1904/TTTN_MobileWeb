@@ -41,7 +41,7 @@ public class ReturnController extends AbstractController<ReturnService, ReturnMa
 
     @Override
     public ReturnMapper getMapper() {
-        initMapper(thisMapper.INSTANCE);
+        initMapper();
         return mapper;
     }
 }

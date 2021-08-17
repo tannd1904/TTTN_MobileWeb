@@ -43,7 +43,7 @@ public class ImportVoucherDetailController extends
 
     @Override
     public ImportVoucherDetailMapper getMapper() {
-        initMapper(thisMapper.INSTANCE);
+        initMapper();
         return mapper;
     }
 }
