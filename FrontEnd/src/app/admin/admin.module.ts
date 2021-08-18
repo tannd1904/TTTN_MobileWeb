@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { InventoryReceivingVoucherComponent } from './inventory-receiving-voucher/inventory-receiving-voucher.component';
-import { AddInventoryReceivingVoucherDetailComponent } from './add-inventory-receiving-voucher-detail/add-inventory-receiving-voucher-detail.component';
+import { AddInventoryReceivingVoucherDetailComponent } from './import-voucher/add-inventory-receiving-voucher-detail/add-inventory-receiving-voucher-detail.component';
 import { ListProviderComponent } from './provider/list-provider/list-provider.component';
 import { ProductComponent } from './product/list_product/product.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
@@ -20,6 +20,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { DataTablesModule } from 'angular-datatables';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ImportComponent } from './product/import/import-product.component';
+import { ListComponent } from './import-voucher/list/list.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { ImportComponent } from './product/import/import-product.component';
     LineChartComponent,
     CalendarComponent,
     ImportComponent,
+    ListComponent,
   ],
   imports: [
     CommonModule,

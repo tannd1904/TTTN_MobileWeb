@@ -26,7 +26,6 @@ public class ImportVoucher extends AuditableEntity {
     @Column(name = "MAPN", nullable = false)
     private Long id;
 
-    @NotBlank(message = "Content is required")
     @Column(name = "NGAYLAP")
     private Date date;
 

@@ -65,16 +65,16 @@ export class ProductDetailComponent implements OnInit {
     const formData = new FormData();
     formData.append('productDetail', JSON.stringify(productDetail));
     formData.append('file', this.imageFile);
-    this.productDetailService
-      .createProductDetail(this.token, formData)
-      .subscribe(
-        (data) => {
-          this.reloadPage();
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+    // this.productDetailService
+    //   .createProductDetail(this.token, formData)
+    //   .subscribe(
+    //     (data) => {
+    //       this.reloadPage();
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //     }
+    //   );
   }
 
   onSelectFile(event: any) {

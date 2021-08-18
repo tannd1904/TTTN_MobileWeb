@@ -3,6 +3,7 @@ import { Product } from "./product";
 
 export class ProductDetail {
     id!: number;
+    serial!: string;
     price!: number;
     color!: string;
     cpu!: string;

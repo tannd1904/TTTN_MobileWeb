@@ -19,6 +19,8 @@ public class ProductDetailDTO extends AbstractDTO {
 
     private Long id;
 
+    private String serial;
+
     private String color;
 
     private String cpu;

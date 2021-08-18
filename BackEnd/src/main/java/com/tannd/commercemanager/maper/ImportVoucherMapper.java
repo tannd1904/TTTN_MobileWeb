@@ -30,5 +30,14 @@ public interface ImportVoucherMapper extends AbstractMapper<ImportVoucherDTO, Im
 //    default ImportVoucherDTO toDto(ImportVoucher entity, @Context CycleAvoidingMappingContext context) {
 //        return toDtoWithoutDetails(entity, context);
 //    }
+    @Mappings({
+            @Mapping(source = "employeeId", target = "employee.id")
+    })
+    ImportVoucher toEntityWithEmplId(ImportVoucherDTO dto, @Context CycleAvoidingMappingContext context);
+
+    @Override
+    default ImportVoucher toEntity(ImportVoucherDTO dto, @Context CycleAvoidingMappingContext context) {
+        return toEntityWithEmplId(dto, context);
+    }
 
 }

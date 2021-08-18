@@ -1,4 +1,4 @@
-export class Import {
+export class ImportVoucher {
     id!: number;
     date!: Date;
     employeeId!: number;
