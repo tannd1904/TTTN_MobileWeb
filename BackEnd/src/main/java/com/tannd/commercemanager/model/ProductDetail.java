@@ -2,6 +2,7 @@ package com.tannd.commercemanager.model;
 
 import com.tannd.commercemanager.model.audit.AuditableEntity;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="sanpham")
 @ToString
+@Accessors(chain = true)
 public class ProductDetail extends AuditableEntity {
     private static final long serialVersionUID = 1L;
 
@@ -19,6 +21,9 @@ public class ProductDetail extends AuditableEntity {
     @Column(name = "MASP", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "SERIAL")
+    private String serial;
 
     @Column(name = "COLOR")
     private String color;

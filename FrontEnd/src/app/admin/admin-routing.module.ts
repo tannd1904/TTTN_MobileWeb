@@ -5,10 +5,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { InventoryReceivingVoucherComponent } from './inventory-receiving-voucher/inventory-receiving-voucher.component';
-import { AddInventoryReceivingVoucherDetailComponent } from './add-inventory-receiving-voucher-detail/add-inventory-receiving-voucher-detail.component';
-import { ListProviderComponent } from './provider/list-provider/list-provider.component';
+import { AddInventoryReceivingVoucherDetailComponent } from './import-voucher/add-inventory-receiving-voucher-detail/add-inventory-receiving-voucher-detail.component';
 import { ProductComponent } from './product/list_product/product.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
+import { ListComponent } from './import-voucher/list/list.component';
 
 const routes: Routes = [
   { path: 'admin', component: AdminComponent, 
@@ -18,9 +18,8 @@ const routes: Routes = [
         {path: 'category', component: ListCategoriesComponent},
         // {path: 'users', component: UsersComponent},
         // {path: 'edit-user/:id', component: EditUserComponent},
-        {path: 'inventory', component: InventoryReceivingVoucherComponent },
+        {path: 'inventory', component: ListComponent },
         {path: 'inventory/add', component: AddInventoryReceivingVoucherDetailComponent },
-        // {path: 'provider', component: ListProviderComponent },
         {path: 'products/product/:id', component: ProductDetailComponent },
         // { path: '**', component: PageNotFoundComponent}
       ]}

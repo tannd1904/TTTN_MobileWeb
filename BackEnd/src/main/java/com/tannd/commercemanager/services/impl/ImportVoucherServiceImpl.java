@@ -14,7 +14,9 @@ import com.tannd.commercemanager.services.helper.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -54,9 +56,15 @@ public class ImportVoucherServiceImpl extends
     @Override
     public List<ImportVoucherDTO> findAll() {
         // resetCycleAvoidingMappingContext();
-        System.out.println(getRepository().toString());
-        List<ImportVoucher> list = getRepository().findAll();
-        System.out.println(list.toString());
+        System.out.println("Get All Import Voucher Start");
+        List<ImportVoucher> list1 = getRepository().findAll();
+        List<ImportVoucher> list = new ArrayList<>();
+        list1.forEach(s -> {
+            if (s.getImportVoucherDetails().size() != 0) {
+                list.add(s);
+            }
+        });
+        System.out.println("Response: " + list.toString());
         return (List<ImportVoucherDTO>) list.stream()
                 .map(entity -> getMapper().toDtoWithDetails(entity, getCycleAvoidingMappingContext()))
                 .collect(Collectors.toList());
