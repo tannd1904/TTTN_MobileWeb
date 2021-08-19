@@ -11,5 +11,8 @@ export class Product {
     imageFile!: any;
     description!: string;
     categoryId!: number;
-    // TODO: update lists of product
+    categoryName!: string;
+    importVoucherDetails!: any;
+    wishlists!: any;
+    reviews!: any;
 }

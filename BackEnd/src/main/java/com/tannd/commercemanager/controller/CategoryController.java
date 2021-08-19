@@ -53,6 +53,11 @@ public class CategoryController extends AbstractController<CategoryService, Cate
     public ResponseEntity<?> getAllCategory() {
         return getAll();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getCategoryById(@PathVariable Long id) {
+        return getById(id);
+    }
     
     private boolean checkParameter(CategoryDTO dto) {
         if (Objects.isNull(dto)) {

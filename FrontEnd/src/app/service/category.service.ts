@@ -39,4 +39,13 @@ export class CategoryService extends AbstracService {
                     retry(3), 
                     catchError(this.handleError));
   }
+
+  getCategoryById(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<Category>(API_URL + 'category/' + id, { headers: headers})
+                  .pipe(
+                    retry(3), 
+                    catchError(this.handleError));
+  }
 }

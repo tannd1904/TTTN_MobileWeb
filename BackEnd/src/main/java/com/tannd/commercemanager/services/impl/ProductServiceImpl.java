@@ -8,9 +8,11 @@ import com.tannd.commercemanager.repository.ProductRepository;
 import com.tannd.commercemanager.services.ProductService;
 import com.tannd.commercemanager.services.helper.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -48,13 +50,14 @@ public class ProductServiceImpl extends AbstractServiceImpl<ProductRepository, P
     }
 
     @Override
-    public List<ProductDTO> getTop4ProductNewArrival() {
-        Optional<Product> listEntity = getRepository().findTop4ByOrderByIdDesc();
+    public List<ProductDTO> getTop8ProductNewArrival() {
+        List<Product> listEntity = getRepository().findTop8NewArrivalProducts();
+        System.out.println(listEntity.toString());
         List<ProductDTO> list = new ArrayList<>();
         listEntity.stream().forEach(product -> {
             list.add(getMapper().toDto(product, new CycleAvoidingMappingContext()));
         });
-        return null;
+        return list;
     }
 
 

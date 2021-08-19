@@ -71,7 +71,7 @@ public class ProductController
     @GetMapping("/get-top-4-new")
     public ResponseEntity<?> getTop4NewProduct() {
         return ResponseEntity.ok().body(new CustomResponse(200, "Get Top 4 New Product",
-                (getService().getTop4ProductNewArrival())));
+                (getService().getTop8ProductNewArrival())));
     }
 
     @GetMapping("/{id}")

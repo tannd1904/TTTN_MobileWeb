@@ -9,5 +9,5 @@ import java.util.List;
 public interface ProductService extends AbstractService<ProductDTO, Product> {
 //    public ProductDTO save(ProductRequest productRequest);
 //    public List<ProductDTO> getAllProduct();
-    public List<ProductDTO> getTop4ProductNewArrival();
+    public List<ProductDTO> getTop8ProductNewArrival();
 }
