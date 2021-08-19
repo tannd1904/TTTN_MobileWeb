@@ -38,6 +38,8 @@ export class ProductComponent implements OnInit {
   imageFile: any;
   imagePath!: any;
 
+  types = ['New', 'Like New', 'Second Hand', 'Old'];
+
   constructor(private router: Router, private fb: FormBuilder, 
     private activeService: ActiveService, private tokenStorageService: TokenStorageService, 
     private providerService: ProviderService, private categoryService: CategoryService,

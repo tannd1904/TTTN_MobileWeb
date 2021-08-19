@@ -40,4 +40,13 @@ export class ProductService extends AbstracService {
                     catchError(this.handleError));
   }
 
+  getProductById(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<Product>(API_URL + 'product/' + id, { headers: headers})
+                  .pipe(
+                    retry(3), 
+                    catchError(this.handleError));
+  }
+
 }

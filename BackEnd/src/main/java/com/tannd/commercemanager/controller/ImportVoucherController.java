@@ -102,5 +102,11 @@ public class ImportVoucherController extends
                 response));
     }
 
+    @Transactional
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteImport(@PathVariable Long id) {
+        return deleteById(id);
+    }
+
 
 }

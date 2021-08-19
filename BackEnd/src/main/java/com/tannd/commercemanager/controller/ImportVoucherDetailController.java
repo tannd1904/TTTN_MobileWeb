@@ -61,6 +61,14 @@ public class ImportVoucherDetailController extends
         return getAll();
     }
 
+    @GetMapping("/by-import/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> getByImportId(@PathVariable Long id) {
+        var response = getService().getByImportId(id);
+        return ResponseEntity.ok(new CustomResponse(200, "Request Post OK",
+                response));
+    }
+
     @Autowired
     ProductService productService;
 
@@ -92,7 +100,7 @@ public class ImportVoucherDetailController extends
             return ResponseEntity.ok().body(new CustomResponse(500, "Internal exception!",
                     null));
         }
-        var response = getMapper().toDtoWithImportId(entity, new CycleAvoidingMappingContext());
+        var response = getMapper().toDtoWithImportIdAndProductId(entity, new CycleAvoidingMappingContext());
         return ResponseEntity.ok(new CustomResponse(200, "Request Post OK",
                 response));
     }

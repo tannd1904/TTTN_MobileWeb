@@ -45,6 +45,7 @@
                   <td routerLink="product/{{product.id}}">{{product.type}}</td>
                   <td routerLink="product/{{product.id}}" *ngIf="product.status === 1">On Sales</td>
                   <td routerLink="product/{{product.id}}" *ngIf="product.status === 0">Out of stock</td>
+                  <td routerLink="product/{{product.id}}" *ngIf="product.status === 2">Coming Soon</td>
                   <td routerLink="product/{{product.id}}">
                     <img height="100px" width="auto" src="http://localhost:8080/api/image/{{product.id}}" 
                           alt="product-image">
@@ -125,6 +126,7 @@
                                 <select formControlName="status" class="form-control">
                                 <option value="1">On Sale</option>
                                 <option value="0">Out of stock</option>
+                                <option value="2">Coming Soon</option>
                             </select>
                                 <div *ngIf="submitted && f.status.errors">
                                     <div *ngIf="f.status.errors.required" class="errors"> * Status is required</div>
@@ -143,7 +145,11 @@
                         <div class="col-sm-6">
                           <div class="form-group">
                               <label>Type: </label>
-                              <input placeholder="" class="form-control" type="text" formControlName="type">
+                              <select formControlName="type" class="select">
+                                <option *ngFor="let option of types" [ngValue]="option">
+                                    {{option}}
+                                </option>
+                              </select>
                               <div *ngIf="submitted && f.type.errors">
                                   <div *ngIf="f.type.errors.required" class="errors"> * Type is required</div>
                               </div>

@@ -14,14 +14,15 @@ public interface ImportVoucherDetailMapper extends
     ImportVoucherDetailMapper INSTANCE = Mappers.getMapper(ImportVoucherDetailMapper.class);
 
     @Mappings({
-            @Mapping(source = "importVoucher.id", target = "importVoucherId")
+            @Mapping(source = "importVoucher.id", target = "importVoucherId"),
+            @Mapping(source = "product.id", target = "productId")
     })
-    ImportVoucherDetailDTO toDtoWithImportId(ImportVoucherDetail entity, @Context
+    ImportVoucherDetailDTO toDtoWithImportIdAndProductId(ImportVoucherDetail entity, @Context
                                              CycleAvoidingMappingContext context);
 
     @Override
     default ImportVoucherDetailDTO toDto(ImportVoucherDetail entity, @Context
                                          CycleAvoidingMappingContext context) {
-        return toDtoWithImportId(entity, context);
+        return toDtoWithImportIdAndProductId(entity, context);
     }
 }

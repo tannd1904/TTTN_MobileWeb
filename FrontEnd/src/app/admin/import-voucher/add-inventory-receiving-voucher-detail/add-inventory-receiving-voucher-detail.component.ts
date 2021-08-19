@@ -15,6 +15,7 @@ import { ProductService } from 'src/app/service/product.service';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
 import { UserService } from 'src/app/service/user.service';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-inventory-receiving-voucher-detail',
@@ -75,6 +76,7 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
     private productService: ProductService,
     private productDetailService: ProductDetailService,
     private datePipe: DatePipe,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -90,7 +92,8 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
     this.infoForm();
     this.infoSubForm();
     this.loadImport();
-    // this.getImports();
+    var id = JSON.parse(sessionStorage.getItem('importId') || '{}');
+    this.getImportDetailById(id);
     this.getProduct();
   }
 
@@ -174,7 +177,8 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
       this.importDetail.quantity = this.f.quantity.value;
       this.importDetail.productId = this.f.productId.value;
       this.importDetail.price = 0;
-      this.importDetail.importVoucherId = this.import.id;
+      var id = JSON.parse(sessionStorage.getItem('importId') || '{}');
+      this.importDetail.importVoucherId = id;
 
       this.infoSubForm();
       this.toggleForm[0] = !this.toggleForm[0]; 
@@ -229,7 +233,7 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
         // this.productDetail.importVoucherDetailId = this.importDetail.id;
         // this.createProductDetail(this.productDetail)
       // })
-      // this.reloadPage();
+      this.reloadPage();
     }
 
   }
@@ -311,12 +315,22 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
           });
   }
 
-  getAllImportDetail(){
+  getImportDetailById(id: number){
     this.token = this.tokenStorageService.getToken();
-    this.importService.getAllImportDetails(this.token)
+    this.importService.getImportDetailsByImportId(this.token, id)
         .subscribe(
           (data: Response) => {
             this.listImportDetail = data.data;
+            this.listImportDetail.forEach(s => {
+              this.token = this.tokenStorageService.getToken();
+              this.productService.getProductById(this.token, s.productId)
+                .subscribe((data: Response) => {
+                  s.productName = data.data.name;
+                }, (err) => {
+                  console.log(err);
+                })
+            })
+            this.dtTrigger.next();
           },
           error => {
             console.log(error);
@@ -338,7 +352,7 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
             }
             );
         })
-        this.dtTrigger.next();
+        
       },
       (error) => {
         console.log(error);
@@ -359,6 +373,19 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
     )
   }
 
+  getProductName(id: number) {
+    let pro = new Product();
+    this.token = this.tokenStorageService.getToken();
+    this.productService.getProductById(this.token, id).subscribe(
+      (data: Response) => {
+        pro = data.data;
+        return pro.name;
+      }, (error) => {
+        console.log(error);
+      }
+    )
+  }
+
   test(index: number, value: string) {
     console.log(value);
     if (value !== 'Other') {
@@ -366,6 +393,11 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
     } else {
       this.otherOption[index] = true;
     }
+  }
+
+  doneCreateImport() {
+    sessionStorage.removeItem('importId');
+    sessionStorage.removeItem('importDetailId');
   }
 
   reloadPage(): void {

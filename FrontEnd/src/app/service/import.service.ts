@@ -43,6 +43,15 @@ export class ImportService extends AbstracService {
                     catchError(this.handleError));
   }
 
+  getImportDetailsByImportId(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<ImportDetail[]>(API_URL + 'import-detail/' + 'by-import/' + id, { headers: headers})
+                  .pipe(
+                    retry(3), 
+                    catchError(this.handleError));
+  }
+
   createImportDetail(token: String, importDetail: ImportDetail): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);

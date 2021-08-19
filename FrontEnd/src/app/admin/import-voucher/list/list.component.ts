@@ -67,4 +67,9 @@ export class ListComponent implements OnInit {
     );
   }
 
+  createImport() {
+    sessionStorage.removeItem('importId');
+    sessionStorage.removeItem('importDetailId');
+  }
+
 }

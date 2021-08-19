@@ -14,6 +14,10 @@ import com.tannd.commercemanager.services.helper.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @ServiceHelper
 public class ImportVoucherDetailServiceImpl extends
@@ -46,6 +50,20 @@ public class ImportVoucherDetailServiceImpl extends
     public ImportVoucherDetailMapper getMapper() {
         initMapper(thisMapper.INSTANCE);
         return mapper;
+    }
+
+    @Override
+    public List<ImportVoucherDetailDTO> getByImportId(Long id) {
+        var list1 = getRepository().findAll();
+        List<ImportVoucherDetail> list = new ArrayList<>();
+        list1.stream().forEach(s -> {
+            if (s.getImportVoucher().getId() == id) {
+                list.add(s);
+            }
+        });
+        return (List<ImportVoucherDetailDTO>) list.stream()
+                .map(entity -> getMapper().toDto(entity, getCycleAvoidingMappingContext()))
+                .collect(Collectors.toList());
     }
 
 //    @Autowired

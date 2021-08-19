@@ -74,6 +74,11 @@ public class ProductController
                 (getService().getTop4ProductNewArrival())));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getProductById(@PathVariable Long id) {
+        return getById(id);
+    }
+
     @Transactional
     @PostMapping("/add-product")
     @PreAuthorize("hasRole('ADMIN')")
