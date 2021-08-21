@@ -1,5 +1,7 @@
 import { Provider } from "@angular/core";
 import { Category } from "./category";
+import { ImportDetail } from "./import-detail";
+import { ProductDetail } from "./product-detail";
 
 export class Product {
     id!: number;
@@ -12,7 +14,8 @@ export class Product {
     description!: string;
     categoryId!: number;
     categoryName!: string;
-    importVoucherDetails!: any;
+    importVoucherDetails: ImportDetail[] = [];
     wishlists!: any;
     reviews!: any;
+    productDetails: ProductDetail[] = [];
 }

@@ -1,3 +1,5 @@
+import { ProductDetail } from "./product-detail";
+
 export class ImportDetail {
     id!: number;
     importVoucherId!: number;
@@ -5,5 +7,5 @@ export class ImportDetail {
     productName!: string;
     quantity!: number;
     price!: number;
-    productDetails!: any;
+    productDetails!: ProductDetail;
 }

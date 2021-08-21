@@ -199,22 +199,32 @@
                         <h2>Filter By</h2>
                     </div>
                     <!-- btn-clear-all start -->
-                    <button class="btn-clear-all mb-sm-30 mb-xs-30">Clear all</button>
+                    <button (click)="resetFilter()" class="btn-clear-all mb-sm-30 mb-xs-30">Clear all</button>
                     <!-- btn-clear-all end -->
                     <!-- filter-sub-area start -->
                     <div class="filter-sub-area">
-                        <h5 class="filter-sub-titel">Brand</h5>
+                        <h5 class="filter-sub-titel">RAM</h5>
                         <div class="categori-checkbox">
-                            <form action="#">
-                                <ul>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">Prime Video (13)</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">Computers (12)</a></li>
-                                    <li><input type="checkbox" name="product-categori"><a href="#">Electronics (11)</a></li>
-                                </ul>
-                            </form>
+                            <div *ngFor="let ram of rams">
+                                <input class="checkbox" type="checkbox" name="RAMList" [value]="ram.name" 
+                                    (change)="onChange($event)" [(ngModel)]="ram.checked">{{ ram.name }}
+                            </div>                            
                         </div>
                      </div>
                     <!-- filter-sub-area end -->
+
+                    <!-- filter-sub-area start -->
+                    <div class="filter-sub-area pt-sm-10 pt-xs-10">
+                        <h5 class="filter-sub-titel">Color</h5>
+                        <div class="color-categoriy">
+                            <div *ngFor="let color of colors">
+                                <input class="checkbox" type="checkbox" name="ColorList" [value]="color.name" 
+                                    (change)="onChange($event)" [(ngModel)]="color.checked">{{ color.name }}
+                            </div> 
+                        </div>
+                    </div>
+                    <!-- filter-sub-area end -->
+
                     <!-- filter-sub-area start -->
                     <div class="filter-sub-area pt-sm-10 pt-xs-10">
                         <h5 class="filter-sub-titel">Categories</h5>
@@ -243,21 +253,7 @@
                         </div>
                     </div>
                     <!-- filter-sub-area end -->
-                    <!-- filter-sub-area start -->
-                    <div class="filter-sub-area pt-sm-10 pt-xs-10">
-                        <h5 class="filter-sub-titel">Color</h5>
-                        <div class="color-categoriy">
-                            <form action="#">
-                                <ul>
-                                    <li><span class="white"></span><a href="#">White (1)</a></li>
-                                    <li><span class="black"></span><a href="#">Black (1)</a></li>
-                                    <li><span class="Orange"></span><a href="#">Orange (3) </a></li>
-                                    <li><span class="Blue"></span><a href="#">Blue  (2) </a></li>
-                                </ul>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- filter-sub-area end -->
+                    
                     <!-- filter-sub-area start -->
                     <div class="filter-sub-area pt-sm-10 pb-sm-15 pb-xs-15">
                         <h5 class="filter-sub-titel">Dimension</h5>
