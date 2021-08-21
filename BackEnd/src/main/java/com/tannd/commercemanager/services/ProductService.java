@@ -12,4 +12,5 @@ public interface ProductService extends AbstractService<ProductDTO, Product> {
     public List<ProductDTO> getTop8ProductNewArrival();
     List<ProductDTO> getAllProductDesc();
     List<ProductDTO> getAllProductAsc();
+    List<ProductDTO> getByCategoryId(Long categoryId);
 }

@@ -41,6 +41,23 @@ export class ProductService extends AbstracService {
                     catchError(this.handleError));
   }
 
+  getProductByPrice(token: String, check: boolean): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    if (check === true) {
+      return this.http.get<Product[]>(API_URL + 'product/' + 'get-all-desc', { headers: headers})
+      .pipe(
+        retry(3), 
+        catchError(this.handleError));
+    } else {
+      return this.http.get<Product[]>(API_URL + 'product/' + 'get-all-asc', { headers: headers})
+                  .pipe(
+                    retry(3), 
+                    catchError(this.handleError));
+    }
+    
+  }
+
   getTop4NewProduct(token: String): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
@@ -54,6 +71,15 @@ export class ProductService extends AbstracService {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
     return this.http.get<Product>(API_URL + 'product/' + id, { headers: headers})
+                  .pipe(
+                    retry(3), 
+                    catchError(this.handleError));
+  }
+
+  getProductByCategoryId(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<Product>(API_URL + 'product/' + 'get-by-category-id/' + id, { headers: headers})
                   .pipe(
                     retry(3), 
                     catchError(this.handleError));

@@ -2,7 +2,7 @@ import { Provider } from "@angular/core";
 import { Category } from "./category";
 
 export class Product {
-    id!: string;
+    id!: number;
     name!: string;
     status!: number;
     price!: number;

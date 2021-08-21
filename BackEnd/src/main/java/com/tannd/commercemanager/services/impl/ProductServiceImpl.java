@@ -83,6 +83,17 @@ public class ProductServiceImpl extends AbstractServiceImpl<ProductRepository, P
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<ProductDTO> getByCategoryId(Long categoryId) {
+        List<Product> listEntity = getRepository().findByCategoryId(categoryId);
+        System.out.println(listEntity.toString());
+        List<ProductDTO> list = new ArrayList<>();
+        listEntity.stream().forEach(product -> {
+            list.add(getMapper().toDto(product, new CycleAvoidingMappingContext()));
+        });
+        return list;
+    }
+
 
 //    @Autowired
 //    private ProductRepository productRepository;

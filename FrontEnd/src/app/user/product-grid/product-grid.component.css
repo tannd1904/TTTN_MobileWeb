@@ -2,3 +2,13 @@
     color: #403e3e;
     text-decoration: none;
 }
+
+.selection {
+    border-radius: 0;
+    color: #242424;
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+    width: 320px;
+    z-index: 999;
+}

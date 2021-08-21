@@ -5,6 +5,7 @@ import com.tannd.commercemanager.model.ProductDetail;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.awt.print.Pageable;
@@ -36,4 +37,9 @@ public interface ProductRepository extends AbstractRepository<Product, Long> {
     List<Product> findAllByOrderByPriceDesc();
 
     List<Product> findAllByOrderByPriceAsc();
+
+    @Query(value = "select d.* " +
+            "from dongsp d " +
+            "where d.MAHANG = :categoryId", nativeQuery = true)
+    List<Product> findByCategoryId(@Param("categoryId") Long categoryId);
 }

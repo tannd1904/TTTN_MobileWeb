@@ -86,6 +86,12 @@ public class ProductController
                 (getService().getAllProductAsc())));
     }
 
+    @GetMapping("/get-by-category-id/{id}")
+    public ResponseEntity<?> getProductByCategoryId(@PathVariable Long id) {
+        return ResponseEntity.ok().body(new CustomResponse(200, "Get Product Asc By Category Id",
+                (getService().getByCategoryId(id))));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getProductById(@PathVariable Long id) {
         return getById(id);
