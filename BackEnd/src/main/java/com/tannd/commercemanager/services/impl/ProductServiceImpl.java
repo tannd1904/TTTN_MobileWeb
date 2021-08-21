@@ -16,6 +16,7 @@ import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @ServiceHelper
@@ -58,6 +59,28 @@ public class ProductServiceImpl extends AbstractServiceImpl<ProductRepository, P
             list.add(getMapper().toDto(product, new CycleAvoidingMappingContext()));
         });
         return list;
+    }
+
+    @Override
+    public List<ProductDTO> getAllProductDesc() {
+        // resetCycleAvoidingMappingContext();
+        System.out.println(getRepository().toString());
+        List<Product> list = getRepository().findAllByOrderByPriceDesc();
+        System.out.println(list.toString());
+        return (List<ProductDTO>) list.stream()
+                .map(entity -> getMapper().toDto(entity, getCycleAvoidingMappingContext()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDTO> getAllProductAsc() {
+        // resetCycleAvoidingMappingContext();
+        System.out.println(getRepository().toString());
+        List<Product> list = getRepository().findAllByOrderByPriceAsc();
+        System.out.println(list.toString());
+        return (List<ProductDTO>) list.stream()
+                .map(entity -> getMapper().toDto(entity, getCycleAvoidingMappingContext()))
+                .collect(Collectors.toList());
     }
 
 

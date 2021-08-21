@@ -74,6 +74,18 @@ public class ProductController
                 (getService().getTop8ProductNewArrival())));
     }
 
+    @GetMapping("/get-all-desc")
+    public ResponseEntity<?> getAllProductDesc() {
+        return ResponseEntity.ok().body(new CustomResponse(200, "Get All Product Desc By Price",
+                (getService().getAllProductDesc())));
+    }
+
+    @GetMapping("/get-all-asc")
+    public ResponseEntity<?> getAllProductAsc() {
+        return ResponseEntity.ok().body(new CustomResponse(200, "Get All Product Asc By Price",
+                (getService().getAllProductAsc())));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getProductById(@PathVariable Long id) {
         return getById(id);

@@ -179,6 +179,9 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
       this.importDetail.price = 0;
       var id = JSON.parse(sessionStorage.getItem('importId') || '{}');
       this.importDetail.importVoucherId = id;
+      console.log(this.importDetail);
+      this.createImportDetail(this.importDetail);
+      console.log(this.importDetail);
 
       this.infoSubForm();
       this.toggleForm[0] = !this.toggleForm[0]; 
@@ -198,9 +201,7 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
         serial.push(this.array.controls[i].value.serial)
       }
       console.log(serial);
-      console.log(this.importDetail);
-      this.createImportDetail(this.importDetail);
-      console.log(this.importDetail);
+      
       for(let i = 0; i<this.importDetail.quantity; i++) {
         console.log(this.array.controls[i].value.serial);
         let pro = new ProductDetail();
@@ -233,7 +234,7 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
         // this.productDetail.importVoucherDetailId = this.importDetail.id;
         // this.createProductDetail(this.productDetail)
       // })
-      this.reloadPage();
+      // this.reloadPage();
     }
 
   }

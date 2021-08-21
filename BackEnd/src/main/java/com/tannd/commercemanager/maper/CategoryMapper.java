@@ -12,7 +12,7 @@ public interface CategoryMapper extends AbstractMapper<CategoryDTO, Category>{
     CategoryMapper INSTANCE = Mappers.getMapper(CategoryMapper.class);
 
     @Mappings({
-            @Mapping(target = "products", ignore = true)
+//            @Mapping(target = "products", ignore = true)
     })
     CategoryDTO toDtoWithoutProducts(Category entity, @Context CycleAvoidingMappingContext context);
 

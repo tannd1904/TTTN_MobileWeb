@@ -34,7 +34,6 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/product-detail")
-@PreAuthorize("hasRole('ADMIN') or ('USER')")
 public class ProductDetailController extends AbstractController<ProductDetailService, ProductDetailMapper, ProductDetailDTO, ProductDetail> {
 
     @Autowired
@@ -70,6 +69,12 @@ public class ProductDetailController extends AbstractController<ProductDetailSer
     @GetMapping("/get-all")
     public ResponseEntity<?> getAll() {
         return getAll();
+    }
+
+    @GetMapping("/get-by-product-id/{id}")
+    public ResponseEntity<?> getProductDetailByProductId(@PathVariable Long id) {
+        return ResponseEntity.ok().body(new CustomResponse(200, "Get Product Detail By Product Id",
+                (getService().getProductDetailByProductId(id))));
     }
 
     @Transactional

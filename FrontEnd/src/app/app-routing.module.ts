@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   // { path: 'changeInfo', component: ChangeInfoComponent },
   { path: 'product-grid', component: ProductGridComponent },
-  { path: 'product-detail', component: ProductDetailComponent},
+  { path: 'product-detail/:id', component: ProductDetailComponent},
   { path: 'checkout', component: CheckoutComponent},
   { path: 'compare', component: CompareComponent},
   { path: 'cart', component: CartComponent},

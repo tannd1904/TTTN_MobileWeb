@@ -1,6 +1,7 @@
 package com.tannd.commercemanager.repository;
 
 import com.tannd.commercemanager.model.Product;
+import com.tannd.commercemanager.model.ProductDetail;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -32,5 +33,7 @@ public interface ProductRepository extends AbstractRepository<Product, Long> {
             nativeQuery = true)
     List<Product> findTop8NewArrivalProducts();
 
-    
+    List<Product> findAllByOrderByPriceDesc();
+
+    List<Product> findAllByOrderByPriceAsc();
 }

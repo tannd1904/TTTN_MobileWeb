@@ -1,0 +1,40 @@
+table {
+    background-color: #fff;
+}
+
+table tr:nth-child(even) {
+    background-color: #fff;
+}
+
+table tr:hover {
+    letter-spacing: 2px;
+    background-color: #fed700;
+    color: #fff;
+}
+
+table tr th {
+    width: 40%;
+}
+
+table tr td {
+    width: 60%;
+}
+
+.dimension {
+    border: none;
+    font-size: 14px;
+    color: #242424;
+    position: relative;
+    background: #fed700;
+    cursor: pointer;
+    font-weight: 500;
+    text-transform: capitalize;
+    padding: 13px 70px;
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+.dimension:hover {
+    color: #fff;
+    background-color: black;
+}

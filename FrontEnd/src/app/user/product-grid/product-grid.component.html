@@ -66,7 +66,7 @@
                                         <!-- single-product-wrap start -->
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a routerLink="../product-detail/{{product.id}}">
                                                     <img src="http://localhost:8080/api/image/{{product.id}}" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">{{product.type}}</span>
@@ -75,7 +75,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="product-details.html">{{product.categoryName}}</a>
+                                                            <a routerLink="../product-detail/{{product.id}}">{{product.categoryName}}</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <ul class="rating">
@@ -87,9 +87,11 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">{{product.name}}</a></h4>
+                                                    <h4><a class="product_name" routerLink="../product-detail/{{product.id}}">{{product.name}}</a></h4>
                                                     <div class="price-box">
-                                                        <span class="new-price">{{product.price | currency}}</span>
+                                                        <strong><span class="new-price" style="color: red; font-size: xx-large;">
+                                                            {{product.price | currency}}
+                                                        </span></strong>
                                                     </div>
                                                 </div>
                                                 <div class="add-actions">
@@ -112,7 +114,7 @@
                                     <div *ngFor="let product of products | paginate: config" class="row product-layout-list">
                                         <div class="col-lg-3 col-md-5 ">
                                             <div class="product-image">
-                                                <a href="single-product.html">
+                                                <a routerLink="../product-detail/{{product.id}}">
                                                     <img src="http://localhost:8080/api/image/{{product.id}}" alt="Li's Product Image">
                                                 </a>
                                                 <span class="sticker">{{product.type}}</span>
@@ -123,7 +125,7 @@
                                                 <div class="product_desc_info">
                                                     <div class="product-review">
                                                         <h5 class="manufacturer">
-                                                            <a href="product-details.html">{{product.categoryName}}</a>
+                                                            <a routerLink="../product-detail/{{product.id}}">{{product.categoryName}}</a>
                                                         </h5>
                                                         <div class="rating-box">
                                                             <ul class="rating">
@@ -135,9 +137,11 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <h4><a class="product_name" href="single-product.html">{{product.name}}</a></h4>
+                                                    <h4><a class="product_name" routerLink="../product-detail/{{product.id}}">{{product.name}}</a></h4>
                                                     <div class="price-box">
-                                                        <span class="new-price">{{product.price | currency}}</span>
+                                                        <strong><span class="new-price" style="color: red; font-size: xx-large;">
+                                                            {{product.price | currency}}
+                                                        </span></strong>
                                                     </div>
                                                     <p>{{product.description}}</p>
                                                 </div>

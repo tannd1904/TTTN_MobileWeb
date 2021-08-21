@@ -1,13 +1,18 @@
 package com.tannd.commercemanager.services.impl;
 
+import com.tannd.commercemanager.dto.ProductDTO;
 import com.tannd.commercemanager.dto.ProductDetailDTO;
 import com.tannd.commercemanager.maper.ProductDetailMapper;
+import com.tannd.commercemanager.maper.helper.CycleAvoidingMappingContext;
 import com.tannd.commercemanager.model.ProductDetail;
 import com.tannd.commercemanager.repository.ProductDetailRepository;
 import com.tannd.commercemanager.services.ProductDetailService;
 import com.tannd.commercemanager.services.helper.ServiceHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @ServiceHelper
@@ -38,6 +43,35 @@ public class ProductDetailServiceImpl extends AbstractServiceImpl<ProductDetailR
     public ProductDetailMapper getMapper() {
         initMapper(thisMapper.INSTANCE);
         return mapper;
+    }
+
+    @Override
+    public List<ProductDetailDTO> getProductDetailByProductId(Long id) {
+        List<ProductDetail> listEntity = getRepository().findProductDetailByProductId(id);
+        System.out.println(listEntity.toString());
+        List<ProductDetail> listCopy = new ArrayList<>();
+        int n = listEntity.size();
+        for (int i=1; i<n; i++) {
+            for (int j=0; j<i; j++) {
+                if (listEntity.get(i).getColor().equals(listEntity.get(j).getColor())) {
+                    if (listEntity.get(i).getRam().equals(listEntity.get(j).getRam())) {
+                        if (listEntity.get(i).getMemmory().equals(listEntity.get(j).getMemmory())) {
+                            listEntity.remove(i);
+                            n--;
+                            i--;
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println(listEntity.toString());
+        List<ProductDetailDTO> list = new ArrayList<>();
+        listEntity.stream().forEach(product -> {
+            product.setNote(product.getColor() + " - " + product.getRam() + " RAM - "
+                    + product.getMemmory());
+            list.add(getMapper().toDto(product, new CycleAvoidingMappingContext()));
+        });
+        return list;
     }
 
 //    @Autowired
