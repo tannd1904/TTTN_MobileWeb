@@ -151,7 +151,7 @@ export class ProductComponent implements OnInit {
             if (data.status !== 200) {
               this.message = "*" + data.message;
             } else {
-              this.reloadPage();
+              this.ngOnInit();
             }
           },
           error => {
@@ -167,7 +167,7 @@ export class ProductComponent implements OnInit {
             if (data.status === 404) {
               this.message = data.message;
             } else {
-              this.reloadPage();
+              this.ngOnInit();
             }
           },
           error => {

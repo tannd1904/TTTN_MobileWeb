@@ -21,8 +21,10 @@ export class ProductGridComponent implements OnInit {
   page: number = 4;
 
   categories: Array<Category> = [];
+  allProducts: Array<Product> = [];
   products: Array<Product> = [];
   listProductDetail: ProductDetail[] = [];
+  displayProductList: Product[] = [];
   token!: string;
   config!: any;
   
@@ -30,7 +32,23 @@ export class ProductGridComponent implements OnInit {
     {
       name: "Black",
       checked: false
-    }
+    },
+    {
+      name: "White",
+      checked: false
+    },
+    {
+      name: "Silver",
+      checked: false
+    },
+    {
+      name: "Blue",
+      checked: false
+    },
+    {
+      name: "Red",
+      checked: false
+    },
   ]
 
   memmories = [
@@ -151,6 +169,7 @@ export class ProductGridComponent implements OnInit {
                 console.log(err)}
               )
         });
+        this.allProducts = this.products;
         this.products = this.products.sort(function (high, low) {
           if (low.name < high.name) {
             return -1;
@@ -345,45 +364,85 @@ export class ProductGridComponent implements OnInit {
   }
 
   onChange(event: any) {
-    var displayProductList: Product[] = [];
-    var productData = new Array<ProductDetail>();
+    console.log('start filter');
+    console.log(this.selectedColor);
+    console.log(this.selectedRam);
+    console.log(this.selectedMemory);
+    console.log(this.selectedPrice);
 
-    this.products.forEach(product => {
-      for (var i = 0; i < this.selectedRam.length; i++) {
-        var lst = product.productDetails.filter(x => x.ram == this.selectedRam[i].name);
-        if (lst.length != 0) {
-          displayProductList.push(product);
-        } 
-      }  
-      if (this.selectedRam.length > 0) {
-        if (this.selectedColor.length > 0) {
-          var tempProductlst = displayProductList;
-          displayProductList = [];
-          for (var i = 0; i < this.selectedColor.length; i++) {
-            tempProductlst.forEach(temp => {
-              var lst = temp.productDetails.filter(x => x.color == this.selectedColor[i].name);
-              if (lst.length != 0) {
-                displayProductList.push(temp);
-              }
+    if (this.selectedRam.length == 0 && this.selectedColor.length == 0 
+        && this.selectedMemory.length == 0 && this.selectedPrice.length == 0) {
+      this.displayProductList = this.allProducts;
+    } else {
+      if (this.displayProductList.length == this.allProducts.length) {
+        this.displayProductList = [];
+        for (var i = 0; i < this.selectedPrice.length; i++) {
+          var lst = this.allProducts.filter(
+            x => 
+            ((x.price > this.selectedPrice[i].from) && (x.price < this.selectedPrice[i].to)));
+            lst.forEach(s => {
+              this.displayProductList.push(s)
             })
-          }
-        }
-      } else {
-        for (var i = 0; i < this.selectedColor.length; i++) {
-          var lst = product.productDetails.filter(x => x.ram == this.selectedRam[i].name);
-          if (lst.length != 0) {
-            displayProductList.push(product);
           } 
+        if (this.displayProductList.length == 0) {
+          this.allProducts.forEach(product => {
+            for (var i = 0; i < this.selectedRam.length; i++) {
+              var lst = product.productDetails.filter(x => x.ram == this.selectedRam[i].name);
+              if (lst.length != 0) {
+                this.displayProductList.push(product);
+              } 
+            }
+          })
+        } else {
+          var temp = this.displayProductList;
+          this.displayProductList = [];
+          temp.forEach(product => {
+            for (var i = 0; i < this.selectedRam.length; i++) {
+              var lst = product.productDetails.filter(x => x.ram == this.selectedRam[i].name);
+              if (lst.length != 0) {
+                this.displayProductList.push(product);
+              } 
+            }
+          })
         }
-      }
+      } 
+      // else {
 
-      if (this.selectedRam.length == 0 && this.selectedColor.length == 0 
-          && this.selectedMemory.length == 0 && this.selectedPrice.length == 0) {
-        displayProductList = this.products;
-      }
-    })
+      // }
 
-    this.products = displayProductList;
+
+       
+
+      // this.allProducts.forEach(product => {
+        
+
+          
+  
+      //   if (this.selectedRam.length > 0) {
+      //     if (this.selectedColor.length > 0) {
+      //       var tempProductlst = this.displayProductList;
+      //       this.displayProductList = [];
+      //       for (var i = 0; i < this.selectedColor.length; i++) {
+      //         tempProductlst.forEach(temp => {
+      //           var lst = temp.productDetails.filter(x => x.color == this.selectedColor[i].name);
+      //           if (lst.length != 0) {
+      //             this.displayProductList.push(temp);
+      //           }
+      //         })
+      //       }
+      //     }
+      //   } else {
+      //     for (var i = 0; i < this.selectedColor.length; i++) {
+      //       var lst = product.productDetails.filter(x => x.ram == this.selectedColor[i].name);
+      //       if (lst.length != 0) {
+      //         this.displayProductList.push(product);
+      //       } 
+      //     }
+      //   }
+      // })
+    }
+
+    this.products = this.displayProductList;
 
     // câu lệnh filter giá:
     // filter(x => x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to)

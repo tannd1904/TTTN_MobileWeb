@@ -110,4 +110,13 @@ export class CartService extends AbstracService {
                       catchError(this.handleError)
                     );
   }
+
+  getCart() {
+    return JSON.parse(sessionStorage.getItem('CART') || '[]')
+  }
+
+  saveCart(cart: any) {
+    window.sessionStorage.removeItem('CART');
+    window.sessionStorage.setItem('CART', JSON.stringify(cart));
+  }
 }

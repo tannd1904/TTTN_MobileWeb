@@ -79,7 +79,7 @@ export class ListCategoriesComponent implements OnInit {
               this.message = "*" + data.message;
               console.log(this.message);
             } else {
-              this.reloadPage();  
+              this.ngOnInit();  
             }
           },
           error => {
@@ -109,7 +109,7 @@ export class ListCategoriesComponent implements OnInit {
             if (data.status === 404) {
               this.message = data.message;
             } else {
-              this.reloadPage();
+              this.ngOnInit();
             }
           },
           error => {

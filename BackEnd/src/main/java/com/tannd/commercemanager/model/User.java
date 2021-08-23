@@ -62,8 +62,8 @@ public class User extends AuditableEntity {
     @ToString.Exclude
     private Collection<Order> orders;
 
-    @OneToOne(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Wishlist wishlist;
+    private Collection<Wishlist> wishlists;
 }

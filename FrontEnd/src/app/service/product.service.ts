@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Product } from '../model/product';
 import { ProductDetail } from '../model/product-detail';
+import { WishList } from '../model/wish-list';
 import { ProductRequest } from '../request/product-request';
 import { AbstracService } from './abstrac.service';
 
@@ -91,6 +92,31 @@ export class ProductService extends AbstracService {
     return this.http.get<ProductDetail>(API_URL + 'product-detail/' + 'get-by-product-id/' + id, { headers: headers})
                   .pipe(
                     retry(3), 
+                    catchError(this.handleError));
+  }
+
+  addToWishList(token: String, wishList: WishList): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.post<Product>(API_URL + 'wish-list/' + 'add', wishList, { headers: headers})
+                  .pipe(
+                    catchError(this.handleError));
+  }
+
+  getWishListByUserId(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<ProductDetail>(API_URL + 'wish-list/' + 'user-id/' + id, { headers: headers})
+                  .pipe(
+                    retry(3), 
+                    catchError(this.handleError));
+  }
+
+  removeWishList(token: string, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.delete<ProductDetail>(API_URL + 'wish-list/' + id, { headers: headers})
+                  .pipe(
                     catchError(this.handleError));
   }
 

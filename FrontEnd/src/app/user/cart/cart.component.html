@@ -29,35 +29,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                    <td class="li-product-thumbnail"><a href="#"><img src="../../../assets/site/images/product/small-size/5.jpg" alt="Li's Product Image"></a></td>
-                                    <td class="li-product-name"><a href="#">Accusantium dolorem1</a></td>
-                                    <td class="li-product-price"><span class="amount">$46.80</span></td>
+                                <tr *ngFor="let c of cart">
+                                    <td class="li-product-remove"><a (click)="removeProductInCart(c.product.id)"><i class="fa fa-times"></i></a></td>
+                                    <td class="li-product-thumbnail">
+                                        <a href="#">
+                                            <img height="250px" src="http://localhost:8080/api/image/{{c.product.id}}" alt="Li's Product Image">
+                                        </a>
+                                    </td>
+                                    <td class="li-product-name"><a href="#">{{c.product.name}}</a></td>
+                                    <td class="li-product-price"><span class="amount">{{c.product.price | currency}}</span></td>
                                     <td class="quantity">
                                         <label>Quantity</label>
                                         <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                            <div class="cart-plus-minus-box" value="1" type="text">{{c.quantity}}</div>
+                                            <div (click)="decreaseQuantity(c.product.id)" class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
+                                            <div (click)="increaseQuantity(c.product.id)" class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
                                         </div>
                                     </td>
-                                    <td class="product-subtotal"><span class="amount">$70.00</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                    <td class="li-product-thumbnail"><a href="#"><img src="../../../assets/site/images/product/small-size/6.jpg" alt="Li's Product Image"></a></td>
-                                    <td class="li-product-name"><a href="#">Mug Today is a good day</a></td>
-                                    <td class="li-product-price"><span class="amount">$71.80</span></td>
-                                    <td class="quantity">
-                                        <label>Quantity</label>
-                                        <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" value="1" type="text">
-                                            <div class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                            <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                        </div>
-                                    </td>
-                                    <td class="product-subtotal"><span class="amount">$60.50</span></td>
+                                    <td class="product-subtotal"><span class="amount">{{c.total | currency}}</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -69,9 +58,6 @@
                                     <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">
                                     <input class="button" name="apply_coupon" value="Apply coupon" type="submit">
                                 </div>
-                                <div class="coupon2">
-                                    <input class="button" name="update_cart" value="Update cart" type="submit">
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -80,10 +66,11 @@
                             <div class="cart-page-total">
                                 <h2>Cart totals</h2>
                                 <ul>
-                                    <li>Subtotal <span>$130.00</span></li>
-                                    <li>Total <span>$130.00</span></li>
+                                    <li>Subtotal <span>{{subTotal | currency}}</span></li>
+                                    <li>VAT <span>10%</span></li>
+                                    <li>Total <span>{{subTotal + subTotal*0.1 | currency}}</span></li>
                                 </ul>
-                                <a routerLink="../checkout">Proceed to checkout</a>
+                                <a style="color: white;" (click)="processToCheckout()">Proceed to checkout</a>
                             </div>
                         </div>
                     </div>

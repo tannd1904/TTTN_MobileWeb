@@ -4,6 +4,10 @@ import { CartService } from '../service/cart.service';
 import { TokenStorageService } from '../service/token-storage.service';
 import { CountService } from '../service/count.service';
 import { Router } from '@angular/router';
+import { Cart } from '../cart';
+import { ProductService } from '../service/product.service';
+import { WishList } from '../model/wish-list';
+import { Response } from '../model/response';
 
 @Component({
   selector: 'app-header',
@@ -13,39 +17,57 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   username!: string;
+  userId!: number;
 
   token = '';
 
   //count!: number;
   count!: number;
   nameUser: string = "";
+  cart = new Array<Cart>();
+  subTotal = 0;
+  wishList = new Array<WishList>();
 
   constructor(private router: Router, private tokenStorageService: TokenStorageService, 
               private cartService: CartService, private countService: CountService,
-              private authService: AuthService) {
+              private authService: AuthService, private productService: ProductService) {
    }
 
   ngOnInit(): void {
-    this.countService.currentCount.subscribe(count => this.count = count);
     const user = this.tokenStorageService.getUser();
+    this.userId = user.id;
+    console.log(user);
     if(user.token != null)
     {
-      this.nameUser = user.lastname + " " + user.firstname;
+      this.nameUser = user.lastName + " " + user.firstName;
+      this.getWishListByUserId(this.userId);
     }
+    this.cart = this.cartService.getCart();
+    this.cart.forEach(c => {
+      this.subTotal += c.price * c.quantity;
+    })
   }
 
-  countCartById(){
+  removeProductInCart(id: number) {
+    this.cart = this.cart.filter(x => x.product.id != id);
+    this.cart.forEach(c => {
+      this.subTotal += c.price * c.quantity;
+    })
+    this.cartService.saveCart(this.cart);
+    this.ngOnInit();
+  }
+
+  getWishListByUserId(id: number){
     this.token = this.tokenStorageService.getToken();
-    const user = this.tokenStorageService.getUser();
-    this.cartService.countCartById(this.token, user.id)
-          .subscribe(
-            (data) => {
-              this.count = data;
-            },
-            error => {
-              console.log(error);
-            }
-          );
+    this.productService.getWishListByUserId(this.token, id)
+        .subscribe(
+          (data: Response) => {
+            this.wishList = data.data;
+            console.log(this.wishList);
+          },
+          error => {
+            console.log(error);
+          });
   }
 
   isLoggedIn():boolean{
@@ -56,9 +78,10 @@ export class HeaderComponent implements OnInit {
     }else{    
       const user = this.tokenStorageService.getUser();
       this.username = user.username;
+      this.userId = user.id;
       return true;
     }
-}
+  }
 
   logout(): void {
     this.tokenStorageService.signOut();

@@ -21,7 +21,7 @@ public class Wishlist extends AuditableEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "MAKH")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
@@ -32,5 +32,8 @@ public class Wishlist extends AuditableEntity {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Product product;
+
+    @Column(name = "removal_flag")
+    private Boolean removal_flag;
 
 }

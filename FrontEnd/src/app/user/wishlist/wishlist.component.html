@@ -29,29 +29,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                    <td class="li-product-thumbnail"><a href="#"><img src="../../../assets/site/images/wishlist-thumb/1.jpg" alt=""></a></td>
-                                    <td class="li-product-name"><a href="#">Giro Civilia</a></td>
-                                    <td class="li-product-price"><span class="amount">$23.39</span></td>
+                                <tr *ngFor="let w of wishList">
+                                    <td class="li-product-remove">
+                                        <a (click)="removeWishList(w.id)"><i class="fa fa-times"></i></a>
+                                    </td>
+                                    <td class="li-product-thumbnail">
+                                        <a href="#">
+                                            <img height="250px" src="http://localhost:8080/api/image/{{w.product.id}}" alt="">
+                                        </a>
+                                    </td>
+                                    <td class="li-product-name"><a href="#">{{w.product.name}}</a></td>
+                                    <td class="li-product-price"><span class="amount">{{w.product.price | currency}}</span></td>
                                     <td class="li-product-stock-status"><span class="in-stock">in stock</span></td>
-                                    <td class="li-product-add-cart"><a href="#">add to cart</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                    <td class="li-product-thumbnail"><a href="#"><img src="../../../assets/site/images/wishlist-thumb/2.jpg" alt=""></a></td>
-                                    <td class="li-product-name"><a href="#">Pro Bike Shoes</a></td>
-                                    <td class="li-product-price"><span class="amount">$30.50</span></td>
-                                    <td class="li-product-stock-status"><span class="in-stock">in stock</span></td>
-                                    <td class="li-product-add-cart"><a href="#">add to cart</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="li-product-remove"><a href="#"><i class="fa fa-times"></i></a></td>
-                                    <td class="li-product-thumbnail"><a href="#"><img src="../../../assets/site/images/wishlist-thumb/3.jpg" alt=""></a></td>
-                                    <td class="li-product-name"><a href="#">Nero Urban Shoes</a></td>
-                                    <td class="li-product-price"><span class="amount">$40.19</span></td>
-                                    <td class="li-product-stock-status"><span class="out-stock">out stock</span></td>
-                                    <td class="li-product-add-cart"><a href="#">add to cart</a></td>
+                                    <td class="li-product-add-cart"><a routerLink="../product-detail/{{w.product.id}}">see product</a></td>
                                 </tr>
                             </tbody>
                         </table>

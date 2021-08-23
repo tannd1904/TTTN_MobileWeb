@@ -1,9 +1,8 @@
 import { Product } from "./model/product";
 
 export class Cart {
-    id!: number;
-    product!: Product;
+    product!: any;
     quantity!: number;
     price!: number;
-    userId!: number;
+    total!: number;
 }

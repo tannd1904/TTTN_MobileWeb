@@ -60,8 +60,12 @@
 
                     <div class="single-add-to-cart" style="margin-left: 5vw;">
                         <form action="#" class="cart-quantity">
-                            <button class="add-to-cart" style="margin: 10px;"><i class="fa fa-heart-o"></i></button>
-                            <button class="add-to-cart" style="margin: 10px;"><i class="fa fa-cart-plus"></i></button>
+                            <button (click)="addToWishList()" class="add-to-cart" style="margin: 10px;">
+                                <i class="fa fa-heart-o"></i>
+                            </button>
+                            <button (click)="addToCart()" class="add-to-cart" style="margin: 10px;">
+                                <i class="fa fa-cart-plus"></i>
+                            </button>
                         </form>
                     </div>
                     <div class="product-additional-info pt-25" style="margin-left: 5vw;">

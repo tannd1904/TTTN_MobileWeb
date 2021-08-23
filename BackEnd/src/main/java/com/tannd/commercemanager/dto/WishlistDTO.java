@@ -17,10 +17,10 @@ public class WishlistDTO extends AbstractDTO {
 
     private Long id;
 
-    private Integer quantity;
-
     private Long userId;
 
     private Long productId;
+
+    private Boolean removal_flag;
 
 }
