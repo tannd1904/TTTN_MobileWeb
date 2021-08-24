@@ -54,6 +54,7 @@ export class HeaderComponent implements OnInit {
       this.subTotal += c.price * c.quantity;
     })
     this.cartService.saveCart(this.cart);
+    this.cartService.getCart();
     this.ngOnInit();
   }
 

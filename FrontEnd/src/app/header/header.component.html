@@ -116,11 +116,11 @@
                                 <div class="minicart">
                                     <ul class="minicart-product-list">
                                         <li *ngFor="let c of cart">
-                                            <a href="single-product.html" class="minicart-product-image">
+                                            <a href="http://localhost:4200/product-detail/{{c.product.id}}" class="minicart-product-image">
                                                 <img src="http://localhost:8080/api/image/{{c.product.id}}" alt="cart products">
                                             </a>
                                             <div class="minicart-product-details">
-                                                <h6><a href="single-product.html">{{c.product.name}}</a></h6>
+                                                <h6><a href="http://localhost:4200/product-detail/{{c.product.id}}">{{c.product.name}}</a></h6>
                                                 <span>{{c.product.price | currency}} x {{c.quantity}}</span>
                                             </div>
                                             <button (click)="removeProductInCart(c.product.id)" class="close" title="Remove">
@@ -128,10 +128,13 @@
                                             </button>
                                         </li>
                                     </ul>
-                                    <div class="minicart-button">
+                                    <div *ngIf="cart?.length != 0" class="minicart-button">
                                         <a routerLink="cart" class="li-button li-button-fullwidth">
                                             <span>View Full Cart</span>
                                         </a>
+                                    </div>
+                                    <div *ngIf="cart?.length == 0" class="minicart-button">
+                                        <p style="text-align: center;">Cart is Empty</p>
                                     </div>
                                 </div>
                             </li>
