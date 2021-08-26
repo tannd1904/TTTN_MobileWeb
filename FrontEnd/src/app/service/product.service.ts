@@ -95,6 +95,35 @@ export class ProductService extends AbstracService {
                     catchError(this.handleError));
   }
 
+  getSameProductDetail(token: String, id: number, ram: string, color: string, memmory: string): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<ProductDetail>(API_URL + 'product-detail/' + 'get-same-detail/' + 
+        id + '/' + ram + '/' + color + '/' + memmory, { headers: headers})
+                  .pipe(
+                    retry(3), 
+                    catchError(this.handleError));
+  }
+
+  countSameProductDetail(token: String, id: number, ram: string, color: string, memmory: string): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<ProductDetail>(API_URL + 'product-detail/' + 'count-same-detail/' + 
+        id + '/' + ram + '/' + color + '/' + memmory, { headers: headers})
+                  .pipe(
+                    retry(3), 
+                    catchError(this.handleError));
+  }
+
+  countProductDetailByProductId(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<ProductDetail>(API_URL + 'product-detail/' + 'count-by-product-id/' + id, { headers: headers})
+                  .pipe(
+                    retry(3), 
+                    catchError(this.handleError));
+  }
+
   addToWishList(token: String, wishList: WishList): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);

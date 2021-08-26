@@ -16,6 +16,48 @@ public interface ProductDetailRepository extends AbstractRepository<ProductDetai
             "inner join ct_phieunhap cp " +
             "on cp.MACTPN = s.MACTPN " +
             "inner join dongsp d " +
-            "on d.MADONGSP = cp.MADONGSP and d.MADONGSP = :productId" , nativeQuery = true)
+            "on d.MADONGSP = cp.MADONGSP and d.MADONGSP = :productId " +
+            "where s.TRANGTHAI = 0 " , nativeQuery = true)
     List<ProductDetail> findProductDetailByProductId(@Param("productId") Long productId);
+
+    @Query(value = "select s.* " +
+            "from sanpham s " +
+            "inner join ct_phieunhap cp " +
+            "on cp.MACTPN = s.MACTPN " +
+            "inner join dongsp d " +
+            "on d.MADONGSP = cp.MADONGSP and d.MADONGSP = :productId " +
+            "where s.TRANGTHAI = 0 " +
+            "and (s.RAM = :ram " +
+            "and s.COLOR = :color " +
+            "and s.MEMMORY = :memmory )" , nativeQuery = true)
+    List<ProductDetail> findProductDetailByProductIdAndDetail(
+            @Param("productId") Long productId,
+            @Param("ram") String ram,
+            @Param("color") String color,
+            @Param("memmory") String memmory);
+
+    @Query(value = "select count(s.MASP) " +
+            "from sanpham s " +
+            "inner join ct_phieunhap cp " +
+            "on cp.MACTPN = s.MACTPN " +
+            "inner join dongsp d " +
+            "on d.MADONGSP = cp.MADONGSP and d.MADONGSP = :productId " +
+            "where s.TRANGTHAI = 0", nativeQuery = true)
+    Long countProductDetailByProductId(@Param("productId") Long productId);
+
+    @Query(value = "select count(s.MASP) " +
+            "from sanpham s " +
+            "inner join ct_phieunhap cp " +
+            "on cp.MACTPN = s.MACTPN " +
+            "inner join dongsp d " +
+            "on d.MADONGSP = cp.MADONGSP and d.MADONGSP = :productId " +
+            "where s.TRANGTHAI = 0 " +
+            "and (s.RAM = :ram " +
+            "and s.COLOR = :color " +
+            "and s.MEMMORY = :memmory )" , nativeQuery = true)
+    Long countProductDetailByProductIdAndDetail(
+            @Param("productId") Long productId,
+            @Param("ram") String ram,
+            @Param("color") String color,
+            @Param("memmory") String memmory);
 }

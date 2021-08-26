@@ -23,6 +23,7 @@
                                     <th class="li-product-remove">remove</th>
                                     <th class="li-product-thumbnail">images</th>
                                     <th class="cart-product-name">Product</th>
+                                    <th class="cart-product-name">Model</th>
                                     <th class="li-product-price">Unit Price</th>
                                     <th class="li-product-quantity">Quantity</th>
                                     <th class="li-product-subtotal">Total</th>
@@ -37,6 +38,7 @@
                                         </a>
                                     </td>
                                     <td class="li-product-name"><a href="#">{{c.product.name}}</a></td>
+                                    <td class="li-product-name"><a href="#">{{c.product.productDetails[0].note}}</a></td>
                                     <td class="li-product-price"><span class="amount">{{c.product.price | currency}}</span></td>
                                     <td class="quantity">
                                         <label>Quantity</label>

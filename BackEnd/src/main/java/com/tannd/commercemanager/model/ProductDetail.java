@@ -55,6 +55,9 @@ public class ProductDetail extends AuditableEntity {
     @Column(name = "GIA", nullable = false)
     private Double price;
 
+    @Column(name = "TRANGTHAI", nullable = false)
+    private Boolean status;
+
     @OneToOne(mappedBy = "productDetail")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

@@ -35,19 +35,12 @@ public class Order extends AuditableEntity {
     @Column(name = "SDT", nullable = false)
     private String phoneOfReceiver;
 
-    @NotBlank(message = "dateOfOrder is required")
     @Column(name = "NGAYDAT", nullable = false)
     private Date dateOfOrder;
 
-//    @NotBlank(message = "Type is required")
-//    @Column(name = "type", nullable = false)
-//    private String type;
-
-//    @NotBlank(message = "Note is required")
     @Column(name = "GHICHU", nullable = false)
     private String note;
 
-    @NotBlank(message = "status is required")
     @Column(name = "TRANGTHAI", nullable = false)
     private Integer status;
 
@@ -66,7 +59,7 @@ public class Order extends AuditableEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Collection<OrderDetail> orderDetails;
+    private Collection<OrderDetail> listOrderDetails;
 
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude

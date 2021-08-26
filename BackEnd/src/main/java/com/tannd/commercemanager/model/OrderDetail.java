@@ -27,10 +27,6 @@ public class OrderDetail extends AuditableEntity {
     @ToString.Exclude
     private ProductDetail productDetail;
 
-    @NotBlank(message = "quantity is required")
-    @Column(name = "SOLUONG", nullable = false)
-    private Integer quantity;
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "MAPD")
     @EqualsAndHashCode.Exclude

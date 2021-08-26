@@ -19,4 +19,14 @@ public interface OrderMapper extends AbstractMapper<OrderDTO, Order>{
     default OrderDTO toDto(Order entity, @Context CycleAvoidingMappingContext context) {
         return toDtoWithUser(entity, context);
     }
+
+    @Mappings({
+            @Mapping(target = "id", ignore = true)
+    })
+    Order toEntityWithoutId(OrderDTO dto, @Context CycleAvoidingMappingContext context);
+
+    @Override
+    default Order toEntity(OrderDTO dto, @Context CycleAvoidingMappingContext context) {
+        return toEntityWithoutId(dto, context);
+    }
 }

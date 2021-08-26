@@ -41,6 +41,8 @@ public class ProductDetailDTO extends AbstractDTO {
 
     private Double price;
 
+    private Boolean status;
+
     private Long orderDetailId;
 
     private Long returnId;

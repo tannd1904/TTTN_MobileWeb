@@ -16,7 +16,9 @@ import java.util.List;
 
 @Service
 @ServiceHelper
-public class ProductDetailServiceImpl extends AbstractServiceImpl<ProductDetailRepository, ProductDetailMapper, ProductDetailDTO, ProductDetail>
+public class ProductDetailServiceImpl extends
+        AbstractServiceImpl<ProductDetailRepository, ProductDetailMapper,
+                ProductDetailDTO, ProductDetail>
         implements ProductDetailService {
     @Autowired
     ProductDetailRepository thisRepository;
@@ -72,6 +74,43 @@ public class ProductDetailServiceImpl extends AbstractServiceImpl<ProductDetailR
             list.add(getMapper().toDto(product, new CycleAvoidingMappingContext()));
         });
         return list;
+    }
+
+    @Override
+    public List<ProductDetailDTO> getProductDetailByProductIdAndDetail(Long id, String ram, String color, String memmory) {
+        List<ProductDetail> listEntity = getRepository()
+                .findProductDetailByProductIdAndDetail(id, ram, color, memmory);
+        System.out.println(listEntity.toString());
+        List<ProductDetailDTO> list = new ArrayList<>();
+        listEntity.stream().forEach(product -> {
+            product.setNote(product.getColor() + " - " + product.getRam() + " RAM - "
+                    + product.getMemmory());
+            list.add(getMapper().toDto(product, new CycleAvoidingMappingContext()));
+        });
+        return list;
+    }
+
+    @Override
+    public List<ProductDetail> getProductDetailEntityByProductIdAndDetail(Long id, String ram, String color, String memmory) {
+        List<ProductDetail> listEntity = getRepository()
+                .findProductDetailByProductIdAndDetail(id, ram, color, memmory);
+        System.out.println(listEntity.toString());
+        return listEntity;
+    }
+
+    @Override
+    public Long countProductDetailByProductId(Long id) {
+        Long count = getRepository().countProductDetailByProductId(id);
+        System.out.println(count);
+        return count;
+    }
+
+    @Override
+    public Long countProductDetailByProductIdAndDetail(Long id, String ram, String color, String memmory) {
+        Long count = getRepository().countProductDetailByProductIdAndDetail(
+                id, ram, color, memmory);
+        System.out.println(count);
+        return count;
     }
 
 //    @Autowired

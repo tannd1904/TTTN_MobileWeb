@@ -16,7 +16,7 @@ public class OrderDetailDTO extends AbstractDTO {
 
     private Long productDetailId;
 
-    private Integer quantity;
+    private Long productId;
 
     private Long orderId;
 }

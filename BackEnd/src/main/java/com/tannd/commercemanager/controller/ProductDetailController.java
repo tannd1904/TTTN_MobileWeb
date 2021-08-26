@@ -77,6 +77,28 @@ public class ProductDetailController extends AbstractController<ProductDetailSer
                 (getService().getProductDetailByProductId(id))));
     }
 
+    @GetMapping("/get-same-detail/{id}/{ram}/{color}/{memmory}")
+    public ResponseEntity<?> getProductDetailByProductIdAndDetail(
+            @PathVariable("id") Long id, @PathVariable("ram") String ram,
+            @PathVariable("color") String color, @PathVariable("memmory") String memmory) {
+        return ResponseEntity.ok().body(new CustomResponse(200, "Get Product Detail By Product Id",
+                (getService().getProductDetailByProductIdAndDetail(id, ram, color, memmory))));
+    }
+
+    @GetMapping("/count-by-product-id/{id}")
+    public ResponseEntity<?> countProductDetailByProductId(@PathVariable Long id) {
+        return ResponseEntity.ok().body(new CustomResponse(200, "Count Product Detail By Product Id",
+                (getService().countProductDetailByProductId(id))));
+    }
+
+    @GetMapping("/count-same-detail/{id}/{ram}/{color}/{memmory}")
+    public ResponseEntity<?> countProductDetailByProductIdAndDetail(
+            @PathVariable("id") Long id, @PathVariable("ram") String ram,
+            @PathVariable("color") String color, @PathVariable("memmory") String memmory) {
+        return ResponseEntity.ok().body(new CustomResponse(200, "Count Product Detail By Product Id",
+                (getService().countProductDetailByProductIdAndDetail(id, ram, color, memmory))));
+    }
+
     @Transactional
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")
@@ -90,6 +112,7 @@ public class ProductDetailController extends AbstractController<ProductDetailSer
         }
         entity = getMapper().toEntity(dto, new CycleAvoidingMappingContext());
         entity.setPrice(0.0);
+        entity.setStatus(false);
         entity.setImportVoucherDetail(importVoucherDetailService.findEntityById(dto.getImportVoucherDetailId()));
         try {
             entity = getService().save(entity);
