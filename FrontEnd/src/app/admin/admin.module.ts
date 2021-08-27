@@ -21,6 +21,8 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ImportComponent } from './product/import/import-product.component';
 import { ListComponent } from './import-voucher/list/list.component';
+import { OrderListComponent } from './order/order-list/order-list.component';
+import { OrderDetailComponent } from './order/order-detail/order-detail.component';
 
 
 @NgModule({
@@ -39,6 +41,8 @@ import { ListComponent } from './import-voucher/list/list.component';
     CalendarComponent,
     ImportComponent,
     ListComponent,
+    OrderListComponent,
+    OrderDetailComponent,
   ],
   imports: [
     CommonModule,

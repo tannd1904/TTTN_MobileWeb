@@ -1,0 +1,24 @@
+.order-button-payment button {
+	background: #434343 none repeat scroll 0 0;
+	border: medium none;
+	color: #fff;
+	font-size: 17px;
+	font-weight: 600;
+	height: 50px;
+	margin: 20px 0 0;
+	padding: 0;
+	text-transform: uppercase;
+	-webkit-transition: all 0.3s ease 0s;
+	transition: all 0.3s ease 0s;
+	width: 100%;
+	border: 1px solid transparent;
+	cursor: pointer;
+}
+.order-button-payment button:hover {
+	background: #fed700 none repeat scroll 0 0;
+}
+
+.errors {
+    color: red;
+    margin-left: 10px;
+}

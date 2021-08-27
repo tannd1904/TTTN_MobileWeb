@@ -41,7 +41,7 @@ public class Product extends AuditableEntity {
     @Column(name = "GIA", nullable = false)
     private Double price;
 
-    @Column(name = "KHUYENMAI", nullable = true)
+    @Column(name = "GIAMGIA", nullable = true)
     private Double promotion;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

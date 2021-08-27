@@ -31,6 +31,8 @@ import { CompareComponent } from './user/compare/compare.component';
 import { CartComponent } from './user/cart/cart.component';
 import { WishlistComponent } from './user/wishlist/wishlist.component';
 import { DataTablesModule } from 'angular-datatables';
+import { ListOrderComponent } from './user/list-order/list-order.component';
+import { OrderDetailComponent } from './user/order-detail/order-detail.component';
 
 
 @NgModule({
@@ -48,6 +50,8 @@ import { DataTablesModule } from 'angular-datatables';
     CompareComponent,
     CartComponent,
     WishlistComponent,
+    ListOrderComponent,
+    OrderDetailComponent,
   ],
   imports: [
     BrowserModule,

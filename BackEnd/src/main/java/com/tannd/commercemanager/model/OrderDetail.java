@@ -19,7 +19,7 @@ public class OrderDetail extends AuditableEntity {
     @Id
     @Column(name = "MACTPD", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @OneToOne
     @JoinColumn(name = "MASP")

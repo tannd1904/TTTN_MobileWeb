@@ -86,6 +86,15 @@ export class ProductService extends AbstracService {
                     catchError(this.handleError));
   }
 
+  getProductDetailById(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<ProductDetail>(API_URL + 'product-detail/' + id, { headers: headers})
+                  .pipe(
+                    retry(3), 
+                    catchError(this.handleError));
+  }
+
   getProductDetailByProductId(token: String, id: number): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);

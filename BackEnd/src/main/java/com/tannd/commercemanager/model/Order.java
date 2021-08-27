@@ -24,8 +24,16 @@ public class Order extends AuditableEntity {
     private Long id;
 
     @NotBlank(message = "Name of Receiver is required")
-    @Column(name = "HOTEN", nullable = false)
-    private String nameOfReceiver;
+    @Column(name = "HO", nullable = false)
+    private String firstNameOfReceiver;
+
+    @NotBlank(message = "Name of Receiver is required")
+    @Column(name = "TEN", nullable = false)
+    private String lastNameOfReceiver;
+
+    @NotBlank(message = "email of Receiver is required")
+    @Column(name = "EMAIL", nullable = false)
+    private String emailOfReceiver;
 
     @NotBlank(message = "addressOfReceiver is required")
     @Column(name = "DIACHI", nullable = false)
@@ -37,6 +45,9 @@ public class Order extends AuditableEntity {
 
     @Column(name = "NGAYDAT", nullable = false)
     private Date dateOfOrder;
+
+    @Column(name = "GIA", nullable = false)
+    private Double total;
 
     @Column(name = "GHICHU", nullable = false)
     private String note;

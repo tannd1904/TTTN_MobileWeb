@@ -21,13 +21,19 @@ public class OrderDTO extends AbstractDTO {
 
     private Long id;
 
-    private String nameOfReceiver;
+    private String firstNameOfReceiver;
+
+    private String lastNameOfReceiver;
+
+    private String emailOfReceiver;
 
     private String addressOfReceiver;
 
     private String phoneOfReceiver;
 
     private Date dateOfOrder;
+
+    private Double total;
 
 //    @NotBlank(message = "Type is required")
 //    @Column(name = "type", nullable = false)

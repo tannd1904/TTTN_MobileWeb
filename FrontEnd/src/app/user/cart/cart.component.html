@@ -69,7 +69,7 @@
                                 <h2>Cart totals</h2>
                                 <ul>
                                     <li>Subtotal <span>{{subTotal | currency}}</span></li>
-                                    <li>VAT <span>10%</span></li>
+                                    <li>VAT (10%) <span>{{subTotal * 0.1 | currency}}</span></li>
                                     <li>Total <span>{{subTotal + subTotal*0.1 | currency}}</span></li>
                                 </ul>
                                 <a style="color: white;" (click)="processToCheckout()">Proceed to checkout</a>

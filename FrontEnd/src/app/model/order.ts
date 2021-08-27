@@ -1,9 +1,12 @@
 export class Order {
     id!: number;
-    nameOfReceiver!: string;
+    firstNameOfReceiver!: string;
+    lastNameOfReceiver!: string;
+    emailOfReceiver!: string;
     addressOfReceiver!: string;
     phoneOfReceiver!: string;
     dateOfOrder!: Date;
+    total!: number;
     note!: string;
     status!: number;
     userId!: number;

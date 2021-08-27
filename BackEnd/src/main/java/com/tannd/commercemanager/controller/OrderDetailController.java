@@ -14,14 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/order-detail")
-public class OrderDetailController extends AbstractController<OrderDetailService, OrderDetailMapper, OrderDetailDTO, OrderDetail> {
+public class OrderDetailController extends
+        AbstractController<OrderDetailService, OrderDetailMapper, OrderDetailDTO, OrderDetail> {
 
     @Autowired
     OrderDetailService thisService;
@@ -50,6 +51,25 @@ public class OrderDetailController extends AbstractController<OrderDetailService
         return mapper;
     }
 
+    @GetMapping("/get-all")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> getAllOrders() {
+        return getAll();
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> getOrderById(@PathVariable Long id) {
+        return getById(id);
+    }
+
+    @GetMapping("/by-order-id/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> getOrderByOrderId(@PathVariable Long id) {
+        return ResponseEntity.ok().body(new CustomResponse(200, "Get Order Detail By Order Id",
+                (getService().getByOrderId(id))));
+    }
+
     @Autowired
     ProductDetailService productDetailService;
 
@@ -57,8 +77,10 @@ public class OrderDetailController extends AbstractController<OrderDetailService
     OrderService orderService;
 
     @Transactional
-    @PostMapping("/add")
+    @PostMapping("/add-detail")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> createOrderDetail(@RequestBody OrderDetailDTO dto) {
+        System.out.println("Save Order Detail Begin...");
         OrderDetail entity = new OrderDetail();
         var order = orderService.findEntityById(dto.getOrderId());
         entity.setOrder(order);
@@ -82,5 +104,36 @@ public class OrderDetailController extends AbstractController<OrderDetailService
         response.setProductId(dto.getProductId());
         return ResponseEntity.ok().body(new CustomResponse(200, "Request Post Order Detail Ok",
                 response));
+    }
+
+    @Transactional
+    @PostMapping("/add-list")
+    public ResponseEntity<?> createList(@RequestBody List<OrderDetailDTO> list) {
+        List<OrderDetailDTO> responseList = new ArrayList<>();
+        try {
+            list.forEach(dto -> {
+                OrderDetail entity = new OrderDetail();
+                var order = orderService.findEntityById(dto.getOrderId());
+                entity.setOrder(order);
+                var productDetail = productDetailService
+                        .findEntityById(dto.getProductDetailId());
+                var listSameProductDetail = productDetailService.getProductDetailEntityByProductIdAndDetail(
+                        productDetail.getImportVoucherDetail().getProduct().getId(),
+//                dto.getProductId(),
+                        productDetail.getRam(), productDetail.getColor(), productDetail.getMemmory()
+                );
+                listSameProductDetail.get(0).setStatus(true);
+                entity.setProductDetail(listSameProductDetail.get(0));
+                entity = getService().save(entity);
+                var response = getMapper().toDto(entity, new CycleAvoidingMappingContext());
+                response.setProductId(dto.getProductId());
+                responseList.add(response);
+            });
+        } catch (Exception e) {
+            return ResponseEntity.ok().body(new CustomResponse(500, "Request not OK" +
+                    "\nMessage: " + e.getMessage(), null));
+        }
+        return ResponseEntity.ok().body(new CustomResponse(200, "Request Post Order Detail Ok",
+                responseList));
     }
 }

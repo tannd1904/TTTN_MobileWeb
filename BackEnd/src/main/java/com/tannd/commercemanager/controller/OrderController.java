@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/order")
@@ -48,6 +45,18 @@ public class OrderController extends AbstractController<OrderService, OrderMappe
     public OrderMapper getMapper() {
         initMapper(thisMapper.INSTANCE);
         return mapper;
+    }
+
+    @GetMapping("/get-all")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> getAllOrders() {
+        return getAll();
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> getOrderById(@PathVariable Long id) {
+        return getById(id);
     }
 
     @Autowired

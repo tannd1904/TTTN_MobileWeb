@@ -11,7 +11,8 @@ public interface OrderMapper extends AbstractMapper<OrderDTO, Order>{
     OrderMapper INSTANCE = Mappers.getMapper(OrderMapper.class);
 
     @Mappings({
-            @Mapping(source = "user.id", target = "userId")
+            @Mapping(source = "user.id", target = "userId"),
+            @Mapping(source = "employee.id", target = "employeeId")
     })
     OrderDTO toDtoWithUser(Order entity, @Context CycleAvoidingMappingContext context);
 

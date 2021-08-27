@@ -67,8 +67,13 @@ public class ProductDetailController extends AbstractController<ProductDetailSer
     ImportVoucherDetailService importVoucherDetailService;
 
     @GetMapping("/get-all")
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<?> getProductDetailAll() {
         return getAll();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getProductDetailById(@PathVariable Long id) {
+        return getById(id);
     }
 
     @GetMapping("/get-by-product-id/{id}")
