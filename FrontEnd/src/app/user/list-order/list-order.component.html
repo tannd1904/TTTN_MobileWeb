@@ -41,7 +41,6 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="All" role="tabpanel">
                             <div class="row">
-                                <div>Tab All</div>
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-body">
@@ -63,9 +62,10 @@
                                                             <td>{{order.addressOfReceiver}}</td>
                                                             <td>{{order.phoneOfReceiver}}</td>
                                                             <td>
-                                                                <label *ngIf="order.status == 0" style="margin-right: 17px;"> Unconfirmed </label>
-                                                                <label *ngIf="order.status == 1" style="margin-right: 17px;"> Confirmed </label>
+                                                                <label *ngIf="order.status == 0" style="margin-right: 17px;"> Confirming </label>
+                                                                <label *ngIf="order.status == 1" style="margin-right: 17px;"> Delivering </label>
                                                                 <label *ngIf="order.status == 2" style="margin-right: 17px;"> Delivered </label>
+                                                                <label *ngIf="order.status == 3" style="margin-right: 17px;"> Cancelled </label>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -78,7 +78,6 @@
                         </div>
                         <div class="tab-pane fade" id="Confirming" role="tabpanel">
                             <div class="row">
-                                <div>Tab Confirming</div>
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-body">
@@ -93,16 +92,17 @@
                                                             <th>Status</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody *ngFor="let order of orders">
-                                                        <tr>
+                                                    <tbody *ngFor="let order of listConfirmingOrders">
+                                                        <tr routerLink="../order-detail/{{order.id}}">
                                                             <td>{{order.dateOfOrder}}</td>
                                                             <td>{{order.lastNameOfReceiver}} {{order.firstNameOfReceiver}}</td>
                                                             <td>{{order.addressOfReceiver}}</td>
                                                             <td>{{order.phoneOfReceiver}}</td>
                                                             <td>
-                                                                <label *ngIf="order.status == 0" style="margin-right: 17px;"> Unconfirmed </label>
-                                                                <label *ngIf="order.status == 1" style="margin-right: 17px;"> Confirmed </label>
+                                                                <label *ngIf="order.status == 0" style="margin-right: 17px;"> Confirming </label>
+                                                                <label *ngIf="order.status == 1" style="margin-right: 17px;"> Delivering </label>
                                                                 <label *ngIf="order.status == 2" style="margin-right: 17px;"> Delivered </label>
+                                                                <label *ngIf="order.status == 3" style="margin-right: 17px;"> Cancelled </label>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -115,7 +115,6 @@
                         </div>
                         <div class="tab-pane fade" id="Delivering" role="tabpanel">
                             <div class="row">
-                                <div>Tab Delivering</div>
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-body">
@@ -130,16 +129,17 @@
                                                             <th>Status</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody *ngFor="let order of orders">
-                                                        <tr>
+                                                    <tbody *ngFor="let order of listDeliveringOrders">
+                                                        <tr routerLink="../order-detail/{{order.id}}">
                                                             <td>{{order.dateOfOrder}}</td>
                                                             <td>{{order.lastNameOfReceiver}} {{order.firstNameOfReceiver}}</td>
                                                             <td>{{order.addressOfReceiver}}</td>
                                                             <td>{{order.phoneOfReceiver}}</td>
                                                             <td>
-                                                                <label *ngIf="order.status == 0" style="margin-right: 17px;"> Unconfirmed </label>
-                                                                <label *ngIf="order.status == 1" style="margin-right: 17px;"> Confirmed </label>
+                                                                <label *ngIf="order.status == 0" style="margin-right: 17px;"> Confirming </label>
+                                                                <label *ngIf="order.status == 1" style="margin-right: 17px;"> Delivering </label>
                                                                 <label *ngIf="order.status == 2" style="margin-right: 17px;"> Delivered </label>
+                                                                <label *ngIf="order.status == 3" style="margin-right: 17px;"> Cancelled </label>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -152,7 +152,6 @@
                         </div>
                         <div class="tab-pane fade" id="Delivered" role="tabpanel">
                             <div class="row">
-                                <div>Tab Delivered</div>
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-body">
@@ -167,16 +166,17 @@
                                                             <th>Status</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody *ngFor="let order of orders">
-                                                        <tr>
+                                                    <tbody *ngFor="let order of listDeliveredOrders">
+                                                        <tr routerLink="../order-detail/{{order.id}}">
                                                             <td>{{order.dateOfOrder}}</td>
                                                             <td>{{order.lastNameOfReceiver}} {{order.firstNameOfReceiver}}</td>
                                                             <td>{{order.addressOfReceiver}}</td>
                                                             <td>{{order.phoneOfReceiver}}</td>
                                                             <td>
-                                                                <label *ngIf="order.status == 0" style="margin-right: 17px;"> Unconfirmed </label>
-                                                                <label *ngIf="order.status == 1" style="margin-right: 17px;"> Confirmed </label>
+                                                                <label *ngIf="order.status == 0" style="margin-right: 17px;"> Confirming </label>
+                                                                <label *ngIf="order.status == 1" style="margin-right: 17px;"> Delivering </label>
                                                                 <label *ngIf="order.status == 2" style="margin-right: 17px;"> Delivered </label>
+                                                                <label *ngIf="order.status == 3" style="margin-right: 17px;"> Cancelled </label>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -189,7 +189,6 @@
                         </div>
                         <div class="tab-pane fade" id="Cancelled" role="tabpanel">
                             <div class="row">
-                                <div>Tab Cancelled</div>
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-body">
@@ -204,16 +203,17 @@
                                                             <th>Status</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody *ngFor="let order of orders">
-                                                        <tr>
+                                                    <tbody *ngFor="let order of listCancelledOrders">
+                                                        <tr routerLink="../order-detail/{{order.id}}">
                                                             <td>{{order.dateOfOrder}}</td>
                                                             <td>{{order.lastNameOfReceiver}} {{order.firstNameOfReceiver}}</td>
                                                             <td>{{order.addressOfReceiver}}</td>
                                                             <td>{{order.phoneOfReceiver}}</td>
                                                             <td>
-                                                                <label *ngIf="order.status == 0" style="margin-right: 17px;"> Unconfirmed </label>
-                                                                <label *ngIf="order.status == 1" style="margin-right: 17px;"> Confirmed </label>
+                                                                <label *ngIf="order.status == 0" style="margin-right: 17px;"> Confirming </label>
+                                                                <label *ngIf="order.status == 1" style="margin-right: 17px;"> Delivering </label>
                                                                 <label *ngIf="order.status == 2" style="margin-right: 17px;"> Delivered </label>
+                                                                <label *ngIf="order.status == 3" style="margin-right: 17px;"> Cancelled </label>
                                                             </td>
                                                         </tr>
                                                     </tbody>

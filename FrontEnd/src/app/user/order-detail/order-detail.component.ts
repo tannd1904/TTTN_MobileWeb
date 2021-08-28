@@ -70,4 +70,30 @@ export class OrderDetailComponent implements OnInit {
       }
     );
   }
+
+  receiveOrder(id: number) {
+    this.token = this.tokenStorageService.getToken();
+    this.orderService.receiveOrder(this.token, id).subscribe(
+      (data: Response) => {
+        var message = data.message;
+        console.log(message);
+        window.location.reload();
+      }, (err) => {
+        console.log(err);
+      }
+    )
+  }
+
+  cancelOrder(id: number) {
+    this.token = this.tokenStorageService.getToken();
+    this.orderService.cancelOrderByUser(this.token, id).subscribe(
+      (data: Response) => {
+        var message = data.message;
+        console.log(message);
+        window.location.reload();
+      }, (err) => {
+        console.log(err);
+      }
+    )
+  }
 }

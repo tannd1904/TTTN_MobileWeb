@@ -24,6 +24,15 @@ export class OrderService extends AbstracService {
                     catchError(this.handleError));
   }
 
+  getAllOrdersByUserId(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<Order[]>(API_URL + 'order/' + 'get-by-user-id/' + id, { headers: headers})
+                  .pipe(
+                    retry(3), 
+                    catchError(this.handleError));
+  }
+
   getOrderById(token: String, id: number): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
@@ -80,6 +89,38 @@ export class OrderService extends AbstracService {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
     return this.http.post(API_URL + 'order-detail/' + 'add-list', listOrderDetail, {headers: headers})
+                  .pipe(
+                    catchError(this.handleError));
+  }
+
+  confirmOrder(token: String, id: number, employeeId: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.put(API_URL + 'order/' + 'confirm/' + id + '/' + employeeId, {headers: headers})
+                  .pipe(
+                    catchError(this.handleError));
+  }
+
+  receiveOrder(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.put(API_URL + 'order/' + 'receive/' + id , {headers: headers})
+                  .pipe(
+                    catchError(this.handleError));
+  }
+
+  cancelOrder(token: String, id: number, employeeId: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.put(API_URL + 'order/' + 'cancel/' + id + '/' + employeeId, {headers: headers})
+                  .pipe(
+                    catchError(this.handleError));
+  }
+
+  cancelOrderByUser(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.put(API_URL + 'order/' + 'cancel/' + id, {headers: headers})
                   .pipe(
                     catchError(this.handleError));
   }

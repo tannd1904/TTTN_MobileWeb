@@ -7,6 +7,7 @@ import com.tannd.commercemanager.maper.helper.CycleAvoidingMappingContext;
 import com.tannd.commercemanager.message.response.CustomResponse;
 import com.tannd.commercemanager.model.Invoice;
 import com.tannd.commercemanager.model.Order;
+import com.tannd.commercemanager.services.EmployeeService;
 import com.tannd.commercemanager.services.InvoiceService;
 import com.tannd.commercemanager.services.OrderService;
 import com.tannd.commercemanager.services.UserService;
@@ -48,15 +49,22 @@ public class OrderController extends AbstractController<OrderService, OrderMappe
     }
 
     @GetMapping("/get-all")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> getAllOrders() {
         return getAll();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')  or hasRole('ADMIN')")
     public ResponseEntity<?> getOrderById(@PathVariable Long id) {
         return getById(id);
+    }
+
+    @GetMapping("/get-by-user-id/{id}")
+    @PreAuthorize("hasRole('USER')  or hasRole('ADMIN')")
+    public ResponseEntity<?> getOrderByUserId(@PathVariable Long id) {
+        return ResponseEntity.ok().body(new CustomResponse(200, "Request Get Order By User Id Ok"
+                , getService().getByUserId(id)));
     }
 
     @Autowired
@@ -78,6 +86,61 @@ public class OrderController extends AbstractController<OrderService, OrderMappe
         }
         OrderDTO response = getMapper().toDto(entity, new CycleAvoidingMappingContext());
         return ResponseEntity.ok().body(new CustomResponse(200, "Request Post Ok"
+                , response));
+    }
+
+    @Autowired
+    EmployeeService employeeService;
+
+    @Transactional
+    @PutMapping("/confirm/{id}/{employeeId}")
+//    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> confirmOrder(@PathVariable Long id, @PathVariable Long employeeId) {
+        var order = getService().findEntityById(id);
+        order.setEmployee(employeeService.findEntityById(employeeId));
+        order.setStatus(1);
+        var response = getMapper().toDto(order, new CycleAvoidingMappingContext());
+        return ResponseEntity.ok().body(new CustomResponse(200, "Request Confirm Order Ok"
+                , response));
+    }
+
+    @Transactional
+    @PutMapping("/receive/{id}")
+//    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> receiveOrder(@PathVariable Long id) {
+        var order = getService().findEntityById(id);
+        order.setStatus(2);
+        var response = getMapper().toDto(order, new CycleAvoidingMappingContext());
+        return ResponseEntity.ok().body(new CustomResponse(200, "Request Receive Order Ok"
+                , response));
+    }
+
+    @Transactional
+    @PutMapping("/cancel/{id}/{employeeId}")
+//    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> cancelOrder(@PathVariable Long id, @PathVariable Long employeeId) {
+        var order = getService().findEntityById(id);
+        order.setEmployee(employeeService.findEntityById(employeeId));
+        order.setStatus(3);
+        order.getListOrderDetails().stream().forEach(s -> {
+            s.getProductDetail().setStatus(false);
+        });
+        var response = getMapper().toDto(order, new CycleAvoidingMappingContext());
+        return ResponseEntity.ok().body(new CustomResponse(200, "Request Cancel Order Order Ok"
+                , response));
+    }
+
+    @Transactional
+    @PutMapping("/cancel/{id}")
+//    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> userCancelOrder(@PathVariable Long id) {
+        var order = getService().findEntityById(id);
+        order.setStatus(3);
+        order.getListOrderDetails().stream().forEach(s -> {
+            s.getProductDetail().setStatus(false);
+        });
+        var response = getMapper().toDto(order, new CycleAvoidingMappingContext());
+        return ResponseEntity.ok().body(new CustomResponse(200, "Request Cancel Order Order Ok"
                 , response));
     }
 }

@@ -11,6 +11,7 @@ export class Order {
     status!: number;
     userId!: number;
     employeeId!: number;
+    employee!: any;
     listOrderDetails!: any;
     returnId!: any;
     invoice!: any;

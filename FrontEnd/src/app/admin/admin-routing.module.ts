@@ -9,6 +9,8 @@ import { AddInventoryReceivingVoucherDetailComponent } from './import-voucher/ad
 import { ProductComponent } from './product/list_product/product.component';
 import { ProductDetailComponent } from './product/product-detail/product-detail.component';
 import { ListComponent } from './import-voucher/list/list.component';
+import { OrderListComponent } from './order/order-list/order-list.component';
+import { OrderDetailComponent } from './order/order-detail/order-detail.component';
 
 const routes: Routes = [
   { path: 'admin', component: AdminComponent, 
@@ -21,6 +23,8 @@ const routes: Routes = [
         {path: 'inventory', component: ListComponent },
         {path: 'inventory/add', component: AddInventoryReceivingVoucherDetailComponent },
         {path: 'products/product/:id', component: ProductDetailComponent },
+        { path: 'list-orders', component: OrderListComponent},
+        { path: 'order-detail/:id', component: OrderDetailComponent},
         // { path: '**', component: PageNotFoundComponent}
       ]}
 ];

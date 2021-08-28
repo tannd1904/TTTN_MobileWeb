@@ -46,8 +46,11 @@
                     </table>
                 </div>
                 <div class="row">
-                    <div *ngIf="order.status == 0" class="col-md-8 mt-20">
-                        <button class="btn btn-danger">Cancel Order</button>
+                    <div *ngIf="order.status == 0" class="col-md-6 mt-20">
+                        <button (click)="cancelOrder(order.id)" class="btn btn-danger">Cancel Order</button>
+                    </div>
+                    <div *ngIf="order.status == 1" class="col-md-6 mt-20">
+                        <button (click)="receiveOrder(order.id)" class="btn btn-primary">Have Received</button>
                     </div>
                     <div class="col-md-8 ml-auto">
                         <div class="cart-page-total">

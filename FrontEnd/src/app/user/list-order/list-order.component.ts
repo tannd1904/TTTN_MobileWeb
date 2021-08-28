@@ -12,7 +12,12 @@ import { TokenStorageService } from 'src/app/service/token-storage.service';
 })
 export class ListOrderComponent implements OnInit {
   page: number = 6;
+  user!: any;
   orders: Array<Order> = [];
+  listConfirmingOrders: Array<Order> = [];
+  listDeliveringOrders: Array<Order> = [];
+  listDeliveredOrders: Array<Order> = [];
+  listCancelledOrders: Array<Order> = [];
   token: any;
 
   constructor(
@@ -23,14 +28,19 @@ export class ListOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.pageService.changePage(this.page);
-    this.getAllOrder();
+    this.user = this.tokenStorageService.getUser();
+    this.getAllOrder(this.user.id);
   }
 
-  getAllOrder() {
+  getAllOrder(id: number) {
     this.token = this.tokenStorageService.getToken();
-    this.orderService.getAllOrders(this.token).subscribe(
+    this.orderService.getAllOrdersByUserId(this.token, id).subscribe(
       (data: Response) => {
         this.orders = data.data;
+        this.listConfirmingOrders = this.orders.filter(x => x.status == 0);
+        this.listDeliveringOrders = this.orders.filter(x => x.status == 1);
+        this.listDeliveredOrders = this.orders.filter(x => x.status == 2);
+        this.listCancelledOrders = this.orders.filter(x => x.status == 3);
       },
       (error) => {
         console.log(error);

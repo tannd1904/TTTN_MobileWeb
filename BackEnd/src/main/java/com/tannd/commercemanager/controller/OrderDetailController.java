@@ -52,19 +52,19 @@ public class OrderDetailController extends
     }
 
     @GetMapping("/get-all")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')  or hasRole('ADMIN')")
     public ResponseEntity<?> getAllOrders() {
         return getAll();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> getOrderById(@PathVariable Long id) {
         return getById(id);
     }
 
     @GetMapping("/by-order-id/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> getOrderByOrderId(@PathVariable Long id) {
         return ResponseEntity.ok().body(new CustomResponse(200, "Get Order Detail By Order Id",
                 (getService().getByOrderId(id))));
