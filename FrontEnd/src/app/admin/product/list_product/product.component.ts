@@ -1,8 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Category } from 'src/app/model/category';
 import { Product } from 'src/app/model/product';
 import { Provider } from 'src/app/model/provider';
@@ -28,8 +29,11 @@ export class ProductComponent implements OnInit {
   active: number = 2;
   token: any;
   categories: Array<Category> = [];
+  productId!: number;
+  product = new Product();
   products: Array<Product> = [];
   dataForm!: FormGroup;
+  editForm!: FormGroup;
   submitted = false;
   toggleDeleteBtn = true;
   deleteId!: number;
@@ -38,17 +42,19 @@ export class ProductComponent implements OnInit {
   imageFile: any;
   imagePath!: any;
 
-  types = ['New', 'Like New', 'Second Hand', 'Old'];
+  types = ['New', '99%', 'Second Hand', 'Old'];
 
   constructor(private router: Router, private fb: FormBuilder, 
     private activeService: ActiveService, private tokenStorageService: TokenStorageService, 
     private providerService: ProviderService, private categoryService: CategoryService,
-    private productService: ProductService) { }
+    private productService: ProductService, private http: HttpClient,) { }
 
   ngOnInit(): void {
     this.activeService.changeActive(this.active);
     this.dtOptions = {
       pagingType: 'full_numbers',
+      pageLength: 5,
+      lengthMenu: [5,10,20,50,100],
       processing: true,
     };
     this.getCategory();
@@ -66,9 +72,40 @@ export class ProductComponent implements OnInit {
       categoryId: ['', [Validators.required]], 
       image: [], 
     })
+
+    this.editForm = this.fb.group({
+      id: [{value: '', disabled: true}, [Validators.required]],
+      name: [{value: '', disabled: true}, [Validators.required]],  
+      price: ['', [Validators.required]], 
+      type: [{value: '', disabled: true}, [Validators.required]], 
+      status:  ['', [Validators.required]],
+      description: ['', [Validators.required]],  
+      categoryId: [{value: '', disabled: true}, [Validators.required]], 
+      image: [], 
+    })
+  }
+
+  editProduct(id: number) {    
+    this.productService.getProductById(this.token, id)
+      .subscribe((data: Response) => {
+        this.product = data.data;
+        console.log(this.product);
+        this.editForm.patchValue({
+          id: this.product.id,
+          name: this.product.name,
+          price: this.product.price,
+          type: this.product.type,
+          status: this.product.status,
+          description: this.product.description,
+          categoryId: this.product.categoryId,
+          image: this.product.image,
+        })
+      })
   }
 
   get f() { return this.dataForm.controls; }
+
+  get ef() { return this.editForm.controls; }
 
   getCategory(){
     this.token = this.tokenStorageService.getToken();
@@ -93,12 +130,28 @@ export class ProductComponent implements OnInit {
     this.addProduct();
   }
 
+  onSubmitEdit() {
+    this.submitted = true;
+    console.log(this.dataForm.value);
+    if(this.editForm.invalid){
+      console.log("aaa");
+      return;
+    }
+    this.completeEditProduct();
+  }
+
   getProduct(){
     this.token = this.tokenStorageService.getToken();
     this.productService.getProduct(this.token)
         .subscribe(
           (data: Response) => {
             this.products = data.data;
+            this.products.forEach(s => {
+              this.productService.countProductDetailByProductId(this.token, s.id)
+                .subscribe((data: Response) => {
+                  s.quantity = data.data;
+                })
+            })
             this.dtTrigger.next();
             console.log(this.products);
           },
@@ -121,14 +174,58 @@ export class ProductComponent implements OnInit {
       var reader = new FileReader();
       this.imagePath = file;
       console.log(this.imageFile);
-      console.log(JSON.stringify(this.imageFile));
-      console.log(JSON.stringify(this.imagePath));
       reader.readAsDataURL(file);
       reader.onload = (_event) => {
         this.imgURL = reader.result;
         console.log(this.imgURL);
       }
     }
+  }
+
+  completeEditProduct(){
+    this.token = this.tokenStorageService.getToken();
+    let formData = new FormData();
+    let product = new Product();
+    product.id = this.ef.id.value;
+    product.name = this.ef.name.value;
+    product.type = this.ef.type.value;
+    product.price = this.ef.price.value;
+    product.description = this.ef.description.value;
+    product.status = this.ef.status.value;
+    product.categoryId = this.ef.categoryId.value;
+    console.log(this.imageFile);
+    console.log(product);
+    if (this.imageFile != null) {
+      formData.append('file', this.imageFile);
+      formData.append('product', JSON.stringify(product));
+      this.productService.editProduct(this.token, this.product.id, formData)
+        .subscribe(
+          (data: Response) => {
+            if (data.status !== 200) {
+              this.message = "*" + data.message;
+            } else {
+              this.reloadPage();
+            }
+          },
+          error => {
+            console.log(error);
+          });
+    } else {
+      product.image = this.product.image;
+      formData.append('product', JSON.stringify(product));
+      this.productService.editProductWithoutImage(this.token, this.product.id, formData)
+        .subscribe(
+          (data: Response) => {
+            if (data.status !== 200) {
+              this.message = "*" + data.message;
+            } else {
+              this.reloadPage();
+            }
+          },
+          error => {
+            console.log(error);
+          });
+    }    
   }
 
   addProduct(){
@@ -151,7 +248,7 @@ export class ProductComponent implements OnInit {
             if (data.status !== 200) {
               this.message = "*" + data.message;
             } else {
-              this.ngOnInit();
+              this.reloadPage();
             }
           },
           error => {

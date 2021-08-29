@@ -19,7 +19,10 @@
           <div class="box-header">
             <h3 class="box-title">Hover Data Table</h3>
             <div class="col-sm-4 col-7 text-right m-b-30" style="float: right;">
-              <a class="btn btn-primary btn-rounded float-right" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-plus"></i> Add product</a>
+              <a class="btn btn-primary btn-rounded float-right"
+                data-toggle="modal" data-target="#exampleModalCenter">
+                <i class="fa fa-plus"></i> Add product
+              </a>
             </div>
           </div>
           <!-- /.box-header -->
@@ -33,6 +36,7 @@
                   <th>Price</th>
                   <th>Type</th>
                   <th>Status</th>
+                  <th>Quantity</th>
                   <th>Image</th>
                   <th class="text-right">Actions</th>
                 </tr>
@@ -46,6 +50,7 @@
                   <td routerLink="product/{{product.id}}" *ngIf="product.status === 1">On Sales</td>
                   <td routerLink="product/{{product.id}}" *ngIf="product.status === 0">Out of stock</td>
                   <td routerLink="product/{{product.id}}" *ngIf="product.status === 2">Coming Soon</td>
+                  <td routerLink="product/{{product.id}}">{{product.quantity}}</td>
                   <td routerLink="product/{{product.id}}">
                     <img height="100px" width="auto" src="http://localhost:8080/api/image/{{product.id}}" 
                           alt="product-image">
@@ -54,8 +59,18 @@
                     <div class="dropdown dropdown-action">
                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_expense"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                            <a class="dropdown-item" 
+                              data-toggle="modal" data-target="#saleOffModal">
+                              <i class="fa fa-level-down m-r-5"></i> Sale
+                            </a>
+                            <a class="dropdown-item" (click)="editProduct(product.id)"
+                              data-toggle="modal" data-target="#editModalCenter">
+                              <i class="fa fa-pencil m-r-5"></i> Edit
+                            </a>
+                            <a class="dropdown-item" href="#" 
+                              data-toggle="modal" data-target="#delete_expense">
+                              <i class="fa fa-trash-o m-r-5"></i> Delete
+                            </a>
                         </div>
                     </div>
                   </td>
@@ -196,3 +211,139 @@
         </div>
     </div>
 </form> 
+
+<form [formGroup]="this.editForm" (ngSubmit)="onSubmitEdit()">
+  <div class="modal fade modal-wrapper" id="editModalCenter">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+
+          <div class="modal-content mt-120">
+              <div class="modal-body">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <h2 class="text-center">EDIT PRODUCT</h2>
+                      </div>
+                  </div>
+                  <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                              <label>Category:</label>
+                              <select formControlName="categoryId" class="form-control">
+                                  <option *ngFor="let category of categories" [ngValue]="category.id">
+                                      {{category.name}}
+                                    </option>
+                          </select>
+                              <div *ngIf="submitted && ef.categoryId.errors">
+                                  <div *ngIf="ef.categoryId.errors.required" class="errors"> * Category is required</div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-6">
+                          <div class="form-group">
+                              <label>Status:</label>
+                              <select formControlName="status" class="form-control">
+                              <option value="1">On Sale</option>
+                              <option value="0">Out of stock</option>
+                              <option value="2">Coming Soon</option>
+                          </select>
+                              <div *ngIf="submitted && ef.status.errors">
+                                  <div *ngIf="ef.status.errors.required" class="errors"> * Status is required</div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>ID: </label>
+                            <input placeholder="" class="form-control" type="text" formControlName="id">
+                            <div *ngIf="submitted && ef.id.errors">
+                                <div *ngIf="ef.id.errors.required" class="errors"> * ID is required</div>
+                            </div>
+                        </div>
+                    </div>
+                      <div class="col-sm-6">
+                          <div class="form-group">
+                              <label>Name: </label>
+                              <input placeholder="" class="form-control" type="text" formControlName="name">
+                              <div *ngIf="submitted && ef.name.errors">
+                                  <div *ngIf="ef.name.errors.required" class="errors"> * Name is required</div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Type: </label>
+                            <select formControlName="type" class="select">
+                              <option *ngFor="let option of types" [ngValue]="option">
+                                  {{option}}
+                              </option>
+                            </select>
+                            <div *ngIf="submitted && ef.type.errors">
+                                <div *ngIf="ef.type.errors.required" class="errors"> * Type is required</div>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Price: </label>
+                            <input placeholder="" class="form-control" type="text" formControlName="price">
+                            <div *ngIf="submitted && ef.price.errors">
+                                <div *ngIf="ef.price.errors.required" class="errors"> * Price is required</div>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12">
+                          <div class="form-group">
+                              <label>Description: </label>
+                              <textarea class="form-control" rows="5" formControlName="description"></textarea>
+                              <div *ngIf="submitted && ef.description.errors">
+                                  <div *ngIf="ef.description.errors.required" class="errors"> * Description is required</div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Image:</label>
+                          <input class="form-control" type="file" accept="image/*" (change)="onSelectFile($event)">
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <img *ngIf="!imgURL" height="100" src="http://localhost:8080/api/image/{{product.id}}" alt="">
+                      <img [src]="imgURL" height="100" *ngIf="imgURL">
+                    </div>
+                  </div>
+                  
+                  <div class="m-t-20 text-center">
+                    <h4 style="color: red;">{{message}}</h4>  
+                    <button class="btn btn-primary submit-btn btn-rounded" type="submit">EDIT</button>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+  </div>
+</form>
+
+<form [formGroup]="this.editForm" (ngSubmit)="onSubmitEdit()">
+  <div class="modal fade modal-wrapper" id="saleOffModal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+
+          <div class="modal-content mt-120">
+              <div class="modal-body">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <h2 class="text-center">SALE OFF</h2>
+                      </div>
+                  </div>
+                  
+                  
+                  <div class="m-t-20 text-center">
+                    <h4 style="color: red;">{{message}}</h4>  
+                    <button class="btn btn-primary submit-btn btn-rounded" type="submit">EDIT</button>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+  </div>
+</form>

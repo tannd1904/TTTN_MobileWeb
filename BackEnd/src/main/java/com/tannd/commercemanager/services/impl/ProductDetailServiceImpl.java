@@ -77,6 +77,17 @@ public class ProductDetailServiceImpl extends
     }
 
     @Override
+    public List<ProductDetailDTO> getAllProductDetailByProductId(Long id) {
+        List<ProductDetail> listEntity = getRepository().findAllProductDetailByProductId(id);
+        System.out.println(listEntity.toString());
+        List<ProductDetailDTO> list = new ArrayList<>();
+        listEntity.stream().forEach(product -> {
+            list.add(getMapper().toDto(product, new CycleAvoidingMappingContext()));
+        });
+        return list;
+    }
+
+    @Override
     public List<ProductDetailDTO> getProductDetailByProductIdAndDetail(Long id, String ram, String color, String memmory) {
         List<ProductDetail> listEntity = getRepository()
                 .findProductDetailByProductIdAndDetail(id, ram, color, memmory);

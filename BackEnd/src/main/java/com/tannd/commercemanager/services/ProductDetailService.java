@@ -8,6 +8,7 @@ import java.util.List;
 public interface ProductDetailService extends AbstractService<ProductDetailDTO, ProductDetail> {
 //    public List<ProductDetailDTO> getAllProductDetail(String productId) throws ResourceNotFoundException;
     List<ProductDetailDTO> getProductDetailByProductId(Long id);
+    List<ProductDetailDTO> getAllProductDetailByProductId(Long id);
     List<ProductDetailDTO> getProductDetailByProductIdAndDetail(Long id,
                                             String ram, String color, String memmory);
     List<ProductDetail> getProductDetailEntityByProductIdAndDetail(Long id,

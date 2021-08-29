@@ -15,7 +15,7 @@ import lombok.ToString;
 public class ProductRequest {
 
     private static final long serialVersionUID = 1L;
-
+    private Long id;
     private String name;
     private Integer status;
     private String type;

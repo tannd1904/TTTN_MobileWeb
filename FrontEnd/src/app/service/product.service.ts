@@ -25,11 +25,36 @@ export class ProductService extends AbstracService {
                     catchError(this.handleError));
   }
 
+  editProduct(token: String, id: number, formData: FormData): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.put<Product>(API_URL + 'product/' + 'edit-product/' + id , formData, { headers: headers})
+                  .pipe(
+                    catchError(this.handleError));
+  }
+
+  editProductWithoutImage(token: String, id: number, formData: FormData): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.put<Product>(API_URL + 'product/' + 'edit-product-2/' + id , formData, { headers: headers})
+                  .pipe(
+                    catchError(this.handleError));
+  }
+
   deleteProduct(token: String, id: number): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
     return this.http.delete<Product>(API_URL + 'product/' + id, { headers: headers})
                   .pipe(
+                    catchError(this.handleError));
+  }
+
+  getProductImage(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get(API_URL + 'image/' + id , { headers: headers})
+                  .pipe(
+                    retry(3), 
                     catchError(this.handleError));
   }
 
@@ -99,6 +124,15 @@ export class ProductService extends AbstracService {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
     return this.http.get<ProductDetail>(API_URL + 'product-detail/' + 'get-by-product-id/' + id, { headers: headers})
+                  .pipe(
+                    retry(3), 
+                    catchError(this.handleError));
+  }
+
+  getAllProductDetailByProductId(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<ProductDetail>(API_URL + 'product-detail/' + 'get-all-by-product-id/' + id, { headers: headers})
                   .pipe(
                     retry(3), 
                     catchError(this.handleError));

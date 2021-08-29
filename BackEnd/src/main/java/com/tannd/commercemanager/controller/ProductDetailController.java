@@ -82,6 +82,12 @@ public class ProductDetailController extends AbstractController<ProductDetailSer
                 (getService().getProductDetailByProductId(id))));
     }
 
+    @GetMapping("/get-all-by-product-id/{id}")
+    public ResponseEntity<?> getAllProductDetailByProductId(@PathVariable Long id) {
+        return ResponseEntity.ok().body(new CustomResponse(200, "Get Product Detail By Product Id",
+                (getService().getAllProductDetailByProductId(id))));
+    }
+
     @GetMapping("/get-same-detail/{id}/{ram}/{color}/{memmory}")
     public ResponseEntity<?> getProductDetailByProductIdAndDetail(
             @PathVariable("id") Long id, @PathVariable("ram") String ram,

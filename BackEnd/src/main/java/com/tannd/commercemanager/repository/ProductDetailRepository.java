@@ -25,6 +25,14 @@ public interface ProductDetailRepository extends AbstractRepository<ProductDetai
             "inner join ct_phieunhap cp " +
             "on cp.MACTPN = s.MACTPN " +
             "inner join dongsp d " +
+            "on d.MADONGSP = cp.MADONGSP and d.MADONGSP = :productId ", nativeQuery = true)
+    List<ProductDetail> findAllProductDetailByProductId(@Param("productId") Long productId);
+
+    @Query(value = "select s.* " +
+            "from sanpham s " +
+            "inner join ct_phieunhap cp " +
+            "on cp.MACTPN = s.MACTPN " +
+            "inner join dongsp d " +
             "on d.MADONGSP = cp.MADONGSP and d.MADONGSP = :productId " +
             "where s.TRANGTHAI = 0 " +
             "and (s.RAM = :ram " +

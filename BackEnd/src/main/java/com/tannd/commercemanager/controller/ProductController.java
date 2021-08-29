@@ -134,6 +134,7 @@ public class ProductController
         entity.setImage(newFileName);
         entity.setDescription(dto.getDescription());
         entity.setType(dto.getType());
+        entity.setPromotion(0.0);
         var category = categoryService.findEntityById(dto.getCategoryId());
         entity.setCategory(category);
         try {
@@ -147,6 +148,81 @@ public class ProductController
 //        response.setId(entity.getId()).setName(entity.getName()).setDescription(entity.getDescription())
 //                .setPrice(entity.getPrice()).setImage(entity.getImage()).setStatus(entity.getStatus())
 //                .setType(entity.getType()).setCategoryId(entity.getCategory().getId());
+        ProductDTO response = getMapper().toDtoWithoutList(entity, new CycleAvoidingMappingContext());
+        System.out.println(response);
+        return ResponseEntity.ok(new CustomResponse(200, "Request Post OK",
+                response));
+    }
+
+    @Transactional
+    @PutMapping("/edit-product/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> editProduct(@PathVariable Long id, @RequestParam("file") MultipartFile file,
+                                           @RequestParam("product") String product) throws JsonProcessingException {
+        ProductRequest dto = new ObjectMapper().readValue(product, ProductRequest.class);
+        System.out.println("Edit Product Begin...");
+        System.out.println(dto.toString());
+        String newFileName = "";
+
+        if (!file.isEmpty()) {
+            boolean isExit = new File(context.getRealPath("/Images/Product")).exists();
+            if (!isExit)
+            {
+                new File (context.getRealPath("/Images/Product")).mkdir();
+                System.out.println("mk dir.............");
+            }
+            String filename = file.getOriginalFilename();
+            newFileName = FilenameUtils.getBaseName(filename)+"."+FilenameUtils.getExtension(filename);
+            File serverFile = new File (context.getRealPath("/Images/Product"+File.separator+newFileName));
+            try
+            {
+                System.out.println("Image");
+                FileUtils.writeByteArrayToFile(serverFile,file.getBytes());
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            newFileName = dto.getImage();
+        }
+
+        Product entity = getService().findEntityById(dto.getId());
+        entity.setName(dto.getName());
+        entity.setPrice(dto.getPrice());
+        entity.setStatus(dto.getStatus());
+        entity.setImage(newFileName);
+        entity.setDescription(dto.getDescription());
+        entity.setType(dto.getType());
+        var category = categoryService.findEntityById(dto.getCategoryId());
+        entity.setCategory(category);
+
+        System.out.println(entity.toString());
+        ProductDTO response = getMapper().toDtoWithoutList(entity, new CycleAvoidingMappingContext());
+        System.out.println(response);
+        return ResponseEntity.ok(new CustomResponse(200, "Request Post OK",
+                response));
+    }
+
+    @Transactional
+    @PutMapping("/edit-product-2/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> editProductWithoutImage(@PathVariable Long id,
+                                         @RequestParam("product") String product) throws JsonProcessingException {
+        ProductRequest dto = new ObjectMapper().readValue(product, ProductRequest.class);
+        System.out.println("Edit Product Begin...");
+        System.out.println(dto.toString());
+        String newFileName = "";
+
+        Product entity = getService().findEntityById(dto.getId());
+        entity.setName(dto.getName());
+        entity.setPrice(dto.getPrice());
+        entity.setStatus(dto.getStatus());
+        entity.setImage(dto.getImage());
+        entity.setDescription(dto.getDescription());
+        entity.setType(dto.getType());
+        var category = categoryService.findEntityById(dto.getCategoryId());
+        entity.setCategory(category);
+
+        System.out.println(entity.toString());
         ProductDTO response = getMapper().toDtoWithoutList(entity, new CycleAvoidingMappingContext());
         System.out.println(response);
         return ResponseEntity.ok(new CustomResponse(200, "Request Post OK",
@@ -192,6 +268,7 @@ public class ProductController
         entity.setType(dto.getType());
         var category = categoryService.findEntityById(dto.getCategoryId());
         entity.setCategory(category);
+        entity.setPromotion(0.0);
         try {
             entity = getService().save(entity);
         } catch (Exception e) {

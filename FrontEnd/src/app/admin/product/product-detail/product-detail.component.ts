@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { Product } from 'src/app/model/product';
 import { ProductDetail } from 'src/app/model/product-detail';
+import { Response } from 'src/app/model/response';
 import { ProductDetailService } from 'src/app/service/product-detail.service';
+import { ProductService } from 'src/app/service/product.service';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
 
 @Component({
@@ -11,7 +15,11 @@ import { TokenStorageService } from 'src/app/service/token-storage.service';
   styleUrls: ['./product-detail.component.css'],
 })
 export class ProductDetailComponent implements OnInit {
-  productId: String = '';
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+
+  productId!: number;
+  product = new Product();
   token: any;
   imgURL: any;
   imageFile: any;
@@ -22,92 +30,46 @@ export class ProductDetailComponent implements OnInit {
   productDetails: Array<ProductDetail> = [];
 
   constructor(
-    private productDetailService: ProductDetailService,
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private tokenStorageService: TokenStorageService
+    private tokenStorageService: TokenStorageService,
+    private productService: ProductService,
   ) {}
 
   ngOnInit(): void {
     this.productId = this.route.snapshot.params['id'];
-    // this.getProductDetail(this.productId);
-    // this.infoForm();
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      lengthMenu: [5,10,20,50,100],
+      processing: true,
+    };
+    this.getProduct(this.productId);
+    this.getProductDetail(this.productId);
   }
 
-  infoForm() {
-    this.dataForm = this.fb.group({
-      quantity: ['', [Validators.required]],
-      price: ['', [Validators.required]],
-      sizeId: ['', [Validators.required]],
-      colorId: ['', [Validators.required]],
-      productId: this.productId,
-      image: [],
-    });
-  }
-
-  get f() {
-    return this.dataForm.controls;
-  }
-
-  onSubmit(): void {
-    this.submitted = true;
-    if (this.dataForm.invalid) {
-      return;
-    }
-    this.addProductDetail();
-  }
-
-  addProductDetail() {
+  getProduct(id: number) {
     this.token = this.tokenStorageService.getToken();
-    const productDetail = this.dataForm.value;
-    console.log(productDetail);
-    const formData = new FormData();
-    formData.append('productDetail', JSON.stringify(productDetail));
-    formData.append('file', this.imageFile);
-    // this.productDetailService
-    //   .createProductDetail(this.token, formData)
-    //   .subscribe(
-    //     (data) => {
-    //       this.reloadPage();
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    //   );
+    this.productService.getProductById(this.token, id)
+      .subscribe((data: Response) => {
+        this.product = data.data;
+      }, (err) => {
+        console.log(err);
+      })
   }
 
-  onSelectFile(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.imageFile = file;
-      // this.f['image'].setValue(file);
-
-      var mimeType = event.target.files[0].type;
-      if (mimeType.match(/image\/*/) == null) {
-        this.message = 'Only images are supported';
-        return;
-      }
-      var reader = new FileReader();
-      this.imagePath = file;
-      reader.readAsDataURL(file);
-      reader.onload = (_event) => {
-        this.imgURL = reader.result;
-        console.log(this.imgURL);
-      };
-    }
-  }
-
-  getProductDetail(productId: String) {
+  getProductDetail(id: number){
     this.token = this.tokenStorageService.getToken();
-    this.productDetailService.getProductDetail(this.token, productId).subscribe(
-      (data: ProductDetail[]) => {
-        this.productDetails = data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.productService.getAllProductDetailByProductId(this.token, id)
+        .subscribe(
+          (data: Response) => {
+            this.productDetails = data.data;
+            this.dtTrigger.next();
+          },
+          error => {
+            console.log(error);
+          });
   }
 
   reloadPage(): void {

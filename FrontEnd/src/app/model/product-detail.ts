@@ -14,5 +14,6 @@ export class ProductDetail {
     pin!: string;
     os!: string;
     note!: string;
+    status!: boolean;
     importVoucherDetailId!: number;
 }

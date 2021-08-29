@@ -18,4 +18,6 @@ export class Product {
     wishlists!: any;
     reviews!: any;
     productDetails: ProductDetail[] = [];
+    promotion!: any;
+    quantity!: number;
 }
