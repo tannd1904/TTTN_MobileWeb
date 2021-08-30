@@ -1,3 +1,5 @@
+import { Review } from "./review";
+
 export class Order {
     id!: number;
     firstNameOfReceiver!: string;
@@ -15,5 +17,5 @@ export class Order {
     listOrderDetails!: any;
     returnId!: any;
     invoice!: any;
-    reviewId!: any;
+    listReviews!: Array<Review>;
 }

@@ -10,14 +10,14 @@ import org.mapstruct.factory.Mappers;
 public interface ReviewMapper extends AbstractMapper<ReviewDTO, Review>{
     ReviewMapper INSTANCE = Mappers.getMapper(ReviewMapper.class);
 
-//    @Mappings({
-//            @Mapping(source = "user.id", target = "userId"),
-//            @Mapping(source = "product.id", target = "productId")
-//    })
-//    ReviewDTO toDtoWithAll(Review entity, @Context CycleAvoidingMappingContext context);
-//
-//    @Override
-//    default ReviewDTO toDto(Review entity, @Context CycleAvoidingMappingContext context) {
-//        return toDtoWithAll(entity, context);
-//    }
+    @Mappings({
+            @Mapping(source = "order.id", target = "orderId"),
+            @Mapping(source = "product.id", target = "productId")
+    })
+    ReviewDTO toDtoWithAll(Review entity, @Context CycleAvoidingMappingContext context);
+
+    @Override
+    default ReviewDTO toDto(Review entity, @Context CycleAvoidingMappingContext context) {
+        return toDtoWithAll(entity, context);
+    }
 }

@@ -3,6 +3,8 @@ package com.tannd.commercemanager.controller;
 import com.tannd.commercemanager.dto.OrderDTO;
 import com.tannd.commercemanager.dto.UserDTO;
 import com.tannd.commercemanager.maper.UserMapper;
+import com.tannd.commercemanager.maper.helper.CycleAvoidingMappingContext;
+import com.tannd.commercemanager.message.response.CustomResponse;
 import com.tannd.commercemanager.model.Order;
 import com.tannd.commercemanager.model.User;
 import com.tannd.commercemanager.services.OrderService;
@@ -12,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -58,5 +57,13 @@ public class UserController extends AbstractController<UserService, UserMapper, 
         String email = (String)inputData.get("email");
         Boolean bool = emailExistedValidator.emailExists(email);
         return ResponseEntity.status(HttpStatus.OK).body(bool);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {
+        var entity = getService().findEntityById(id);
+        var response = getMapper().toDto(entity, new CycleAvoidingMappingContext());
+        return ResponseEntity.ok().body(new CustomResponse(200, "Get User By Id " + id,
+                response));
     }
 }

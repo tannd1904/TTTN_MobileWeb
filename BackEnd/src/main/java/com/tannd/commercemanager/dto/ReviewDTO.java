@@ -18,7 +18,11 @@ public class ReviewDTO extends AbstractDTO {
 
     private String image;
 
+    private Integer rating;
+
     private Long orderId;
 
     private Long productId;
+
+    private Long userId;
 }

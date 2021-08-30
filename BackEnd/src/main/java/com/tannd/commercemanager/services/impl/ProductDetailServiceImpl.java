@@ -79,9 +79,26 @@ public class ProductDetailServiceImpl extends
     @Override
     public List<ProductDetailDTO> getAllProductDetailByProductId(Long id) {
         List<ProductDetail> listEntity = getRepository().findAllProductDetailByProductId(id);
+        List<ProductDetail> listCopy = new ArrayList<>();
+        int n = listEntity.size();
+        for (int i=1; i<n; i++) {
+            for (int j=0; j<i; j++) {
+                if (listEntity.get(i).getColor().equals(listEntity.get(j).getColor())) {
+                    if (listEntity.get(i).getRam().equals(listEntity.get(j).getRam())) {
+                        if (listEntity.get(i).getMemmory().equals(listEntity.get(j).getMemmory())) {
+                            listEntity.remove(i);
+                            n--;
+                            i--;
+                        }
+                    }
+                }
+            }
+        }
         System.out.println(listEntity.toString());
         List<ProductDetailDTO> list = new ArrayList<>();
         listEntity.stream().forEach(product -> {
+            product.setNote(product.getColor() + " - " + product.getRam() + " RAM - "
+                    + product.getMemmory());
             list.add(getMapper().toDto(product, new CycleAvoidingMappingContext()));
         });
         return list;

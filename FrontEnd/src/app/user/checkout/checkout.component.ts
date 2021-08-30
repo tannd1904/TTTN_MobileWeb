@@ -94,7 +94,7 @@ export class CheckoutComponent implements OnInit {
     ordeTemp.userId = this.user.id;
     ordeTemp.dateOfOrder = new Date();
     ordeTemp.status = 0;
-    ordeTemp.total = this.subTotal;
+    ordeTemp.total = this.subTotal * 1.1;
     console.log(ordeTemp);
     console.log(this.cart);
     this.createOrder(ordeTemp)

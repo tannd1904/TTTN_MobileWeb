@@ -28,7 +28,10 @@ public class Review extends AuditableEntity {
     @Column(name = "HINHANH")
     private String image;
 
-    @OneToOne
+    @Column(name = "MUCDO")
+    private Integer rating;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "MAPD")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

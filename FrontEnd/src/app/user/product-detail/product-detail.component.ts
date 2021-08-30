@@ -5,14 +5,17 @@ import { Cart } from 'src/app/cart';
 import { Product } from 'src/app/model/product';
 import { ProductDetail } from 'src/app/model/product-detail';
 import { Response } from 'src/app/model/response';
+import { User } from 'src/app/model/user';
 import { WishList } from 'src/app/model/wish-list';
 import { AuthService } from 'src/app/service/auth.service';
 import { CartService } from 'src/app/service/cart.service';
 import { CategoryService } from 'src/app/service/category.service';
 import { ClassBodyService } from 'src/app/service/class-body.service';
+import { OrderService } from 'src/app/service/order.service';
 import { PageService } from 'src/app/service/page.service';
 import { ProductService } from 'src/app/service/product.service';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -32,6 +35,7 @@ export class ProductDetailComponent implements OnInit {
   product!: Product;
   products: Array<Product> = [];
   wishList: Array<WishList> = [];
+  listUserReview: Array<User> = [];
   token!: string;
 
   cart = new Array<Cart>();
@@ -47,6 +51,8 @@ export class ProductDetailComponent implements OnInit {
     private authService: AuthService,
     private productService: ProductService,
     private categoryService: CategoryService,
+    private orderService: OrderService,
+    private userService: UserService,
     private cartService: CartService,
     private route: ActivatedRoute,
   ) {}
@@ -83,6 +89,17 @@ export class ProductDetailComponent implements OnInit {
               .subscribe((data: Response) => {
                 this.product.categoryName = data.data.name;
               })
+            this.productService.getReviewsByProductId(this.token, this.product.id)
+              .subscribe((data: Response) => {
+                this.product.reviews = data.data;
+                this.product.reviews.forEach(s => {
+                  this.userService.getUserById(this.token, s.userId)
+                    .subscribe((d: Response) => {
+                      s.user = d.data;
+                      this.listUserReview.push(d.data);
+                    })
+                })
+              })
           },
           error => {
             console.log(error);
@@ -94,13 +111,26 @@ export class ProductDetailComponent implements OnInit {
     this.productService.getProductDetailByProductId(this.token, id)
         .subscribe(
           (data: Response) => {
-            this.listProductDetail = data.data;
-            this.listProductDetail.forEach((s) => {
-              this.productDetailString.push(s.note);
-            })
-            this.selectedProductDetail = this.listProductDetail[0];
-            console.log(this.listProductDetail);
-            console.log(this.productDetailString);
+            if (data.data.length == 0) {
+              this.productService.getAllProductDetailByProductId(this.token, id)
+                .subscribe((data: Response) => {
+                  this.listProductDetail = data.data;
+                  this.listProductDetail.forEach((s) => {
+                    this.productDetailString.push(s.note);
+                  })
+                  this.selectedProductDetail = this.listProductDetail[0];
+                  console.log(this.listProductDetail);
+                  console.log(this.productDetailString);
+                })
+            } else {
+              this.listProductDetail = data.data;
+              this.listProductDetail.forEach((s) => {
+                this.productDetailString.push(s.note);
+              })
+              this.selectedProductDetail = this.listProductDetail[0];
+              console.log(this.listProductDetail);
+              console.log(this.productDetailString);
+            }
           },
           error => {
             console.log(error);

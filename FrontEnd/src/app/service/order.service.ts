@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Order } from '../model/order';
 import { OrderDetail } from '../model/order-detail';
+import { Review } from '../model/review';
 import { AbstracService } from './abstrac.service';
 
 const API_URL = 'http://localhost:8080/api/';
@@ -14,6 +15,14 @@ const API_URL = 'http://localhost:8080/api/';
 export class OrderService extends AbstracService {
 
   constructor(private http: HttpClient) { super() }
+
+  createReview(token: String, formData: FormData): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.post<Review>(API_URL + 'review/' + 'add-review', formData, { headers: headers})
+                  .pipe(
+                    catchError(this.handleError));
+  }
 
   getAllOrders(token: String): Observable<any> {
     let tokenStr = 'Bearer ' + token;

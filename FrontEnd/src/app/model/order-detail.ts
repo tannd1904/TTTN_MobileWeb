@@ -1,4 +1,5 @@
 import { NumberValueAccessor } from "@angular/forms";
+import { Product } from "./product";
 
 export class OrderDetail {
     id!: number;
@@ -7,5 +8,5 @@ export class OrderDetail {
     quantity!: number;
     orderId!: number;
     productId!: number;
-    product!: any;
+    product!: Product;
 }

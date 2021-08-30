@@ -72,6 +72,11 @@ public class Order extends AuditableEntity {
     @ToString.Exclude
     private Collection<OrderDetail> listOrderDetails;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Collection<Review> listReviews;
+
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
@@ -81,10 +86,5 @@ public class Order extends AuditableEntity {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Invoice invoice;
-
-    @OneToOne(mappedBy = "order")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Review review;
 
 }

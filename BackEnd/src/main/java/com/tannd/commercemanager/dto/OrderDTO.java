@@ -49,10 +49,10 @@ public class OrderDTO extends AbstractDTO {
 
     private List<OrderDetailDTO> listOrderDetails;
 
+    private List<ReviewDTO> listReviews;
+
     private Long returnId;
 
     private Long invoiceId;
-
-    private Long reviewId;
 
 }

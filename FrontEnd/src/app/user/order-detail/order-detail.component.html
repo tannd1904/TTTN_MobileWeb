@@ -52,6 +52,14 @@
                     <div *ngIf="order.status == 1" class="col-md-6 mt-20">
                         <button (click)="receiveOrder(order.id)" class="btn btn-primary">Have Received</button>
                     </div>
+                    <div *ngIf="order.status == 2 && order.listReviews?.length != listProduct?.length" class="col-md-6 mt-20">
+                        <button class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
+                            Review
+                        </button>
+                    </div>
+                    <div *ngIf="order.status == 2 && order.listReviews?.length == order.listOrderDetails?.length" class="col-md-6 mt-20">
+                        <button class="btn btn-success">See Review</button>
+                    </div>
                     <div class="col-md-8 ml-auto">
                         <div class="cart-page-total">
                             <h2>Totals</h2>
@@ -101,3 +109,142 @@
 </div>
 <!--Shopping Cart Area End-->
 
+<!-- Begin Quick View | Modal Area -->
+
+    <div class="modal fade modal-wrapper" id="exampleModalCenter">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="width: 80%; margin: auto;">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-30">
+                            <h2 class="text-center">REVIEW ORDER</h2>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Product:</label>
+                                <select formControlName="categoryId" class="form-control">
+                                    <option *ngFor="let product of listProduct" [ngValue]="product.id">
+                                        {{product.name}}
+                                      </option>
+                                </select>
+                                <div *ngIf="submitted && f.categoryId.errors">
+                                    <div *ngIf="f.categoryId.errors.required" class="errors"> * Category is required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Description: </label>
+                                <textarea class="form-control" rows="5" formControlName="description"></textarea>
+                                <div *ngIf="submitted && f.description.errors">
+                                    <div *ngIf="f.description.errors.required" class="errors"> * Description is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>Image:</label>
+                            <input class="form-control" type="file" accept="image/*" (change)="onSelectFile($event)">
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <img [src]="imgURL" height="100" *ngIf="imgURL">
+                      </div>
+                    </div> -->
+                    <div *ngFor="let product of listProduct; index as i" class="container mb-20">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img height="100px" src="http://localhost:8080/api/image/{{product.id}}" alt="Li's Product Image">
+                                    </div>
+                                    <div class="col-md-4">
+                                        {{product.name}}
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        {{product.price | currency}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <button *ngIf="!isProductHadReview(product.id)" (click)="clickReviewBtn(i, product.id)"
+                                    class="btn btn-success">
+                                    Review Product
+                                </button>
+                                <button *ngIf="isProductHadReview(product.id)" class="btn btn-secondary" disabled>Already Reviewed</button>
+                            </div>
+                        </div>
+                        <div *ngIf="!isProductHadReview(product.id) && clickReview[i]" class="row mt-10">
+                            <div class="col-md-12">
+                                <form [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+                                    <div class="content" style="width: 80%; margin: auto;">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label style="float: left;">Rating: </label>
+                                                <div *ngIf="submitted && f.rate.errors">
+                                                    <div *ngIf="f.rate.errors.required" class="errors"> * Rating is required</div>
+                                                </div>
+                                                <div class="rate" style="float: right;">
+                                                    <input type="radio" formControlName="rate" id="star5" name="rate" value="5" />
+                                                    <label for="star5" title="text">5 stars</label>
+                                                    <input type="radio" formControlName="rate" id="star4" name="rate" value="4" />
+                                                    <label for="star4" title="text">4 stars</label>
+                                                    <input type="radio" formControlName="rate" id="star3" name="rate" value="3" />
+                                                    <label for="star3" title="text">3 stars</label>
+                                                    <input type="radio" formControlName="rate" id="star2" name="rate" value="2" />
+                                                    <label for="star2" title="text">2 stars</label>
+                                                    <input type="radio" formControlName="rate" id="star1" name="rate" value="1" />
+                                                    <label for="star1" title="text">1 star</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label>Your Comment: </label>
+                                                    <textarea class="form-control" rows="5" formControlName="comment"></textarea>
+                                                    <div *ngIf="submitted && f.comment.errors">
+                                                        <div *ngIf="f.comment.errors.required" class="errors"> * Comment is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                              <div class="form-group">
+                                                <label>Image:</label>
+                                                  <input class="form-control" type="file" accept="image/*" (change)="onSelectFile($event)">
+                                                  <div *ngIf="submitted && !imgURL">
+                                                    <div class="errors"> * Image is required</div>
+                                                  </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                              <img [src]="imgURL" height="100" *ngIf="imgURL">
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="m-t-20 text-center">
+                                        <h4 style="color: red;">{{message}}</h4>  
+                                        <button class="btn btn-primary submit-btn btn-rounded" type="submit">Apply</button>
+                                      </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="m-t-20 text-center">
+                      <h4 style="color: red;">{{message}}</h4>  
+                      <button class="btn btn-primary submit-btn btn-rounded" type="submit">ADD</button>
+                    </div> -->
+                </div>
+            </div>
+
+        </div>
+    </div>

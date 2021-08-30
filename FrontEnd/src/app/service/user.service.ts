@@ -115,10 +115,10 @@ export class UserService extends AbstracService {
                     catchError(this.handleError))
   }
 
-  getUserById(token: String, id: number): Observable<User> {
+  getUserById(token: String, id: number): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.get<User>(API_URL + 'admin/' + id, { headers: headers})
+    return this.http.get<User>(API_URL + 'user/' + id, { headers: headers})
                 .pipe(
                   retry(3),
                   catchError(this.handleError))
