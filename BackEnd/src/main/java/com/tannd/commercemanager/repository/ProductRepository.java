@@ -42,4 +42,6 @@ public interface ProductRepository extends AbstractRepository<Product, Long> {
             "from dongsp d " +
             "where d.MAHANG = :categoryId", nativeQuery = true)
     List<Product> findByCategoryId(@Param("categoryId") Long categoryId);
+
+    List<Product> findAllByNameContaining(String name);
 }

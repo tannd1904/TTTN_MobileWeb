@@ -8,6 +8,7 @@ import { Cart } from '../cart';
 import { ProductService } from '../service/product.service';
 import { WishList } from '../model/wish-list';
 import { Response } from '../model/response';
+import { Product } from '../model/product';
 
 @Component({
   selector: 'app-header',
@@ -20,6 +21,7 @@ export class HeaderComponent implements OnInit {
   userId!: number;
 
   token = '';
+  filter!: any;
 
   //count!: number;
   count!: number;
@@ -27,6 +29,7 @@ export class HeaderComponent implements OnInit {
   cart = new Array<Cart>();
   subTotal = 0;
   wishList = new Array<WishList>();
+  products: Array<Product> = [];
 
   constructor(private router: Router, private tokenStorageService: TokenStorageService, 
               private cartService: CartService, private countService: CountService,
@@ -46,6 +49,27 @@ export class HeaderComponent implements OnInit {
     this.cart.forEach(c => {
       this.subTotal += c.price * c.quantity;
     })
+    this.getAllProduct();
+    
+  }
+
+  getAllProduct() {
+    this.token = this.tokenStorageService.getToken();
+    this.productService.getProduct(this.token).subscribe(
+      (data: Response) => {
+        this.products = data.data;
+        console.log(this.products);
+      })
+  }
+
+  searchProductByName(name: string) {
+    var object = {searchKey: this.filter};
+    sessionStorage.setItem('SEARCH', JSON.stringify(object));
+    if (this.router.url === '/search') {
+      this.router.navigate(['../search']).then(this.reloadPage);  
+    } else {
+      this.router.navigate(['../search']);
+    }
   }
 
   removeProductInCart(id: number) {

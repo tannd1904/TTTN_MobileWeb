@@ -94,6 +94,17 @@ public class ProductServiceImpl extends AbstractServiceImpl<ProductRepository, P
         return list;
     }
 
+    @Override
+    public List<ProductDTO> searchProductByName(String name) {
+        List<Product> listEntity = getRepository().findAllByNameContaining(name);
+        System.out.println(listEntity.toString());
+        List<ProductDTO> list = new ArrayList<>();
+        listEntity.stream().forEach(product -> {
+            list.add(getMapper().toDto(product, new CycleAvoidingMappingContext()));
+        });
+        return list;
+    }
+
 
 //    @Autowired
 //    private ProductRepository productRepository;

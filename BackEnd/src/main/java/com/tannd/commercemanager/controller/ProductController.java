@@ -97,6 +97,12 @@ public class ProductController
         return getById(id);
     }
 
+    @GetMapping("/search-by-name/{name}")
+    public ResponseEntity<?> searchByName(@PathVariable String name) {
+        return ResponseEntity.ok().body(new CustomResponse(200, "Search Product By Name",
+                (getService().searchProductByName(name))));
+    }
+
     @Transactional
     @PostMapping("/add-product")
     @PreAuthorize("hasRole('ADMIN')")

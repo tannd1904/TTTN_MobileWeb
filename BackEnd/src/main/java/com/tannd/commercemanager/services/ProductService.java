@@ -13,4 +13,5 @@ public interface ProductService extends AbstractService<ProductDTO, Product> {
     List<ProductDTO> getAllProductDesc();
     List<ProductDTO> getAllProductAsc();
     List<ProductDTO> getByCategoryId(Long categoryId);
+    List<ProductDTO> searchProductByName(String name);
 }

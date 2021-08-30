@@ -33,6 +33,8 @@ import { WishlistComponent } from './user/wishlist/wishlist.component';
 import { DataTablesModule } from 'angular-datatables';
 import { ListOrderComponent } from './user/list-order/list-order.component';
 import { OrderDetailComponent } from './user/order-detail/order-detail.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { SearchComponent } from './user/search/search.component';
 
 
 @NgModule({
@@ -52,6 +54,7 @@ import { OrderDetailComponent } from './user/order-detail/order-detail.component
     WishlistComponent,
     ListOrderComponent,
     OrderDetailComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,7 @@ import { OrderDetailComponent } from './user/order-detail/order-detail.component
     AdminModule,
     BrowserAnimationsModule,
     NgxPaginationModule,
+    Ng2SearchPipeModule,
     DataTablesModule
   ],
   //, providers: [UserService, AuthService, CartService, CountService, TokenStorageService ,LoginGuard, 
