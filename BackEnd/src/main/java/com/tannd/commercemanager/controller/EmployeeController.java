@@ -4,6 +4,8 @@ import com.tannd.commercemanager.dto.EmployeeDTO;
 import com.tannd.commercemanager.dto.UserDTO;
 import com.tannd.commercemanager.maper.EmployeeMapper;
 import com.tannd.commercemanager.maper.UserMapper;
+import com.tannd.commercemanager.maper.helper.CycleAvoidingMappingContext;
+import com.tannd.commercemanager.message.response.CustomResponse;
 import com.tannd.commercemanager.model.Employee;
 import com.tannd.commercemanager.model.User;
 import com.tannd.commercemanager.services.EmployeeService;
@@ -68,5 +70,21 @@ public class EmployeeController extends AbstractController<EmployeeService, Empl
     @GetMapping("/{id}")
     public ResponseEntity<?> getEmplById(@PathVariable Long id) {
         return getById(id);
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody EmployeeDTO dto) {
+        System.out.println(dto.toString());
+        var entity = getService().findEntityById(id);
+        entity.setFirstname(dto.getFirstname());
+        entity.setLastname(dto.getLastname());
+        entity.setPhone(dto.getPhone());
+        entity.setAddress(dto.getAddress());
+        getService().save(entity);
+        System.out.println(entity.toString());
+        var response = getMapper().toDto(entity, new CycleAvoidingMappingContext());
+        return ResponseEntity.ok().body(new CustomResponse(200, "Update Employee By Id " + id,
+                response));
     }
 }

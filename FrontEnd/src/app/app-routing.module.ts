@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { OrderDetail } from './order-detail';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CartComponent } from './user/cart/cart.component';
+import { ChangeInfoComponent } from './user/change-info/change-info.component';
 import { CheckoutComponent } from './user/checkout/checkout.component';
 import { CompareComponent } from './user/compare/compare.component';
 import { HomeComponent } from './user/home/home.component';
@@ -19,7 +20,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  // { path: 'changeInfo', component: ChangeInfoComponent },
+  { path: 'changeInfo', component: ChangeInfoComponent },
   { path: 'product-grid', component: ProductGridComponent },
   { path: 'product-detail/:id', component: ProductDetailComponent},
   { path: 'checkout', component: CheckoutComponent},

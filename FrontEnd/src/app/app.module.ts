@@ -37,6 +37,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SearchComponent } from './user/search/search.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { CommonModule } from '@angular/common';
+import { ChangeInfoComponent } from './user/change-info/change-info.component';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { CommonModule } from '@angular/common';
     ListOrderComponent,
     OrderDetailComponent,
     SearchComponent,
+    ChangeInfoComponent,
   ],
   imports: [
     BrowserModule,

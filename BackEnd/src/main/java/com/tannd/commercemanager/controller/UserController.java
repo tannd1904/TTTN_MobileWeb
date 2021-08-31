@@ -66,4 +66,20 @@ public class UserController extends AbstractController<UserService, UserMapper, 
         return ResponseEntity.ok().body(new CustomResponse(200, "Get User By Id " + id,
                 response));
     }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserDTO dto) {
+        System.out.println(dto.toString());
+        var entity = getService().findEntityById(id);
+        entity.setFirstname(dto.getFirstname());
+        entity.setLastname(dto.getLastname());
+        entity.setPhone(dto.getPhone());
+        entity.setAddress(dto.getAddress());
+        getService().save(entity);
+        System.out.println(entity.toString());
+        var response = getMapper().toDto(entity, new CycleAvoidingMappingContext());
+        return ResponseEntity.ok().body(new CustomResponse(200, "Update User By Id " + id,
+                response));
+    }
 }
