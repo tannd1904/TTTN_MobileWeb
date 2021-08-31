@@ -60,7 +60,7 @@ public class EmployeeController extends AbstractController<EmployeeService, Empl
     }
 
     @GetMapping("/get-all")
-    @PreAuthorize("hasRole('ADMIN') or ('EMPLOYEE')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getEmplAll() {
         return getAll();
     }

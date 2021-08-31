@@ -23,6 +23,7 @@ import { ImportComponent } from './product/import/import-product.component';
 import { ListComponent } from './import-voucher/list/list.component';
 import { OrderListComponent } from './order/order-list/order-list.component';
 import { OrderDetailComponent } from './order/order-detail/order-detail.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { OrderDetailComponent } from './order/order-detail/order-detail.componen
     ChartsModule,
     DataTablesModule,
     NgxDatatableModule,
+    AutocompleteLibModule,
   ],
   providers: [],
   bootstrap: [AdminComponent]

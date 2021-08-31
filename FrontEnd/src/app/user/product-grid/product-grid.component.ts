@@ -154,6 +154,12 @@ export class ProductGridComponent implements OnInit {
     this.cart = this.cartService.getCart();
   }
 
+  clickCompare(product: any) {
+    console.log(product);
+    sessionStorage.setItem('PRODUCT_COMPARE', JSON.stringify(product)); 
+    this.router.navigate(['../compare'])
+  }
+
   isLoggedIn():boolean{
     this.token = this.tokenStorageService.getToken();
     if(this.token == '{}')

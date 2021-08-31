@@ -13,15 +13,75 @@
 <!-- Compare Area -->
 <div class="compare-area pt-60 pb-60">
     <div class="container">
+        <!-- <form autocomplete="off" action="/action_page.php">
+            <div class="autocomplete" style="width:300px;">
+                <div *ngIf="productCompareName.length != 0">
+                    <input id="myInput" type="text" name="myCountry" placeholder="Country" 
+                        [value]="productCompareName" disabled>
+                    <div style="position: absolute; margin-top: -45px; right: 0">
+                        <button (click)="productCompareName = ''" class="btn btn-link"><i class="fa fa-times" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                <input *ngIf="productCompareName.length == 0" id="myInput" type="text" name="myCountry" placeholder="Country"
+                    [(ngModel)]="filter" (focus)="toggle = true" (blur)="toggle = false">
+                <div *ngIf="toggle" class="autocomplete-items">
+                    <div *ngFor="let product of products | filter: filter" >
+                        <div (click)="assignProductCompareName(product.name)">
+                            <img height="50px" src="http://localhost:8080/api/image/{{product.id}}" alt="">
+                            {{product.name}}
+                            <input type="hidden" value="product.name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" style="width: 100px;">
+        </form> -->          
         <div class="compare-table table-responsive">
+            <h4 style="text-align: center; text-decoration: underline;">
+                Compare {{firstProduct.name}} vs {{secondProduct.name}}</h4>
             <table class="table table-bordered table-hover mb-0">
                 <tbody>
+                    <tr>
+                        <th class="compare-column-titles">Product</th>
+                        <td class="compare-column-productinfo">
+                            <div class="ng-autocomplete">
+                                <input class="input-first-pro" type="text" disabled [value]="firstProduct.name">
+                                <div class="vs">
+                                    <strong>VS</strong></div>
+                            </div>
+                        </td>
+                        <td class="compare-column-productinfo">
+                            <div class="ng-autocomplete">
+                                <ng-autocomplete
+                                  [data]="products"
+                                  [searchKeyword]="keyword"
+                                  (selected)='selectEvent($event)'
+                                  placeholder="Enter the State Name"
+                                  historyIdentifier="products"
+                                  [itemTemplate]="itemTemplate"
+                                  [notFoundTemplate]="notFoundTemplate">
+                                </ng-autocomplete>
+                              
+                                <ng-template #itemTemplate let-item>
+                                  <div class="item">
+                                    <img src="http://localhost:8080/api/image/{{item.id}}" height="25">
+                                    <span [innerHTML]="item.name"></span> &nbsp; | &nbsp;
+                                    <small>Price: {{item.price}}</small>
+                                  </div>
+                                </ng-template>
+                              
+                                <ng-template #notFoundTemplate let-notFound>
+                                  <div [innerHTML]="notFound"></div>
+                                </ng-template>
+                              </div>
+                        </td>
+                    </tr>
                     <tr>
                         <th class="compare-column-titles">Image</th>
                         <td class="compare-column-productinfo">
                             <div class="compare-pdoduct-image">
                                 <a href="single-product.html">
-                                    <img src="images/product/large-size/1.jpg" alt="Product Image">
+                                    <img height="100px" src="http://localhost:8080/api/image/{{firstProduct.id}}" alt="Product Image">
                                 </a>
                                 <a href="cart.html" class="ho-button ho-button-sm">
                                     <span>ADD TO CART</span>
@@ -31,49 +91,89 @@
                         <td class="compare-column-productinfo">
                             <div class="compare-pdoduct-image">
                                 <a href="single-product.html">
-                                    <img src="images/product/large-size/2.jpg" alt="Product Image">
+                                    <img height="100px" src="http://localhost:8080/api/image/{{secondProduct.id}}" alt="Product Image">
                                 </a>
-                                <a href="cart.html" class="ho-button ho-button-sm">
+                                <a *ngIf="secondProduct.id != null" href="cart.html" class="ho-button ho-button-sm">
                                     <span>ADD TO CART</span>
                                 </a>
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <th>Product Name</th>
-                        <td>
-                            <h5 class="compare-product-name"><a href="single-product.html">HP Pavilion</a></h5>
+                        <th>Model</th>
+                        <td *ngIf="productDetailStringFirst?.length != 1">
+                            <button class="dimension" *ngFor="let detail of productDetailStringFirst; index as i" 
+                                    style="margin: 10px;" (click)="changeProductDetail(i, true)">{{detail}}</button>
                         </td>
-                        <td>
-                            <h5 class="compare-product-name"><a href="single-product.html">HP Probook</a></h5>
+                        <td *ngIf="productDetailStringFirst?.length == 1 || productDetailStringFirst?.length == 0">
+                            <button class="dimension" style="margin: 10px;">{{productDetailStringFirst[0]}}</button>
+                        </td>
+                        <td *ngIf="secondProduct.id != null && productDetailStringSecond?.length != 1">
+                            <button class="dimension" *ngFor="let detail of productDetailStringSecond; index as i" 
+                                    style="margin: 10px;" (click)="changeProductDetail(i, false)">{{detail}}</button>
+                        </td>
+                        <td *ngIf="secondProduct.id != null && (productDetailStringSecond?.length == 1 || productDetailStringSecond?.length == 0)">
+                            <button class="dimension" style="margin: 10px;">{{productDetailStringSecond[0]}}</button>
                         </td>
                     </tr>
                     <tr>
                         <th>Description</th>
-                        <td>Impressively thin and light, the HP Pavilion G6 empowers users to create,
-                            connect, and collaborate, using enterprise-class performance</td>
-                        <td>Impressively thin and light, the HP ProBook 450 G4 empowers users to create,
-                            connect, and collaborate, using enterprise-class performance</td>
+                        <td>{{firstProduct.description}}</td>
+                        <td>{{secondProduct.description}}</td>
                     </tr>
                     <tr>
                         <th>Price</th>
-                        <td>$800</td>
-                        <td>$1020</td>
+                        <td>{{firstProduct.price | currency}}</td>
+                        <td>{{secondProduct.price | currency}}</td>
                     </tr>
                     <tr>
                         <th>Color</th>
-                        <td>Black</td>
-                        <td>Red</td>
+                        <td>{{selectedProductDetailFirst.color}}</td>
+                        <td>{{selectedProductDetailSecond.color}}</td>
                     </tr>
                     <tr>
-                        <th>Size</th>
-                        <td>Medium</td>
-                        <td>Large</td>
+                        <th>RAM</th>
+                        <td>{{selectedProductDetailFirst.ram}}</td>
+                        <td>{{selectedProductDetailSecond.ram}}</td>
                     </tr>
                     <tr>
-                        <th>Stock</th>
-                        <td>In Stock</td>
-                        <td>Stock Out</td>
+                        <th>MEMORY</th>
+                        <td>{{selectedProductDetailFirst.memmory}}</td>
+                        <td>{{selectedProductDetailSecond.memmory}}</td>
+                    </tr>
+                    <tr>
+                        <th>CPU</th>
+                        <td>{{selectedProductDetailFirst.cpu}}</td>
+                        <td>{{selectedProductDetailSecond.cpu}}</td>
+                    </tr>
+                    <tr>
+                        <th>SCREEN</th>
+                        <td>{{selectedProductDetailFirst.screen}}</td>
+                        <td>{{selectedProductDetailSecond.screen}}</td>
+                    </tr>
+                    <tr>
+                        <th>CAMERA</th>
+                        <td>{{selectedProductDetailFirst.camera}}</td>
+                        <td>{{selectedProductDetailSecond.camera}}</td>
+                    </tr>
+                    <tr>
+                        <th>BATTERY</th>
+                        <td>{{selectedProductDetailFirst.pin}}</td>
+                        <td>{{selectedProductDetailSecond.pin}}</td>
+                    </tr>
+                    <tr>
+                        <th>OPERATING SYSTEM</th>
+                        <td>{{selectedProductDetailFirst.os}}</td>
+                        <td>{{selectedProductDetailSecond.os}}</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td *ngIf="firstProduct.status == 0">Stock Out</td>
+                        <td *ngIf="firstProduct.status == 1">In Stock</td>
+                        <td *ngIf="firstProduct.status == 2">Coming Soon</td>
+                        <td *ngIf="secondProduct.status == 0">Stock Out</td>
+                        <td *ngIf="secondProduct.status == 1">In Stock</td>
+                        <td *ngIf="secondProduct.status == 2">Coming Soon</td>
                     </tr>
                     <tr>
                         <th>Rating</th>
@@ -82,17 +182,17 @@
                                 <span><i class="fa fa-star-o"></i></span>
                                 <span><i class="fa fa-star-o"></i></span>
                                 <span><i class="fa fa-star-o"></i></span>
-                                <span><i class="fa fa-star-o li-star"></i></span>
-                                <span><i class="fa fa-star-o li-star"></i></span>
+                                <span><i class="fa fa-star-o"></i></span>
+                                <span><i class="fa fa-star-o"></i></span>
                             </div>
                         </td>
                         <td>
-                            <div class="li-pro-rating li-rattingbox">
+                            <div *ngIf="secondProduct.id != null" class="li-pro-rating li-rattingbox">
                                 <span><i class="fa fa-star-o"></i></span>
                                 <span><i class="fa fa-star-o"></i></span>
                                 <span><i class="fa fa-star-o"></i></span>
                                 <span><i class="fa fa-star-o"></i></span>
-                                <span><i class="fa fa-star-o li-star"></i></span>
+                                <span><i class="fa fa-star-o"></i></span>
                             </div>
                         </td>
                     </tr>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -35,6 +35,8 @@ import { ListOrderComponent } from './user/list-order/list-order.component';
 import { OrderDetailComponent } from './user/order-detail/order-detail.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SearchComponent } from './user/search/search.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -66,12 +68,15 @@ import { SearchComponent } from './user/search/search.component';
     BrowserAnimationsModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
+    AutocompleteLibModule,
+    CommonModule,
     DataTablesModule
   ],
   //, providers: [UserService, AuthService, CartService, CountService, TokenStorageService ,LoginGuard, 
   //   {provide: HTTP_INTERCEPTORS, useClass:  AuthInterceptor, multi: true}
   // ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class AppModule { }
