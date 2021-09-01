@@ -36,4 +36,8 @@ export class AdminComponent implements OnInit {
     this.router.navigate(['../']);
   }
 
+  directChangeInfo() {
+    this.router.navigate(['../changeInfo']);
+  }
+
 }

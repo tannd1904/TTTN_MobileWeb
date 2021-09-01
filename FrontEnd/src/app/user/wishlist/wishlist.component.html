@@ -29,7 +29,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let w of wishList">
+                                <tr *ngFor="let w of wishList; index as i">
                                     <td class="li-product-remove">
                                         <a (click)="removeWishList(w.id)"><i class="fa fa-times"></i></a>
                                     </td>
@@ -40,7 +40,8 @@
                                     </td>
                                     <td class="li-product-name"><a href="#">{{w.product.name}}</a></td>
                                     <td class="li-product-price"><span class="amount">{{w.product.price | currency}}</span></td>
-                                    <td class="li-product-stock-status"><span class="in-stock">in stock</span></td>
+                                    <td *ngIf="!isInStock(i)" class="li-product-stock-status"><span class="in-stock">in stock</span></td>
+                                    <td *ngIf="isInStock(i)" class="li-product-stock-status"><span class="in-stock">out stock</span></td>
                                     <td class="li-product-add-cart"><a routerLink="../product-detail/{{w.product.id}}">see product</a></td>
                                 </tr>
                             </tbody>

@@ -113,7 +113,7 @@
                         </div>
                         <div class="product-variants">
                             <div *ngIf="productDetailString?.length != 1" class="produt-variants-size">
-                                <h4>Dimension</h4>
+                                <h4>Models</h4>
                                 <button class="dimension" *ngFor="let detail of productDetailString; index as i" 
                                     style="margin: 10px;" (click)="changeProductDetail(i)">{{detail}}</button>
                             </div>

@@ -11,6 +11,7 @@ import { ProductDetailComponent } from './product/product-detail/product-detail.
 import { ListComponent } from './import-voucher/list/list.component';
 import { OrderListComponent } from './order/order-list/order-list.component';
 import { OrderDetailComponent } from './order/order-detail/order-detail.component';
+import { ChangeInfoComponent } from '../user/change-info/change-info.component';
 
 const routes: Routes = [
   { path: 'admin', component: AdminComponent, 
@@ -25,6 +26,7 @@ const routes: Routes = [
         {path: 'products/product/:id', component: ProductDetailComponent },
         { path: 'list-orders', component: OrderListComponent},
         { path: 'order-detail/:id', component: OrderDetailComponent},
+        { path: 'changeInfo', component: ChangeInfoComponent },
         // { path: '**', component: PageNotFoundComponent}
       ]}
 ];

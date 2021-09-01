@@ -86,6 +86,9 @@
                                             <h6 style="text-align: center;"><a>Hello, {{nameUser}}</a></h6>
                                             <br>
                                         </div>
+                                        <a *ngIf="isLoggedIn()" (click)="directChangeInfo()" class="li-button li-button-fullwidth">
+                                            <span>Change Info</span>
+                                        </a>
                                         <a *ngIf="isLoggedIn()" (click)="logout()" class="li-button li-button-fullwidth">
                                             <span>Log Out</span>
                                         </a>

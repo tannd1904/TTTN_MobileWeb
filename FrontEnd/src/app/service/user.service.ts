@@ -132,10 +132,10 @@ export class UserService extends AbstracService {
                     catchError(this.handleError))
   }
 
-  updateUser(token: String, id: number, user: User): Observable<User> {
+  updateUser(token: String, id: number, user: User): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
-    return this.http.put<User>(API_URL + 'admin/' + id, user, { headers: headers})
+    return this.http.put<User>(API_URL + 'user/' + id, user, { headers: headers})
                   .pipe(
                     catchError(this.handleError)
                   )

@@ -31,4 +31,13 @@ export class EmployeeService extends AbstracService {
                     retry(3),
                     catchError(this.handleError));
   }
+
+  updateEmployee(token: String, id: number, user: User): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.put<User>(API_URL + 'employee/' + id, user, { headers: headers})
+                  .pipe(
+                    catchError(this.handleError)
+                  )
+  }
 }

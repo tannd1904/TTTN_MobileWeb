@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Cart } from 'src/app/cart';
 import { Response } from 'src/app/model/response';
 import { WishList } from 'src/app/model/wish-list';
@@ -48,6 +49,10 @@ export class WishlistComponent implements OnInit {
           error => {
             console.log(error);
           });
+  }
+
+  isInStock(i: number): Observable<boolean> {
+    return this.wishList[i].product.importVoucherDetails[0].productDetails[0].status;
   }
 
   // TODO: add function delete wishlist and ADD TO CART btn

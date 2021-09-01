@@ -128,5 +128,9 @@ export class HeaderComponent implements OnInit {
   reloadPage(): void {
     window.location.reload();
   }
+
+  directChangeInfo() {
+    this.router.navigate(['../changeInfo']);
+  }
   
 }
