@@ -117,17 +117,6 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  getPage() {
-    this.userService.getPromotionProduct().subscribe(
-      (data: Product[]) => {
-        this.products = data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
   getTop4NewProduct() {
     this.token = this.tokenStorageService.getToken();
     this.productService.getTop4NewProduct(this.token).subscribe(

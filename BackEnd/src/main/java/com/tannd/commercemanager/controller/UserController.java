@@ -59,6 +59,12 @@ public class UserController extends AbstractController<UserService, UserMapper, 
         return ResponseEntity.status(HttpStatus.OK).body(bool);
     }
 
+    @GetMapping("/get-all")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> getAllUser() {
+        return getAll();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getUserById(@PathVariable Long id) {
         var entity = getService().findEntityById(id);

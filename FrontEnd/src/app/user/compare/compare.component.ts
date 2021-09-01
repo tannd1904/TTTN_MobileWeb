@@ -220,18 +220,7 @@ export class CompareComponent implements OnInit {
       }
     })
   }
-
-  getPage() {
-    this.userService.getPromotionProduct().subscribe(
-      (data: Product[]) => {
-        this.products = data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
+  
   reloadPage(): void {
     window.location.reload();
   }

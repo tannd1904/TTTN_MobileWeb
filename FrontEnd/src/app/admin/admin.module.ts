@@ -19,11 +19,12 @@ import { LineChartComponent } from './line-chart/line-chart.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DataTablesModule } from 'angular-datatables';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { ImportComponent } from './product/import/import-product.component';
 import { ListComponent } from './import-voucher/list/list.component';
 import { OrderListComponent } from './order/order-list/order-list.component';
 import { OrderDetailComponent } from './order/order-detail/order-detail.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { UserListComponent } from './user-list/user-list.component';
+import { EmployeeListComponent } from './employee-list/employee-list.component';
 
 
 @NgModule({
@@ -40,10 +41,11 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     LineChartComponent,
     LineChartComponent,
     CalendarComponent,
-    ImportComponent,
     ListComponent,
     OrderListComponent,
     OrderDetailComponent,
+    UserListComponent,
+    EmployeeListComponent,
   ],
   imports: [
     CommonModule,

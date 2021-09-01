@@ -1,28 +1,20 @@
-import { Category } from './../../../model/category';
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { UserService } from 'src/app/service/user.service';
-import { TokenStorageService } from 'src/app/service/token-storage.service';
-import { ActiveService } from 'src/app/service/active.service';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CategoryService } from 'src/app/service/category.service';
-import { Response } from 'src/app/model/response';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { Category } from 'src/app/model/category';
+import { Response } from 'src/app/model/response';
+import { User } from 'src/app/model/user';
+import { ActiveService } from 'src/app/service/active.service';
+import { CategoryService } from 'src/app/service/category.service';
+import { TokenStorageService } from 'src/app/service/token-storage.service';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
-  selector: 'app-list-categories',
-  templateUrl: './list-categories.component.html',
-  styleUrls: ['./list-categories.component.css'],
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.css']
 })
-export class ListCategoriesComponent implements OnInit {
-  // @ViewChild(DataTableDirective, {static: true})
-  // dtElement!: DataTableDirective;
+export class UserListComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
 
@@ -33,14 +25,14 @@ export class ListCategoriesComponent implements OnInit {
   deleteId!: number;
   message!: string;
   categories: Array<Category> = [];
+  users: Array<User> = [];
 
-  constructor(
-    private fb: FormBuilder,
+  constructor(private fb: FormBuilder,
     private userService: UserService,
     private tokenStorageService: TokenStorageService,
     private activeService: ActiveService,
-    private categoryService: CategoryService
-  ) {}
+    private categoryService: CategoryService,
+  ) { }
 
   ngOnInit(): void {
     this.activeService.changeActive(this.active);
@@ -49,19 +41,10 @@ export class ListCategoriesComponent implements OnInit {
       processing: true,
     };
 
-    this.getCategory();
+    this.getUsers();
     // this.getRoom();
     this.infoForm();
   }
-
-  // rerender(): void {
-  //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-  //     // Destroy the table first
-  //     dtInstance.destroy();
-  //     // Call the dtTrigger to rerender again
-  //     this.dtTrigger.next();
-  //   });
-  // }
 
   infoForm() {
     this.dataForm = this.fb.group({
@@ -91,7 +74,7 @@ export class ListCategoriesComponent implements OnInit {
           this.message = '*' + data.message;
           console.log(this.message);
         } else {
-          this.reloadPage();
+          this.ngOnInit();
         }
       },
       (error) => {
@@ -100,13 +83,13 @@ export class ListCategoriesComponent implements OnInit {
     );
   }
 
-  getCategory() {
+  getUsers() {
     this.token = this.tokenStorageService.getToken();
-    this.categoryService.getCategory(this.token).subscribe(
+    this.userService.getAllUsers(this.token).subscribe(
       (data: Response) => {
-        this.categories = data.data;
+        this.users = data.data;
         this.dtTrigger.next();
-        console.log(this.categories);
+        console.log(this.users);
       },
       (error) => {
         console.log(error);
@@ -121,7 +104,7 @@ export class ListCategoriesComponent implements OnInit {
         if (data.status === 404) {
           this.message = data.message;
         } else {
-          this.reloadPage();
+          this.ngOnInit();
         }
       },
       (error) => {
@@ -137,4 +120,5 @@ export class ListCategoriesComponent implements OnInit {
   reloadPage(): void {
     window.location.reload();
   }
+
 }
