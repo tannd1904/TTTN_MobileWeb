@@ -25,6 +25,7 @@ import { OrderDetailComponent } from './order/order-detail/order-detail.componen
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { UserListComponent } from './user-list/user-list.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
 
 
 @NgModule({
@@ -39,13 +40,13 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
     ProductDetailComponent,
     PieChartComponent,
     LineChartComponent,
-    LineChartComponent,
     CalendarComponent,
     ListComponent,
     OrderListComponent,
     OrderDetailComponent,
     UserListComponent,
     EmployeeListComponent,
+    BarChartComponent,
   ],
   imports: [
     CommonModule,
