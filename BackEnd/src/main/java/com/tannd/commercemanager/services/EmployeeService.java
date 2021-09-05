@@ -6,4 +6,6 @@ import com.tannd.commercemanager.model.Account;
 import com.tannd.commercemanager.model.Employee;
 
 public interface EmployeeService extends AbstractService<EmployeeDTO, Employee> {
+    Long countEmployeeAddedInMonth();
+    Long countEmployeeAddedInOneMonth(Integer month);
 }

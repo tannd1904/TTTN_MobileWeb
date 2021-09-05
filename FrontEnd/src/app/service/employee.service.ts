@@ -32,6 +32,24 @@ export class EmployeeService extends AbstracService {
                     catchError(this.handleError));
   }
 
+  countEmployeeAddedThisMonth(token: String): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<User>(API_URL + 'employee/' + 'count-in-current-month', { headers: headers})
+                  .pipe(
+                    retry(3),
+                    catchError(this.handleError));
+  }
+
+  countEmployeeAddedThisYear(token: String): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<User>(API_URL + 'employee/' + 'count-in-current-year', { headers: headers})
+                  .pipe(
+                    retry(3),
+                    catchError(this.handleError));
+  }
+
   updateEmployee(token: String, id: number, user: User): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);

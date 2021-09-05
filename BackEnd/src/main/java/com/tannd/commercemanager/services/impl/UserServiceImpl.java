@@ -39,4 +39,14 @@ public class UserServiceImpl extends AbstractServiceImpl<UserRepository, UserMap
         initMapper(thisMapper.INSTANCE);
         return mapper;
     }
+
+    @Override
+    public Long countUserCreatedInMonth() {
+        return getRepository().countUserRegistrationInThisMonth();
+    }
+
+    @Override
+    public Long countUserCreatedInOneMonth(Integer month) {
+        return getRepository().countUserRegistrationInOneMonth(month);
+    }
 }

@@ -87,7 +87,10 @@
               <ul class="nav nav-tabs pull-right">
                 <li class="pull-left header"><i class="fa fa-inbox"></i> Inventory</li>  
               </ul>
-              <app-bar-chart>Loading</app-bar-chart>
+              <app-bar-chart [parentData]="dataInventoryThisYear" [parentLabel]="labelInventoryThisYear"
+                [parentDataLabel]="dataLabelInventoryThisYear">
+                Loading
+              </app-bar-chart>
               
             </div>
             <!-- /.nav-tabs-custom -->
@@ -100,9 +103,9 @@
                 <h3 class="box-title">Quick Email</h3>
                 <!-- tools box -->
                 <div class="pull-right box-tools">
-                  <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip"
+                  <!-- <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip"
                           title="Remove">
-                    <i class="fa fa-times"></i></button>
+                    <i class="fa fa-times"></i></button> -->
                 </div>
                 <!-- /. tools -->
               </div>
@@ -131,32 +134,49 @@
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
           <section class="col-lg-5 connectedSortable">
   
-            <!-- solid sales graph -->
-            <div class="box box-solid">
-              <div class="box-header">
-                <i class="ion ion-person-add"></i>
-  
-                <h3 class="box-title">User Registrations</h3>
-  
-                <div class="box-tools pull-right">
-                  <button type="button" class="btn btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-sm" data-widget="remove"><i class="fa fa-times"></i>
-                  </button>
+            <div class="nav-tabs-custom">
+              <!-- Tabs within a box -->
+              <ul class="nav nav-tabs pull-right">
+                <li class="pull-left header"><i class="ion ion-person-add"></i> User Registrations</li>  
+                <li><a class="active" href="#user-registration-1" data-toggle="tab">This Year</a></li>
+                <li><a href="#user-registration-2" data-toggle="tab">This Month</a></li>
+              </ul>
+              <div class="tab-content no-padding">
+                <!-- Morris chart - Sales -->
+                <div class="tab-pane active show" id="user-registration-1" role="tabpanel"
+                  style="position: relative; height: 300px;">
+                  <app-line-chart [parentData]="dataUserThisYear" [parentLabel]="monthNames" 
+                    [parentDataLabel]="dataLabelUser">Loading</app-line-chart>
+                </div>
+                <div class="tab-pane" id="user-registration-2" role="tabpanel"
+                  style="position: relative; height: 300px;">
+                  <app-bar-chart [parentData]="dataUserThisMonth" [parentLabel]="thisMonthName" 
+                    [parentDataLabel]="dataLabelUser">
+                    Loading
+                  </app-bar-chart>
                 </div>
               </div>
-              <div class="box-body border-radius-none">
-                <app-line-chart></app-line-chart>
-              </div>
+              
             </div>
-            <!-- /.box -->
             
             <div class="nav-tabs-custom">
               <!-- Tabs within a box -->
               <ul class="nav nav-tabs pull-right">
                 <li class="pull-left header"><i class="fa fa-inbox"></i> Orders</li>  
+                <li><a class="active" href="#order-1" data-toggle="tab">This Year</a></li>
+                <li><a href="#order-2" data-toggle="tab">This Month</a></li>
               </ul>
-              <app-pie-chart>Loading</app-pie-chart>
+              <div class="tab-content no-padding">
+                <!-- Morris chart - Sales -->
+                <div class="tab-pane active show" id="order-1" role="tabpanel"
+                  style="position: relative; height: 300px;">
+                  <app-pie-chart>Loading</app-pie-chart>
+                </div>
+                <div class="tab-pane" id="order-2" role="tabpanel"
+                  style="position: relative; height: 300px;">
+                  <!-- <app-bar-chart [parentData]="dataUserThisMonth" [parentLabel]="labelUserThisMonth">Loading</app-bar-chart> -->
+                </div>
+              </div>
             </div>
   
           </section>

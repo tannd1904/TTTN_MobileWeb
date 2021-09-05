@@ -50,6 +50,16 @@ public class EmployeeServiceImpl extends AbstractServiceImpl<EmployeeRepository,
         return mapper;
     }
 
+    @Override
+    public Long countEmployeeAddedInMonth() {
+        return getRepository().countEmployeeAddedInThisMonth();
+    }
+
+    @Override
+    public Long countEmployeeAddedInOneMonth(Integer month) {
+        return getRepository().countEmployeeAddedInOneMonth(month);
+    }
+
 //    @Autowired
 //    private CategoryRepository categoryRepository;
 //

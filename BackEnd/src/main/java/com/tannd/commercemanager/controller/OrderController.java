@@ -7,15 +7,18 @@ import com.tannd.commercemanager.maper.helper.CycleAvoidingMappingContext;
 import com.tannd.commercemanager.message.response.CustomResponse;
 import com.tannd.commercemanager.model.Invoice;
 import com.tannd.commercemanager.model.Order;
-import com.tannd.commercemanager.services.EmployeeService;
-import com.tannd.commercemanager.services.InvoiceService;
-import com.tannd.commercemanager.services.OrderService;
-import com.tannd.commercemanager.services.UserService;
+import com.tannd.commercemanager.services.*;
+import com.tannd.commercemanager.template.EmailObject;
+import com.tannd.commercemanager.template.EmailTemplate;
+import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/order")
@@ -69,6 +72,38 @@ public class OrderController extends AbstractController<OrderService, OrderMappe
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    EmailService emailService;
+
+    @GetMapping("/test")
+    public ResponseEntity<?> testSendEmail() throws MessagingException, TemplateException, IOException {
+        EmailObject email = new EmailObject();
+        email.setEmail("tannd1904@gmail.com");
+        email.setName("Tân Nguyễn");
+        email.setUsername("tannd1904");
+        try {
+            emailService.sendEmail(email);
+            return ResponseEntity.ok().body(new CustomResponse(200,"Test Send Email",
+                    "OK"));
+        } catch (Exception e) {
+            return ResponseEntity.ok().body(new CustomResponse(200,"Test Send Email Not OK",
+                    e.getMessage()));
+        }
+    }
+
+    @GetMapping("/test2")
+    public ResponseEntity<?> testSendEmail2() throws Exception {
+        var order = getService().findById(22);
+        try {
+            emailService.sendEmailWithAttachment("Order Success", order.toString(), "tannd1904@gmail.com");
+            return ResponseEntity.ok().body(new CustomResponse(200,"Test Send Email",
+                    "OK"));
+        } catch (Exception e) {
+            return ResponseEntity.ok().body(new CustomResponse(200,"Test Send Email Not OK",
+                    e.getMessage()));
+        }
+    }
 
     @Transactional
     @PostMapping("/add")

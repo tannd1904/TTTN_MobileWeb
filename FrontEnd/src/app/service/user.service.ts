@@ -53,6 +53,24 @@ export class UserService extends AbstracService {
                   )
   }
 
+  countUserRegisThisMonth(token: String): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<User>(API_URL + 'user/' + 'count-in-current-month', { headers: headers})
+                  .pipe(
+                    retry(3),
+                    catchError(this.handleError));
+  }
+
+  countUserRegisThisYear(token: String): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<User>(API_URL + 'user/' + 'count-in-current-year', { headers: headers})
+                  .pipe(
+                    retry(3),
+                    catchError(this.handleError));
+  }
+
   doesEmailExist(email: string): Observable<boolean> {
     let url = `${API_URL}user/emailcheck`;
 

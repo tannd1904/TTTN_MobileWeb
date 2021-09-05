@@ -16,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -71,6 +73,23 @@ public class UserController extends AbstractController<UserService, UserMapper, 
         var response = getMapper().toDto(entity, new CycleAvoidingMappingContext());
         return ResponseEntity.ok().body(new CustomResponse(200, "Get User By Id " + id,
                 response));
+    }
+
+    @GetMapping("/count-in-current-month")
+    public ResponseEntity<?> countUserCreatedInMonth() {
+        return ResponseEntity.ok().body(new CustomResponse(200, "Count User Registration in current month",
+                getService().countUserCreatedInMonth()));
+    }
+
+    @GetMapping("/count-in-current-year")
+    public ResponseEntity<?> countUserCreatedInYear() {
+        List<Long> list = new ArrayList<>();
+        for (int i=0; i<12; i++) {
+            Long count = getService().countUserCreatedInOneMonth(i);
+            list.add(count);
+        }
+        return ResponseEntity.ok().body(new CustomResponse(200, "Count User Registration in current month",
+                list));
     }
 
     @PutMapping("/{id}")

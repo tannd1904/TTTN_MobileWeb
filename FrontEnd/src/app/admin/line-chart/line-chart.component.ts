@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 
@@ -8,15 +8,25 @@ import { Color, Label } from 'ng2-charts';
   styleUrls: ['./line-chart.component.css']
 })
 export class LineChartComponent implements OnInit {
+  @Input() parentData!: any;
+  @Input() parentDataLabel!: any;
+  @Input() parentLabel!: any;
 
-  public lineChartData: ChartDataSets[] = [
-    { data: [0, 0, 0, 0, 0, 0, 1, 3, 0, 0, 0, 0,], label: 'Users' },
-    { data: [0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0,], label: 'Employees' },
-  ];
-  public lineChartLabels: Label[] = 
-    ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  public lineChartData: ChartDataSets[] = [];
+  public lineChartLabels: Label[] = [];
   public lineChartOptions: ChartOptions = {
     responsive: true,
+    scales: {
+      yAxes: [{
+        display: true,
+        ticks: {
+          beginAtZero: true,
+          min: 0,
+      }
+      }]
+    }
   };
   public lineChartColors: Color[] = [
     {
@@ -31,6 +41,15 @@ export class LineChartComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // console.log(this.parentData)
+    // this.lineChartLabels = this.parentLabel;
+    // for (let i=0; i<this.parentData.length; i++) {
+    //   this.lineChartData.push({
+    //     data: this.parentData[i], 
+    //     label: this.parentDataLabel[i]
+    //   })
+    // }
+    // console.log(this.lineChartData);
   }
 
 }
