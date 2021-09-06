@@ -27,4 +27,21 @@ public interface OrderRepository extends AbstractRepository<Order, Long>{
             "from phieudat p " +
             "where month(now()) = month(p.created_at) ", nativeQuery = true)
     List<Order> findOrdersInCurrentMonth();
+
+    @Query(value = "select ifnull(sum(p.GIA), 0)  " +
+            "from phieudat p " +
+            "where p.TRANGTHAI >= 2 " +
+            "and month (p.NGAYDAT) = month (now()) ", nativeQuery = true)
+    Double calculateRevenueThisMonth();
+
+    @Query(value = "select ifnull(sum(p.GIA), 0)  " +
+            "from phieudat p " +
+            "where p.TRANGTHAI >= 2 " +
+            "and year (p.NGAYDAT) = year (now()) ", nativeQuery = true)
+    Double calculateRevenueThisYear();
+
+    @Query(value = "select ifnull(sum(p.GIA), 0)  " +
+            "from phieudat p " +
+            "where p.TRANGTHAI >= 2 ", nativeQuery = true)
+    Double calculateRevenueAllTime();
 }

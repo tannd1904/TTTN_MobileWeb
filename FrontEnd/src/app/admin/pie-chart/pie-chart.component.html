@@ -1,7 +1,8 @@
 <div style="display: block;">
     <canvas baseChart 
-      [data]="pieChartData" 
+      [datasets]="pieChartData" 
       [labels]="pieChartLabels" 
+      [colors]="pieChartColors"
       [chartType]="pieChartType"
       [options]="pieChartOptions"
       [plugins]="pieChartPlugins"

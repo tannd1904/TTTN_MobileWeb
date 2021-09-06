@@ -3,6 +3,7 @@ import { Checkout } from 'src/app/checkout';
 import { Response } from 'src/app/model/response';
 import { User } from 'src/app/model/user';
 import { EmployeeService } from 'src/app/service/employee.service';
+import { StatisticService } from 'src/app/service/statistic.service';
 import { TokenStorageService } from 'src/app/service/token-storage.service';
 import { UserService } from 'src/app/service/user.service';
 
@@ -18,6 +19,11 @@ export class HomeComponent implements OnInit {
 
   @Input()
   ngClass!: string | string[] | Set<string> | { [klass: string]: any; }
+
+  revenueEarning!: any;
+  numberOfOrders!: any;
+  numberOfProducts!: any;
+  numberOfUsers!: any;
 
   token!: any;
   users: User[] = [];
@@ -49,15 +55,37 @@ export class HomeComponent implements OnInit {
   typeLineChartUserRegis = "User Registration";
   statisticOrderByMonth = "month";
   statisticOrderByYear = "year";
+  statisticInventory = "yearInventory";
 
   constructor(private userService: UserService,
     private employeeService: EmployeeService, 
+    private statisticService: StatisticService,
     private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
     this.token = this.tokenStorageService.getToken();
     this.setDataUserThisMonth();
     this.setDataUserThisYear();
+    this.getStatistic();
+  }
+
+  getStatistic() {
+    this.statisticService.calculateRevenueAllTime(this.token)
+      .subscribe((data: Response) => {
+        this.revenueEarning = data.data;
+      })
+    this.statisticService.getNumberOfOrders(this.token)
+      .subscribe((data: Response) => {
+        this.numberOfOrders = data.data;
+      })
+    this.statisticService.getNumberOfProducts(this.token)
+      .subscribe((data: Response) => {
+        this.numberOfProducts = data.data;
+      })
+    this.statisticService.getNumberOfUsers(this.token)
+      .subscribe((data: Response) => {
+        this.numberOfUsers = data.data;
+      })
   }
 
   setDataUserThisMonth() {

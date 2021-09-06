@@ -19,7 +19,7 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
               <div class="inner">
-                <h3>5</h3>
+                <h3>{{numberOfOrders}}</h3>
   
                 <p style="color: white">Orders</p>
               </div>
@@ -34,7 +34,7 @@
             <!-- small box -->
             <div class="small-box bg-green">
               <div class="inner">
-                <h3>22</h3>
+                <h3>{{numberOfProducts}}</h3>
   
                 <p style="color: white">Products</p>
               </div>
@@ -49,7 +49,7 @@
             <!-- small box -->
             <div class="small-box bg-yellow">
               <div class="inner">
-                <h3>5</h3>
+                <h3>{{numberOfUsers}}</h3>
   
                 <p style="color: white">User Registrations</p>
               </div>
@@ -64,12 +64,12 @@
             <!-- small box -->
             <div class="small-box bg-red">
               <div class="inner">
-                <h3>7</h3>
+                <h3>{{revenueEarning | currency}}</h3>
   
-                <p style="color: white">Imports</p>
+                <p style="color: white">Earning</p>
               </div>
               <div class="icon">
-                <i class="fa fa-truck" aria-hidden="true"></i>
+                <i class="fa fa-usd" aria-hidden="true"></i>
               </div>
               <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
@@ -88,7 +88,7 @@
                 <li class="pull-left header"><i class="fa fa-inbox"></i> Inventory</li>  
               </ul>
               <app-bar-chart [parentData]="dataInventoryThisYear" [parentLabel]="labelInventoryThisYear"
-                [parentDataLabel]="dataLabelInventoryThisYear">
+                [parentDataLabel]="dataLabelInventoryThisYear" [statisticOf]="statisticInventory">
                 Loading
               </app-bar-chart>
               
@@ -146,7 +146,7 @@
                 <div class="tab-pane active show" id="user-registration-1" role="tabpanel"
                   style="position: relative; height: 300px;">
                   <app-line-chart [parentData]="dataUserThisYear" [parentLabel]="monthNames" 
-                    [parentDataLabel]="dataLabelUser">Loading</app-line-chart>
+                    [parentDataLabel]="dataLabelUser" [type]="typeLineChartUserRegis">Loading</app-line-chart>
                 </div>
                 <div class="tab-pane" id="user-registration-2" role="tabpanel"
                   style="position: relative; height: 300px;">
@@ -170,11 +170,11 @@
                 <!-- Morris chart - Sales -->
                 <div class="tab-pane active show" id="order-1" role="tabpanel"
                   style="position: relative; height: 300px;">
-                  <app-pie-chart>Loading</app-pie-chart>
+                  <app-pie-chart [statisticBy]="statisticOrderByYear">Loading</app-pie-chart>
                 </div>
                 <div class="tab-pane" id="order-2" role="tabpanel"
                   style="position: relative; height: 300px;">
-                  <!-- <app-bar-chart [parentData]="dataUserThisMonth" [parentLabel]="labelUserThisMonth">Loading</app-bar-chart> -->
+                  <app-pie-chart [statisticBy]="statisticOrderByMonth">Loading</app-pie-chart>
                 </div>
               </div>
             </div>

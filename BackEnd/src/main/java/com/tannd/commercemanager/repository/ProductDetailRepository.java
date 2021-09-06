@@ -69,13 +69,15 @@ public interface ProductDetailRepository extends AbstractRepository<ProductDetai
             @Param("color") String color,
             @Param("memmory") String memmory);
 
-    @Query(value = "select * " +
+    @Query(value = "select count(s.MASP) " +
             "from sanpham s " +
-            "where month (s.created_at) = month (now()) ", nativeQuery = true)
+            "where month (s.created_at) = month (now()) " +
+            "and year (s.created_at) = year (now()) ", nativeQuery = true)
     Long countImportProductThisMonth();
 
-    @Query(value = "select * " +
+    @Query(value = "select count(s.MASP) " +
             "from sanpham s " +
-            "where month (s.created_at) = :month ", nativeQuery = true)
+            "where month (s.created_at) = :month " +
+            "and year (s.created_at) = year (now()) ", nativeQuery = true)
     Long countImportProductInMonth(@Param("month") Integer month);
 }
