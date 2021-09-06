@@ -46,6 +46,10 @@ export class HomeComponent implements OnInit {
   dataUserThisMonth: any[] = [];
   dataUserThisYear: any[] = [...[]];
 
+  typeLineChartUserRegis = "User Registration";
+  statisticOrderByMonth = "month";
+  statisticOrderByYear = "year";
+
   constructor(private userService: UserService,
     private employeeService: EmployeeService, 
     private tokenStorageService: TokenStorageService) { }
@@ -71,28 +75,22 @@ export class HomeComponent implements OnInit {
     console.log(this.dataUserThisMonth)
   }
 
-  async setDataUserThisYear() {
-    var user = new Array();
-    var employee = new Array();
-    
-    Object.setPrototypeOf(this.dataUserThisYear, Array(2))
+  setDataUserThisYear() {
+    var arr: Object[] = [];
     this.userService.countUserRegisThisYear(this.token)
       .subscribe((data: Response) => {
-        Object.setPrototypeOf(data.data, Array(12));
-        user = data.data;
-        console.log(user)
-        this.dataUserThisYear.push(user);
+        const object = {data: data.data, label: 'User'};
+        arr.push(object)
       })
-    
     this.employeeService.countEmployeeAddedThisYear(this.token)
-    .subscribe((data: Response) => {
-        Object.setPrototypeOf(data.data, Array(12));
-        employee = data.data;
-        console.log(employee[0])
-        this.dataUserThisYear.push(employee);
-    })
+      .subscribe((data: Response) => {
+        const object = {data: data.data, label: 'Employee'};
+        arr.push(object)
+      })
+    console.log(arr);
+    console.log(arr[0])
+    this.dataUserThisYear = [arr[0], arr[1]]
     console.log(this.dataUserThisYear)
-    console.log(this.dataUserThisYear[0])
   }
 
 }

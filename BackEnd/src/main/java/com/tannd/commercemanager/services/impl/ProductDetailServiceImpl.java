@@ -141,6 +141,16 @@ public class ProductDetailServiceImpl extends
         return count;
     }
 
+    @Override
+    public Long countImportProductThisMonth() {
+        return getRepository().countImportProductThisMonth();
+    }
+
+    @Override
+    public Long countImportProductInMonth(Integer month) {
+        return getRepository().countImportProductInMonth(month);
+    }
+
 //    @Autowired
 //    ProductDetailRepository productDetailRepository;
 //

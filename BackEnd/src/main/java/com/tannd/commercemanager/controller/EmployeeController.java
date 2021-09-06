@@ -85,7 +85,7 @@ public class EmployeeController extends AbstractController<EmployeeService, Empl
     public ResponseEntity<?> countUserCreatedInYear() {
         List<Long> list = new ArrayList<>();
         for (int i=0; i<12; i++) {
-            Long count = getService().countEmployeeAddedInOneMonth(i);
+            Long count = getService().countEmployeeAddedInOneMonth(i+1);
             list.add(count);
         }
         return ResponseEntity.ok().body(new CustomResponse(200, "Count Employee Registration in current month",

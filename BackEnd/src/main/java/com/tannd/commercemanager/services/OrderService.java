@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface OrderService extends AbstractService<OrderDTO, Order>{
     List<OrderDTO> getByUserId(Long id);
+    List<Number> getOrdersInCurrentYear();
+    List<Number> getOrdersInCurrentMonth();
 }

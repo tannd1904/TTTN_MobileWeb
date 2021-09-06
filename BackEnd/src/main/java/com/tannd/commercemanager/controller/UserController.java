@@ -85,7 +85,7 @@ public class UserController extends AbstractController<UserService, UserMapper, 
     public ResponseEntity<?> countUserCreatedInYear() {
         List<Long> list = new ArrayList<>();
         for (int i=0; i<12; i++) {
-            Long count = getService().countUserCreatedInOneMonth(i);
+            Long count = getService().countUserCreatedInOneMonth(i+1);
             list.add(count);
         }
         return ResponseEntity.ok().body(new CustomResponse(200, "Count User Registration in current month",

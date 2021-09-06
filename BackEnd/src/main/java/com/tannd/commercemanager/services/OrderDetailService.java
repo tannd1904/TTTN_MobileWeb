@@ -7,4 +7,7 @@ import java.util.List;
 
 public interface OrderDetailService extends AbstractService<OrderDetailDTO, OrderDetail>{
     List<OrderDetailDTO> getByOrderId(Long id);
+
+    Long countExportProductThisMonth();
+    Long countExportProductInMonth(Integer month);
 }

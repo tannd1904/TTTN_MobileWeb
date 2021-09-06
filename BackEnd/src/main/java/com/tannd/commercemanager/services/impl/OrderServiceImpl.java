@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @ServiceHelper
@@ -52,5 +53,29 @@ public class OrderServiceImpl extends AbstractServiceImpl<OrderRepository, Order
             list.add(getMapper().toDto(product, new CycleAvoidingMappingContext()));
         });
         return list;
+    }
+
+    @Override
+    public List<Number> getOrdersInCurrentYear() {
+        List<Order> list = getRepository().findOrdersInCurrentYear();
+        List<Number> response = new ArrayList<>();
+        for (int i=0; i<4; i++) {
+            int finalI = i;
+            response.add(list.stream().filter(s -> s.getStatus().intValue() == finalI)
+                    .collect(Collectors.toList()).stream().count());
+        }
+        return response;
+    }
+
+    @Override
+    public List<Number> getOrdersInCurrentMonth() {
+        List<Order> list = getRepository().findOrdersInCurrentMonth();
+        List<Number> response = new ArrayList<>();
+        for (int i=0; i<4; i++) {
+            int finalI = i;
+            response.add(list.stream().filter(s -> s.getStatus().intValue() == finalI)
+                    .collect(Collectors.toList()).stream().count());
+        }
+        return response;
     }
 }

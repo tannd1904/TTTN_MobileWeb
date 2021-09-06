@@ -16,4 +16,7 @@ public interface ProductDetailService extends AbstractService<ProductDetailDTO, 
     Long countProductDetailByProductId(Long id);
     Long countProductDetailByProductIdAndDetail(Long id,
                                             String ram, String color, String memmory);
+
+    Long countImportProductThisMonth();
+    Long countImportProductInMonth(Integer month);
 }

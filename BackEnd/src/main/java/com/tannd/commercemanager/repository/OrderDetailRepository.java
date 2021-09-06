@@ -11,4 +11,22 @@ public interface OrderDetailRepository extends AbstractRepository<OrderDetail, L
             "from ct_phieudat cp " +
             "where cp.MAPD = :orderId ", nativeQuery = true)
     List<OrderDetail> findByOrderId(@Param("orderId") Long orderId);
+
+    @Query(value = "select count (t.MASP) " +
+            "from (select cp.* " +
+            "from ct_phieudat cp " +
+            "left join sanpham s " +
+            "on cp.MASP = s.MASP " +
+            "and s.TRANGTHAI = 1) t" +
+            "where month(t.created_at) = month(now()) ", nativeQuery = true)
+    Long countExportProductThisMonth();
+
+    @Query(value = "select count (t.MASP) " +
+            "from (select cp.* " +
+            "from ct_phieudat cp " +
+            "left join sanpham s " +
+            "on cp.MASP = s.MASP " +
+            "and s.TRANGTHAI = 1) t" +
+            "where month(t.created_at) = :month ", nativeQuery = true)
+    Long countExportProductInMonth(@Param("month") Integer month);
 }

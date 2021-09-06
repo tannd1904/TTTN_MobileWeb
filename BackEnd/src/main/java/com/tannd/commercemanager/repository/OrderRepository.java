@@ -17,4 +17,14 @@ public interface OrderRepository extends AbstractRepository<Order, Long>{
             "from phieudat p " +
             "where month(now()) - month(p.created_at) < :n_month " , nativeQuery = true)
     List<User> findOrderInMonthCurrent(@Param("n_month") Integer n_month);
+
+    @Query(value = "select * " +
+            "from phieudat p " +
+            "where year(now()) = year(p.created_at) ", nativeQuery = true)
+    List<Order> findOrdersInCurrentYear();
+
+    @Query(value = "select * " +
+            "from phieudat p " +
+            "where month(now()) = month(p.created_at) ", nativeQuery = true)
+    List<Order> findOrdersInCurrentMonth();
 }

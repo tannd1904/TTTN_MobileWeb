@@ -60,4 +60,14 @@ public class OrderDetailServiceImpl extends AbstractServiceImpl<OrderDetailRepos
         });
         return list;
     }
+
+    @Override
+    public Long countExportProductThisMonth() {
+        return getRepository().countExportProductThisMonth();
+    }
+
+    @Override
+    public Long countExportProductInMonth(Integer month) {
+        return getRepository().countExportProductInMonth(month);
+    }
 }
