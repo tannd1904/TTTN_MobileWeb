@@ -234,7 +234,7 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
         // this.productDetail.importVoucherDetailId = this.importDetail.id;
         // this.createProductDetail(this.productDetail)
       // })
-      // this.reloadPage();
+      this.reloadPage();
     }
 
   }
