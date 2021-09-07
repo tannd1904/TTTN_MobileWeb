@@ -51,6 +51,17 @@ public class ProductServiceImpl extends AbstractServiceImpl<ProductRepository, P
     }
 
     @Override
+    public List<ProductDTO> getAllProductImported() {
+        List<Product> listEntity = getRepository().findAllProductImported();
+        System.out.println(listEntity.toString());
+        List<ProductDTO> list = new ArrayList<>();
+        listEntity.stream().forEach(product -> {
+            list.add(getMapper().toDto(product, new CycleAvoidingMappingContext()));
+        });
+        return list;
+    }
+
+    @Override
     public List<ProductDTO> getTop8ProductNewArrival() {
         List<Product> listEntity = getRepository().findTop8NewArrivalProducts();
         System.out.println(listEntity.toString());
@@ -86,6 +97,17 @@ public class ProductServiceImpl extends AbstractServiceImpl<ProductRepository, P
     @Override
     public List<ProductDTO> getByCategoryId(Long categoryId) {
         List<Product> listEntity = getRepository().findByCategoryId(categoryId);
+        System.out.println(listEntity.toString());
+        List<ProductDTO> list = new ArrayList<>();
+        listEntity.stream().forEach(product -> {
+            list.add(getMapper().toDto(product, new CycleAvoidingMappingContext()));
+        });
+        return list;
+    }
+
+    @Override
+    public List<ProductDTO> getImportedByCategoryId(Long categoryId) {
+        List<Product> listEntity = getRepository().findImportedByCategoryId(categoryId);
         System.out.println(listEntity.toString());
         List<ProductDTO> list = new ArrayList<>();
         listEntity.stream().forEach(product -> {

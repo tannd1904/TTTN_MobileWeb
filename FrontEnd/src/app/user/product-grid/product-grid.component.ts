@@ -55,13 +55,41 @@ export class ProductGridComponent implements OnInit {
       name: "Red",
       checked: false
     },
+    {
+      name: "Gold",
+      checked: false
+    },
   ]
 
   memmories = [
     {
-      name: "8 GB",
+      name: "16 GB",
       checked: false
-    }
+    },
+    {
+      name: "32 GB",
+      checked: false
+    },
+    {
+      name: "64 GB",
+      checked: false
+    },
+    {
+      name: "128 GB",
+      checked: false
+    },
+    {
+      name: "256 GB",
+      checked: false
+    },
+    {
+      name: "512 GB",
+      checked: false
+    },
+    {
+      name: "1024 GB",
+      checked: false
+    },
   ]
 
   rams = [
@@ -229,7 +257,7 @@ export class ProductGridComponent implements OnInit {
 
   getAllProduct() {
     this.token = this.tokenStorageService.getToken();
-    this.productService.getProduct(this.token).subscribe(
+    this.productService.getProductImported(this.token).subscribe(
       (data: Response) => {
         this.products = data.data;
         console.log(this.products);
@@ -245,7 +273,7 @@ export class ProductGridComponent implements OnInit {
               }
             );
           s.productDetails = new Array<ProductDetail>();
-          this.productService.getProductDetailByProductId(this.token, s.id)
+          this.productService.getAllProductDetailByProductId(this.token, s.id)
               .subscribe((d: Response) => {
                 s.productDetails = d.data;
               }, (err) => {
@@ -271,42 +299,9 @@ export class ProductGridComponent implements OnInit {
     );
   }
 
-  getAllProductByPrice(check: boolean) {
-    this.token = this.tokenStorageService.getToken();
-    this.productService.getProductByPrice(this.token, check).subscribe(
-      (data: Response) => {
-        this.products = data.data;
-        console.log(this.products);
-        this.products.forEach((s) => {
-          this.categoryService
-            .getCategoryById(this.token, s.categoryId)
-            .subscribe(
-              (data: Response) => {
-                s.categoryName = data.data.name;
-              },
-              (err) => {
-                console.log(err);
-              }
-            );
-          s.productDetails = new Array<ProductDetail>();
-          this.productService.getProductDetailByProductId(this.token, s.id)
-              .subscribe((d: Response) => {
-                s.productDetails = d.data;
-              }, (err) => {
-                console.log(err)}
-              )
-        });
-        
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
   getProductByCategoryId(categoryId: number) {
     this.token = this.tokenStorageService.getToken();
-    this.productService.getProductByCategoryId(this.token, categoryId).subscribe(
+    this.productService.getImportedProductByCategoryId(this.token, categoryId).subscribe(
       (data: Response) => {
         this.products = data.data;
         console.log(this.products);
@@ -452,85 +447,381 @@ export class ProductGridComponent implements OnInit {
     console.log(this.selectedRam);
     console.log(this.selectedMemory);
     console.log(this.selectedPrice);
+    window.location.hash = "products";
 
+    this.displayProductList = [];
+    for (var i = 0; i < this.selectedPrice.length; i++) {
+      var lst = this.allProducts.filter(x => x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to);
+      for (var j = 0; j < lst.length; j++) {
+        this.displayProductList.push(lst[j]);
+      }
+    }
+    if (this.selectedRam.length != 0) {
+      if (this.displayProductList.length == 0) {
+        for (var i = 0; i < this.selectedRam.length; i++) {
+          var lst = this.allProducts.filter(x => x.productDetails[0].ram == this.selectedRam[i].name);
+          for (var j = 0; j < lst.length; j++) {
+            this.displayProductList.push(lst[j]);
+          }
+        }
+        console.log(this.displayProductList)
+      }
+      var tempProductlst = this.displayProductList;
+      this.displayProductList = [];
+      for (var i = 0; i < this.selectedRam.length; i++) {
+        //Filtering the same list which was filtered in brand list
+        var lst = tempProductlst.filter(x => x.productDetails[0].ram == this.selectedRam[i].name);
+        for (var j = 0; j < lst.length; j++) {
+          this.displayProductList.push(lst[j]);
+        }
+      }
+    }
+    if (this.selectedColor.length != 0) {
+      if (this.displayProductList.length == 0) {
+        for (var i = 0; i < this.selectedColor.length; i++) {
+          var lst = this.allProducts.filter(x => x.productDetails[0].color == this.selectedColor[i].name);
+          for (var j = 0; j < lst.length; j++) {
+            this.displayProductList.push(lst[j]);
+          }
+        }
+        console.log(this.displayProductList)
+      }
+      var tempProductlst = this.displayProductList;
+      this.displayProductList = [];
+      for (var i = 0; i < this.selectedColor.length; i++) {
+        //Filtering the same list which was filtered in brand list
+        var lst = tempProductlst.filter(x => x.productDetails[0].color == this.selectedColor[i].name);
+        for (var j = 0; j < lst.length; j++) {
+          this.displayProductList.push(lst[j]);
+        }
+      }
+    }
+    if (this.selectedMemory.length != 0) {
+      if (this.displayProductList.length == 0) {
+        for (var i = 0; i < this.selectedMemory.length; i++) {
+          var lst = this.allProducts.filter(x => x.productDetails[0].memmory == this.selectedMemory[i].name);
+          for (var j = 0; j < lst.length; j++) {
+            this.displayProductList.push(lst[j]);
+          }
+        }
+        console.log(this.displayProductList)
+      }
+      var tempProductlst = this.displayProductList;
+      this.displayProductList = [];
+      for (var i = 0; i < this.selectedMemory.length; i++) {
+        //Filtering the same list which was filtered in brand list
+        var lst = tempProductlst.filter(x => x.productDetails[0].memmory == this.selectedMemory[i].name);
+        for (var j = 0; j < lst.length; j++) {
+          this.displayProductList.push(lst[j]);
+        }
+      }
+    }
+    
     if (this.selectedRam.length == 0 && this.selectedColor.length == 0 
-        && this.selectedMemory.length == 0 && this.selectedPrice.length == 0) {
+      && this.selectedMemory.length == 0 && this.selectedPrice.length == 0) {
       this.displayProductList = this.allProducts;
-    } else {
-      if (this.displayProductList.length == this.allProducts.length) {
+    }
+
+    this.products = this.displayProductList;
+  }
+
+  onChangePrice(event: any) {
+    console.log('start filter');
+    console.log(this.selectedColor);
+    console.log(this.selectedRam);
+    console.log(this.selectedMemory);
+    console.log(this.selectedPrice);
+    
+    //the first clicked in filter list
+    if (this.displayProductList.length == 0) {
+      this.displayProductList = [];
+      for (var i = 0; i < this.selectedPrice.length; i++) {
+          var lst = this.allProducts.filter(x => x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to);
+          for (var j = 0; j < lst.length; j++) {
+            this.displayProductList.push(lst[j]);
+          }
+        }
+    } 
+    else { //already have clicked in some option
+      //the first clicked in price filter
+      if (this.selectedPrice.length == 1) {
+        var tempProductlst = this.displayProductList;
         this.displayProductList = [];
         for (var i = 0; i < this.selectedPrice.length; i++) {
-          var lst = this.allProducts.filter(
-            x => 
-            ((x.price > this.selectedPrice[i].from) && (x.price < this.selectedPrice[i].to)));
-            lst.forEach(s => {
-              this.displayProductList.push(s)
-            })
-          } 
-        if (this.displayProductList.length == 0) {
-          this.allProducts.forEach(product => {
-            for (var i = 0; i < this.selectedRam.length; i++) {
-              var lst = product.productDetails.filter(x => x.ram == this.selectedRam[i].name);
-              if (lst.length != 0) {
-                this.displayProductList.push(product);
-              } 
-            }
-          })
-        } else {
-          var temp = this.displayProductList;
-          this.displayProductList = [];
-          temp.forEach(product => {
-            for (var i = 0; i < this.selectedRam.length; i++) {
-              var lst = product.productDetails.filter(x => x.ram == this.selectedRam[i].name);
-              if (lst.length != 0) {
-                this.displayProductList.push(product);
-              } 
-            }
-          })
+          //Filtering the same list which was filtered in brand list
+          var lst = tempProductlst.filter(x => x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to);
+          for (var j = 0; j < lst.length; j++) {
+            this.displayProductList.push(lst[j]);
+          }
         }
       } 
-      // else {
+      else { //already have clicked in price filter
+        //select all products that meet the condition of new chosen price and older conditions of ram, color, and mem
+        //firstly, check whether exist any condition filter
+        if (this.selectedRam.length == 0 && this.selectedColor.length == 0 
+          && this.selectedMemory.length == 0) {
+            //select all products that meet the conditions of price filter
+            this.displayProductList = [];
+            for (var i = 0; i < this.selectedPrice.length; i++) {
+                var lst = this.allProducts.filter(x => x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to);
+                for (var j = 0; j < lst.length; j++) {
+                  this.displayProductList.push(lst[j]);
+                }
+              }
+          }
+        else { //already have older conditions of ram, color, and mem
+          const temp = this.displayProductList[0].productDetails[0];
+          this.displayProductList = [];
+          for (var i = 0; i < this.selectedPrice.length; i++) {
+            var lst = this.allProducts.filter(x => x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to);
+                for (var j = 0; j < lst.length; j++) {
+                  this.displayProductList.push(lst[j]);
+                }
+          }
+          if (this.selectedRam.length != 0) {
+            var tempProductlst = this.displayProductList;
+            this.displayProductList = [];
+            for (var i = 0; i < this.selectedRam.length; i++) {
+              //Filtering the same list which was filtered in brand list
+              var lst = tempProductlst.filter(x => x.productDetails[0].ram == this.selectedRam[i].name);
+              for (var j = 0; j < lst.length; j++) {
+                this.displayProductList.push(lst[j]);
+              }
+            }
+          }
+          if (this.selectedColor.length != 0) {
+            var tempProductlst = this.displayProductList;
+            this.displayProductList = [];
+            for (var i = 0; i < this.selectedColor.length; i++) {
+              //Filtering the same list which was filtered in brand list
+              var lst = tempProductlst.filter(x => x.productDetails[0].color == this.selectedColor[i].name);
+              for (var j = 0; j < lst.length; j++) {
+                this.displayProductList.push(lst[j]);
+              }
+            }
+          }
+          if (this.selectedMemory.length != 0) {
+            var tempProductlst = this.displayProductList;
+            this.displayProductList = [];
+            for (var i = 0; i < this.selectedMemory.length; i++) {
+              //Filtering the same list which was filtered in brand list
+              var lst = tempProductlst.filter(x => x.productDetails[0].memmory == this.selectedMemory[i].name);
+              for (var j = 0; j < lst.length; j++) {
+                this.displayProductList.push(lst[j]);
+              }
+            }
+          }
+        }
+      }
+    }
 
-      // }
-
-
-       
-
-      // this.allProducts.forEach(product => {
-        
-
-          
-  
-      //   if (this.selectedRam.length > 0) {
-      //     if (this.selectedColor.length > 0) {
-      //       var tempProductlst = this.displayProductList;
-      //       this.displayProductList = [];
-      //       for (var i = 0; i < this.selectedColor.length; i++) {
-      //         tempProductlst.forEach(temp => {
-      //           var lst = temp.productDetails.filter(x => x.color == this.selectedColor[i].name);
-      //           if (lst.length != 0) {
-      //             this.displayProductList.push(temp);
-      //           }
-      //         })
-      //       }
-      //     }
-      //   } else {
-      //     for (var i = 0; i < this.selectedColor.length; i++) {
-      //       var lst = product.productDetails.filter(x => x.ram == this.selectedColor[i].name);
-      //       if (lst.length != 0) {
-      //         this.displayProductList.push(product);
-      //       } 
-      //     }
-      //   }
-      // })
+    if (this.selectedRam.length == 0 && this.selectedColor.length == 0 
+      && this.selectedMemory.length == 0 && this.selectedPrice.length == 0) {
+      this.displayProductList = this.allProducts;
     }
 
     this.products = this.displayProductList;
 
-    // câu lệnh filter giá:
-    // filter(x => x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to)
+ 
+  }
+
+  onChangeRam(event: any) {
+    console.log('start filter');
 
     
+    //the first clicked in filter list
+    if (this.displayProductList.length == 0) {
+      this.displayProductList = [];
+      for (var i = 0; i < this.selectedRam.length; i++) {
+          var lst = this.allProducts.filter(x => x.productDetails[0].ram == this.selectedRam[i].name);
+          for (var j = 0; j < lst.length; j++) {
+            this.displayProductList.push(lst[j]);
+          }
+        }
+    } 
+    else { //already have clicked in some option
+      //the first clicked in price filter
+      if (this.selectedRam.length == 1) {
+        var tempProductlst = this.displayProductList;
+        this.displayProductList = [];
+        for (var i = 0; i < this.selectedRam.length; i++) {
+          //Filtering the same list which was filtered in brand list
+          var lst = tempProductlst.filter(x => x.productDetails[0].ram == this.selectedRam[i].name);
+          for (var j = 0; j < lst.length; j++) {
+            this.displayProductList.push(lst[j]);
+          }
+        }
+      } 
+      else { //already have clicked in price filter
+        //select all products that meet the condition of new chosen price and older conditions of ram, color, and mem
+        //firstly, check whether exist any condition filter
+        if (this.selectedPrice.length == 0 && this.selectedColor.length == 0 
+          && this.selectedMemory.length == 0) {
+            //select all products that meet the conditions of price filter
+            this.displayProductList = [];
+            for (var i = 0; i < this.selectedRam.length; i++) {
+                var lst = this.allProducts.filter(x => x.productDetails[0].ram == this.selectedRam[i].name);
+                for (var j = 0; j < lst.length; j++) {
+                  this.displayProductList.push(lst[j]);
+                }
+              }
+          }
+        else { //already have older conditions of ram, color, and mem
+          const temp = this.displayProductList[0].productDetails[0];
+          this.displayProductList = [];
+          for (var i = 0; i < this.selectedRam.length; i++) {
+            var lst = this.allProducts.filter(x => 
+              (x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to)
+              && (x.productDetails[0].ram == this.selectedRam[i].name) && (x.productDetails[0].color == temp.color)
+              && (x.productDetails[0].memmory == temp.memmory));
+            for (var j = 0; j < lst.length; j++) {
+              this.displayProductList.push(lst[j]);
+            }
+          }
+        }
+      }
+    }
+
+    if (this.selectedRam.length == 0 && this.selectedColor.length == 0 
+      && this.selectedMemory.length == 0 && this.selectedPrice.length == 0) {
+      this.displayProductList = this.allProducts;
+    }
+
+    this.products = this.displayProductList;
+
+ 
+  }
+
+  onChangeColor(event: any) {
+    console.log('start filter');
+    
+    //the first clicked in filter list
+    if (this.displayProductList.length == 0) {
+      this.displayProductList = [];
+      for (var i = 0; i < this.selectedColor.length; i++) {
+          var lst = this.allProducts.filter(x => x.productDetails[0].color == this.selectedColor[i].name);
+          for (var j = 0; j < lst.length; j++) {
+            this.displayProductList.push(lst[j]);
+          }
+        }
+    } 
+    else { //already have clicked in some option
+      //the first clicked in price filter
+      if (this.selectedColor.length == 1) {
+        var tempProductlst = this.displayProductList;
+        this.displayProductList = [];
+        for (var i = 0; i < this.selectedColor.length; i++) {
+          //Filtering the same list which was filtered in brand list
+          var lst = tempProductlst.filter(x => x.productDetails[0].color == this.selectedColor[i].name);
+          for (var j = 0; j < lst.length; j++) {
+            this.displayProductList.push(lst[j]);
+          }
+        }
+      } 
+      else { //already have clicked in price filter
+        //select all products that meet the condition of new chosen price and older conditions of ram, color, and mem
+        //firstly, check whether exist any condition filter
+        if (this.selectedPrice.length == 0 && this.selectedRam.length == 0 
+          && this.selectedMemory.length == 0) {
+            //select all products that meet the conditions of price filter
+            this.displayProductList = [];
+            for (var i = 0; i < this.selectedColor.length; i++) {
+                var lst = this.allProducts.filter(x => x.productDetails[0].color == this.selectedColor[i].name);
+                for (var j = 0; j < lst.length; j++) {
+                  this.displayProductList.push(lst[j]);
+                }
+              }
+          }
+        else { //already have older conditions of ram, color, and mem
+          const temp = this.displayProductList[0].productDetails[0];
+          this.displayProductList = [];
+          for (var i = 0; i < this.selectedColor.length; i++) {
+            var lst = this.allProducts.filter(x => 
+              (x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to)
+              && (x.productDetails[0].color == this.selectedColor[i].name) && (x.productDetails[0].ram == temp.ram)
+              && (x.productDetails[0].memmory == temp.memmory));
+            for (var j = 0; j < lst.length; j++) {
+              this.displayProductList.push(lst[j]);
+            }
+          }
+        }
+      }
+    }
+
+    if (this.selectedRam.length == 0 && this.selectedColor.length == 0 
+      && this.selectedMemory.length == 0 && this.selectedPrice.length == 0) {
+      this.displayProductList = this.allProducts;
+    }
+
+    this.products = this.displayProductList;
+
+ 
+  }
+
+  onChangeMem(event: any) {
+    console.log('start filter');
+    
+    //the first clicked in filter list
+    if (this.displayProductList.length == 0) {
+      this.displayProductList = [];
+      for (var i = 0; i < this.selectedMemory.length; i++) {
+          var lst = this.allProducts.filter(x => x.productDetails[0].memmory == this.selectedMemory[i].name);
+          for (var j = 0; j < lst.length; j++) {
+            this.displayProductList.push(lst[j]);
+          }
+        }
+    } 
+    else { //already have clicked in some option
+      //the first clicked in price filter
+      if (this.selectedMemory.length == 1) {
+        var tempProductlst = this.displayProductList;
+        this.displayProductList = [];
+        for (var i = 0; i < this.selectedMemory.length; i++) {
+          //Filtering the same list which was filtered in brand list
+          var lst = tempProductlst.filter(x => x.productDetails[0].memmory == this.selectedMemory[i].name);
+          for (var j = 0; j < lst.length; j++) {
+            this.displayProductList.push(lst[j]);
+          }
+        }
+      } 
+      else { //already have clicked in price filter
+        //select all products that meet the condition of new chosen price and older conditions of ram, color, and mem
+        //firstly, check whether exist any condition filter
+        if (this.selectedPrice.length == 0 && this.selectedColor.length == 0 
+          && this.selectedRam.length == 0) {
+            //select all products that meet the conditions of price filter
+            this.displayProductList = [];
+            for (var i = 0; i < this.selectedMemory.length; i++) {
+                var lst = this.allProducts.filter(x => x.productDetails[0].memmory == this.selectedMemory[i].name);
+                for (var j = 0; j < lst.length; j++) {
+                  this.displayProductList.push(lst[j]);
+                }
+              }
+          }
+        else { //already have older conditions of ram, color, and mem
+          const temp = this.displayProductList[0].productDetails[0];
+          this.displayProductList = [];
+          for (var i = 0; i < this.selectedMemory.length; i++) {
+            var lst = this.allProducts.filter(x => 
+              (x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to)
+              && (x.productDetails[0].memmory == this.selectedMemory[i].name) && (x.productDetails[0].color == temp.color)
+              && (x.productDetails[0].ram == temp.ram));
+            for (var j = 0; j < lst.length; j++) {
+              this.displayProductList.push(lst[j]);
+            }
+          }
+        }
+      }
+    }
+
+    if (this.selectedRam.length == 0 && this.selectedColor.length == 0 
+      && this.selectedMemory.length == 0 && this.selectedPrice.length == 0) {
+      this.displayProductList = this.allProducts;
+    }
+
+    this.products = this.displayProductList;
+
+ 
   }
 
   resetFilter() {

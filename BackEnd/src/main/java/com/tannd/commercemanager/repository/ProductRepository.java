@@ -24,6 +24,12 @@ public interface ProductRepository extends AbstractRepository<Product, Long> {
 //             , nativeQuery = true)
 //    List<Product> findTop4NewArrivalProducts();
 
+    @Query(value = "select distinct d.* " +
+            "from ct_phieunhap cp " +
+            "left join dongsp d " +
+            "on cp.MADONGSP = d.MADONGSP ", nativeQuery = true)
+    List<Product> findAllProductImported();
+
     @Query(value = "select t.*" +
             "from (select distinct d.* " +
             "from dongsp d " +
@@ -42,6 +48,13 @@ public interface ProductRepository extends AbstractRepository<Product, Long> {
             "from dongsp d " +
             "where d.MAHANG = :categoryId", nativeQuery = true)
     List<Product> findByCategoryId(@Param("categoryId") Long categoryId);
+
+    @Query(value = "select distinct d.* " +
+            "from ct_phieunhap cp " +
+            "inner join dongsp d " +
+            "on cp.MADONGSP = d.MADONGSP " +
+            "and d.MAHANG = :categoryId ", nativeQuery = true)
+    List<Product> findImportedByCategoryId(@Param("categoryId") Long categoryId);
 
     List<Product> findAllByNameContaining(String name);
 }

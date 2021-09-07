@@ -9,9 +9,11 @@ import java.util.List;
 public interface ProductService extends AbstractService<ProductDTO, Product> {
 //    public ProductDTO save(ProductRequest productRequest);
 //    public List<ProductDTO> getAllProduct();
-    public List<ProductDTO> getTop8ProductNewArrival();
+    List<ProductDTO> getAllProductImported();
+    List<ProductDTO> getTop8ProductNewArrival();
     List<ProductDTO> getAllProductDesc();
     List<ProductDTO> getAllProductAsc();
     List<ProductDTO> getByCategoryId(Long categoryId);
+    List<ProductDTO> getImportedByCategoryId(Long categoryId);
     List<ProductDTO> searchProductByName(String name);
 }

@@ -67,6 +67,15 @@ export class ProductService extends AbstracService {
                     catchError(this.handleError));
   }
 
+  getProductImported(token: String): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<Product[]>(API_URL + 'product/' + 'get-all-imported', { headers: headers})
+                  .pipe(
+                    retry(3), 
+                    catchError(this.handleError));
+  }
+
   searchProductByName(token: String, name: string): Observable<any> {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
@@ -115,6 +124,15 @@ export class ProductService extends AbstracService {
     let tokenStr = 'Bearer ' + token;
     const headers = new HttpHeaders().set('Authorization', tokenStr);
     return this.http.get<Product>(API_URL + 'product/' + 'get-by-category-id/' + id, { headers: headers})
+                  .pipe(
+                    retry(3), 
+                    catchError(this.handleError));
+  }
+
+  getImportedProductByCategoryId(token: String, id: number): Observable<any> {
+    let tokenStr = 'Bearer ' + token;
+    const headers = new HttpHeaders().set('Authorization', tokenStr);
+    return this.http.get<Product>(API_URL + 'product/' + 'get-imported-by-category-id/' + id, { headers: headers})
                   .pipe(
                     retry(3), 
                     catchError(this.handleError));

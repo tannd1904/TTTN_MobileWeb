@@ -68,6 +68,12 @@ public class ProductController
         return getAll();
     }
 
+    @GetMapping("/get-all-imported")
+    public ResponseEntity<?> getAllProductsImported() {
+        return ResponseEntity.ok().body(new CustomResponse(200, "Get All Products Imported",
+                (getService().getAllProductImported())));
+    }
+
     @GetMapping("/get-top-4-new")
     public ResponseEntity<?> getTop4NewProduct() {
         return ResponseEntity.ok().body(new CustomResponse(200, "Get Top 4 New Product",
@@ -90,6 +96,12 @@ public class ProductController
     public ResponseEntity<?> getProductByCategoryId(@PathVariable Long id) {
         return ResponseEntity.ok().body(new CustomResponse(200, "Get Product Asc By Category Id",
                 (getService().getByCategoryId(id))));
+    }
+
+    @GetMapping("/get-imported-by-category-id/{id}")
+    public ResponseEntity<?> getImportedProductByCategoryId(@PathVariable Long id) {
+        return ResponseEntity.ok().body(new CustomResponse(200, "Get Imported Product Asc By Category Id",
+                (getService().getImportedByCategoryId(id))));
     }
 
     @GetMapping("/{id}")

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cart } from 'src/app/cart';
 import { Product } from 'src/app/model/product';
@@ -17,7 +17,7 @@ import { UserService } from 'src/app/service/user.service';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
 
   searchResult: any;
   products: Product[] = [];
@@ -33,6 +33,10 @@ export class SearchComponent implements OnInit {
     private productService: ProductService,
     private categoryService: CategoryService,
     private cartService: CartService,) { }
+
+  ngOnDestroy(): void {
+    sessionStorage.removeItem('SEARCH');
+  }
 
   ngOnInit(): void {
     this.searchResult = JSON.parse(sessionStorage.getItem('SEARCH') || '{}');
