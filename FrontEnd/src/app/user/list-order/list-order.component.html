@@ -1,232 +1,232 @@
 <div class="breadcrumb-area">
-    <div class="container">
-        <div class="breadcrumb-content">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li class="active">List Order</li>
-            </ul>
-        </div>
+  <div class="container">
+    <div class="breadcrumb-content">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="active">List Order</li>
+      </ul>
     </div>
+  </div>
 </div>
 
 <!-- main content -->
 <div class="main-content" id="cart">
-    <!-- main -->
-    <div id="wrapper-site">
-        <div class="page">
-            <div class="section-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <ul class="nav nav-tabs page-header-tab">
-                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#All">All</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Confirming">Confirming</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Delivering">Delivering</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Delivered">Delivered</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Cancelled">Cancelled</a></li>
-                                </ul>
-                                <div class="header-action d-md-flex">
-                                    <div class="input-group mr-2">
-                                        <input type="text" class="form-control" placeholder="Search...">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  <!-- main -->
+  <div id="wrapper-site">
+    <div class="page">
+      <div class="section-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="d-flex justify-content-between align-items-center">
+                <ul class="nav nav-tabs page-header-tab">
+                  <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#All">All</a></li>
+                  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Confirming">Confirming</a></li>
+                  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Delivering">Delivering</a></li>
+                  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Delivered">Delivered</a></li>
+                  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Cancelled">Cancelled</a></li>
+                </ul>
+                <div class="header-action d-md-flex">
+                  <div class="input-group mr-2">
+                    <input class="form-control" placeholder="Search..." type="text">
+                  </div>
                 </div>
+              </div>
             </div>
-            <div class="section-body mt-3">
-                <div class="container-fluid">
-                    <div class="tab-content">
-                        <div class="tab-pane fade show active" id="All" role="tabpanel">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Order Date</th>
-                                                            <th>Full Name Of Receiver</th>
-                                                            <th class="w100">Address Of Receiver</th>
-                                                            <th class="w100">Phone Of Receiver</th>
-                                                            <th>Status</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody *ngFor="let order of orders">
-                                                        <tr routerLink="../order-detail/{{order.id}}">
-                                                            <td>{{order.dateOfOrder}}</td>
-                                                            <td>{{order.lastNameOfReceiver}} {{order.firstNameOfReceiver}}</td>
-                                                            <td>{{order.addressOfReceiver}}</td>
-                                                            <td>{{order.phoneOfReceiver}}</td>
-                                                            <td>
-                                                                <label *ngIf="order.status == 0" style="margin-right: 17px;"> Confirming </label>
-                                                                <label *ngIf="order.status == 1" style="margin-right: 17px;"> Delivering </label>
-                                                                <label *ngIf="order.status == 2" style="margin-right: 17px;"> Delivered </label>
-                                                                <label *ngIf="order.status == 3" style="margin-right: 17px;"> Cancelled </label>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="Confirming" role="tabpanel">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Order Date</th>
-                                                            <th>Full Name Of Receiver</th>
-                                                            <th class="w100">Address Of Receiver</th>
-                                                            <th class="w100">Phone Of Receiver</th>
-                                                            <th>Status</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody *ngFor="let order of listConfirmingOrders">
-                                                        <tr routerLink="../order-detail/{{order.id}}">
-                                                            <td>{{order.dateOfOrder}}</td>
-                                                            <td>{{order.lastNameOfReceiver}} {{order.firstNameOfReceiver}}</td>
-                                                            <td>{{order.addressOfReceiver}}</td>
-                                                            <td>{{order.phoneOfReceiver}}</td>
-                                                            <td>
-                                                                <label *ngIf="order.status == 0" style="margin-right: 17px;"> Confirming </label>
-                                                                <label *ngIf="order.status == 1" style="margin-right: 17px;"> Delivering </label>
-                                                                <label *ngIf="order.status == 2" style="margin-right: 17px;"> Delivered </label>
-                                                                <label *ngIf="order.status == 3" style="margin-right: 17px;"> Cancelled </label>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="Delivering" role="tabpanel">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Order Date</th>
-                                                            <th>Full Name Of Receiver</th>
-                                                            <th class="w100">Address Of Receiver</th>
-                                                            <th class="w100">Phone Of Receiver</th>
-                                                            <th>Status</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody *ngFor="let order of listDeliveringOrders">
-                                                        <tr routerLink="../order-detail/{{order.id}}">
-                                                            <td>{{order.dateOfOrder}}</td>
-                                                            <td>{{order.lastNameOfReceiver}} {{order.firstNameOfReceiver}}</td>
-                                                            <td>{{order.addressOfReceiver}}</td>
-                                                            <td>{{order.phoneOfReceiver}}</td>
-                                                            <td>
-                                                                <label *ngIf="order.status == 0" style="margin-right: 17px;"> Confirming </label>
-                                                                <label *ngIf="order.status == 1" style="margin-right: 17px;"> Delivering </label>
-                                                                <label *ngIf="order.status == 2" style="margin-right: 17px;"> Delivered </label>
-                                                                <label *ngIf="order.status == 3" style="margin-right: 17px;"> Cancelled </label>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="Delivered" role="tabpanel">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Order Date</th>
-                                                            <th>Full Name Of Receiver</th>
-                                                            <th class="w100">Address Of Receiver</th>
-                                                            <th class="w100">Phone Of Receiver</th>
-                                                            <th>Status</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody *ngFor="let order of listDeliveredOrders">
-                                                        <tr routerLink="../order-detail/{{order.id}}">
-                                                            <td>{{order.dateOfOrder}}</td>
-                                                            <td>{{order.lastNameOfReceiver}} {{order.firstNameOfReceiver}}</td>
-                                                            <td>{{order.addressOfReceiver}}</td>
-                                                            <td>{{order.phoneOfReceiver}}</td>
-                                                            <td>
-                                                                <label *ngIf="order.status == 0" style="margin-right: 17px;"> Confirming </label>
-                                                                <label *ngIf="order.status == 1" style="margin-right: 17px;"> Delivering </label>
-                                                                <label *ngIf="order.status == 2" style="margin-right: 17px;"> Delivered </label>
-                                                                <label *ngIf="order.status == 3" style="margin-right: 17px;"> Cancelled </label>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="Cancelled" role="tabpanel">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Order Date</th>
-                                                            <th>Full Name Of Receiver</th>
-                                                            <th class="w100">Address Of Receiver</th>
-                                                            <th class="w100">Phone Of Receiver</th>
-                                                            <th>Status</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody *ngFor="let order of listCancelledOrders">
-                                                        <tr routerLink="../order-detail/{{order.id}}">
-                                                            <td>{{order.dateOfOrder}}</td>
-                                                            <td>{{order.lastNameOfReceiver}} {{order.firstNameOfReceiver}}</td>
-                                                            <td>{{order.addressOfReceiver}}</td>
-                                                            <td>{{order.phoneOfReceiver}}</td>
-                                                            <td>
-                                                                <label *ngIf="order.status == 0" style="margin-right: 17px;"> Confirming </label>
-                                                                <label *ngIf="order.status == 1" style="margin-right: 17px;"> Delivering </label>
-                                                                <label *ngIf="order.status == 2" style="margin-right: 17px;"> Delivered </label>
-                                                                <label *ngIf="order.status == 3" style="margin-right: 17px;"> Cancelled </label>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
+      <div class="section-body mt-3">
+        <div class="container-fluid">
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="All" role="tabpanel">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
+                          <thead>
+                          <tr>
+                            <th>Order Date</th>
+                            <th>Full Name Of Receiver</th>
+                            <th class="w100">Address Of Receiver</th>
+                            <th class="w100">Phone Of Receiver</th>
+                            <th>Status</th>
+                          </tr>
+                          </thead>
+                          <tbody *ngFor="let order of orders">
+                          <tr routerLink="../order-detail/{{order.id}}">
+                            <td>{{order.dateOfOrder}}</td>
+                            <td>{{order.lastNameOfReceiver}} {{order.firstNameOfReceiver}}</td>
+                            <td>{{order.addressOfReceiver}}</td>
+                            <td>{{order.phoneOfReceiver}}</td>
+                            <td>
+                              <label *ngIf="order.status == 0" style="margin-right: 17px;"> Confirming </label>
+                              <label *ngIf="order.status == 1" style="margin-right: 17px;"> Delivering </label>
+                              <label *ngIf="order.status == 2" style="margin-right: 17px;"> Delivered </label>
+                              <label *ngIf="order.status == 3" style="margin-right: 17px;"> Cancelled </label>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="Confirming" role="tabpanel">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
+                          <thead>
+                          <tr>
+                            <th>Order Date</th>
+                            <th>Full Name Of Receiver</th>
+                            <th class="w100">Address Of Receiver</th>
+                            <th class="w100">Phone Of Receiver</th>
+                            <th>Status</th>
+                          </tr>
+                          </thead>
+                          <tbody *ngFor="let order of listConfirmingOrders">
+                          <tr routerLink="../order-detail/{{order.id}}">
+                            <td>{{order.dateOfOrder}}</td>
+                            <td>{{order.lastNameOfReceiver}} {{order.firstNameOfReceiver}}</td>
+                            <td>{{order.addressOfReceiver}}</td>
+                            <td>{{order.phoneOfReceiver}}</td>
+                            <td>
+                              <label *ngIf="order.status == 0" style="margin-right: 17px;"> Confirming </label>
+                              <label *ngIf="order.status == 1" style="margin-right: 17px;"> Delivering </label>
+                              <label *ngIf="order.status == 2" style="margin-right: 17px;"> Delivered </label>
+                              <label *ngIf="order.status == 3" style="margin-right: 17px;"> Cancelled </label>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="Delivering" role="tabpanel">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
+                          <thead>
+                          <tr>
+                            <th>Order Date</th>
+                            <th>Full Name Of Receiver</th>
+                            <th class="w100">Address Of Receiver</th>
+                            <th class="w100">Phone Of Receiver</th>
+                            <th>Status</th>
+                          </tr>
+                          </thead>
+                          <tbody *ngFor="let order of listDeliveringOrders">
+                          <tr routerLink="../order-detail/{{order.id}}">
+                            <td>{{order.dateOfOrder}}</td>
+                            <td>{{order.lastNameOfReceiver}} {{order.firstNameOfReceiver}}</td>
+                            <td>{{order.addressOfReceiver}}</td>
+                            <td>{{order.phoneOfReceiver}}</td>
+                            <td>
+                              <label *ngIf="order.status == 0" style="margin-right: 17px;"> Confirming </label>
+                              <label *ngIf="order.status == 1" style="margin-right: 17px;"> Delivering </label>
+                              <label *ngIf="order.status == 2" style="margin-right: 17px;"> Delivered </label>
+                              <label *ngIf="order.status == 3" style="margin-right: 17px;"> Cancelled </label>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="Delivered" role="tabpanel">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
+                          <thead>
+                          <tr>
+                            <th>Order Date</th>
+                            <th>Full Name Of Receiver</th>
+                            <th class="w100">Address Of Receiver</th>
+                            <th class="w100">Phone Of Receiver</th>
+                            <th>Status</th>
+                          </tr>
+                          </thead>
+                          <tbody *ngFor="let order of listDeliveredOrders">
+                          <tr routerLink="../order-detail/{{order.id}}">
+                            <td>{{order.dateOfOrder}}</td>
+                            <td>{{order.lastNameOfReceiver}} {{order.firstNameOfReceiver}}</td>
+                            <td>{{order.addressOfReceiver}}</td>
+                            <td>{{order.phoneOfReceiver}}</td>
+                            <td>
+                              <label *ngIf="order.status == 0" style="margin-right: 17px;"> Confirming </label>
+                              <label *ngIf="order.status == 1" style="margin-right: 17px;"> Delivering </label>
+                              <label *ngIf="order.status == 2" style="margin-right: 17px;"> Delivered </label>
+                              <label *ngIf="order.status == 3" style="margin-right: 17px;"> Cancelled </label>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="Cancelled" role="tabpanel">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
+                          <thead>
+                          <tr>
+                            <th>Order Date</th>
+                            <th>Full Name Of Receiver</th>
+                            <th class="w100">Address Of Receiver</th>
+                            <th class="w100">Phone Of Receiver</th>
+                            <th>Status</th>
+                          </tr>
+                          </thead>
+                          <tbody *ngFor="let order of listCancelledOrders">
+                          <tr routerLink="../order-detail/{{order.id}}">
+                            <td>{{order.dateOfOrder}}</td>
+                            <td>{{order.lastNameOfReceiver}} {{order.firstNameOfReceiver}}</td>
+                            <td>{{order.addressOfReceiver}}</td>
+                            <td>{{order.phoneOfReceiver}}</td>
+                            <td>
+                              <label *ngIf="order.status == 0" style="margin-right: 17px;"> Confirming </label>
+                              <label *ngIf="order.status == 1" style="margin-right: 17px;"> Delivering </label>
+                              <label *ngIf="order.status == 2" style="margin-right: 17px;"> Delivered </label>
+                              <label *ngIf="order.status == 3" style="margin-right: 17px;"> Cancelled </label>
+                            </td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

@@ -1,12 +1,12 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { LoginInterceptor } from './login.interceptor';
+import {LoginInterceptor} from './login.interceptor';
 
 describe('LoginInterceptor', () => {
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
       LoginInterceptor
-      ]
+    ]
   }));
 
   it('should be created', () => {

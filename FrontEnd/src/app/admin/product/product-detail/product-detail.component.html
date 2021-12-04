@@ -1,115 +1,115 @@
-<section class="content-header"> 
-    <h1>
-      Product Detail
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Product</a></li>
-      <li class="active">Detail</li>
-    </ol>
+<section class="content-header">
+  <h1>
+    Product Detail
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="#">Product</a></li>
+    <li class="active">Detail</li>
+  </ol>
 </section>
 
 <section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Detail of {{product.name}}</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="table-responsive ">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                      <th>ID</th>
-                                      <th>Product name</th>
-                                      <th>Price</th>
-                                      <th>Type</th>
-                                      <th>Status</th>
-                                      <th>Image</th>
-                                      <td>Sale</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{{product.id}}</td>
-                                        <td>{{product.name}}</td>
-                                        <td>{{product.price | currency}}</td>
-                                        <td>{{product.type}}</td>
-                                        <td *ngIf="product.status === 1">On Sales</td>
-                                        <td *ngIf="product.status === 0">Out of stock</td>
-                                        <td *ngIf="product.status === 2">Coming Soon</td>
-                                        <td>
-                                            <img height="100px" width="auto" src="http://localhost:8080/api/image/{{product.id}}" 
-                                                alt="product-image">
-                                        </td>
-                                        <td>{{product.promotion}}%</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row ">
-                    <div class="col-md-12 ">
-                        <div class="table-responsive ">
-                            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-                                <thead>
-                                    <tr>
-                                        <th>Code</th>
-                                        <th>Serial</th>
-                                        <th>Color</th>
-                                        <th>RAM</th>
-                                        <th>Memory</th>
-                                        <th>CPU</th>
-                                        <th>Screen</th>
-                                        <th>Camera</th>
-                                        <th>Battery</th>
-                                        <th>Operating System</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let pd of productDetails">
-                                        <td>{{pd.id}}</td>
-                                        <td>{{pd.serial}}</td>
-                                        <td>{{pd.color}}</td>
-                                        <td>{{pd.ram}}</td>
-                                        <td>{{pd.memmory}}</td>
-                                        <td>{{pd.cpu}}</td>
-                                        <td>{{pd.screen}}</td>
-                                        <td>{{pd.camera}}</td>
-                                        <td>{{pd.pin}}</td>
-                                        <td>{{pd.os}}</td>
-                                        <td *ngIf="pd.status == true">Sold</td>
-                                        <td *ngIf="pd.status == false">Available</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Detail of {{product.name}}</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="table-responsive ">
+                <table class="table table-striped">
+                  <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Product name</th>
+                    <th>Price</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Image</th>
+                    <td>Sale</td>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>{{product.id}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.price | currency}}</td>
+                    <td>{{product.type}}</td>
+                    <td *ngIf="product.status === 1">On Sales</td>
+                    <td *ngIf="product.status === 0">Out of stock</td>
+                    <td *ngIf="product.status === 2">Coming Soon</td>
+                    <td>
+                      <img alt="product-image" height="100px" src="http://localhost:8080/api/image/{{product.id}}"
+                           width="auto">
+                    </td>
+                    <td>{{product.promotion}}%</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-        </div>  
+
+          <div class="row ">
+            <div class="col-md-12 ">
+              <div class="table-responsive ">
+                <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" datatable>
+                  <thead>
+                  <tr>
+                    <th>Code</th>
+                    <th>Serial</th>
+                    <th>Color</th>
+                    <th>RAM</th>
+                    <th>Memory</th>
+                    <th>CPU</th>
+                    <th>Screen</th>
+                    <th>Camera</th>
+                    <th>Battery</th>
+                    <th>Operating System</th>
+                    <th>Status</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let pd of productDetails">
+                    <td>{{pd.id}}</td>
+                    <td>{{pd.serial}}</td>
+                    <td>{{pd.color}}</td>
+                    <td>{{pd.ram}}</td>
+                    <td>{{pd.memmory}}</td>
+                    <td>{{pd.cpu}}</td>
+                    <td>{{pd.screen}}</td>
+                    <td>{{pd.camera}}</td>
+                    <td>{{pd.pin}}</td>
+                    <td>{{pd.os}}</td>
+                    <td *ngIf="pd.status == true">Sold</td>
+                    <td *ngIf="pd.status == false">Available</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<div id="delete_expense" class="modal fade delete-modal" role="dialog ">
-    <div class="modal-dialog modal-dialog-centered ">
-        <div class="modal-content ">
-            <div class="modal-body text-center ">
-                <img src="assets/admin/img/sent.png " alt=" " width="50 " height="46 ">
-                <h3>Are you sure want to delete this expense?</h3>
-                <div class="m-t-20 "> <a href="# " class="btn btn-white " data-dismiss="modal ">Close</a>
-                    <button type="submit " class="btn btn-danger ">Delete</button>
-                </div>
-            </div>
+<div class="modal fade delete-modal" id="delete_expense" role="dialog ">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content ">
+      <div class="modal-body text-center ">
+        <img alt=" " height="46 " src="assets/admin/img/sent.png " width="50 ">
+        <h3>Are you sure want to delete this expense?</h3>
+        <div class="m-t-20 "><a class="btn btn-white " data-dismiss="modal " href="# ">Close</a>
+          <button class="btn btn-danger " type="submit ">Delete</button>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <!-- Begin Quick View | Modal Area -->

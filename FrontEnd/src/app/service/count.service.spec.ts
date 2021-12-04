@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { CountService } from './count.service';
+import {CountService} from './count.service';
 
 describe('CountService', () => {
   let service: CountService;

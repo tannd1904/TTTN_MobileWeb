@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { ClassBodyService } from './class-body.service';
+import {ClassBodyService} from './class-body.service';
 
 describe('ClassBodyService', () => {
   let service: ClassBodyService;

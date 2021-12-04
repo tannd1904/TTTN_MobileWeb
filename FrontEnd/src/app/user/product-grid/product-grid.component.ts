@@ -1,19 +1,17 @@
-import { newArray } from '@angular/compiler/src/util';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SimpleOuterSubscriber } from 'rxjs/internal/innerSubscribe';
-import { Cart } from 'src/app/cart';
-import { Category } from 'src/app/model/category';
-import { Product } from 'src/app/model/product';
-import { ProductDetail } from 'src/app/model/product-detail';
-import { Response } from 'src/app/model/response';
-import { WishList } from 'src/app/model/wish-list';
-import { CartService } from 'src/app/service/cart.service';
-import { CategoryService } from 'src/app/service/category.service';
-import { ClassBodyService } from 'src/app/service/class-body.service';
-import { PageService } from 'src/app/service/page.service';
-import { ProductService } from 'src/app/service/product.service';
-import { TokenStorageService } from 'src/app/service/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Cart} from 'src/app/cart';
+import {Category} from 'src/app/model/category';
+import {Product} from 'src/app/model/product';
+import {ProductDetail} from 'src/app/model/product-detail';
+import {Response} from 'src/app/model/response';
+import {WishList} from 'src/app/model/wish-list';
+import {CartService} from 'src/app/service/cart.service';
+import {CategoryService} from 'src/app/service/category.service';
+import {ClassBodyService} from 'src/app/service/class-body.service';
+import {PageService} from 'src/app/service/page.service';
+import {ProductService} from 'src/app/service/product.service';
+import {TokenStorageService} from 'src/app/service/token-storage.service';
 
 @Component({
   selector: 'app-product-grid',
@@ -33,129 +31,129 @@ export class ProductGridComponent implements OnInit {
   displayProductList: Product[] = [];
   token!: string;
   config!: any;
-  
+
   colors = [
     {
-      name: "Black",
+      name: 'Black',
       checked: false
     },
     {
-      name: "White",
+      name: 'White',
       checked: false
     },
     {
-      name: "Silver",
+      name: 'Silver',
       checked: false
     },
     {
-      name: "Blue",
+      name: 'Blue',
       checked: false
     },
     {
-      name: "Red",
+      name: 'Red',
       checked: false
     },
     {
-      name: "Gold",
+      name: 'Gold',
       checked: false
     },
-  ]
+  ];
 
   memmories = [
     {
-      name: "16 GB",
+      name: '16 GB',
       checked: false
     },
     {
-      name: "32 GB",
+      name: '32 GB',
       checked: false
     },
     {
-      name: "64 GB",
+      name: '64 GB',
       checked: false
     },
     {
-      name: "128 GB",
+      name: '128 GB',
       checked: false
     },
     {
-      name: "256 GB",
+      name: '256 GB',
       checked: false
     },
     {
-      name: "512 GB",
+      name: '512 GB',
       checked: false
     },
     {
-      name: "1024 GB",
+      name: '1024 GB',
       checked: false
     },
-  ]
+  ];
 
   rams = [
     {
-      name: "2GB",
+      name: '2GB',
       checked: false
     },
     {
-      name: "3GB",
+      name: '3GB',
       checked: false
     },
     {
-      name: "4GB",
+      name: '4GB',
       checked: false
     },
     {
-      name: "6GB",
+      name: '6GB',
       checked: false
     },
     {
-      name: "8GB",
+      name: '8GB',
       checked: false
     },
     {
-      name: "12GB",
+      name: '12GB',
       checked: false
     },
     {
-      name: "16GB",
+      name: '16GB',
       checked: false
     },
-  ]
+  ];
 
   prices = [
     {
-      name: "0$ - 500$",
+      name: '0$ - 500$',
       from: 0,
       to: 500,
       checked: false
     },
     {
-      name: "500$ - 800$",
+      name: '500$ - 800$',
       from: 500,
       to: 800,
       checked: false
     },
     {
-      name: "800$ - 1000$",
+      name: '800$ - 1000$',
       from: 800,
       to: 1000,
       checked: false
     },
     {
-      name: "1000$ - 1500$",
+      name: '1000$ - 1500$',
       from: 1000,
       to: 1500,
       checked: false
     },
     {
-      name: "> 1500$",
+      name: '> 1500$',
       from: 1500,
       to: 10000000,
       checked: false
     },
 
-  ]
+  ];
 
 
   constructor(
@@ -167,7 +165,26 @@ export class ProductGridComponent implements OnInit {
     private cartService: CartService,
     private route: ActivatedRoute,
     private router: Router,
-  ) {}
+  ) {
+  }
+
+  get selectedRam() {
+    //Get all the selected brands
+    return this.rams.filter(opt => opt.checked);
+  }
+
+  get selectedPrice() {
+    //Get all the selected brands
+    return this.prices.filter(opt => opt.checked);
+  }
+
+  get selectedColor() {
+    return this.colors.filter(opt => opt.checked);
+  }
+
+  get selectedMemory() {
+    return this.memmories.filter(opt => opt.checked);
+  }
 
   ngOnInit(): void {
     this.classBodyService.changeClass(this.classBody);
@@ -184,16 +201,15 @@ export class ProductGridComponent implements OnInit {
 
   clickCompare(product: any) {
     console.log(product);
-    sessionStorage.setItem('PRODUCT_COMPARE', JSON.stringify(product)); 
-    this.router.navigate(['../compare'])
+    sessionStorage.setItem('PRODUCT_COMPARE', JSON.stringify(product));
+    this.router.navigate(['../compare']);
   }
 
-  isLoggedIn():boolean{
+  isLoggedIn(): boolean {
     this.token = this.tokenStorageService.getToken();
-    if(this.token == '{}')
-    {
+    if (this.token == '{}') {
       return false;
-    }else{    
+    } else {
       const user = this.tokenStorageService.getUser();
       this.userId = user.id;
       return true;
@@ -212,17 +228,17 @@ export class ProductGridComponent implements OnInit {
         .subscribe(
           (data: Response) => {
             if (data.status !== 200) {
-              var message = "Create WishList unsuccessfully";
+              var message = 'Create WishList unsuccessfully';
               console.log(message);
             } else {
-              var message = "Create WishList successfully";
+              var message = 'Create WishList successfully';
               console.log(message);
               this.router.navigate(['../wishlist']);
             }
           }, (err) => {
             console.log(err);
           }
-        )
+        );
     }
   }
 
@@ -238,13 +254,13 @@ export class ProductGridComponent implements OnInit {
         var valueToRemove = 0;
         this.cart.forEach((c) => {
           if (c.product.id === p.id) {
-            temp.quantity = c.quantity+1;
+            temp.quantity = c.quantity + 1;
             valueToRemove = c.product.id;
           }
-        })
+        });
         var copy = this.cart;
         this.cart = [];
-        this.cart = copy.filter(x => x.product.id !== valueToRemove)
+        this.cart = copy.filter(x => x.product.id !== valueToRemove);
         temp.product = p;
         temp.price = p.price;
         temp.total = p.price * temp.quantity;
@@ -252,7 +268,7 @@ export class ProductGridComponent implements OnInit {
         this.cartService.saveCart(this.cart);
         window.location.reload();
       }
-    })
+    });
   }
 
   getAllProduct() {
@@ -274,24 +290,23 @@ export class ProductGridComponent implements OnInit {
             );
           s.productDetails = new Array<ProductDetail>();
           this.productService.getAllProductDetailByProductId(this.token, s.id)
-              .subscribe((d: Response) => {
+            .subscribe((d: Response) => {
                 s.productDetails = d.data;
               }, (err) => {
-                console.log(err)}
-              )
+                console.log(err);
+              }
+            );
         });
         this.allProducts = this.products;
-        this.products = this.products.sort(function (high, low) {
+        this.products = this.products.sort(function(high, low) {
           if (low.name < high.name) {
             return -1;
-          }
-          else if (low.name > high.name) {
+          } else if (low.name > high.name) {
             return 1;
-          }
-          else {
+          } else {
             return 0;
           }
-        })
+        });
       },
       (error) => {
         console.log(error);
@@ -318,11 +333,12 @@ export class ProductGridComponent implements OnInit {
             );
           s.productDetails = new Array<ProductDetail>();
           this.productService.getProductDetailByProductId(this.token, s.id)
-              .subscribe((d: Response) => {
+            .subscribe((d: Response) => {
                 s.productDetails = d.data;
               }, (err) => {
-                console.log(err)}
-              )
+                console.log(err);
+              }
+            );
         });
         console.log(this.products[0].importVoucherDetails[0].productDetails);
       },
@@ -332,81 +348,73 @@ export class ProductGridComponent implements OnInit {
     );
   }
 
-  getCategory(){
+  getCategory() {
     this.token = this.tokenStorageService.getToken();
     this.categoryService.getCategory(this.token)
-        .subscribe(
-          (data: Response) => {
-            this.categories = data.data;
-            console.log(this.categories);
-          },
-          error => {
-            console.log(error);
-          });
+      .subscribe(
+        (data: Response) => {
+          this.categories = data.data;
+          console.log(this.categories);
+        },
+        error => {
+          console.log(error);
+        });
   }
 
-  getProductDetail(id: number){
+  getProductDetail(id: number) {
     this.token = this.tokenStorageService.getToken();
     this.productService.getProductDetailByProductId(this.token, id)
-        .subscribe(
-          (data: Response) => {
-            this.listProductDetail = data.data;
-            // console.log(this.listProductDetail);
-          },
-          error => {
-            console.log(error);
-          });
+      .subscribe(
+        (data: Response) => {
+          this.listProductDetail = data.data;
+          // console.log(this.listProductDetail);
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   sort(event: any) {
     console.log('start sort');
     switch (event.target.value) {
-      case "Low":
-        {
-          console.log('sort low to high')
-          this.products = this.products.sort((low, high) => low.price - high.price);
-          break;
-        }
+      case 'Low': {
+        console.log('sort low to high');
+        this.products = this.products.sort((low, high) => low.price - high.price);
+        break;
+      }
 
-      case "High":
-        {
-          console.log('sort high to low')
-          this.products = this.products.sort((low, high) => high.price - low.price);
-          break;
-        }
+      case 'High': {
+        console.log('sort high to low');
+        this.products = this.products.sort((low, high) => high.price - low.price);
+        break;
+      }
 
-      case "Name":
-        {
-          console.log('sort a to z')
-          this.products = this.products.sort(function (low, high) {
-            if (low.name < high.name) {
-              return -1;
-            }
-            else if (low.name > high.name) {
-              return 1;
-            }
-            else {
-              return 0;
-            }
-          })
-          break;
-        }
+      case 'Name': {
+        console.log('sort a to z');
+        this.products = this.products.sort(function(low, high) {
+          if (low.name < high.name) {
+            return -1;
+          } else if (low.name > high.name) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+        break;
+      }
 
-      case "NameZ":
-        {
-          this.products = this.products.sort(function (high, low) {
-            if (low.name < high.name) {
-              return -1;
-            }
-            else if (low.name > high.name) {
-              return 1;
-            }
-            else {
-              return 0;
-            }
-          })
-          break;
-        }
+      case 'NameZ': {
+        this.products = this.products.sort(function(high, low) {
+          if (low.name < high.name) {
+            return -1;
+          } else if (low.name > high.name) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+        break;
+      }
 
       default: {
         this.products = this.products.sort((low, high) => low.price - high.price);
@@ -418,27 +426,8 @@ export class ProductGridComponent implements OnInit {
 
   }
 
-
   pageChanged(event: any) {
     this.config.currentPage = event;
-  }
-
-  get selectedRam() {
-    //Get all the selected brands
-    return this.rams.filter(opt => opt.checked)
-  }
-
-  get selectedPrice() {
-    //Get all the selected brands
-    return this.prices.filter(opt => opt.checked)
-  }
-
-  get selectedColor() {
-    return this.colors.filter(opt => opt.checked)
-  }
-
-  get selectedMemory() {
-    return this.memmories.filter(opt => opt.checked)
   }
 
   onChange(event: any) {
@@ -447,7 +436,7 @@ export class ProductGridComponent implements OnInit {
     console.log(this.selectedRam);
     console.log(this.selectedMemory);
     console.log(this.selectedPrice);
-    window.location.hash = "products";
+    window.location.hash = 'products';
 
     this.displayProductList = [];
     for (var i = 0; i < this.selectedPrice.length; i++) {
@@ -464,7 +453,7 @@ export class ProductGridComponent implements OnInit {
             this.displayProductList.push(lst[j]);
           }
         }
-        console.log(this.displayProductList)
+        console.log(this.displayProductList);
       }
       var tempProductlst = this.displayProductList;
       this.displayProductList = [];
@@ -484,7 +473,7 @@ export class ProductGridComponent implements OnInit {
             this.displayProductList.push(lst[j]);
           }
         }
-        console.log(this.displayProductList)
+        console.log(this.displayProductList);
       }
       var tempProductlst = this.displayProductList;
       this.displayProductList = [];
@@ -504,7 +493,7 @@ export class ProductGridComponent implements OnInit {
             this.displayProductList.push(lst[j]);
           }
         }
-        console.log(this.displayProductList)
+        console.log(this.displayProductList);
       }
       var tempProductlst = this.displayProductList;
       this.displayProductList = [];
@@ -516,8 +505,8 @@ export class ProductGridComponent implements OnInit {
         }
       }
     }
-    
-    if (this.selectedRam.length == 0 && this.selectedColor.length == 0 
+
+    if (this.selectedRam.length == 0 && this.selectedColor.length == 0
       && this.selectedMemory.length == 0 && this.selectedPrice.length == 0) {
       this.displayProductList = this.allProducts;
     }
@@ -531,18 +520,17 @@ export class ProductGridComponent implements OnInit {
     console.log(this.selectedRam);
     console.log(this.selectedMemory);
     console.log(this.selectedPrice);
-    
+
     //the first clicked in filter list
     if (this.displayProductList.length == 0) {
       this.displayProductList = [];
       for (var i = 0; i < this.selectedPrice.length; i++) {
-          var lst = this.allProducts.filter(x => x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to);
-          for (var j = 0; j < lst.length; j++) {
-            this.displayProductList.push(lst[j]);
-          }
+        var lst = this.allProducts.filter(x => x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to);
+        for (var j = 0; j < lst.length; j++) {
+          this.displayProductList.push(lst[j]);
         }
-    } 
-    else { //already have clicked in some option
+      }
+    } else { //already have clicked in some option
       //the first clicked in price filter
       if (this.selectedPrice.length == 1) {
         var tempProductlst = this.displayProductList;
@@ -554,29 +542,27 @@ export class ProductGridComponent implements OnInit {
             this.displayProductList.push(lst[j]);
           }
         }
-      } 
-      else { //already have clicked in price filter
+      } else { //already have clicked in price filter
         //select all products that meet the condition of new chosen price and older conditions of ram, color, and mem
         //firstly, check whether exist any condition filter
-        if (this.selectedRam.length == 0 && this.selectedColor.length == 0 
+        if (this.selectedRam.length == 0 && this.selectedColor.length == 0
           && this.selectedMemory.length == 0) {
-            //select all products that meet the conditions of price filter
-            this.displayProductList = [];
-            for (var i = 0; i < this.selectedPrice.length; i++) {
-                var lst = this.allProducts.filter(x => x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to);
-                for (var j = 0; j < lst.length; j++) {
-                  this.displayProductList.push(lst[j]);
-                }
-              }
+          //select all products that meet the conditions of price filter
+          this.displayProductList = [];
+          for (var i = 0; i < this.selectedPrice.length; i++) {
+            var lst = this.allProducts.filter(x => x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to);
+            for (var j = 0; j < lst.length; j++) {
+              this.displayProductList.push(lst[j]);
+            }
           }
-        else { //already have older conditions of ram, color, and mem
+        } else { //already have older conditions of ram, color, and mem
           const temp = this.displayProductList[0].productDetails[0];
           this.displayProductList = [];
           for (var i = 0; i < this.selectedPrice.length; i++) {
             var lst = this.allProducts.filter(x => x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to);
-                for (var j = 0; j < lst.length; j++) {
-                  this.displayProductList.push(lst[j]);
-                }
+            for (var j = 0; j < lst.length; j++) {
+              this.displayProductList.push(lst[j]);
+            }
           }
           if (this.selectedRam.length != 0) {
             var tempProductlst = this.displayProductList;
@@ -615,31 +601,30 @@ export class ProductGridComponent implements OnInit {
       }
     }
 
-    if (this.selectedRam.length == 0 && this.selectedColor.length == 0 
+    if (this.selectedRam.length == 0 && this.selectedColor.length == 0
       && this.selectedMemory.length == 0 && this.selectedPrice.length == 0) {
       this.displayProductList = this.allProducts;
     }
 
     this.products = this.displayProductList;
 
- 
+
   }
 
   onChangeRam(event: any) {
     console.log('start filter');
 
-    
+
     //the first clicked in filter list
     if (this.displayProductList.length == 0) {
       this.displayProductList = [];
       for (var i = 0; i < this.selectedRam.length; i++) {
-          var lst = this.allProducts.filter(x => x.productDetails[0].ram == this.selectedRam[i].name);
-          for (var j = 0; j < lst.length; j++) {
-            this.displayProductList.push(lst[j]);
-          }
+        var lst = this.allProducts.filter(x => x.productDetails[0].ram == this.selectedRam[i].name);
+        for (var j = 0; j < lst.length; j++) {
+          this.displayProductList.push(lst[j]);
         }
-    } 
-    else { //already have clicked in some option
+      }
+    } else { //already have clicked in some option
       //the first clicked in price filter
       if (this.selectedRam.length == 1) {
         var tempProductlst = this.displayProductList;
@@ -651,26 +636,24 @@ export class ProductGridComponent implements OnInit {
             this.displayProductList.push(lst[j]);
           }
         }
-      } 
-      else { //already have clicked in price filter
+      } else { //already have clicked in price filter
         //select all products that meet the condition of new chosen price and older conditions of ram, color, and mem
         //firstly, check whether exist any condition filter
-        if (this.selectedPrice.length == 0 && this.selectedColor.length == 0 
+        if (this.selectedPrice.length == 0 && this.selectedColor.length == 0
           && this.selectedMemory.length == 0) {
-            //select all products that meet the conditions of price filter
-            this.displayProductList = [];
-            for (var i = 0; i < this.selectedRam.length; i++) {
-                var lst = this.allProducts.filter(x => x.productDetails[0].ram == this.selectedRam[i].name);
-                for (var j = 0; j < lst.length; j++) {
-                  this.displayProductList.push(lst[j]);
-                }
-              }
+          //select all products that meet the conditions of price filter
+          this.displayProductList = [];
+          for (var i = 0; i < this.selectedRam.length; i++) {
+            var lst = this.allProducts.filter(x => x.productDetails[0].ram == this.selectedRam[i].name);
+            for (var j = 0; j < lst.length; j++) {
+              this.displayProductList.push(lst[j]);
+            }
           }
-        else { //already have older conditions of ram, color, and mem
+        } else { //already have older conditions of ram, color, and mem
           const temp = this.displayProductList[0].productDetails[0];
           this.displayProductList = [];
           for (var i = 0; i < this.selectedRam.length; i++) {
-            var lst = this.allProducts.filter(x => 
+            var lst = this.allProducts.filter(x =>
               (x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to)
               && (x.productDetails[0].ram == this.selectedRam[i].name) && (x.productDetails[0].color == temp.color)
               && (x.productDetails[0].memmory == temp.memmory));
@@ -682,30 +665,29 @@ export class ProductGridComponent implements OnInit {
       }
     }
 
-    if (this.selectedRam.length == 0 && this.selectedColor.length == 0 
+    if (this.selectedRam.length == 0 && this.selectedColor.length == 0
       && this.selectedMemory.length == 0 && this.selectedPrice.length == 0) {
       this.displayProductList = this.allProducts;
     }
 
     this.products = this.displayProductList;
 
- 
+
   }
 
   onChangeColor(event: any) {
     console.log('start filter');
-    
+
     //the first clicked in filter list
     if (this.displayProductList.length == 0) {
       this.displayProductList = [];
       for (var i = 0; i < this.selectedColor.length; i++) {
-          var lst = this.allProducts.filter(x => x.productDetails[0].color == this.selectedColor[i].name);
-          for (var j = 0; j < lst.length; j++) {
-            this.displayProductList.push(lst[j]);
-          }
+        var lst = this.allProducts.filter(x => x.productDetails[0].color == this.selectedColor[i].name);
+        for (var j = 0; j < lst.length; j++) {
+          this.displayProductList.push(lst[j]);
         }
-    } 
-    else { //already have clicked in some option
+      }
+    } else { //already have clicked in some option
       //the first clicked in price filter
       if (this.selectedColor.length == 1) {
         var tempProductlst = this.displayProductList;
@@ -717,26 +699,24 @@ export class ProductGridComponent implements OnInit {
             this.displayProductList.push(lst[j]);
           }
         }
-      } 
-      else { //already have clicked in price filter
+      } else { //already have clicked in price filter
         //select all products that meet the condition of new chosen price and older conditions of ram, color, and mem
         //firstly, check whether exist any condition filter
-        if (this.selectedPrice.length == 0 && this.selectedRam.length == 0 
+        if (this.selectedPrice.length == 0 && this.selectedRam.length == 0
           && this.selectedMemory.length == 0) {
-            //select all products that meet the conditions of price filter
-            this.displayProductList = [];
-            for (var i = 0; i < this.selectedColor.length; i++) {
-                var lst = this.allProducts.filter(x => x.productDetails[0].color == this.selectedColor[i].name);
-                for (var j = 0; j < lst.length; j++) {
-                  this.displayProductList.push(lst[j]);
-                }
-              }
+          //select all products that meet the conditions of price filter
+          this.displayProductList = [];
+          for (var i = 0; i < this.selectedColor.length; i++) {
+            var lst = this.allProducts.filter(x => x.productDetails[0].color == this.selectedColor[i].name);
+            for (var j = 0; j < lst.length; j++) {
+              this.displayProductList.push(lst[j]);
+            }
           }
-        else { //already have older conditions of ram, color, and mem
+        } else { //already have older conditions of ram, color, and mem
           const temp = this.displayProductList[0].productDetails[0];
           this.displayProductList = [];
           for (var i = 0; i < this.selectedColor.length; i++) {
-            var lst = this.allProducts.filter(x => 
+            var lst = this.allProducts.filter(x =>
               (x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to)
               && (x.productDetails[0].color == this.selectedColor[i].name) && (x.productDetails[0].ram == temp.ram)
               && (x.productDetails[0].memmory == temp.memmory));
@@ -748,30 +728,29 @@ export class ProductGridComponent implements OnInit {
       }
     }
 
-    if (this.selectedRam.length == 0 && this.selectedColor.length == 0 
+    if (this.selectedRam.length == 0 && this.selectedColor.length == 0
       && this.selectedMemory.length == 0 && this.selectedPrice.length == 0) {
       this.displayProductList = this.allProducts;
     }
 
     this.products = this.displayProductList;
 
- 
+
   }
 
   onChangeMem(event: any) {
     console.log('start filter');
-    
+
     //the first clicked in filter list
     if (this.displayProductList.length == 0) {
       this.displayProductList = [];
       for (var i = 0; i < this.selectedMemory.length; i++) {
-          var lst = this.allProducts.filter(x => x.productDetails[0].memmory == this.selectedMemory[i].name);
-          for (var j = 0; j < lst.length; j++) {
-            this.displayProductList.push(lst[j]);
-          }
+        var lst = this.allProducts.filter(x => x.productDetails[0].memmory == this.selectedMemory[i].name);
+        for (var j = 0; j < lst.length; j++) {
+          this.displayProductList.push(lst[j]);
         }
-    } 
-    else { //already have clicked in some option
+      }
+    } else { //already have clicked in some option
       //the first clicked in price filter
       if (this.selectedMemory.length == 1) {
         var tempProductlst = this.displayProductList;
@@ -783,26 +762,24 @@ export class ProductGridComponent implements OnInit {
             this.displayProductList.push(lst[j]);
           }
         }
-      } 
-      else { //already have clicked in price filter
+      } else { //already have clicked in price filter
         //select all products that meet the condition of new chosen price and older conditions of ram, color, and mem
         //firstly, check whether exist any condition filter
-        if (this.selectedPrice.length == 0 && this.selectedColor.length == 0 
+        if (this.selectedPrice.length == 0 && this.selectedColor.length == 0
           && this.selectedRam.length == 0) {
-            //select all products that meet the conditions of price filter
-            this.displayProductList = [];
-            for (var i = 0; i < this.selectedMemory.length; i++) {
-                var lst = this.allProducts.filter(x => x.productDetails[0].memmory == this.selectedMemory[i].name);
-                for (var j = 0; j < lst.length; j++) {
-                  this.displayProductList.push(lst[j]);
-                }
-              }
+          //select all products that meet the conditions of price filter
+          this.displayProductList = [];
+          for (var i = 0; i < this.selectedMemory.length; i++) {
+            var lst = this.allProducts.filter(x => x.productDetails[0].memmory == this.selectedMemory[i].name);
+            for (var j = 0; j < lst.length; j++) {
+              this.displayProductList.push(lst[j]);
+            }
           }
-        else { //already have older conditions of ram, color, and mem
+        } else { //already have older conditions of ram, color, and mem
           const temp = this.displayProductList[0].productDetails[0];
           this.displayProductList = [];
           for (var i = 0; i < this.selectedMemory.length; i++) {
-            var lst = this.allProducts.filter(x => 
+            var lst = this.allProducts.filter(x =>
               (x.price > this.selectedPrice[i].from && x.price < this.selectedPrice[i].to)
               && (x.productDetails[0].memmory == this.selectedMemory[i].name) && (x.productDetails[0].color == temp.color)
               && (x.productDetails[0].ram == temp.ram));
@@ -814,30 +791,29 @@ export class ProductGridComponent implements OnInit {
       }
     }
 
-    if (this.selectedRam.length == 0 && this.selectedColor.length == 0 
+    if (this.selectedRam.length == 0 && this.selectedColor.length == 0
       && this.selectedMemory.length == 0 && this.selectedPrice.length == 0) {
       this.displayProductList = this.allProducts;
     }
 
     this.products = this.displayProductList;
 
- 
+
   }
 
   resetFilter() {
     this.getAllProduct();
     this.rams.forEach(s => {
       s.checked = false;
-    })
+    });
     this.colors.forEach(s => {
       s.checked = false;
-    })
+    });
     this.prices.forEach(s => {
       s.checked = false;
-    })
+    });
     this.memmories.forEach(s => {
       s.checked = false;
-    })
+    });
   }
 }
- 

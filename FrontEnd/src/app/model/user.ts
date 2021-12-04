@@ -1,16 +1,13 @@
-import { Checkout } from "../checkout";
-import { Role } from "./role";
-
 export class User {
-    id!: number;
-    email!: string;
-    phone!: string;
-    address!: string;
-    firstname!: string;
-    lastname!: string;
-    gender!: string;
-    orders!: any;
-    wishlistId!: number;
-    importVouchers!: any;
-    returns!: any;
+  id!: number;
+  email!: string;
+  phone!: string;
+  address!: string;
+  firstname!: string;
+  lastname!: string;
+  gender!: string;
+  orders!: any;
+  wishlistId!: number;
+  importVouchers!: any;
+  returns!: any;
 }

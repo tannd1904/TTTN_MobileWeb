@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { Category } from 'src/app/model/category';
-import { Response } from 'src/app/model/response';
-import { User } from 'src/app/model/user';
-import { ActiveService } from 'src/app/service/active.service';
-import { CategoryService } from 'src/app/service/category.service';
-import { TokenStorageService } from 'src/app/service/token-storage.service';
-import { UserService } from 'src/app/service/user.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Subject} from 'rxjs';
+import {Category} from 'src/app/model/category';
+import {Response} from 'src/app/model/response';
+import {User} from 'src/app/model/user';
+import {ActiveService} from 'src/app/service/active.service';
+import {CategoryService} from 'src/app/service/category.service';
+import {TokenStorageService} from 'src/app/service/token-storage.service';
+import {UserService} from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-user-list',
@@ -28,11 +28,16 @@ export class UserListComponent implements OnInit {
   users: Array<User> = [];
 
   constructor(private fb: FormBuilder,
-    private userService: UserService,
-    private tokenStorageService: TokenStorageService,
-    private activeService: ActiveService,
-    private categoryService: CategoryService,
-  ) { }
+              private userService: UserService,
+              private tokenStorageService: TokenStorageService,
+              private activeService: ActiveService,
+              private categoryService: CategoryService,
+  ) {
+  }
+
+  get f() {
+    return this.dataForm.controls;
+  }
 
   ngOnInit(): void {
     this.activeService.changeActive(this.active);
@@ -50,10 +55,6 @@ export class UserListComponent implements OnInit {
     this.dataForm = this.fb.group({
       name: ['', [Validators.required]],
     });
-  }
-
-  get f() {
-    return this.dataForm.controls;
   }
 
   onSubmit(): void {

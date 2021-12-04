@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AddInventoryReceivingVoucherDetailComponent } from './add-inventory-receiving-voucher-detail.component';
+import {AddInventoryReceivingVoucherDetailComponent} from './add-inventory-receiving-voucher-detail.component';
 
 describe('AddInventoryReceivingVoucherDetailComponent', () => {
   let component: AddInventoryReceivingVoucherDetailComponent;
@@ -8,9 +8,9 @@ describe('AddInventoryReceivingVoucherDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddInventoryReceivingVoucherDetailComponent ]
+      declarations: [AddInventoryReceivingVoucherDetailComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

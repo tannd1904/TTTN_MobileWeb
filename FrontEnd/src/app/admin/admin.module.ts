@@ -1,31 +1,33 @@
-import { HomeComponent } from './home/home.component';
-import { ListCategoriesComponent } from './categories/list-categories/list-categories.component';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {HomeComponent} from './home/home.component';
+import {ListCategoriesComponent} from './categories/list-categories/list-categories.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { AdminRoutingModule } from './admin-routing.module';
-import { AdminComponent } from './admin.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { InventoryReceivingVoucherComponent } from './inventory-receiving-voucher/inventory-receiving-voucher.component';
-import { AddInventoryReceivingVoucherDetailComponent } from './import-voucher/add-inventory-receiving-voucher-detail/add-inventory-receiving-voucher-detail.component';
-import { ListProviderComponent } from './provider/list-provider/list-provider.component';
-import { ProductComponent } from './product/list_product/product.component';
-import { ProductDetailComponent } from './product/product-detail/product-detail.component';
-import { ChartsModule } from 'ng2-charts';
-import { PieChartComponent} from './pie-chart/pie-chart.component';
-import { LineChartComponent } from './line-chart/line-chart.component';
-import { CalendarComponent } from './calendar/calendar.component';
-import { DataTablesModule } from 'angular-datatables';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { ListComponent } from './import-voucher/list/list.component';
-import { OrderListComponent } from './order/order-list/order-list.component';
-import { OrderDetailComponent } from './order/order-detail/order-detail.component';
-import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-import { UserListComponent } from './user-list/user-list.component';
-import { EmployeeListComponent } from './employee-list/employee-list.component';
-import { BarChartComponent } from './bar-chart/bar-chart.component';
+import {AdminRoutingModule} from './admin-routing.module';
+import {AdminComponent} from './admin.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
+import {InventoryReceivingVoucherComponent} from './inventory-receiving-voucher/inventory-receiving-voucher.component';
+import {
+  AddInventoryReceivingVoucherDetailComponent
+} from './import-voucher/add-inventory-receiving-voucher-detail/add-inventory-receiving-voucher-detail.component';
+import {ListProviderComponent} from './provider/list-provider/list-provider.component';
+import {ProductComponent} from './product/list_product/product.component';
+import {ProductDetailComponent} from './product/product-detail/product-detail.component';
+import {ChartsModule} from 'ng2-charts';
+import {PieChartComponent} from './pie-chart/pie-chart.component';
+import {LineChartComponent} from './line-chart/line-chart.component';
+import {CalendarComponent} from './calendar/calendar.component';
+import {DataTablesModule} from 'angular-datatables';
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
+import {ListComponent} from './import-voucher/list/list.component';
+import {OrderListComponent} from './order/order-list/order-list.component';
+import {OrderDetailComponent} from './order/order-detail/order-detail.component';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import {UserListComponent} from './user-list/user-list.component';
+import {EmployeeListComponent} from './employee-list/employee-list.component';
+import {BarChartComponent} from './bar-chart/bar-chart.component';
 
 
 @NgModule({
@@ -53,7 +55,7 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
     AdminRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule, 
+    NgxPaginationModule,
     Ng2SearchPipeModule,
     ChartsModule,
     DataTablesModule,
@@ -63,4 +65,5 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
   providers: [],
   bootstrap: [AdminComponent]
 })
-export class AdminModule { }
+export class AdminModule {
+}

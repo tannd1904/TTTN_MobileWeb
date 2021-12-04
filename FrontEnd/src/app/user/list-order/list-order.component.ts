@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Order } from 'src/app/model/order';
-import { Response } from 'src/app/model/response';
-import { OrderService } from 'src/app/service/order.service';
-import { PageService } from 'src/app/service/page.service';
-import { TokenStorageService } from 'src/app/service/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {Order} from 'src/app/model/order';
+import {Response} from 'src/app/model/response';
+import {OrderService} from 'src/app/service/order.service';
+import {PageService} from 'src/app/service/page.service';
+import {TokenStorageService} from 'src/app/service/token-storage.service';
 
 @Component({
   selector: 'app-list-order',
@@ -24,7 +24,8 @@ export class ListOrderComponent implements OnInit {
     private pageService: PageService,
     private orderService: OrderService,
     private tokenStorageService: TokenStorageService,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.pageService.changePage(this.page);

@@ -10,77 +10,77 @@
 @import url('../../../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css');
 
 .dataTables_wrapper .dataTables_length {
-    float: left;
-    width: 30% !important;
+  float: left;
+  width: 30% !important;
 }
 
 .dataTables_wrapper .dataTables_length select {
-    border: 1px solid #aaa;
-    border-radius: 15px !important;
-    padding: 5px;
-    background-color: transparent;
-    padding: 4px;
+  border: 1px solid #aaa;
+  border-radius: 15px !important;
+  padding: 5px;
+  background-color: transparent;
+  padding: 4px;
 }
 
 .focus-label {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .modal {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1050;
-    display: none;
-    overflow: hidden;
-    -webkit-overflow-scrolling: touch;
-    outline: 0;
-  }
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+}
 
-  .fade {
-    opacity: 0;
-    -webkit-transition: opacity 0.15s linear;
-    -o-transition: opacity 0.15s linear;
-    transition: opacity 0.15s linear;
-  }
+.fade {
+  opacity: 0;
+  -webkit-transition: opacity 0.15s linear;
+  -o-transition: opacity 0.15s linear;
+  transition: opacity 0.15s linear;
+}
 
 .modal-wrapper {
-    display: block !important;
+  display: block !important;
 }
 
 .modal-body {
-    padding: 2rem 4rem 3rem 4rem;
+  padding: 2rem 4rem 3rem 4rem;
 }
 
 .modal-wrapper.modal {
-    visibility: hidden;
-    opacity: 0;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-    z-index: -9;
+  visibility: hidden;
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  z-index: -9;
 }
 
 .modal-wrapper.modal.show {
-    visibility: visible;
-    opacity: 1;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-    z-index: 1050;
+  visibility: visible;
+  opacity: 1;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  z-index: 1050;
 }
 
 .modal-wrapper .modal-dialog {
-    max-width: 880px;
+  max-width: 880px;
 }
 
 .floating,
 .focused {
-    height: 35px;
-    padding: 6px 12px 6px;
+  height: 35px;
+  padding: 6px 12px 6px;
 }
 
 .errors {
-    color: red;
-    margin-left: 10px;
+  color: red;
+  margin-left: 10px;
 }

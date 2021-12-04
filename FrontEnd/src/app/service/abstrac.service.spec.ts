@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { AbstracService } from './abstrac.service';
+import {AbstracService} from './abstrac.service';
 
 describe('AbstracService', () => {
   let service: AbstracService;

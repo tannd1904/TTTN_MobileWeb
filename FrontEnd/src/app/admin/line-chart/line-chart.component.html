@@ -1,12 +1,12 @@
 <div style="display: block;">
-    <canvas baseChart
-      [datasets]="lineChartData"
-      [labels]="lineChartLabels"
-      [options]="lineChartOptions"
-      [colors]="lineChartColors"
-      [legend]="lineChartLegend"
-      [chartType]="lineChartType"
-      [plugins]="lineChartPlugins">
-    </canvas>
-  </div>
-  
+  <canvas [chartType]="lineChartType"
+          [colors]="lineChartColors"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [legend]="lineChartLegend"
+          [options]="lineChartOptions"
+          [plugins]="lineChartPlugins"
+          baseChart>
+  </canvas>
+</div>
+

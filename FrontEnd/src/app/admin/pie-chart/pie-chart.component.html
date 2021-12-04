@@ -1,11 +1,11 @@
 <div style="display: block;">
-    <canvas baseChart 
-      [datasets]="pieChartData" 
-      [labels]="pieChartLabels" 
-      [colors]="pieChartColors"
-      [chartType]="pieChartType"
-      [options]="pieChartOptions"
-      [plugins]="pieChartPlugins"
-      [legend]="pieChartLegend">
-    </canvas>
-  </div>
+  <canvas [chartType]="pieChartType"
+          [colors]="pieChartColors"
+          [datasets]="pieChartData"
+          [labels]="pieChartLabels"
+          [legend]="pieChartLegend"
+          [options]="pieChartOptions"
+          [plugins]="pieChartPlugins"
+          baseChart>
+  </canvas>
+</div>

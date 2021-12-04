@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ActiveService } from 'src/app/service/active.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {ActiveService} from 'src/app/service/active.service';
 
 @Component({
   selector: 'app-inventory-receiving-voucher',
@@ -11,7 +11,8 @@ export class InventoryReceivingVoucherComponent implements OnInit {
 
   active: number = 1;
 
-  constructor(private activeService: ActiveService, private router: Router) { }
+  constructor(private activeService: ActiveService, private router: Router) {
+  }
 
   ngOnInit(): void {
     this.activeService.changeActive(this.active);
@@ -21,7 +22,7 @@ export class InventoryReceivingVoucherComponent implements OnInit {
     window.location.reload();
   }
 
-  toAddVoucher(){
+  toAddVoucher() {
     this.router.navigate(['admin/inventory/add']).then(this.reloadPage);
   }
 

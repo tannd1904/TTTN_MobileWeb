@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Order } from 'src/app/model/order';
-import { OrderDetail } from 'src/app/model/order-detail';
-import { Product } from 'src/app/model/product';
-import { Response } from 'src/app/model/response';
-import { Review } from 'src/app/model/review';
-import { AuthService } from 'src/app/service/auth.service';
-import { ClassBodyService } from 'src/app/service/class-body.service';
-import { OrderService } from 'src/app/service/order.service';
-import { PageService } from 'src/app/service/page.service';
-import { ProductService } from 'src/app/service/product.service';
-import { TokenStorageService } from 'src/app/service/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Order} from 'src/app/model/order';
+import {OrderDetail} from 'src/app/model/order-detail';
+import {Product} from 'src/app/model/product';
+import {Response} from 'src/app/model/response';
+import {Review} from 'src/app/model/review';
+import {AuthService} from 'src/app/service/auth.service';
+import {ClassBodyService} from 'src/app/service/class-body.service';
+import {OrderService} from 'src/app/service/order.service';
+import {PageService} from 'src/app/service/page.service';
+import {ProductService} from 'src/app/service/product.service';
+import {TokenStorageService} from 'src/app/service/token-storage.service';
 
 @Component({
   selector: 'app-order-detail',
@@ -44,7 +44,12 @@ export class OrderDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private orderService: OrderService,
     private productService: ProductService,
-    private fb: FormBuilder,) { }
+    private fb: FormBuilder,) {
+  }
+
+  get f() {
+    return this.dataForm.controls;
+  }
 
   ngOnInit(): void {
     this.orderId = this.route.snapshot.params['id'];
@@ -53,27 +58,25 @@ export class OrderDetailComponent implements OnInit {
     this.infoForm();
   }
 
-  infoForm(){
+  infoForm() {
     this.dataForm = this.fb.group({
-      comment: ['', [Validators.required]], 
+      comment: ['', [Validators.required]],
       rate: ['', Validators.required],
-      image: [], 
-    })
+      image: [],
+    });
   }
-
-  get f() { return this.dataForm.controls; }
 
   onSubmit(): void {
     this.submitted = true;
     console.log(this.dataForm.value);
-    if(this.dataForm.invalid){
-      console.log("aaa");
+    if (this.dataForm.invalid) {
+      console.log('aaa');
       return;
     }
     this.addReview(this.productId);
   }
 
-  addReview(id : number) {
+  addReview(id: number) {
     this.token = this.tokenStorageService.getToken();
     let formData = new FormData();
     let review = new Review();
@@ -86,28 +89,28 @@ export class OrderDetailComponent implements OnInit {
     formData.append('file', this.imageFile);
     console.log(review);
     this.orderService.createReview(this.token, formData)
-        .subscribe(
-          (data: Response) => {
-            if (data.status !== 200) {
-              this.message = "*" + data.message;
-            } else {
-              window.location.reload();
-            }
-          },
-          error => {
-            console.log(error);
-          });
+      .subscribe(
+        (data: Response) => {
+          if (data.status !== 200) {
+            this.message = '*' + data.message;
+          } else {
+            window.location.reload();
+          }
+        },
+        error => {
+          console.log(error);
+        });
   }
 
-  onSelectFile(event:any){
-    if(event.target.files.length >0){
+  onSelectFile(event: any) {
+    if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.imageFile = file;
       // this.f['image'].setValue(file);
 
       var mimeType = event.target.files[0].type;
-      if(mimeType.match(/image\/*/) == null){
-        this.message = "Only images are supported";
+      if (mimeType.match(/image\/*/) == null) {
+        this.message = 'Only images are supported';
         return;
       }
       var reader = new FileReader();
@@ -117,7 +120,7 @@ export class OrderDetailComponent implements OnInit {
       reader.onload = (_event) => {
         this.imgURL = reader.result;
         console.log(this.imgURL);
-      }
+      };
     }
   }
 
@@ -127,18 +130,18 @@ export class OrderDetailComponent implements OnInit {
       .subscribe((data: Response) => {
         this.order = data.data;
         this.order.listReviews.forEach(s => {
-          console.log('get review')
+          console.log('get review');
           this.productService.getReviewsById(this.token, s.id)
             .subscribe((data: Response) => {
               console.log(data.data);
               s.productId = data.data.productId;
               s.orderId = data.data.orderId;
-            })
-        })
-        console.log(this.order)
+            });
+        });
+        console.log(this.order);
       }, (err) => {
         console.log(err);
-      })
+      });
   }
 
   getOrderDetailByOrderId(id: number) {
@@ -150,30 +153,30 @@ export class OrderDetailComponent implements OnInit {
           this.productService.getProductDetailById(this.token, s.productDetailId)
             .subscribe((data: Response) => {
               s.productDetail = data.data;
-            })
+            });
           this.productService.getProductById(this.token, s.productId)
             .subscribe((data: Response) => {
               s.product = data.data;
-            })
-        })
+            });
+        });
         console.log(this.listOrderDetail);
         this.listOrderDetail.forEach(c => {
           this.listProductId.push(c.productId);
-        })
+        });
 
         this.order.listReviews.forEach(z => {
-          this.listProductId = this.listProductId.filter(x => x != z.productId)
-        })
-        console.log(this.listProductId)
+          this.listProductId = this.listProductId.filter(x => x != z.productId);
+        });
+        console.log(this.listProductId);
         const array = new Set(this.listProductId);
         console.log(array);
         this.listProduct = [];
         array.forEach(s => {
-        this.productService.getProductById(this.token, s)
-          .subscribe((data: Response) => {
-            this.listProduct.push(data.data)
-          })
-        })
+          this.productService.getProductById(this.token, s)
+            .subscribe((data: Response) => {
+              this.listProduct.push(data.data);
+            });
+        });
         console.log(this.listProduct);
         this.clickReview.length = this.listProduct.length;
         this.clickReview.fill(false);
@@ -188,7 +191,7 @@ export class OrderDetailComponent implements OnInit {
     this.infoForm();
     this.submitted = false;
     this.productId = productId;
-    this.clickReview.fill(false)
+    this.clickReview.fill(false);
     this.clickReview[id] = !this.clickReview[id];
     console.log(this.clickReview);
   }
@@ -199,8 +202,8 @@ export class OrderDetailComponent implements OnInit {
       if (s.productId === id) {
         check = true;
       }
-    })
-    return check; 
+    });
+    return check;
   }
 
   receiveOrder(id: number) {
@@ -213,7 +216,7 @@ export class OrderDetailComponent implements OnInit {
       }, (err) => {
         console.log(err);
       }
-    )
+    );
   }
 
   cancelOrder(id: number) {
@@ -226,6 +229,6 @@ export class OrderDetailComponent implements OnInit {
       }, (err) => {
         console.log(err);
       }
-    )
+    );
   }
 }

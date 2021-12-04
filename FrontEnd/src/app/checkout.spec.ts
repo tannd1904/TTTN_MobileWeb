@@ -1,4 +1,4 @@
-import { Checkout } from './checkout';
+import {Checkout} from './checkout';
 
 describe('Checkout', () => {
   it('should create an instance', () => {

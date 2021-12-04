@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BarChartComponent } from './bar-chart.component';
+import {BarChartComponent} from './bar-chart.component';
 
 describe('BarChartComponent', () => {
   let component: BarChartComponent;
@@ -8,9 +8,9 @@ describe('BarChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BarChartComponent ]
+      declarations: [BarChartComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import { ProductRequest } from './product-request';
+import {ProductRequest} from './product-request';
 
 describe('ProductRequest', () => {
   it('should create an instance', () => {

@@ -1,14 +1,14 @@
-import { AuthService } from './../service/auth.service';
-import { Component, OnInit } from '@angular/core';
-import { CartService } from '../service/cart.service';
-import { TokenStorageService } from '../service/token-storage.service';
-import { CountService } from '../service/count.service';
-import { Router } from '@angular/router';
-import { Cart } from '../cart';
-import { ProductService } from '../service/product.service';
-import { WishList } from '../model/wish-list';
-import { Response } from '../model/response';
-import { Product } from '../model/product';
+import {AuthService} from './../service/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {CartService} from '../service/cart.service';
+import {TokenStorageService} from '../service/token-storage.service';
+import {CountService} from '../service/count.service';
+import {Router} from '@angular/router';
+import {Cart} from '../cart';
+import {ProductService} from '../service/product.service';
+import {WishList} from '../model/wish-list';
+import {Response} from '../model/response';
+import {Product} from '../model/product';
 
 @Component({
   selector: 'app-header',
@@ -22,35 +22,40 @@ export class HeaderComponent implements OnInit {
 
   token = '';
   filter!: any;
+  keyword = 'name';
 
   //count!: number;
   count!: number;
-  nameUser: string = "";
+  nameUser: string = '';
   cart = new Array<Cart>();
   subTotal = 0;
   wishList = new Array<WishList>();
   products: Array<Product> = [];
 
-  constructor(private router: Router, private tokenStorageService: TokenStorageService, 
+  constructor(private router: Router, private tokenStorageService: TokenStorageService,
               private cartService: CartService, private countService: CountService,
               private authService: AuthService, private productService: ProductService) {
-   }
+  }
 
   ngOnInit(): void {
     const user = this.tokenStorageService.getUser();
     this.userId = user.id;
     console.log(user);
-    if(user.token != null)
-    {
-      this.nameUser = user.lastName + " " + user.firstName;
+    if (user.token != null) {
+      this.nameUser = user.lastName + ' ' + user.firstName;
       this.getWishListByUserId(this.userId);
     }
     this.cart = this.cartService.getCart();
     this.cart.forEach(c => {
       this.subTotal += c.price * c.quantity;
-    })
+    });
     this.getAllProduct();
-    
+
+  }
+
+  selectEvent(item: any) {
+    console.log(this.filter);
+    this.router.navigate(['product-detail/' + item.id]);
   }
 
   getAllProduct() {
@@ -59,16 +64,25 @@ export class HeaderComponent implements OnInit {
       (data: Response) => {
         this.products = data.data;
         console.log(this.products);
-      })
+      });
   }
 
   searchProductByName(name: string) {
+    console.log(this.filter);
     var object = {searchKey: this.filter};
     sessionStorage.setItem('SEARCH', JSON.stringify(object));
     if (this.router.url === '/search') {
-      this.router.navigate(['../search']).then(this.reloadPage);  
+      this.router.navigate(['../search']).then(this.reloadPage);
     } else {
       this.router.navigate(['../search']);
+    }
+  }
+
+  navigateOrder() {
+    if (!this.isLoggedIn()) {
+      this.router.navigate(['../login']).then(this.reloadPage);
+    } else {
+      this.router.navigate(['../list-orders']);
     }
   }
 
@@ -76,31 +90,30 @@ export class HeaderComponent implements OnInit {
     this.cart = this.cart.filter(x => x.product.id != id);
     this.cart.forEach(c => {
       this.subTotal += c.price * c.quantity;
-    })
+    });
     this.cartService.saveCart(this.cart);
     this.cartService.getCart();
     this.ngOnInit();
   }
 
-  getWishListByUserId(id: number){
+  getWishListByUserId(id: number) {
     this.token = this.tokenStorageService.getToken();
     this.productService.getWishListByUserId(this.token, id)
-        .subscribe(
-          (data: Response) => {
-            this.wishList = data.data;
-            console.log(this.wishList);
-          },
-          error => {
-            console.log(error);
-          });
+      .subscribe(
+        (data: Response) => {
+          this.wishList = data.data;
+          console.log(this.wishList);
+        },
+        error => {
+          console.log(error);
+        });
   }
 
-  isLoggedIn():boolean{
+  isLoggedIn(): boolean {
     this.token = this.tokenStorageService.getToken();
-    if(this.token == '{}')
-    {
+    if (this.token == '{}') {
       return false;
-    }else{    
+    } else {
       const user = this.tokenStorageService.getUser();
       this.username = user.username;
       this.userId = user.id;
@@ -113,15 +126,15 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['../']);
   }
 
-  directPage(){
+  directPage() {
     this.router.navigate(['../']).then(this.reloadPage);
   }
 
-  directRegisterPage(){
+  directRegisterPage() {
     this.router.navigate(['../register']).then(this.reloadPage);
   }
 
-  directLoginPage(){
+  directLoginPage() {
     this.router.navigate(['../login']).then(this.reloadPage);
   }
 
@@ -132,5 +145,5 @@ export class HeaderComponent implements OnInit {
   directChangeInfo() {
     this.router.navigate(['../changeInfo']);
   }
-  
+
 }

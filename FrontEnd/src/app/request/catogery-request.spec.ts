@@ -1,4 +1,4 @@
-import { CatogeryRequest } from './catogery-request';
+import {CatogeryRequest} from './catogery-request';
 
 describe('CatogeryRequest', () => {
   it('should create an instance', () => {

@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Cart } from 'src/app/cart';
-import { Response } from 'src/app/model/response';
-import { AuthService } from 'src/app/service/auth.service';
-import { CartService } from 'src/app/service/cart.service';
-import { CountService } from 'src/app/service/count.service';
-import { ProductService } from 'src/app/service/product.service';
-import { TokenStorageService } from 'src/app/service/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Cart} from 'src/app/cart';
+import {Response} from 'src/app/model/response';
+import {AuthService} from 'src/app/service/auth.service';
+import {CartService} from 'src/app/service/cart.service';
+import {CountService} from 'src/app/service/count.service';
+import {ProductService} from 'src/app/service/product.service';
+import {TokenStorageService} from 'src/app/service/token-storage.service';
 
 @Component({
   selector: 'app-cart',
@@ -21,32 +21,33 @@ export class CartComponent implements OnInit {
   cart = new Array<Cart>();
   subTotal = 0;
 
-  constructor(private router: Router, private tokenStorageService: TokenStorageService, 
-    private cartService: CartService, private countService: CountService,
-    private authService: AuthService, private productService: ProductService,) { }
+  constructor(private router: Router, private tokenStorageService: TokenStorageService,
+              private cartService: CartService, private countService: CountService,
+              private authService: AuthService, private productService: ProductService,) {
+  }
 
   ngOnInit(): void {
     this.cart = this.cartService.getCart();
     this.calculateTotal();
   }
 
-  countProductDetail(id: number, ram: string, color: string, memmory: string){
+  countProductDetail(id: number, ram: string, color: string, memmory: string) {
     this.token = this.tokenStorageService.getToken();
     this.productService.countSameProductDetail(this.token, id, ram, color, memmory)
-        .subscribe(
-          (data: Response) => {
-            this.count = data.data;
-          },
-          error => {
-            console.log(error);
-          });
+      .subscribe(
+        (data: Response) => {
+          this.count = data.data;
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   calculateTotal() {
     this.subTotal = 0;
     this.cart.forEach(c => {
       this.subTotal += c.total;
-    })
+    });
   }
 
   removeProductInCart(id: number) {
@@ -60,17 +61,17 @@ export class CartComponent implements OnInit {
   increaseQuantity(id: number) {
     this.cart.forEach(c => {
       if (c.product.id === id) {
-        this.countProductDetail(id, c.product.productDetails[0].ram, 
-                              c.product.productDetails[0].color, c.product.productDetails[0].memmory);
-        console.log(this.count)
+        this.countProductDetail(id, c.product.productDetails[0].ram,
+          c.product.productDetails[0].color, c.product.productDetails[0].memmory);
+        console.log(this.count);
         if (c.quantity == this.count) {
-          window.alert('Not allowed! Excess Cargo!')
+          window.alert('Not allowed! Excess Cargo!');
         } else {
           c.quantity++;
           c.total = c.price * c.quantity;
         }
       }
-    })
+    });
     this.calculateTotal();
     this.cartService.saveCart(this.cart);
   }
@@ -85,17 +86,16 @@ export class CartComponent implements OnInit {
           c.total = c.price * c.quantity;
         }
       }
-    })
+    });
     this.calculateTotal();
     this.cartService.saveCart(this.cart);
   }
 
-  isLoggedIn():boolean{
+  isLoggedIn(): boolean {
     this.token = this.tokenStorageService.getToken();
-    if(this.token == '{}')
-    {
+    if (this.token == '{}') {
       return false;
-    }else{    
+    } else {
       const user = this.tokenStorageService.getUser();
       return true;
     }

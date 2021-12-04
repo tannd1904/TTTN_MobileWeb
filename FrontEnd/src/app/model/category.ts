@@ -1,7 +1,6 @@
-import { Abstract } from './abstract';
-import { Product } from './product';
+import {Abstract} from './abstract';
 
 export class Category extends Abstract {
-    id!: number;
-    name!: string;
+  id!: number;
+  name!: string;
 }

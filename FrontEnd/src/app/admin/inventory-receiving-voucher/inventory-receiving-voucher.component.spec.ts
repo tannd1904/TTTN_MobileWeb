@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { InventoryReceivingVoucherComponent } from './inventory-receiving-voucher.component';
+import {InventoryReceivingVoucherComponent} from './inventory-receiving-voucher.component';
 
 describe('InventoryReceivingVoucherComponent', () => {
   let component: InventoryReceivingVoucherComponent;
@@ -8,9 +8,9 @@ describe('InventoryReceivingVoucherComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InventoryReceivingVoucherComponent ]
+      declarations: [InventoryReceivingVoucherComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

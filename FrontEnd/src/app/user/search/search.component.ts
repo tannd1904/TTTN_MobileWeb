@@ -1,16 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Cart } from 'src/app/cart';
-import { Product } from 'src/app/model/product';
-import { Response } from 'src/app/model/response';
-import { WishList } from 'src/app/model/wish-list';
-import { CartService } from 'src/app/service/cart.service';
-import { CategoryService } from 'src/app/service/category.service';
-import { ClassBodyService } from 'src/app/service/class-body.service';
-import { PageService } from 'src/app/service/page.service';
-import { ProductService } from 'src/app/service/product.service';
-import { TokenStorageService } from 'src/app/service/token-storage.service';
-import { UserService } from 'src/app/service/user.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Cart} from 'src/app/cart';
+import {Product} from 'src/app/model/product';
+import {Response} from 'src/app/model/response';
+import {WishList} from 'src/app/model/wish-list';
+import {CartService} from 'src/app/service/cart.service';
+import {CategoryService} from 'src/app/service/category.service';
+import {ClassBodyService} from 'src/app/service/class-body.service';
+import {PageService} from 'src/app/service/page.service';
+import {ProductService} from 'src/app/service/product.service';
+import {TokenStorageService} from 'src/app/service/token-storage.service';
+import {UserService} from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-search',
@@ -24,15 +24,16 @@ export class SearchComponent implements OnInit, OnDestroy {
   token!: string;
   userId!: number;
   cart = new Array<Cart>();
-  
+
   constructor(private router: Router,
-    private userService: UserService,
-    private classBodyService: ClassBodyService,
-    private pageService: PageService,
-    private tokenStorageService: TokenStorageService,
-    private productService: ProductService,
-    private categoryService: CategoryService,
-    private cartService: CartService,) { }
+              private userService: UserService,
+              private classBodyService: ClassBodyService,
+              private pageService: PageService,
+              private tokenStorageService: TokenStorageService,
+              private productService: ProductService,
+              private categoryService: CategoryService,
+              private cartService: CartService,) {
+  }
 
   ngOnDestroy(): void {
     sessionStorage.removeItem('SEARCH');
@@ -41,7 +42,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.searchResult = JSON.parse(sessionStorage.getItem('SEARCH') || '{}');
     this.searchProductByName(this.searchResult.searchKey);
-    console.log(this.router.url)
+    console.log(this.router.url);
   }
 
   searchProductByName(name: string) {
@@ -49,15 +50,14 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.productService.searchProductByName(this.token, name).subscribe(
       (data: Response) => {
         this.products = data.data;
-      })
+      });
   }
 
-  isLoggedIn():boolean{
+  isLoggedIn(): boolean {
     this.token = this.tokenStorageService.getToken();
-    if(this.token == '{}')
-    {
+    if (this.token == '{}') {
       return false;
-    }else{    
+    } else {
       const user = this.tokenStorageService.getUser();
       this.userId = user.id;
       return true;
@@ -76,17 +76,17 @@ export class SearchComponent implements OnInit, OnDestroy {
         .subscribe(
           (data: Response) => {
             if (data.status !== 200) {
-              var message = "Create WishList unsuccessfully";
+              var message = 'Create WishList unsuccessfully';
               console.log(message);
             } else {
-              var message = "Create WishList successfully";
+              var message = 'Create WishList successfully';
               console.log(message);
               this.router.navigate(['../wishlist']);
             }
           }, (err) => {
             console.log(err);
           }
-        )
+        );
     }
   }
 
@@ -102,13 +102,13 @@ export class SearchComponent implements OnInit, OnDestroy {
         var valueToRemove = 0;
         this.cart.forEach((c) => {
           if (c.product.id === p.id) {
-            temp.quantity = c.quantity+1;
+            temp.quantity = c.quantity + 1;
             valueToRemove = c.product.id;
           }
-        })
+        });
         var copy = this.cart;
         this.cart = [];
-        this.cart = copy.filter(x => x.product.id !== valueToRemove)
+        this.cart = copy.filter(x => x.product.id !== valueToRemove);
         temp.product = p;
         temp.price = p.price;
         temp.total = p.price * temp.quantity;
@@ -116,58 +116,50 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.cartService.saveCart(this.cart);
         window.location.reload();
       }
-    })
+    });
   }
 
   sort(event: any) {
     console.log('start sort');
     switch (event.target.value) {
-      case "Low":
-        {
-          console.log('sort low to high')
-          this.products = this.products.sort((low, high) => low.price - high.price);
-          break;
-        }
+      case 'Low': {
+        console.log('sort low to high');
+        this.products = this.products.sort((low, high) => low.price - high.price);
+        break;
+      }
 
-      case "High":
-        {
-          console.log('sort high to low')
-          this.products = this.products.sort((low, high) => high.price - low.price);
-          break;
-        }
+      case 'High': {
+        console.log('sort high to low');
+        this.products = this.products.sort((low, high) => high.price - low.price);
+        break;
+      }
 
-      case "Name":
-        {
-          console.log('sort a to z')
-          this.products = this.products.sort(function (low, high) {
-            if (low.name < high.name) {
-              return -1;
-            }
-            else if (low.name > high.name) {
-              return 1;
-            }
-            else {
-              return 0;
-            }
-          })
-          break;
-        }
+      case 'Name': {
+        console.log('sort a to z');
+        this.products = this.products.sort(function(low, high) {
+          if (low.name < high.name) {
+            return -1;
+          } else if (low.name > high.name) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+        break;
+      }
 
-      case "NameZ":
-        {
-          this.products = this.products.sort(function (high, low) {
-            if (low.name < high.name) {
-              return -1;
-            }
-            else if (low.name > high.name) {
-              return 1;
-            }
-            else {
-              return 0;
-            }
-          })
-          break;
-        }
+      case 'NameZ': {
+        this.products = this.products.sort(function(high, low) {
+          if (low.name < high.name) {
+            return -1;
+          } else if (low.name > high.name) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+        break;
+      }
 
       default: {
         this.products = this.products.sort((low, high) => low.price - high.price);

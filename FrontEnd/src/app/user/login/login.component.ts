@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LoginRequest } from 'src/app/model/login-request';
-import { Response } from 'src/app/model/response';
-import { UserLogin } from 'src/app/model/userLogin';
-import { AuthService } from 'src/app/service/auth.service';
-import { CartService } from 'src/app/service/cart.service';
-import { ClassBodyService } from 'src/app/service/class-body.service';
-import { CountService } from 'src/app/service/count.service';
-import { PageService } from 'src/app/service/page.service';
-import { TokenStorageService } from 'src/app/service/token-storage.service';
-import { UserService } from 'src/app/service/user.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {LoginRequest} from 'src/app/model/login-request';
+import {Response} from 'src/app/model/response';
+import {AuthService} from 'src/app/service/auth.service';
+import {CartService} from 'src/app/service/cart.service';
+import {ClassBodyService} from 'src/app/service/class-body.service';
+import {CountService} from 'src/app/service/count.service';
+import {PageService} from 'src/app/service/page.service';
+import {TokenStorageService} from 'src/app/service/token-storage.service';
+
 declare var greCaptcha: any;
 
 
@@ -26,19 +25,24 @@ export class LoginComponent implements OnInit {
   token: string = '';
   IsLogin = false;
   count!: any;
-  classBody: string = "user-login blog";
+  classBody: string = 'user-login blog';
   page: number = 2;
   submitted = false;
   captchaError: boolean = false;
   invalidLogin: boolean = false;
   loginResponse!: string;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, 
-              private tokenStorage: TokenStorageService, private router:Router, 
-              private tokenStorageService: TokenStorageService, 
-              private cartService: CartService, private countService: CountService, 
-              private classBodyService: ClassBodyService, 
-              private pageService: PageService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService,
+              private tokenStorage: TokenStorageService, private router: Router,
+              private tokenStorageService: TokenStorageService,
+              private cartService: CartService, private countService: CountService,
+              private classBodyService: ClassBodyService,
+              private pageService: PageService) {
+  }
+
+  get f() {
+    return this.dataForm.controls;
+  }
 
   ngOnInit(): void {
     this.classBodyService.changeClass(this.classBody);
@@ -46,20 +50,18 @@ export class LoginComponent implements OnInit {
     this.infoForm();
   }
 
-  infoForm(){
+  infoForm() {
     /*Create Form group*/
     this.dataForm = this.fb.group({
-      email: ['', [Validators.required, Validators.pattern("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-      + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")]],   
+      email: ['', [Validators.required, Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@'
+        + '[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$')]],
       password: ['', [Validators.required, Validators.minLength(8)]]
-    })
+    });
   }
-
-  get f() { return this.dataForm.controls; }
 
   onSubmit(): void {
     this.submitted = true;
-    if(this.dataForm.invalid){
+    if (this.dataForm.invalid) {
       return;
     }
     // const response = greCaptcha.getResponse();
@@ -73,15 +75,14 @@ export class LoginComponent implements OnInit {
     // login.recaptchaResponse = response;
     this.authService.login2(login).subscribe(
       (data: Response) => {
-        if(data.status === 200) {
+        if (data.status === 200) {
           let userLogin = data.data;
-          this.tokenStorage.saveUser(userLogin);        
-          this.token =  this.tokenStorage.getUser().token;
+          this.tokenStorage.saveUser(userLogin);
+          this.token = this.tokenStorage.getUser().token;
           this.tokenStorage.saveToken(this.token);
           this.role = this.tokenStorage.getUser().role;
           const user = this.tokenStorageService.getUser();
-          if(this.role == "ROLE_USER")
-          {
+          if (this.role == 'ROLE_USER') {
             // this.cartService.countCartById(this.token, user.id)
             //                         .subscribe(
             //                           (data) => {
@@ -93,8 +94,7 @@ export class LoginComponent implements OnInit {
             //                           }
             //                         );
             this.router.navigate(['../']).then(this.reloadPage);
-          }    
-          else {
+          } else {
             this.router.navigate(['admin']).then(this.reloadPage);
           }
         } else {
@@ -103,7 +103,7 @@ export class LoginComponent implements OnInit {
         }
         // greCaptcha.reset();
       },
-      err => {  
+      err => {
         this.IsLogin = true;
       }
     );
@@ -112,5 +112,5 @@ export class LoginComponent implements OnInit {
   reloadPage(): void {
     window.location.reload();
   }
-  
+
 }

@@ -1,18 +1,16 @@
-import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { DataTableDirective } from 'angular-datatables';
-import { Observable, Subject } from 'rxjs';
-import { Category } from 'src/app/model/category';
-import { Product } from 'src/app/model/product';
-import { Provider } from 'src/app/model/provider';
-import { Response } from 'src/app/model/response';
-import { ActiveService } from 'src/app/service/active.service';
-import { CategoryService } from 'src/app/service/category.service';
-import { ProductService } from 'src/app/service/product.service';
-import { ProviderService } from 'src/app/service/provider.service';
-import { TokenStorageService } from 'src/app/service/token-storage.service';
+import {HttpClient} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {Subject} from 'rxjs';
+import {Category} from 'src/app/model/category';
+import {Product} from 'src/app/model/product';
+import {Response} from 'src/app/model/response';
+import {ActiveService} from 'src/app/service/active.service';
+import {CategoryService} from 'src/app/service/category.service';
+import {ProductService} from 'src/app/service/product.service';
+import {ProviderService} from 'src/app/service/provider.service';
+import {TokenStorageService} from 'src/app/service/token-storage.service';
 
 @Component({
   selector: 'app-product',
@@ -20,7 +18,7 @@ import { TokenStorageService } from 'src/app/service/token-storage.service';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  
+
   // @ViewChild(DataTableDirective, {static: true})
   // dtElement!: DataTableDirective;
   dtOptions: DataTables.Settings = {};
@@ -44,17 +42,26 @@ export class ProductComponent implements OnInit {
 
   types = ['New', '99%', 'Second Hand', 'Old'];
 
-  constructor(private router: Router, private fb: FormBuilder, 
-    private activeService: ActiveService, private tokenStorageService: TokenStorageService, 
-    private providerService: ProviderService, private categoryService: CategoryService,
-    private productService: ProductService, private http: HttpClient,) { }
+  constructor(private router: Router, private fb: FormBuilder,
+              private activeService: ActiveService, private tokenStorageService: TokenStorageService,
+              private providerService: ProviderService, private categoryService: CategoryService,
+              private productService: ProductService, private http: HttpClient,) {
+  }
+
+  get f() {
+    return this.dataForm.controls;
+  }
+
+  get ef() {
+    return this.editForm.controls;
+  }
 
   ngOnInit(): void {
     this.activeService.changeActive(this.active);
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
-      lengthMenu: [5,10,20,50,100],
+      lengthMenu: [5, 10, 20, 50, 100],
       processing: true,
     };
     this.getCategory();
@@ -62,30 +69,30 @@ export class ProductComponent implements OnInit {
     this.infoForm();
   }
 
-  infoForm(){
+  infoForm() {
     this.dataForm = this.fb.group({
-      name: ['', [Validators.required]],  
-      price: ['', [Validators.required]], 
-      type: ['', [Validators.required]], 
-      status:  ['', [Validators.required]],
-      description: ['', [Validators.required]],  
-      categoryId: ['', [Validators.required]], 
-      image: [], 
-    })
+      name: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      type: ['', [Validators.required]],
+      status: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      categoryId: ['', [Validators.required]],
+      image: [],
+    });
 
     this.editForm = this.fb.group({
       id: [{value: '', disabled: true}, [Validators.required]],
-      name: [{value: '', disabled: true}, [Validators.required]],  
-      price: ['', [Validators.required]], 
-      type: [{value: '', disabled: true}, [Validators.required]], 
-      status:  ['', [Validators.required]],
-      description: ['', [Validators.required]],  
-      categoryId: [{value: '', disabled: true}, [Validators.required]], 
-      image: [], 
-    })
+      name: [{value: '', disabled: true}, [Validators.required]],
+      price: ['', [Validators.required]],
+      type: [{value: '', disabled: true}, [Validators.required]],
+      status: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      categoryId: [{value: '', disabled: true}, [Validators.required]],
+      image: [],
+    });
   }
 
-  editProduct(id: number) {    
+  editProduct(id: number) {
     this.productService.getProductById(this.token, id)
       .subscribe((data: Response) => {
         this.product = data.data;
@@ -99,32 +106,28 @@ export class ProductComponent implements OnInit {
           description: this.product.description,
           categoryId: this.product.categoryId,
           image: this.product.image,
-        })
-      })
+        });
+      });
   }
 
-  get f() { return this.dataForm.controls; }
-
-  get ef() { return this.editForm.controls; }
-
-  getCategory(){
+  getCategory() {
     this.token = this.tokenStorageService.getToken();
     this.categoryService.getCategory(this.token)
-        .subscribe(
-          (data: Response) => {
-            this.categories = data.data;
-            console.log(this.categories);
-          },
-          error => {
-            console.log(error);
-          });
+      .subscribe(
+        (data: Response) => {
+          this.categories = data.data;
+          console.log(this.categories);
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   onSubmit(): void {
     this.submitted = true;
     console.log(this.dataForm.value);
-    if(this.dataForm.invalid){
-      console.log("aaa");
+    if (this.dataForm.invalid) {
+      console.log('aaa');
       return;
     }
     this.addProduct();
@@ -133,42 +136,42 @@ export class ProductComponent implements OnInit {
   onSubmitEdit() {
     this.submitted = true;
     console.log(this.dataForm.value);
-    if(this.editForm.invalid){
-      console.log("aaa");
+    if (this.editForm.invalid) {
+      console.log('aaa');
       return;
     }
     this.completeEditProduct();
   }
 
-  getProduct(){
+  getProduct() {
     this.token = this.tokenStorageService.getToken();
     this.productService.getProduct(this.token)
-        .subscribe(
-          (data: Response) => {
-            this.products = data.data;
-            this.products.forEach(s => {
-              this.productService.countProductDetailByProductId(this.token, s.id)
-                .subscribe((data: Response) => {
-                  s.quantity = data.data;
-                })
-            })
-            this.dtTrigger.next();
-            console.log(this.products);
-          },
-          error => {
-            console.log(error);
+      .subscribe(
+        (data: Response) => {
+          this.products = data.data;
+          this.products.forEach(s => {
+            this.productService.countProductDetailByProductId(this.token, s.id)
+              .subscribe((data: Response) => {
+                s.quantity = data.data;
+              });
           });
+          this.dtTrigger.next();
+          console.log(this.products);
+        },
+        error => {
+          console.log(error);
+        });
   }
 
-  onSelectFile(event:any){
-    if(event.target.files.length >0){
+  onSelectFile(event: any) {
+    if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.imageFile = file;
       // this.f['image'].setValue(file);
 
       var mimeType = event.target.files[0].type;
-      if(mimeType.match(/image\/*/) == null){
-        this.message = "Only images are supported";
+      if (mimeType.match(/image\/*/) == null) {
+        this.message = 'Only images are supported';
         return;
       }
       var reader = new FileReader();
@@ -178,11 +181,11 @@ export class ProductComponent implements OnInit {
       reader.onload = (_event) => {
         this.imgURL = reader.result;
         console.log(this.imgURL);
-      }
+      };
     }
   }
 
-  completeEditProduct(){
+  completeEditProduct() {
     this.token = this.tokenStorageService.getToken();
     let formData = new FormData();
     let product = new Product();
@@ -202,7 +205,7 @@ export class ProductComponent implements OnInit {
         .subscribe(
           (data: Response) => {
             if (data.status !== 200) {
-              this.message = "*" + data.message;
+              this.message = '*' + data.message;
             } else {
               this.reloadPage();
             }
@@ -217,7 +220,7 @@ export class ProductComponent implements OnInit {
         .subscribe(
           (data: Response) => {
             if (data.status !== 200) {
-              this.message = "*" + data.message;
+              this.message = '*' + data.message;
             } else {
               this.reloadPage();
             }
@@ -225,10 +228,10 @@ export class ProductComponent implements OnInit {
           error => {
             console.log(error);
           });
-    }    
+    }
   }
 
-  addProduct(){
+  addProduct() {
     this.token = this.tokenStorageService.getToken();
     let formData = new FormData();
     let product = new Product();
@@ -243,36 +246,36 @@ export class ProductComponent implements OnInit {
     formData.append('product', JSON.stringify(product));
     formData.append('file', this.imageFile);
     this.productService.createProduct(this.token, formData)
-        .subscribe(
-          (data: Response) => {
-            if (data.status !== 200) {
-              this.message = "*" + data.message;
-            } else {
-              this.reloadPage();
-            }
-          },
-          error => {
-            console.log(error);
-          });
+      .subscribe(
+        (data: Response) => {
+          if (data.status !== 200) {
+            this.message = '*' + data.message;
+          } else {
+            this.reloadPage();
+          }
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   deleteProduct(id: number) {
     this.token = this.tokenStorageService.getToken();
     this.productService.deleteProduct(this.token, id)
-        .subscribe(
-          (data: Response) => {
-            if (data.status === 404) {
-              this.message = data.message;
-            } else {
-              this.ngOnInit();
-            }
-          },
-          error => {
-            console.log(error);
-          });
+      .subscribe(
+        (data: Response) => {
+          if (data.status === 404) {
+            this.message = data.message;
+          } else {
+            this.ngOnInit();
+          }
+        },
+        error => {
+          console.log(error);
+        });
   }
 
-  toProductDetail(productId: string){
+  toProductDetail(productId: string) {
     this.router.navigate(['admin/product/' + productId]).then(this.reloadPage);
   }
 
@@ -284,3 +287,4 @@ export class ProductComponent implements OnInit {
     window.location.reload();
   }
 }
+

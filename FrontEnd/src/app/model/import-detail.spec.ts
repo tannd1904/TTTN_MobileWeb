@@ -1,4 +1,4 @@
-import { ImportDetail } from './import-detail';
+import {ImportDetail} from './import-detail';
 
 describe('ImportDetail', () => {
   it('should create an instance', () => {

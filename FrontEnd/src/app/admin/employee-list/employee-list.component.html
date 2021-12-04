@@ -1,179 +1,182 @@
-<section class="content-header"> 
-    <h1>
-      Employee Management
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active"><a href="#">Employee</a></li>
-    </ol>
+<section class="content-header">
+  <h1>
+    Employee Management
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active"><a href="#">Employee</a></li>
+  </ol>
 </section>
 
 <section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Employees List</h3>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Employees List</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-sm-8 col-5">
+              <h4 class="page-title"></h4>
             </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-sm-8 col-5">
-                        <h4 class="page-title"></h4>
+            <div class="col-sm-4 col-7 text-right m-b-30">
+              <a class="btn btn-primary btn-rounded float-right" data-target="#exampleModalCenter" data-toggle="modal">
+                <i class="fa fa-plus"></i> Add Employee</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" datatable>
+                <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Gender</th>
+                  <th>Phone</th>
+                  <th>Address</th>
+                  <th class="text-right">Actions</th>
+                </tr>
+                </thead>
+                <tbody *ngIf="users?.length != 0">
+                <tr *ngFor="let user of users">
+                  <td>{{ user.id }}</td>
+                  <td>{{ user.firstname }}</td>
+                  <td>{{user.lastname}}</td>
+                  <td>{{user.email}}</td>
+                  <td>{{user.gender}}</td>
+                  <td>{{user.phone}}</td>
+                  <td>{{user.address}}</td>
+                  <td class="text-right">
+                    <div class="dropdown dropdown-action">
+                      <a aria-expanded="false" class="action-icon dropdown-toggle" data-toggle="dropdown" href="#"><i
+                        class="fa fa-ellipsis-v"></i></a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                        <a (click)="clickedDeleteBtn(user.id)" class="dropdown-item" data-target="#delete_expense"
+                           data-toggle="modal"
+                           href="#"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                      </div>
                     </div>
-                    <div class="col-sm-4 col-7 text-right m-b-30">
-                        <a class="btn btn-primary btn-rounded float-right" data-toggle="modal" data-target="#exampleModalCenter">
-                            <i class="fa fa-plus"></i> Add Employee</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-                            <thead>
-                                <tr>
-                                    <th>Code</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Email</th>
-                                    <th>Gender</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
-                                    <th class="text-right">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody *ngIf="users?.length != 0">
-                                <tr *ngFor="let user of users">
-                                    <td>{{ user.id }}</td>
-                                    <td>{{ user.firstname }}</td>
-                                    <td>{{user.lastname}}</td>
-                                    <td>{{user.email}}</td>
-                                    <td>{{user.gender}}</td>
-                                    <td>{{user.phone}}</td>
-                                    <td>{{user.address}}</td>
-                                    <td class="text-right">
-                                        <div class="dropdown dropdown-action">
-                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                <a class="dropdown-item" (click)="clickedDeleteBtn(user.id)" href="#" data-toggle="modal" data-target="#delete_expense"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tbody *ngIf="categories?.length == 0">
-                                <tr>
-                                  <td colspan="3" class="no-data-available">No data!</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                  </td>
+                </tr>
+                </tbody>
+                <tbody *ngIf="categories?.length == 0">
+                <tr>
+                  <td class="no-data-available" colspan="3">No data!</td>
+                </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<div id="delete_expense" class="modal fade modal-wrapper" role="dialog">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <img src="../../../../assets/admin/images/sent.png" alt="" width="50" height="46">
-                <h3>Are you sure want to delete this expense?</h3>
-                <div class="m-t-20"> 
-                    <button type="submit" class="btn btn-danger" (click)="deleteCategory(deleteId)">Delete</button>
-                    <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
-                </div>
-            </div>
+<div class="modal fade modal-wrapper" id="delete_expense" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <img alt="" height="46" src="../../../../assets/admin/images/sent.png" width="50">
+        <h3>Are you sure want to delete this expense?</h3>
+        <div class="m-t-20">
+          <button (click)="deleteCategory(deleteId)" class="btn btn-danger" type="submit">Delete</button>
+          <a class="btn btn-primary" data-dismiss="modal" href="#">Close</a>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <!-- Begin Quick View | Modal Area -->
-<form [formGroup]="this.dataForm" (ngSubmit)="onSubmit()">
-    <div class="modal fade modal-wrapper" id="exampleModalCenter">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content mt-200">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2 class="text-center">ADD EMPLOYEE</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-12 mb-20">
-                            <label>First Name*</label>
-                            <input formControlName="firstName" class="mb-0" type="text" placeholder="First Name">
-                            <div *ngIf="submitted && f.firstName.errors">
-                                <div *ngIf="f.firstName.errors.required" class="errors"> * First name is required</div>
-                                </div>
-                        </div>
-                        <div class="col-md-6 col-12 mb-20">
-                            <label>Last Name*</label>
-                            <input formControlName="lastName" class="mb-0" type="text" placeholder="Last Name">
-                            <div *ngIf="submitted && f.lastName.errors">
-                                <div *ngIf="f.lastName.errors.required" class="errors"> * Last name is required</div>
-                                </div>
-                        </div>
-                        <div class="col-md-12 mb-20">
-                            <label>Email Address*</label>
-                            <input formControlName="email" class="mb-0" type="email" placeholder="Email Address">
-                            <div *ngIf="submitted && f.email.errors">
-                                <div *ngIf="f.email.errors.required" class="errors"> * Email is required</div>
-                                <div *ngIf="f.email.errors.pattern" class="errors"> * Format email is wrong (Ex: tannd@gmail.com)</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-20">
-                            <label>Password*</label>
-                            <input formControlName="password" class="mb-0" type="password" placeholder="Password">
-                            <div *ngIf="submitted && f.password.errors">
-                                <div *ngIf="f.password.errors.required" class="errors"> * Password is required</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-20">
-                            <label>Confirm Password*</label>
-                            <input formControlName="cfmPassword" class="mb-0" type="password" placeholder="Confirm Password">
-                            <div *ngIf="submitted && f.cfmPassword.errors">
-                                <div *ngIf="f.cfmPassword.errors.required" class="errors"> * Confirm password is required</div>
-                                <div *ngIf="f.cfmPassword.errors?.MustMatch" class="errors"> * Password does not match!</div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 mb-20">
-                            <label>Address*</label>
-                            <input formControlName="address" class="mb-0" type="text" placeholder="Address">
-                            <div *ngIf="submitted && f.address.errors">
-                                <div *ngIf="f.address.errors.required" class="errors"> * Address is required</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-20">
-                            <!-- <label>Gender*</label> -->
-                            <input type="radio" name="gender" 
-                                formControlName="gender" value="Nam" style="height: 13px; width: 13px;" checked>
-                                <span>Male</span>
-                            <input type="radio" name="gender" 
-                                formControlName="gender" value="Nữ" style="height: 13px; width: 13px;">
-                                <span>Female</span>
-                            <div *ngIf="submitted && f.gender.errors">
-                                <div *ngIf="f.gender.errors.required" class="errors"> * Gender is required</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-20">
-                            <label>Phone Number*</label>
-                            <input formControlName="phone" class="mb-0" type="text" placeholder="Phone Number">
-                            <div *ngIf="submitted && f.phone.errors">
-                                <div *ngIf="f.phone.errors.required" class="errors"> * Phone is required</div>
-                            </div>
-                        </div>
-                        <div class="m-t-20 text-center errors">
-                            {{message}}
-                        </div>
-                        <div class="m-t-20 text-center">
-                            <button class="btn btn-primary submit-btn" type="submit">Add Employee</button>
-                        </div>
-                    </div>
-                </div>
+<form (ngSubmit)="onSubmit()" [formGroup]="this.dataForm">
+  <div class="modal fade modal-wrapper" id="exampleModalCenter">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content mt-200">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 class="text-center">ADD EMPLOYEE</h2>
             </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-12 mb-20">
+              <label>First Name*</label>
+              <input class="mb-0" formControlName="firstName" placeholder="First Name" type="text">
+              <div *ngIf="submitted && f.firstName.errors">
+                <div *ngIf="f.firstName.errors.required" class="errors"> * First name is required</div>
+              </div>
+            </div>
+            <div class="col-md-6 col-12 mb-20">
+              <label>Last Name*</label>
+              <input class="mb-0" formControlName="lastName" placeholder="Last Name" type="text">
+              <div *ngIf="submitted && f.lastName.errors">
+                <div *ngIf="f.lastName.errors.required" class="errors"> * Last name is required</div>
+              </div>
+            </div>
+            <div class="col-md-12 mb-20">
+              <label>Email Address*</label>
+              <input class="mb-0" formControlName="email" placeholder="Email Address" type="email">
+              <div *ngIf="submitted && f.email.errors">
+                <div *ngIf="f.email.errors.required" class="errors"> * Email is required</div>
+                <div *ngIf="f.email.errors.pattern" class="errors"> * Format email is wrong (Ex: tannd@gmail.com)</div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-20">
+              <label>Password*</label>
+              <input class="mb-0" formControlName="password" placeholder="Password" type="password">
+              <div *ngIf="submitted && f.password.errors">
+                <div *ngIf="f.password.errors.required" class="errors"> * Password is required</div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-20">
+              <label>Confirm Password*</label>
+              <input class="mb-0" formControlName="cfmPassword" placeholder="Confirm Password" type="password">
+              <div *ngIf="submitted && f.cfmPassword.errors">
+                <div *ngIf="f.cfmPassword.errors.required" class="errors"> * Confirm password is required</div>
+                <div *ngIf="f.cfmPassword.errors?.MustMatch" class="errors"> * Password does not match!</div>
+              </div>
+            </div>
+            <div class="col-md-12 mb-20">
+              <label>Address*</label>
+              <input class="mb-0" formControlName="address" placeholder="Address" type="text">
+              <div *ngIf="submitted && f.address.errors">
+                <div *ngIf="f.address.errors.required" class="errors"> * Address is required</div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-20">
+              <!-- <label>Gender*</label> -->
+              <input checked formControlName="gender"
+                     name="gender" style="height: 13px; width: 13px;" type="radio" value="Nam">
+              <span>Male</span>
+              <input formControlName="gender" name="gender"
+                     style="height: 13px; width: 13px;" type="radio" value="Nữ">
+              <span>Female</span>
+              <div *ngIf="submitted && f.gender.errors">
+                <div *ngIf="f.gender.errors.required" class="errors"> * Gender is required</div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-20">
+              <label>Phone Number*</label>
+              <input class="mb-0" formControlName="phone" placeholder="Phone Number" type="text">
+              <div *ngIf="submitted && f.phone.errors">
+                <div *ngIf="f.phone.errors.required" class="errors"> * Phone is required</div>
+              </div>
+            </div>
+            <div class="m-t-20 text-center errors">
+              {{message}}
+            </div>
+            <div class="m-t-20 text-center">
+              <button class="btn btn-primary submit-btn" type="submit">Add Employee</button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </form>

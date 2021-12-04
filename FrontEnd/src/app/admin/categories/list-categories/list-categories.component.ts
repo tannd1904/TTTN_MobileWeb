@@ -1,19 +1,12 @@
-import { Category } from './../../../model/category';
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { UserService } from 'src/app/service/user.service';
-import { TokenStorageService } from 'src/app/service/token-storage.service';
-import { ActiveService } from 'src/app/service/active.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CategoryService } from 'src/app/service/category.service';
-import { Response } from 'src/app/model/response';
-import { DataTableDirective, DataTablesModule } from 'angular-datatables';
-import { Subject } from 'rxjs';
+import {Category} from './../../../model/category';
+import {Component, OnInit,} from '@angular/core';
+import {UserService} from 'src/app/service/user.service';
+import {TokenStorageService} from 'src/app/service/token-storage.service';
+import {ActiveService} from 'src/app/service/active.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CategoryService} from 'src/app/service/category.service';
+import {Response} from 'src/app/model/response';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-list-categories',
@@ -40,7 +33,21 @@ export class ListCategoriesComponent implements OnInit {
     private tokenStorageService: TokenStorageService,
     private activeService: ActiveService,
     private categoryService: CategoryService
-  ) {}
+  ) {
+  }
+
+  get f() {
+    return this.dataForm.controls;
+  }
+
+  // rerender(): void {
+  //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+  //     // Destroy the table first
+  //     dtInstance.destroy();
+  //     // Call the dtTrigger to rerender again
+  //     this.dtTrigger.next();
+  //   });
+  // }
 
   ngOnInit(): void {
     this.activeService.changeActive(this.active);
@@ -54,23 +61,10 @@ export class ListCategoriesComponent implements OnInit {
     this.infoForm();
   }
 
-  // rerender(): void {
-  //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-  //     // Destroy the table first
-  //     dtInstance.destroy();
-  //     // Call the dtTrigger to rerender again
-  //     this.dtTrigger.next();
-  //   });
-  // }
-
   infoForm() {
     this.dataForm = this.fb.group({
       name: ['', [Validators.required]],
     });
-  }
-
-  get f() {
-    return this.dataForm.controls;
   }
 
   onSubmit(): void {

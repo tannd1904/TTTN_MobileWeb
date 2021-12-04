@@ -1,128 +1,128 @@
-<section class="content-header"> 
-    <h1>
-      Order Management
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active"><a href="#">Order</a></li>
-    </ol>
+<section class="content-header">
+  <h1>
+    Order Management
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active"><a href="#">Order</a></li>
+  </ol>
 </section>
 
 <section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Order List</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div class="content">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="row" style="margin-top: 1rem;">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Code</th>
-                                                    <th>Order Date</th>
-                                                    <th>Full Name Of Receiver</th>
-                                                    <th class="w100">Address Of Receiver</th>
-                                                    <th class="w100">Phone Of Receiver</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody *ngIf="orders?.length == 0">
-                                                <tr>
-                                                  <td colspan="3" class="no-data-available">No data!</td>
-                                                </tr>
-                                            </tbody>
-                                            <tbody *ngIf="orders?.length != 0">
-                                                <tr *ngFor="let order of orders" routerLink="../order-detail/{{order.id}}" data-toggle="modal">
-                                                    <td>{{order.id}}</td>
-                                                    <td>{{order.dateOfOrder | date}}</td>
-                                                    <td>{{order.firstNameOfReceiver}} {{order.lastNameOfReceiver}}</td>
-                                                    <td>{{order.addressOfReceiver}}</td>
-                                                    <td>{{order.phoneOfReceiver}}</td>
-                                                    <td *ngIf="order.status == 0">Unconfirmed</td>
-                                                    <td *ngIf="order.status == 1">Confirmed/Delivering</td>
-                                                    <td *ngIf="order.status == 2">Delivered</td>
-                                                    <td *ngIf="order.status == 3">Cancelled</td>
-                                                    <!-- <td class="text-right">
-                                                        <div class="dropdown dropdown-action">
-                                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                <a routerLink="../order-detail/{{order.id}}" class="dropdown-item">
-                                                                    <i class="fa fa-pencil m-r-5"></i>View Detail
-                                                                </a>
-                                                                <a *ngIf="order.status == 0" class="dropdown-item"
-                                                                    (click)="confirmOrder(order.id)"
-                                                                    >
-                                                                    <i class="fa fa-pencil m-r-5"></i>Confirm Order
-                                                                </a>
-                                                                <a *ngIf="order.status == 0" class="dropdown-item" (click)="clickCancel(order.id)"
-                                                                    data-toggle="modal" data-target="#delete_expense">
-                                                                    <i class="fa fa-trash-o m-r-5"></i> Cancel
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </td> -->
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Order List</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="content">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row" style="margin-top: 1rem;">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+                      <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" datatable>
+                        <thead>
+                        <tr>
+                          <th>Code</th>
+                          <th>Order Date</th>
+                          <th>Full Name Of Receiver</th>
+                          <th class="w100">Address Of Receiver</th>
+                          <th class="w100">Phone Of Receiver</th>
+                          <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngIf="orders?.length == 0">
+                        <tr>
+                          <td class="no-data-available" colspan="3">No data!</td>
+                        </tr>
+                        </tbody>
+                        <tbody *ngIf="orders?.length != 0">
+                        <tr *ngFor="let order of orders" data-toggle="modal" routerLink="../order-detail/{{order.id}}">
+                          <td>{{order.id}}</td>
+                          <td>{{order.dateOfOrder | date}}</td>
+                          <td>{{order.firstNameOfReceiver}} {{order.lastNameOfReceiver}}</td>
+                          <td>{{order.addressOfReceiver}}</td>
+                          <td>{{order.phoneOfReceiver}}</td>
+                          <td *ngIf="order.status == 0">Unconfirmed</td>
+                          <td *ngIf="order.status == 1">Confirmed/Delivering</td>
+                          <td *ngIf="order.status == 2">Delivered</td>
+                          <td *ngIf="order.status == 3">Cancelled</td>
+                          <!-- <td class="text-right">
+                              <div class="dropdown dropdown-action">
+                                  <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                  <div class="dropdown-menu dropdown-menu-right">
+                                      <a routerLink="../order-detail/{{order.id}}" class="dropdown-item">
+                                          <i class="fa fa-pencil m-r-5"></i>View Detail
+                                      </a>
+                                      <a *ngIf="order.status == 0" class="dropdown-item"
+                                          (click)="confirmOrder(order.id)"
+                                          >
+                                          <i class="fa fa-pencil m-r-5"></i>Confirm Order
+                                      </a>
+                                      <a *ngIf="order.status == 0" class="dropdown-item" (click)="clickCancel(order.id)"
+                                          data-toggle="modal" data-target="#delete_expense">
+                                          <i class="fa fa-trash-o m-r-5"></i> Cancel
+                                      </a>
+                                  </div>
+                              </div>
+                          </td> -->
+                        </tr>
+                        </tbody>
+                      </table>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<div id="delete_expense" class="modal fade modal-wrapper" role="dialog">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <img src="../../../../assets/admin/images/sent.png" alt="" width="50" height="46">
-                <h3>Are you sure want to Cancel this Order?</h3>
-                <div class="m-t-20"> 
-                    <button (click)="cancelOrder(cancelOrderId)" type="submit" class="btn btn-danger">Yes</button>
-                    <a href="#" class="btn btn-primary" data-dismiss="modal">No</a>
-                </div>
-            </div>
+<div class="modal fade modal-wrapper" id="delete_expense" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <img alt="" height="46" src="../../../../assets/admin/images/sent.png" width="50">
+        <h3>Are you sure want to Cancel this Order?</h3>
+        <div class="m-t-20">
+          <button (click)="cancelOrder(cancelOrderId)" class="btn btn-danger" type="submit">Yes</button>
+          <a class="btn btn-primary" data-dismiss="modal" href="#">No</a>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
-<div id="shipping_expense" class="modal fade modal-wrapper" role="dialog">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <img src="../../../../assets/admin/images/sent.png" alt="" width="50" height="46">
-                <h3>Select Employee for Shipping this Order</h3>
-                <div class="m-t-20"> 
-                    <form [formGroup]="this.dataForm" (ngSubmit)="onSubmit()">
-                        <div class="col-sm-12">
-                            <div class="form-group" style="width: 66%; margin: auto;">
-                                <select formControlName="shippingEmployee" class="form-control">
-                                    <option *ngFor="let employee of listEmployee" [ngValue]="employee.id">
-                                        {{employee.firstname}} {{employee.lastname}} 
-                                      </option>
-                                </select>
-                                <div *ngIf="submitted && f.shippingEmployee.errors">
-                                    <div *ngIf="f.shippingEmployee.errors.required" class="errors"> * Shipping Employee is required</div>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-danger mt-30">Apply</button>
-                    </form>
+<div class="modal fade modal-wrapper" id="shipping_expense" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <img alt="" height="46" src="../../../../assets/admin/images/sent.png" width="50">
+        <h3>Select Employee for Shipping this Order</h3>
+        <div class="m-t-20">
+          <form (ngSubmit)="onSubmit()" [formGroup]="this.dataForm">
+            <div class="col-sm-12">
+              <div class="form-group" style="width: 66%; margin: auto;">
+                <select class="form-control" formControlName="shippingEmployee">
+                  <option *ngFor="let employee of listEmployee" [ngValue]="employee.id">
+                    {{employee.firstname}} {{employee.lastname}}
+                  </option>
+                </select>
+                <div *ngIf="submitted && f.shippingEmployee.errors">
+                  <div *ngIf="f.shippingEmployee.errors.required" class="errors"> * Shipping Employee is required</div>
                 </div>
+              </div>
             </div>
+            <button class="btn btn-danger mt-30" type="submit">Apply</button>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
 </div>

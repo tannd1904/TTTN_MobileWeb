@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
   <title>AdminLTE 2 | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -15,9 +15,10 @@
   <![endif]-->
 
   <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"
+        rel="stylesheet">
 </head>
-<body class="hold-transition skin-blue sidebar-mini" [ngClass]="{'sidebar-collapse': toggleSideBar}">
+<body [ngClass]="{'sidebar-collapse': toggleSideBar}" class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
@@ -31,7 +32,7 @@
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
       <!-- Sidebar toggle button-->
-      <a class="sidebar-toggle" data-toggle="push-menu" role="button" (click)="toggleSideBar = !toggleSideBar">
+      <a (click)="toggleSideBar = !toggleSideBar" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
 
@@ -114,7 +115,7 @@
           </li> -->
           <!-- Notifications: style can be found in dropdown.less -->
           <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
               <i class="fa fa-bell-o"></i>
               <span class="label label-warning">10</span>
             </a>
@@ -228,14 +229,14 @@
           </li> -->
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../../assets/site/images/male-avatar.jpg" width="30%" class="user-image" alt="User Image">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              <img alt="User Image" class="user-image" src="../../assets/site/images/male-avatar.jpg" width="30%">
               <span class="hidden-xs">Nguyễn Tân</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../../assets/site/images/male-avatar.jpg" width="30%" class="img-circle" alt="User Image">
+                <img alt="User Image" class="img-circle" src="../../assets/site/images/male-avatar.jpg" width="30%">
 
                 <p>
                   Nguyễn Tân - Employee
@@ -279,18 +280,18 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="../../assets/site/images/male-avatar.jpg" style="width: 30%;" class="img-circle" alt="User Image">
+          <img alt="User Image" class="img-circle" src="../../assets/site/images/male-avatar.jpg" style="width: 30%;">
         </div>
         <div class="pull-left info">
           <p>Nguyễn Tân</p>
         </div>
       </div>
       <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
+      <form action="#" class="sidebar-form" method="get">
         <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
+          <input class="form-control" name="q" placeholder="Search..." type="text">
           <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                <button class="btn btn-flat" id="search-btn" name="search" type="submit"><i class="fa fa-search"></i>
                 </button>
               </span>
         </div>
@@ -307,9 +308,9 @@
             </span>
           </a>
         </li>
-        <li class="treeview" [ngClass]="{active: isActive[2], 'menu-open': isActive[2]}">
+        <li [ngClass]="{active: isActive[2], 'menu-open': isActive[2]}" class="treeview">
           <a (click)="isActive[2] = !isActive[2]" style="cursor: pointer;">
-            <i class="fa fa-users" aria-hidden="true"></i>
+            <i aria-hidden="true" class="fa fa-users"></i>
             <span>Account Management</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -322,7 +323,7 @@
         </li>
         <li>
           <a routerLink="category">
-            <i class="fa fa-list" aria-hidden="true"></i> <span>Category Management</span>
+            <i aria-hidden="true" class="fa fa-list"></i> <span>Category Management</span>
             <span class="pull-right-container">
               <!-- <small class="label pull-right bg-green">new</small> -->
             </span>
@@ -330,13 +331,13 @@
         </li>
         <li>
           <a routerLink="products">
-            <i class="fa fa-mobile" aria-hidden="true"></i> <span>Product Management</span>
+            <i aria-hidden="true" class="fa fa-mobile"></i> <span>Product Management</span>
             <span class="pull-right-container">
               <!-- <small class="label pull-right bg-green">new</small> -->
             </span>
           </a>
         </li>
-        <li class="treeview" [ngClass]="{active: isActive[1], 'menu-open': isActive[1]}">
+        <li [ngClass]="{active: isActive[1], 'menu-open': isActive[1]}" class="treeview">
           <a (click)="isActive[1] = !isActive[1]" style="cursor: pointer;">
             <i class="fa fa-files-o"></i>
             <span>Import</span>
@@ -351,16 +352,16 @@
         </li>
         <li>
           <a routerLink="list-orders">
-            <i class="fa fa-file-text-o" aria-hidden="true"></i> <span>Order Management</span>
+            <i aria-hidden="true" class="fa fa-file-text-o"></i> <span>Order Management</span>
             <span class="pull-right-container">
               <!-- <small class="label pull-right bg-green">new</small> -->
             </span>
           </a>
         </li>
         <li class="header">LABELS</li>
-        <li><a href="#"><i class="fa fa-internet-explorer" aria-hidden="true"></i> <span>Website</span></a></li>
-        <li><a href="#"><i class="fa fa-power-off" aria-hidden="true"></i> <span>Log Out</span></a></li>
-        </ul>
+        <li><a href="#"><i aria-hidden="true" class="fa fa-internet-explorer"></i> <span>Website</span></a></li>
+        <li><a href="#"><i aria-hidden="true" class="fa fa-power-off"></i> <span>Log Out</span></a></li>
+      </ul>
     </section>
     <!-- /.sidebar -->
   </aside>
@@ -374,11 +375,11 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; 2021 <a target="_blank" href="https://github.com/tannd1904">TanND</a>.</strong> All rights
+    <strong>Copyright &copy; 2021 <a href="https://github.com/tannd1904" target="_blank">TanND</a>.</strong> All rights
     reserved.
   </footer>
 
-  
+
 </div>
 <!-- ./wrapper -->
 

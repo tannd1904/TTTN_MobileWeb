@@ -1,21 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { ImportVoucher } from 'src/app/model/import-voucher';
-import { ImportDetail } from 'src/app/model/import-detail';
-import { Product } from 'src/app/model/product';
-import { ProductDetail } from 'src/app/model/product-detail';
-import { Response } from 'src/app/model/response';
-import { User } from 'src/app/model/user';
-import { ActiveService } from 'src/app/service/active.service';
-import { EmployeeService } from 'src/app/service/employee.service';
-import { ImportService } from 'src/app/service/import.service';
-import { ProductDetailService } from 'src/app/service/product-detail.service';
-import { ProductService } from 'src/app/service/product.service';
-import { TokenStorageService } from 'src/app/service/token-storage.service';
-import { UserService } from 'src/app/service/user.service';
-import { DatePipe } from '@angular/common';
-import { Router } from '@angular/router';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Subject} from 'rxjs';
+import {ImportVoucher} from 'src/app/model/import-voucher';
+import {ImportDetail} from 'src/app/model/import-detail';
+import {Product} from 'src/app/model/product';
+import {ProductDetail} from 'src/app/model/product-detail';
+import {Response} from 'src/app/model/response';
+import {User} from 'src/app/model/user';
+import {ActiveService} from 'src/app/service/active.service';
+import {EmployeeService} from 'src/app/service/employee.service';
+import {ImportService} from 'src/app/service/import.service';
+import {ProductDetailService} from 'src/app/service/product-detail.service';
+import {ProductService} from 'src/app/service/product.service';
+import {TokenStorageService} from 'src/app/service/token-storage.service';
+import {UserService} from 'src/app/service/user.service';
+import {DatePipe} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-inventory-receiving-voucher-detail',
@@ -32,7 +32,7 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  
+
   import!: ImportVoucher;
   imports: Array<ImportVoucher> = [];
   importDetail!: ImportDetail;
@@ -48,7 +48,7 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
   message!: string;
   currentDate!: any;
   thisEmployee!: any;
-  
+
   quantity: number = 0;
 
   dataForm!: FormGroup;
@@ -77,7 +77,31 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
     private productDetailService: ProductDetailService,
     private datePipe: DatePipe,
     private router: Router
-  ) {}
+  ) {
+  }
+
+  get initFormArray() {
+
+    let array = [];
+
+    for (let i = 0; i < this.quantity; i++) {
+      array.push(
+        this.fb.group({
+          serial: ['', Validators.required]
+        })
+      );
+    }
+
+    return array;
+  }
+
+  get f() {
+    return this.dataForm.controls;
+  }
+
+  get array() {
+    return this.testForm.get('serialForm') as FormArray;
+  }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -88,7 +112,7 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
     this.currentDate = this.datePipe.transform(this.currentDate, 'yyyy-MM-dd');
     this.thisEmployee = this.tokenStorageService.getUser();
 
-    
+
     this.infoForm();
     this.infoSubForm();
     this.loadImport();
@@ -110,7 +134,7 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
     }
   }
 
-  infoForm(){
+  infoForm() {
     this.dataForm = this.fb.group({
       productId: ['', Validators.required],
       color: ['', [Validators.required]],
@@ -123,37 +147,15 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
       os: ['', [Validators.required]],
       note: [''],
       quantity: ['', [Validators.required, Validators.min(0), Validators.max(10)]]
-    })
+    });
   }
 
   infoSubForm() {
     this.quantity = this.f.quantity.value;
     this.testForm = this.fb.group({
       serialForm: this.fb.array(this.initFormArray)
-    })
+    });
   }
-
-
-  get initFormArray(){
-    
-    let array = [];
-
-    for(let i = 0;i <this.quantity;i++){
-      array.push(
-        
-        this.fb.group({
-          serial: ['', Validators.required]
-        })
-
-      )
-    }
-
-    return array;
-  }
-
-  get f() { return this.dataForm.controls; }
-
-  get array() { return this.testForm.get('serialForm') as FormArray}
 
   onSubmit() {
     this.submitted = true;
@@ -172,7 +174,7 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
       this.productDetail.camera = this.f.camera.value;
       this.productDetail.note = this.f.note.value;
       console.log(this.productDetail);
-      
+
       this.importDetail = new ImportDetail();
       this.importDetail.quantity = this.f.quantity.value;
       this.importDetail.productId = this.f.productId.value;
@@ -184,25 +186,25 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
       console.log(this.importDetail);
 
       this.infoSubForm();
-      this.toggleForm[0] = !this.toggleForm[0]; 
+      this.toggleForm[0] = !this.toggleForm[0];
       this.toggleForm[1] = !this.toggleForm[1];
-      
+
     }
   }
 
   onSubmitSubForm() {
     this.submitted1 = true;
-    console.log('submit thanh cong')
+    console.log('submit thanh cong');
     if (this.array.invalid) {
       return;
     } else {
-      let serial : string[] = [];
-      for (let i=0; i<this.quantity; i++) {
-        serial.push(this.array.controls[i].value.serial)
+      let serial: string[] = [];
+      for (let i = 0; i < this.quantity; i++) {
+        serial.push(this.array.controls[i].value.serial);
       }
       console.log(serial);
-      
-      for(let i = 0; i<this.importDetail.quantity; i++) {
+
+      for (let i = 0; i < this.importDetail.quantity; i++) {
         console.log(this.array.controls[i].value.serial);
         let pro = new ProductDetail();
         pro = this.productDetail;
@@ -218,21 +220,21 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
       }
       console.log(this.listProductDetail);
       // this.array.controls.forEach((f) => {
-        // console.log(f.value.serial)
-        // let pro = new ProductDetail();
-        // pro = this.productDetail;
-        // pro.serial = f.value.serial
-        // console.log(this.importDetailId);
-        // let id = JSON.parse(sessionStorage.getItem('importDetailId') || '{}');
-        // console.log(id);
-        // pro.importVoucherDetailId = id;
-        // console.log(pro);
-        // TODO: continue fix bug in this place, client cant get importVoucherDetailId
+      // console.log(f.value.serial)
+      // let pro = new ProductDetail();
+      // pro = this.productDetail;
+      // pro.serial = f.value.serial
+      // console.log(this.importDetailId);
+      // let id = JSON.parse(sessionStorage.getItem('importDetailId') || '{}');
+      // console.log(id);
+      // pro.importVoucherDetailId = id;
+      // console.log(pro);
+      // TODO: continue fix bug in this place, client cant get importVoucherDetailId
 
-        // this.productDetail.serial = f.value.serial;
-        // console.log(this.productDetail);
-        // this.productDetail.importVoucherDetailId = this.importDetail.id;
-        // this.createProductDetail(this.productDetail)
+      // this.productDetail.serial = f.value.serial;
+      // console.log(this.productDetail);
+      // this.productDetail.importVoucherDetailId = this.importDetail.id;
+      // this.createProductDetail(this.productDetail)
       // })
       this.reloadPage();
     }
@@ -245,16 +247,16 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
       .subscribe(
         (data: Response) => {
           if (data.status !== 200) {
-            this.message = "*" + data.message;
+            this.message = '*' + data.message;
           } else {
-            this.message = "Create Import successfully";
+            this.message = 'Create Import successfully';
             console.log(this.message);
             sessionStorage.setItem('importId', JSON.stringify(data.data.id));
           }
         }, (err) => {
           console.log(err);
         }
-      )
+      );
   }
 
   createImportDetail(importDetail: ImportDetail) {
@@ -263,7 +265,7 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
       .subscribe(
         (data: Response) => {
           if (data.status !== 200) {
-            this.message = "*" + data.message;
+            this.message = '*' + data.message;
           } else {
             console.log(data.data);
             this.importDetailId = data.data.id;
@@ -272,7 +274,7 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
         }, (err) => {
           console.log(err);
         }
-      )
+      );
   }
 
   createProductDetail(productDetail: ProductDetail) {
@@ -281,61 +283,61 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
       .subscribe(
         (data: Response) => {
           if (data.status !== 200) {
-            this.message = "*" + data.message;
+            this.message = '*' + data.message;
           } else {
             console.log('Create product detail successfully');
-            console.log(data.data)
+            console.log(data.data);
           }
         }, (err) => {
           console.log(err);
         }
-      )
+      );
   }
 
-  getProduct(){
+  getProduct() {
     this.token = this.tokenStorageService.getToken();
     this.productService.getProduct(this.token)
-        .subscribe(
-          (data: Response) => {
-            this.products = data.data;
-          },
-          error => {
-            console.log(error);
-          });
+      .subscribe(
+        (data: Response) => {
+          this.products = data.data;
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   getImportById(id: number) {
     this.token = this.tokenStorageService.getToken();
     this.importService.getImportById(this.token, id)
-        .subscribe(
-          (data: Response) => {
-            this.import = data.data;
-          },
-          error => {
-            console.log(error);
-          });
+      .subscribe(
+        (data: Response) => {
+          this.import = data.data;
+        },
+        error => {
+          console.log(error);
+        });
   }
 
-  getImportDetailById(id: number){
+  getImportDetailById(id: number) {
     this.token = this.tokenStorageService.getToken();
     this.importService.getImportDetailsByImportId(this.token, id)
-        .subscribe(
-          (data: Response) => {
-            this.listImportDetail = data.data;
-            this.listImportDetail.forEach(s => {
-              this.token = this.tokenStorageService.getToken();
-              this.productService.getProductById(this.token, s.productId)
-                .subscribe((data: Response) => {
-                  s.productName = data.data.name;
-                }, (err) => {
-                  console.log(err);
-                })
-            })
-            this.dtTrigger.next();
-          },
-          error => {
-            console.log(error);
+      .subscribe(
+        (data: Response) => {
+          this.listImportDetail = data.data;
+          this.listImportDetail.forEach(s => {
+            this.token = this.tokenStorageService.getToken();
+            this.productService.getProductById(this.token, s.productId)
+              .subscribe((data: Response) => {
+                s.productName = data.data.name;
+              }, (err) => {
+                console.log(err);
+              });
           });
+          this.dtTrigger.next();
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   getImports() {
@@ -351,9 +353,9 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
             }, (err) => {
               console.log(err);
             }
-            );
-        })
-        
+          );
+        });
+
       },
       (error) => {
         console.log(error);
@@ -371,7 +373,7 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
       }, (error) => {
         console.log(error);
       }
-    )
+    );
   }
 
   getProductName(id: number) {
@@ -384,7 +386,7 @@ export class AddInventoryReceivingVoucherDetailComponent implements OnInit {
       }, (error) => {
         console.log(error);
       }
-    )
+    );
   }
 
   test(index: number, value: string) {

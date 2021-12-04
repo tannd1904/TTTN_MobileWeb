@@ -1,28 +1,28 @@
 .errors {
-    color: red;
-    margin-left: 10px;
+  color: red;
+  margin-left: 10px;
 }
 
 .login-component {
-    width: 50%;
-    margin: auto;
-    padding-left: 300px;
-    padding-right: 300px;
+  width: 50%;
+  margin: auto;
+  padding-left: 300px;
+  padding-right: 300px;
 }
 
 @media screen and (max-width: 800px) {
-    .login-component {
-        width: 100%;
-        padding: 0%;
-    }
+  .login-component {
+    width: 100%;
+    padding: 0%;
+  }
 
-    .capcha {
-        width: 100%;
-        margin: 0%;
-    }
+  .capcha {
+    width: 100%;
+    margin: 0%;
+  }
 }
 
 .capcha {
-    width: 50%;
-    margin: auto;
+  width: 50%;
+  margin: auto;
 }

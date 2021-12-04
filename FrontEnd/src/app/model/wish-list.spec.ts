@@ -1,4 +1,4 @@
-import { WishList } from './wish-list';
+import {WishList} from './wish-list';
 
 describe('WishList', () => {
   it('should create an instance', () => {

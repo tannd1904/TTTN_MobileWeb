@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { Order } from 'src/app/model/order';
-import { Response } from 'src/app/model/response';
-import { User } from 'src/app/model/user';
-import { EmployeeService } from 'src/app/service/employee.service';
-import { OrderService } from 'src/app/service/order.service';
-import { PageService } from 'src/app/service/page.service';
-import { TokenStorageService } from 'src/app/service/token-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Subject} from 'rxjs';
+import {Order} from 'src/app/model/order';
+import {Response} from 'src/app/model/response';
+import {User} from 'src/app/model/user';
+import {EmployeeService} from 'src/app/service/employee.service';
+import {OrderService} from 'src/app/service/order.service';
+import {PageService} from 'src/app/service/page.service';
+import {TokenStorageService} from 'src/app/service/token-storage.service';
 
 @Component({
   selector: 'app-order-list',
@@ -33,7 +33,12 @@ export class OrderListComponent implements OnInit {
     private orderService: OrderService,
     private tokenStorageService: TokenStorageService,
     private employeeService: EmployeeService,
-  ) {}
+  ) {
+  }
+
+  get f() {
+    return this.dataForm.controls;
+  }
 
   ngOnInit(): void {
     this.pageService.changePage(this.page);
@@ -46,26 +51,24 @@ export class OrderListComponent implements OnInit {
   infoForm() {
     this.dataForm = this.fb.group({
       shippingEmployee: ['', Validators.required]
-    })
+    });
   }
 
   onSubmit() {
     this.submitted = true;
     console.log(this.dataForm.value);
-    if(this.dataForm.invalid){
-      console.log("aaa");
+    if (this.dataForm.invalid) {
+      console.log('aaa');
       return;
     }
   }
-
-  get f() { return this.dataForm.controls; }
 
   getAllEmployee() {
     this.token = this.tokenStorageService.getToken();
     this.employeeService.getAllEmpl(this.token).subscribe(
       (data: Response) => {
         this.listEmployee = data.data;
-        console.log(this.orders)
+        console.log(this.orders);
       },
       (error) => {
         console.log(error);
@@ -78,7 +81,7 @@ export class OrderListComponent implements OnInit {
     this.orderService.getAllOrders(this.token).subscribe(
       (data: Response) => {
         this.orders = data.data;
-        console.log(this.orders)
+        console.log(this.orders);
         this.dtTrigger.next();
       },
       (error) => {
@@ -99,7 +102,7 @@ export class OrderListComponent implements OnInit {
       }, (err) => {
         console.log(err);
       }
-    )
+    );
   }
 
   clickCancel(id: number) {
@@ -118,6 +121,6 @@ export class OrderListComponent implements OnInit {
       }, (err) => {
         console.log(err);
       }
-    )
+    );
   }
 }

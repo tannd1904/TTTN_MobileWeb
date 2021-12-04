@@ -1,7 +1,7 @@
 export class ProductRequest {
-    productName!: string;
-    status!: number;
-    description!: string;
-    providerId!: string;
-    categoryId!: string;
+  productName!: string;
+  status!: number;
+  description!: string;
+  providerId!: string;
+  categoryId!: string;
 }

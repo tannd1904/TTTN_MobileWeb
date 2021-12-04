@@ -1,347 +1,348 @@
- <!-- Content Header (Page header) -->
- <section class="content-header"> 
-    <h1>
-      Product Management
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active" ><a href="#">Tables</a></li>
-    </ol>
-  </section>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Product Management
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active"><a href="#">Tables</a></li>
+  </ol>
+</section>
 
 <!-- Main content -->
 <section class="content">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="box">
-          <div class="box-header">
-            <h3 class="box-title">Product List</h3>
-            <div class="col-sm-4 col-7 text-right m-b-30" style="float: right;">
-              <a class="btn btn-primary btn-rounded float-right"
-                data-toggle="modal" data-target="#exampleModalCenter">
-                <i class="fa fa-plus"></i> Add product
-              </a>
-            </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Product List</h3>
+          <div class="col-sm-4 col-7 text-right m-b-30" style="float: right;">
+            <a class="btn btn-primary btn-rounded float-right"
+               data-target="#exampleModalCenter" data-toggle="modal">
+              <i class="fa fa-plus"></i> Add product
+            </a>
           </div>
-          <!-- /.box-header -->
-          <div class="box-body">
-            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover"
-                    >
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Product name</th>
-                  <th>Price</th>
-                  <th>Type</th>
-                  <th>Status</th>
-                  <th>Quantity</th>
-                  <th>Image</th>
-                  <th class="text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody *ngIf="products?.length != 0">
-                <tr  *ngFor="let product of products">
-                  <td routerLink="product/{{product.id}}">{{product.id}}</td>
-                  <td routerLink="product/{{product.id}}">{{product.name}}</td>
-                  <td routerLink="product/{{product.id}}">${{product.price}}</td>
-                  <td routerLink="product/{{product.id}}">{{product.type}}</td>
-                  <td routerLink="product/{{product.id}}" *ngIf="product.status === 1">On Sales</td>
-                  <td routerLink="product/{{product.id}}" *ngIf="product.status === 0">Out of stock</td>
-                  <td routerLink="product/{{product.id}}" *ngIf="product.status === 2">Coming Soon</td>
-                  <td routerLink="product/{{product.id}}">{{product.quantity}}</td>
-                  <td routerLink="product/{{product.id}}">
-                    <img height="100px" width="auto" src="http://localhost:8080/api/image/{{product.id}}" 
-                          alt="product-image">
-                  </td>
-                  <td class="text-right">
-                    <div class="dropdown dropdown-action">
-                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" 
-                              data-toggle="modal" data-target="#saleOffModal">
-                              <i class="fa fa-level-down m-r-5"></i> Sale
-                            </a>
-                            <a class="dropdown-item" (click)="editProduct(product.id)"
-                              data-toggle="modal" data-target="#editModalCenter">
-                              <i class="fa fa-pencil m-r-5"></i> Edit
-                            </a>
-                            <a class="dropdown-item" href="#" 
-                              data-toggle="modal" data-target="#delete_expense">
-                              <i class="fa fa-trash-o m-r-5"></i> Delete
-                            </a>
-                        </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-              <!-- <tbody *ngIf="products?.length == 0">
-                <tr>
-                  <td colspan="3" class="no-data-available">No data!</td>
-                </tr>
-              </tbody> -->
-            </table>
-          </div>
-        </div> 
-        <!-- <ngx-datatable [rows]="rows" [columns]="columns"> </ngx-datatable> -->
-      </div>
-      <!-- /.col -->
-    </div>
-    <!-- /.row -->
-  </section>
-  <!-- /.content -->
-
-  <!-- Delete Modal -->
-<!-- Modal -->
-<div id="delete_expense" class="modal fade modal-wrapper" role="dialog">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <img src="../../../../assets/admin/images/sent.png" alt="" width="50" height="46">
-                <h3>Are you sure want to delete this expense?</h3>
-                <div class="m-t-20"> 
-                    <button type="submit" class="btn btn-danger" (click)="deleteProduct(deleteId)">Delete</button>
-                    <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
-                </div>
-            </div>
         </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" datatable
+          >
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Product name</th>
+              <th>Price</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Quantity</th>
+              <th>Image</th>
+              <th class="text-right">Actions</th>
+            </tr>
+            </thead>
+            <tbody *ngIf="products?.length != 0">
+            <tr *ngFor="let product of products">
+              <td routerLink="product/{{product.id}}">{{product.id}}</td>
+              <td routerLink="product/{{product.id}}">{{product.name}}</td>
+              <td routerLink="product/{{product.id}}">${{product.price}}</td>
+              <td routerLink="product/{{product.id}}">{{product.type}}</td>
+              <td *ngIf="product.status === 1" routerLink="product/{{product.id}}">On Sales</td>
+              <td *ngIf="product.status === 0" routerLink="product/{{product.id}}">Out of stock</td>
+              <td *ngIf="product.status === 2" routerLink="product/{{product.id}}">Coming Soon</td>
+              <td routerLink="product/{{product.id}}">{{product.quantity}}</td>
+              <td routerLink="product/{{product.id}}">
+                <img alt="product-image" height="100px" src="http://localhost:8080/api/image/{{product.id}}"
+                     width="auto">
+              </td>
+              <td class="text-right">
+                <div class="dropdown dropdown-action">
+                  <a aria-expanded="false" class="action-icon dropdown-toggle" data-toggle="dropdown" href="#"><i
+                    class="fa fa-ellipsis-v"></i></a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item"
+                       data-target="#saleOffModal" data-toggle="modal">
+                      <i class="fa fa-level-down m-r-5"></i> Sale
+                    </a>
+                    <a (click)="editProduct(product.id)" class="dropdown-item"
+                       data-target="#editModalCenter" data-toggle="modal">
+                      <i class="fa fa-pencil m-r-5"></i> Edit
+                    </a>
+                    <a class="dropdown-item" data-target="#delete_expense"
+                       data-toggle="modal" href="#">
+                      <i class="fa fa-trash-o m-r-5"></i> Delete
+                    </a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+            <!-- <tbody *ngIf="products?.length == 0">
+              <tr>
+                <td colspan="3" class="no-data-available">No data!</td>
+              </tr>
+            </tbody> -->
+          </table>
+        </div>
+      </div>
+      <!-- <ngx-datatable [rows]="rows" [columns]="columns"> </ngx-datatable> -->
     </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+</section>
+<!-- /.content -->
+
+<!-- Delete Modal -->
+<!-- Modal -->
+<div class="modal fade modal-wrapper" id="delete_expense" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <img alt="" height="46" src="../../../../assets/admin/images/sent.png" width="50">
+        <h3>Are you sure want to delete this expense?</h3>
+        <div class="m-t-20">
+          <button (click)="deleteProduct(deleteId)" class="btn btn-danger" type="submit">Delete</button>
+          <a class="btn btn-primary" data-dismiss="modal" href="#">Close</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Begin Quick View | Modal Area -->
-<form [formGroup]="this.dataForm" (ngSubmit)="onSubmit()">
-    <div class="modal fade modal-wrapper" id="exampleModalCenter">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+<form (ngSubmit)="onSubmit()" [formGroup]="this.dataForm">
+  <div class="modal fade modal-wrapper" id="exampleModalCenter">
+    <div class="modal-dialog modal-dialog-centered" role="document">
 
-            <div class="modal-content mt-120">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2 class="text-center">ADD PRODUCT</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                          <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Category:</label>
-                                <select formControlName="categoryId" class="form-control">
-                                    <option *ngFor="let category of categories" [ngValue]="category.id">
-                                        {{category.name}}
-                                      </option>
-                            </select>
-                                <div *ngIf="submitted && f.categoryId.errors">
-                                    <div *ngIf="f.categoryId.errors.required" class="errors"> * Category is required</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Status:</label>
-                                <select formControlName="status" class="form-control">
-                                <option value="1">On Sale</option>
-                                <option value="0">Out of stock</option>
-                                <option value="2">Coming Soon</option>
-                            </select>
-                                <div *ngIf="submitted && f.status.errors">
-                                    <div *ngIf="f.status.errors.required" class="errors"> * Status is required</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label>Name: </label>
-                                <input placeholder="" class="form-control" type="text" formControlName="name">
-                                <div *ngIf="submitted && f.name.errors">
-                                    <div *ngIf="f.name.errors.required" class="errors"> * Name is required</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                              <label>Type: </label>
-                              <select formControlName="type" class="select">
-                                <option *ngFor="let option of types" [ngValue]="option">
-                                    {{option}}
-                                </option>
-                              </select>
-                              <div *ngIf="submitted && f.type.errors">
-                                  <div *ngIf="f.type.errors.required" class="errors"> * Type is required</div>
-                              </div>
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                              <label>Price: </label>
-                              <input placeholder="" class="form-control" type="text" formControlName="price">
-                              <div *ngIf="submitted && f.price.errors">
-                                  <div *ngIf="f.price.errors.required" class="errors"> * Price is required</div>
-                              </div>
-                          </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label>Description: </label>
-                                <textarea class="form-control" rows="5" formControlName="description"></textarea>
-                                <div *ngIf="submitted && f.description.errors">
-                                    <div *ngIf="f.description.errors.required" class="errors"> * Description is required</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                          <label>Image:</label>
-                            <input class="form-control" type="file" accept="image/*" (change)="onSelectFile($event)">
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <img [src]="imgURL" height="100" *ngIf="imgURL">
-                      </div>
-                    </div>
-                    
-                    <div class="m-t-20 text-center">
-                      <h4 style="color: red;">{{message}}</h4>  
-                      <button class="btn btn-primary submit-btn btn-rounded" type="submit">ADD</button>
-                    </div>
-                </div>
+      <div class="modal-content mt-120">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 class="text-center">ADD PRODUCT</h2>
             </div>
-
-        </div>
-    </div>
-</form> 
-
-<form [formGroup]="this.editForm" (ngSubmit)="onSubmitEdit()">
-  <div class="modal fade modal-wrapper" id="editModalCenter">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-
-          <div class="modal-content mt-120">
-              <div class="modal-body">
-                  <div class="row">
-                      <div class="col-md-12">
-                          <h2 class="text-center">EDIT PRODUCT</h2>
-                      </div>
-                  </div>
-                  <div class="row">
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                              <label>Category:</label>
-                              <select formControlName="categoryId" class="form-control">
-                                  <option *ngFor="let category of categories" [ngValue]="category.id">
-                                      {{category.name}}
-                                    </option>
-                          </select>
-                              <div *ngIf="submitted && ef.categoryId.errors">
-                                  <div *ngIf="ef.categoryId.errors.required" class="errors"> * Category is required</div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="col-sm-6">
-                          <div class="form-group">
-                              <label>Status:</label>
-                              <select formControlName="status" class="form-control">
-                              <option value="1">On Sale</option>
-                              <option value="0">Out of stock</option>
-                              <option value="2">Coming Soon</option>
-                          </select>
-                              <div *ngIf="submitted && ef.status.errors">
-                                  <div *ngIf="ef.status.errors.required" class="errors"> * Status is required</div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>ID: </label>
-                            <input placeholder="" class="form-control" type="text" formControlName="id">
-                            <div *ngIf="submitted && ef.id.errors">
-                                <div *ngIf="ef.id.errors.required" class="errors"> * ID is required</div>
-                            </div>
-                        </div>
-                    </div>
-                      <div class="col-sm-6">
-                          <div class="form-group">
-                              <label>Name: </label>
-                              <input placeholder="" class="form-control" type="text" formControlName="name">
-                              <div *ngIf="submitted && ef.name.errors">
-                                  <div *ngIf="ef.name.errors.required" class="errors"> * Name is required</div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Type: </label>
-                            <select formControlName="type" class="select">
-                              <option *ngFor="let option of types" [ngValue]="option">
-                                  {{option}}
-                              </option>
-                            </select>
-                            <div *ngIf="submitted && ef.type.errors">
-                                <div *ngIf="ef.type.errors.required" class="errors"> * Type is required</div>
-                            </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Price: </label>
-                            <input placeholder="" class="form-control" type="text" formControlName="price">
-                            <div *ngIf="submitted && ef.price.errors">
-                                <div *ngIf="ef.price.errors.required" class="errors"> * Price is required</div>
-                            </div>
-                        </div>
-                      </div>
-                      <div class="col-sm-12">
-                          <div class="form-group">
-                              <label>Description: </label>
-                              <textarea class="form-control" rows="5" formControlName="description"></textarea>
-                              <div *ngIf="submitted && ef.description.errors">
-                                  <div *ngIf="ef.description.errors.required" class="errors"> * Description is required</div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <div class="form-group">
-                        <label>Image:</label>
-                          <input class="form-control" type="file" accept="image/*" (change)="onSelectFile($event)">
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <img *ngIf="!imgURL" height="100" src="http://localhost:8080/api/image/{{product.id}}" alt="">
-                      <img [src]="imgURL" height="100" *ngIf="imgURL">
-                    </div>
-                  </div>
-                  
-                  <div class="m-t-20 text-center">
-                    <h4 style="color: red;">{{message}}</h4>  
-                    <button class="btn btn-primary submit-btn btn-rounded" type="submit">EDIT</button>
-                  </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Category:</label>
+                <select class="form-control" formControlName="categoryId">
+                  <option *ngFor="let category of categories" [ngValue]="category.id">
+                    {{category.name}}
+                  </option>
+                </select>
+                <div *ngIf="submitted && f.categoryId.errors">
+                  <div *ngIf="f.categoryId.errors.required" class="errors"> * Category is required</div>
+                </div>
               </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Status:</label>
+                <select class="form-control" formControlName="status">
+                  <option value="1">On Sale</option>
+                  <option value="0">Out of stock</option>
+                  <option value="2">Coming Soon</option>
+                </select>
+                <div *ngIf="submitted && f.status.errors">
+                  <div *ngIf="f.status.errors.required" class="errors"> * Status is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Name: </label>
+                <input class="form-control" formControlName="name" placeholder="" type="text">
+                <div *ngIf="submitted && f.name.errors">
+                  <div *ngIf="f.name.errors.required" class="errors"> * Name is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Type: </label>
+                <select class="select" formControlName="type">
+                  <option *ngFor="let option of types" [ngValue]="option">
+                    {{option}}
+                  </option>
+                </select>
+                <div *ngIf="submitted && f.type.errors">
+                  <div *ngIf="f.type.errors.required" class="errors"> * Type is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Price: </label>
+                <input class="form-control" formControlName="price" placeholder="" type="text">
+                <div *ngIf="submitted && f.price.errors">
+                  <div *ngIf="f.price.errors.required" class="errors"> * Price is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Description: </label>
+                <textarea class="form-control" formControlName="description" rows="5"></textarea>
+                <div *ngIf="submitted && f.description.errors">
+                  <div *ngIf="f.description.errors.required" class="errors"> * Description is required</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Image:</label>
+                <input (change)="onSelectFile($event)" accept="image/*" class="form-control" type="file">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <img *ngIf="imgURL" [src]="imgURL" height="100">
+            </div>
           </div>
 
+          <div class="m-t-20 text-center">
+            <h4 style="color: red;">{{message}}</h4>
+            <button class="btn btn-primary submit-btn btn-rounded" type="submit">ADD</button>
+          </div>
+        </div>
       </div>
+
+    </div>
   </div>
 </form>
 
-<form [formGroup]="this.editForm" (ngSubmit)="onSubmitEdit()">
-  <div class="modal fade modal-wrapper" id="saleOffModal">
-      <div class="modal-dialog modal-dialog-centered" role="document">
+<form (ngSubmit)="onSubmitEdit()" [formGroup]="this.editForm">
+  <div class="modal fade modal-wrapper" id="editModalCenter">
+    <div class="modal-dialog modal-dialog-centered" role="document">
 
-          <div class="modal-content mt-120">
-              <div class="modal-body">
-                  <div class="row">
-                      <div class="col-md-12">
-                          <h2 class="text-center">SALE OFF</h2>
-                      </div>
-                  </div>
-                  
-                  
-                  <div class="m-t-20 text-center">
-                    <h4 style="color: red;">{{message}}</h4>  
-                    <button class="btn btn-primary submit-btn btn-rounded" type="submit">EDIT</button>
-                  </div>
+      <div class="modal-content mt-120">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 class="text-center">EDIT PRODUCT</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Category:</label>
+                <select class="form-control" formControlName="categoryId">
+                  <option *ngFor="let category of categories" [ngValue]="category.id">
+                    {{category.name}}
+                  </option>
+                </select>
+                <div *ngIf="submitted && ef.categoryId.errors">
+                  <div *ngIf="ef.categoryId.errors.required" class="errors"> * Category is required</div>
+                </div>
               </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Status:</label>
+                <select class="form-control" formControlName="status">
+                  <option value="1">On Sale</option>
+                  <option value="0">Out of stock</option>
+                  <option value="2">Coming Soon</option>
+                </select>
+                <div *ngIf="submitted && ef.status.errors">
+                  <div *ngIf="ef.status.errors.required" class="errors"> * Status is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>ID: </label>
+                <input class="form-control" formControlName="id" placeholder="" type="text">
+                <div *ngIf="submitted && ef.id.errors">
+                  <div *ngIf="ef.id.errors.required" class="errors"> * ID is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Name: </label>
+                <input class="form-control" formControlName="name" placeholder="" type="text">
+                <div *ngIf="submitted && ef.name.errors">
+                  <div *ngIf="ef.name.errors.required" class="errors"> * Name is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Type: </label>
+                <select class="select" formControlName="type">
+                  <option *ngFor="let option of types" [ngValue]="option">
+                    {{option}}
+                  </option>
+                </select>
+                <div *ngIf="submitted && ef.type.errors">
+                  <div *ngIf="ef.type.errors.required" class="errors"> * Type is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Price: </label>
+                <input class="form-control" formControlName="price" placeholder="" type="text">
+                <div *ngIf="submitted && ef.price.errors">
+                  <div *ngIf="ef.price.errors.required" class="errors"> * Price is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Description: </label>
+                <textarea class="form-control" formControlName="description" rows="5"></textarea>
+                <div *ngIf="submitted && ef.description.errors">
+                  <div *ngIf="ef.description.errors.required" class="errors"> * Description is required</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Image:</label>
+                <input (change)="onSelectFile($event)" accept="image/*" class="form-control" type="file">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <img *ngIf="!imgURL" alt="" height="100" src="http://localhost:8080/api/image/{{product.id}}">
+              <img *ngIf="imgURL" [src]="imgURL" height="100">
+            </div>
           </div>
 
+          <div class="m-t-20 text-center">
+            <h4 style="color: red;">{{message}}</h4>
+            <button class="btn btn-primary submit-btn btn-rounded" type="submit">EDIT</button>
+          </div>
+        </div>
       </div>
+
+    </div>
+  </div>
+</form>
+
+<form (ngSubmit)="onSubmitEdit()" [formGroup]="this.editForm">
+  <div class="modal fade modal-wrapper" id="saleOffModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+      <div class="modal-content mt-120">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 class="text-center">SALE OFF</h2>
+            </div>
+          </div>
+
+
+          <div class="m-t-20 text-center">
+            <h4 style="color: red;">{{message}}</h4>
+            <button class="btn btn-primary submit-btn btn-rounded" type="submit">EDIT</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </form>

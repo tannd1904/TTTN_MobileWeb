@@ -1,135 +1,138 @@
 <!-- Begin Li's Breadcrumb Area -->
 <div class="breadcrumb-area">
-    <div class="container">
-        <div class="breadcrumb-content">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Checkout</li>
-            </ul>
-        </div>
+  <div class="container">
+    <div class="breadcrumb-content">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="active">Checkout</li>
+      </ul>
     </div>
+  </div>
 </div>
 <!-- Li's Breadcrumb Area End Here -->
 <!--Checkout Area Strat-->
 <div class="checkout-area pt-60 pb-30">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-12">
-                <form [formGroup]="dataForm" (ngSubmit)="onSubmit()">
-                    <div class="checkbox-form">
-                        <h3>Billing Details</h3>
-                        <div class="row">
-                            <!-- <div class="col-md-12">
-                                <div class="country-select clearfix">
-                                    <label>Country <span class="required">*</span></label>
-                                    <select class="nice-select wide">
-                                      <option data-display="Bangladesh">Bangladesh</option>
-                                      <option value="uk">London</option>
-                                      <option value="rou">Romania</option>
-                                      <option value="fr">French</option>
-                                      <option value="de">Germany</option>
-                                      <option value="aus">Australia</option>
-                                    </select>
-                                </div>
-                            </div> -->
-                            <div class="col-md-6">
-                                <div class="checkout-form-list">
-                                    <label>First Name <span class="required">*</span></label>
-                                    <input formControlName="firstName" placeholder="Your First Name" type="text">
-                                    <div *ngIf="submitted && f.firstName.errors">
-                                        <div *ngIf="f.firstName.errors.required" class="errors"> * First Name is required</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="checkout-form-list">
-                                    <label>Last Name <span class="required">*</span></label>
-                                    <input formControlName="lastName" placeholder="Your Last Name" type="text">
-                                    <div *ngIf="submitted && f.lastName.errors">
-                                        <div *ngIf="f.lastName.errors.required" class="errors"> * Last Name is required</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="checkout-form-list">
-                                    <label>Address <span class="required">*</span></label>
-                                    <input formControlName="address" placeholder="Your Delivery Address" type="text">
-                                    <div *ngIf="submitted && f.address.errors">
-                                        <div *ngIf="f.address.errors.required" class="errors"> * Address is required</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="checkout-form-list">
-                                    <label>Phone Number <span class="required">*</span></label>
-                                    <input formControlName="phone" placeholder="Phone number to contact" type="text">
-                                    <div *ngIf="submitted && f.phone.errors">
-                                        <div *ngIf="f.phone.errors.required" class="errors"> * Phone Number is required</div>
-                                        <div *ngIf="f.phone.errors.pattern" class="errors"> * Phone Number is not correct format</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="checkout-form-list">
-                                    <label>Email Address <span class="required">*</span></label>
-                                    <input formControlName="email" placeholder="Email Address to get information" type="email">
-                                    <div *ngIf="submitted && f.email.errors">
-                                        <div *ngIf="f.email.errors.required" class="errors"> * Email Address is required</div>
-                                        <div *ngIf="f.email.errors.pattern" class="errors"> * Email Address is not correct format</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="different-address">
-                            <div class="order-notes">
-                                <div class="checkout-form-list">
-                                    <label>Order Notes</label>
-                                    <textarea formControlName="note" id="checkout-mess" cols="30" rows="10" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="order-button-payment">
-                        <button type="submit">Place Order</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-lg-6 col-12">
-                <div class="your-order">
-                    <h3>Your order</h3>
-                    <div class="your-order-table table-responsive" >
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th class="cart-product-name">Product</th>
-                                    <th class="cart-product-total">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let c of cart" class="cart_item">
-                                  <td class="cart-product-name">{{c.product.name}}<strong class="product-quantity"> × {{c.quantity}}</strong></td>
-                                  <td class="cart-product-total"><span class="amount">{{c.total | currency}}</span></td>  
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr class="cart-subtotal">
-                                    <th>Cart Subtotal</th>
-                                    <td><span class="amount">{{subTotal | currency}}</span></td>
-                                </tr>
-                                <tr class="cart-subtotal">
-                                    <th>VAT (10%)</th>
-                                    <td><span class="amount">{{subTotal*0.1 | currency}}</span></td>
-                                </tr>
-                                <tr class="order-total">
-                                    <th>Order Total</th>
-                                    <td><strong><span class="amount">{{subTotal + subTotal*0.1 | currency}}</span></strong></td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-12">
+        <form (ngSubmit)="onSubmit()" [formGroup]="dataForm">
+          <div class="checkbox-form">
+            <h3>Billing Details</h3>
+            <div class="row">
+              <!-- <div class="col-md-12">
+                  <div class="country-select clearfix">
+                      <label>Country <span class="required">*</span></label>
+                      <select class="nice-select wide">
+                        <option data-display="Bangladesh">Bangladesh</option>
+                        <option value="uk">London</option>
+                        <option value="rou">Romania</option>
+                        <option value="fr">French</option>
+                        <option value="de">Germany</option>
+                        <option value="aus">Australia</option>
+                      </select>
+                  </div>
+              </div> -->
+              <div class="col-md-6">
+                <div class="checkout-form-list">
+                  <label>First Name <span class="required">*</span></label>
+                  <input formControlName="firstName" placeholder="Your First Name" type="text">
+                  <div *ngIf="submitted && f.firstName.errors">
+                    <div *ngIf="f.firstName.errors.required" class="errors"> * First Name is required</div>
+                  </div>
                 </div>
+              </div>
+              <div class="col-md-6">
+                <div class="checkout-form-list">
+                  <label>Last Name <span class="required">*</span></label>
+                  <input formControlName="lastName" placeholder="Your Last Name" type="text">
+                  <div *ngIf="submitted && f.lastName.errors">
+                    <div *ngIf="f.lastName.errors.required" class="errors"> * Last Name is required</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="checkout-form-list">
+                  <label>Address <span class="required">*</span></label>
+                  <input formControlName="address" placeholder="Your Delivery Address" type="text">
+                  <div *ngIf="submitted && f.address.errors">
+                    <div *ngIf="f.address.errors.required" class="errors"> * Address is required</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="checkout-form-list">
+                  <label>Phone Number <span class="required">*</span></label>
+                  <input formControlName="phone" placeholder="Phone number to contact" type="text">
+                  <div *ngIf="submitted && f.phone.errors">
+                    <div *ngIf="f.phone.errors.required" class="errors"> * Phone Number is required</div>
+                    <div *ngIf="f.phone.errors.pattern" class="errors"> * Phone Number is not correct format</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="checkout-form-list">
+                  <label>Email Address <span class="required">*</span></label>
+                  <input formControlName="email" placeholder="Email Address to get information" type="email">
+                  <div *ngIf="submitted && f.email.errors">
+                    <div *ngIf="f.email.errors.required" class="errors"> * Email Address is required</div>
+                    <div *ngIf="f.email.errors.pattern" class="errors"> * Email Address is not correct format</div>
+                  </div>
+                </div>
+              </div>
             </div>
+            <div class="different-address">
+              <div class="order-notes">
+                <div class="checkout-form-list">
+                  <label>Order Notes</label>
+                  <textarea cols="30" formControlName="note" id="checkout-mess"
+                            placeholder="Notes about your order, e.g. special notes for delivery."
+                            rows="10"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="order-button-payment">
+            <button type="submit">Place Order</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-6 col-12">
+        <div class="your-order">
+          <h3>Your order</h3>
+          <div class="your-order-table table-responsive">
+            <table class="table">
+              <thead>
+              <tr>
+                <th class="cart-product-name">Product</th>
+                <th class="cart-product-total">Total</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let c of cart" class="cart_item">
+                <td class="cart-product-name">{{c.product.name}}<strong class="product-quantity">
+                  × {{c.quantity}}</strong></td>
+                <td class="cart-product-total"><span class="amount">{{c.total | currency}}</span></td>
+              </tr>
+              </tbody>
+              <tfoot>
+              <tr class="cart-subtotal">
+                <th>Cart Subtotal</th>
+                <td><span class="amount">{{subTotal | currency}}</span></td>
+              </tr>
+              <tr class="cart-subtotal">
+                <th>VAT (10%)</th>
+                <td><span class="amount">{{subTotal * 0.1 | currency}}</span></td>
+              </tr>
+              <tr class="order-total">
+                <th>Order Total</th>
+                <td><strong><span class="amount">{{subTotal + subTotal * 0.1 | currency}}</span></strong></td>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <!--Checkout Area End-->

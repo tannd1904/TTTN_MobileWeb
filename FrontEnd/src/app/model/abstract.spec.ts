@@ -1,4 +1,4 @@
-import { Abstract } from './abstract';
+import {Abstract} from './abstract';
 
 describe('Abstract', () => {
   it('should create an instance', () => {

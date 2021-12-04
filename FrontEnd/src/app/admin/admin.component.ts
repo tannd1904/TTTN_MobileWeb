@@ -1,8 +1,8 @@
-import { Category } from './../model/category';
-import { TokenStorageService } from './../service/token-storage.service';
-import { Component, Input, OnInit } from '@angular/core';
-import { UserService } from '../service/user.service';
-import { Router } from '@angular/router';
+import {Category} from './../model/category';
+import {TokenStorageService} from './../service/token-storage.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {UserService} from '../service/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -12,23 +12,25 @@ import { Router } from '@angular/router';
 export class AdminComponent implements OnInit {
 
   @Input('class')
-  klass!: string
+  klass!: string;
 
   @Input()
-  ngClass!: string | string[] | Set<string> | { [klass: string]: any; }
-    clickCategory = false;
-    toggleSideBar = false;
-    isActive = [true, false, false, false, false, false, false, false];
+  ngClass!: string | string[] | Set<string> | { [klass: string]: any; };
+  clickCategory = false;
+  toggleSideBar = false;
+  isActive = [true, false, false, false, false, false, false, false];
 
   categories: Array<Category> = [];
 
   categoryName: string = '';
+
   constructor(private tokenStorageService: TokenStorageService,
               private userService: UserService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit(): void {
-    
+
   }
 
   logout(): void {

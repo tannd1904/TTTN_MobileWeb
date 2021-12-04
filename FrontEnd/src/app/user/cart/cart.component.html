@@ -1,84 +1,88 @@
 <!-- Begin Li's Breadcrumb Area -->
 <div class="breadcrumb-area">
-    <div class="container">
-        <div class="breadcrumb-content">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Shopping Cart</li>
-            </ul>
-        </div>
+  <div class="container">
+    <div class="breadcrumb-content">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="active">Shopping Cart</li>
+      </ul>
     </div>
+  </div>
 </div>
 <!-- Li's Breadcrumb Area End Here -->
 <!--Shopping Cart Area Strat-->
 <div class="Shopping-cart-area pt-60 pb-60">
-    <div class="container">
-        <div class="row">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <form action="#">
+          <div class="table-content table-responsive">
+            <table class="table">
+              <thead>
+              <tr>
+                <th class="li-product-remove">remove</th>
+                <th class="li-product-thumbnail">images</th>
+                <th class="cart-product-name">Product</th>
+                <th class="cart-product-name">Model</th>
+                <th class="li-product-price">Unit Price</th>
+                <th class="li-product-quantity">Quantity</th>
+                <th class="li-product-subtotal">Total</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let c of cart">
+                <td class="li-product-remove"><a (click)="removeProductInCart(c.product.id)"><i class="fa fa-times"></i></a>
+                </td>
+                <td class="li-product-thumbnail">
+                  <a href="#">
+                    <img alt="Li's Product Image" height="250px" src="http://localhost:8080/api/image/{{c.product.id}}">
+                  </a>
+                </td>
+                <td class="li-product-name"><a href="#">{{c.product.name}}</a></td>
+                <td class="li-product-name"><a href="#">{{c.product.productDetails[0].note}}</a></td>
+                <td class="li-product-price"><span class="amount">{{c.product.price | currency}}</span></td>
+                <td class="quantity">
+                  <label>Quantity</label>
+                  <div class="cart-plus-minus">
+                    <div class="cart-plus-minus-box" type="text" value="1">{{c.quantity}}</div>
+                    <div (click)="decreaseQuantity(c.product.id)" class="dec qtybutton"><i class="fa fa-angle-down"></i>
+                    </div>
+                    <div (click)="increaseQuantity(c.product.id)" class="inc qtybutton"><i class="fa fa-angle-up"></i>
+                    </div>
+                  </div>
+                </td>
+                <td class="product-subtotal"><span class="amount">{{c.total | currency}}</span></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row">
             <div class="col-12">
-                <form action="#">
-                    <div class="table-content table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th class="li-product-remove">remove</th>
-                                    <th class="li-product-thumbnail">images</th>
-                                    <th class="cart-product-name">Product</th>
-                                    <th class="cart-product-name">Model</th>
-                                    <th class="li-product-price">Unit Price</th>
-                                    <th class="li-product-quantity">Quantity</th>
-                                    <th class="li-product-subtotal">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let c of cart">
-                                    <td class="li-product-remove"><a (click)="removeProductInCart(c.product.id)"><i class="fa fa-times"></i></a></td>
-                                    <td class="li-product-thumbnail">
-                                        <a href="#">
-                                            <img height="250px" src="http://localhost:8080/api/image/{{c.product.id}}" alt="Li's Product Image">
-                                        </a>
-                                    </td>
-                                    <td class="li-product-name"><a href="#">{{c.product.name}}</a></td>
-                                    <td class="li-product-name"><a href="#">{{c.product.productDetails[0].note}}</a></td>
-                                    <td class="li-product-price"><span class="amount">{{c.product.price | currency}}</span></td>
-                                    <td class="quantity">
-                                        <label>Quantity</label>
-                                        <div class="cart-plus-minus">
-                                            <div class="cart-plus-minus-box" value="1" type="text">{{c.quantity}}</div>
-                                            <div (click)="decreaseQuantity(c.product.id)" class="dec qtybutton"><i class="fa fa-angle-down"></i></div>
-                                            <div (click)="increaseQuantity(c.product.id)" class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
-                                        </div>
-                                    </td>
-                                    <td class="product-subtotal"><span class="amount">{{c.total | currency}}</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="coupon-all">
-                                <div class="coupon">
-                                    <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">
-                                    <input class="button" name="apply_coupon" value="Apply coupon" type="submit">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5 ml-auto">
-                            <div class="cart-page-total">
-                                <h2>Cart totals</h2>
-                                <ul>
-                                    <li>Subtotal <span>{{subTotal | currency}}</span></li>
-                                    <li>VAT (10%) <span>{{subTotal * 0.1 | currency}}</span></li>
-                                    <li>Total <span>{{subTotal + subTotal*0.1 | currency}}</span></li>
-                                </ul>
-                                <a style="color: white;" (click)="processToCheckout()">Proceed to checkout</a>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+              <div class="coupon-all">
+                <div class="coupon">
+                  <input class="input-text" id="coupon_code" name="coupon_code" placeholder="Coupon code" type="text"
+                         value="">
+                  <input class="button" name="apply_coupon" type="submit" value="Apply coupon">
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5 ml-auto">
+              <div class="cart-page-total">
+                <h2>Cart totals</h2>
+                <ul>
+                  <li>Subtotal <span>{{subTotal | currency}}</span></li>
+                  <li>VAT (10%) <span>{{subTotal * 0.1 | currency}}</span></li>
+                  <li>Total <span>{{subTotal + subTotal * 0.1 | currency}}</span></li>
+                </ul>
+                <a (click)="processToCheckout()" style="color: white;">Proceed to checkout</a>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 <!--Shopping Cart Area End-->

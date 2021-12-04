@@ -1,481 +1,498 @@
-<section class="content-header"> 
-    <h1>
-      Data Tables
-      <small>advanced tables</small>
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Tables</a></li>
-      <li class="active">Data tables</li>
-    </ol>
+<section class="content-header">
+  <h1>
+    Data Tables
+    <small>advanced tables</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="#">Tables</a></li>
+    <li class="active">Data tables</li>
+  </ol>
 </section>
 
 <section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Hover Data Table</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div class="content">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <a class="btn btn-primary btn-rounded float-right" (click)="toggleForm[0] = !toggleForm[0]">
-                                            <i class="fa fa-plus"></i> Add product</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" style="margin-top: 1rem;">
-                                <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Code</th>
-                                                    <th>Product</th>
-                                                    <th>Quantity</th>
-                                                    <th>Amount</th>
-                                                    <th class="text-right">Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody *ngIf="listImportDetail?.length == 0">
-                                                <tr>
-                                                  <td colspan="3" class="no-data-available">No data!</td>
-                                                </tr>
-                                            </tbody>
-                                            <tbody *ngIf="listImportDetail?.length != 0">
-                                                <tr *ngFor="let import of listImportDetail" data-toggle="modal">
-                                                    <td>{{import.id}}</td>
-                                                    <td>{{import.productName}}</td>
-                                                    <td>{{import.quantity}}</td>
-                                                    <td>{{import.price | currency}}</td>
-                                                    <td class="text-right">
-                                                        <div class="dropdown dropdown-action">
-                                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                                            <div class="dropdown-menu dropdown-menu-right">
-                                                                <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_expense"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div *ngIf="listImportDetail?.length != 0" class="m-t-20 text-center">
-                                <button class="btn btn-primary submit-btn" (click)="doneCreateImport()" routerLink="../">Create Expense</button>
-                            </div>
-                            <div style="height: 100%; overflow: auto;">
-                                <form [formGroup]="this.dataForm" (ngSubmit)="onSubmit()" style="overflow: auto;">
-                                    <div class="modal fade modal-wrapper" id="exampleModalCenter" [ngClass]="{show: toggleForm[0]}">
-                                        <div class="modal-dialog modal-dialog-centered" role="document" style="width: 900px !important;">
-                                            <div class="modal-content mt-150">
-                                                <span style="z-index: 100;"><a class="btn float-right" style="margin-top: 15px; z-index: 100;"
-                                                    (click)="toggleForm[0] = !toggleForm[0]">
-                                                    <i class="fa fa-window-close" aria-hidden="true"></i></a></span>
-                                                <div class="modal-body" style="margin-top: -60px;">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <h2 class="text-center">PRODUCT DETAIL</h2>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6" style="margin: auto;">
-                                                            <div class="form-group">
-                                                                <label>Product</label>
-                                                                <select formControlName="productId" class="select">
-                                                                    <option *ngFor="let product of products" [ngValue]="product.id">
-                                                                        {{product.name}}
-                                                                    </option>
-                                                                </select>
-                                                                <div *ngIf="submitted && f.productId.errors">
-                                                                    <div *ngIf="f.productId.errors.required" class="errors"> * Product is required</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <!-- Color -->
-                                                        
-                                                        <div *ngIf="!otherOption[0]" class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label>Color:</label>
-                                                                <select (change)="test(0, f.color.value)" formControlName="color" class="select">
-                                                                    <option *ngFor="let option of color" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <div *ngIf="submitted && f.color.errors">
-                                                                    <div *ngIf="f.color.errors.required" class="errors"> * Color is required</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[0]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label>Color:</label>
-                                                                <select (change)="test(0, f.color.value)" formControlName="color" class="select">
-                                                                    <option *ngFor="let option of color" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <div *ngIf="submitted && f.color.errors">
-                                                                    <div *ngIf="f.color.errors.required" class="errors"> * Color is required</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[0]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label for=""></label>
-                                                                <input formControlName="color" class="form-control" type="text" 
-                                                                    placeholder="Color">
-                                                            </div>
-                                                        </div>
-                                                    
-                                                        
-                                                        <!-- RAM -->
-                                                        
-                                                        <div *ngIf="!otherOption[1]" class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label>RAM:</label>
-                                                                <select (change)="test(1, f.ram.value)" formControlName="ram" class="select">
-                                                                    <option *ngFor="let option of ram" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <div *ngIf="submitted && f.ram.errors">
-                                                                    <div *ngIf="f.ram.errors.required" class="errors"> * RAM is required</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[1]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label>RAM:</label>
-                                                                <select (change)="test(1, f.ram.value)" formControlName="ram" class="select">
-                                                                    <option *ngFor="let option of ram" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <div *ngIf="submitted && f.ram.errors">
-                                                                    <div *ngIf="f.ram.errors.required" class="errors"> * RAM is required</div>
-                                                                </div>
-                                                                </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[1]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label for=""></label>
-                                                                <input formControlName="ram" class="form-control" type="text" 
-                                                                    placeholder="Color">
-                                                            </div>
-                                                        </div>
-                                                    
-                                                        <!-- CPU -->
-                                                        
-                                                        <div *ngIf="!otherOption[2]" class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label>CPU:</label>
-                                                                <select (change)="test(2, f.cpu.value)" formControlName="cpu" class="select">
-                                                                    <option *ngFor="let option of cpu" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <div *ngIf="submitted && f.cpu.errors">
-                                                                    <div *ngIf="f.cpu.errors.required" class="errors"> * CPU is required</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[2]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label>CPU:</label>
-                                                                <select (change)="test(2, f.cpu.value)" formControlName="cpu" class="select">
-                                                                    <option *ngFor="let option of cpu" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <div *ngIf="submitted && f.cpu.errors">
-                                                                    <div *ngIf="f.cpu.errors.required" class="errors"> * CPU is required</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[2]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label for=""></label>
-                                                                <input formControlName="cpu" class="form-control" type="text" 
-                                                                    placeholder="Color">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        
-                                                        <!-- Screen -->
-                                                        
-                                                        <div *ngIf="!otherOption[3]" class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label>Screen:</label>
-                                                                <select (change)="test(3, f.screen.value)" formControlName="screen" class="select">
-                                                                    <option *ngFor="let option of screen" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <div *ngIf="submitted && f.screen.errors">
-                                                                    <div *ngIf="f.screen.errors.required" class="errors"> * Screen is required</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[3]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label>Screen:</label>
-                                                                <select (change)="test(3, f.screen.value)" formControlName="screen" class="select">
-                                                                    <option *ngFor="let option of screen" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <div *ngIf="submitted && f.screen.errors">
-                                                                    <div *ngIf="f.screen.errors.required" class="errors"> * Screen is required</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[3]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label for=""></label>
-                                                                <input formControlName="screen" class="form-control" type="text" 
-                                                                    placeholder="Color">
-                                                            </div>
-                                                        </div>
-                                                    
-                                                        
-                                                        <!-- Memmory -->
-                                                        
-                                                        <div *ngIf="!otherOption[4]" class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label>Memory:</label>
-                                                                <select (change)="test(4, f.memmory.value)" formControlName="memmory" class="select">
-                                                                    <option *ngFor="let option of memmory" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <div *ngIf="submitted && f.memmory.errors">
-                                                                    <div *ngIf="f.memmory.errors.required" class="errors"> * Memory is required</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[4]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label>Memory:</label>
-                                                                <select (change)="test(4, f.screen.value)" formControlName="memmory" class="select">
-                                                                    <option *ngFor="let option of memmory" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <div *ngIf="submitted && f.memmory.errors">
-                                                                    <div *ngIf="f.memmory.errors.required" class="errors"> * Memory is required</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[4]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label for=""></label>
-                                                                <input formControlName="memmory" class="form-control" type="text" 
-                                                                    placeholder="Color">
-                                                            </div>
-                                                        </div>
-                                                    
-    
-                                                        <!-- Camera -->
-                                                        
-                                                        <div *ngIf="!otherOption[5]" class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label>Camera:</label>
-                                                                <select (change)="test(5, f.camera.value)" formControlName="camera" class="select">
-                                                                    <option *ngFor="let option of camera" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <div *ngIf="submitted && f.camera.errors">
-                                                                    <div *ngIf="f.camera.errors.required" class="errors"> * Camera is required</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[5]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label>Camera:</label>
-                                                                <select (change)="test(5, f.camera.value)" formControlName="camera" class="select">
-                                                                    <option *ngFor="let option of camera" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <div *ngIf="submitted && f.camera.errors">
-                                                                    <div *ngIf="f.camera.errors.required" class="errors"> * Camera is required</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[5]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label for=""></label>
-                                                                <input formControlName="camera" class="form-control" type="text" 
-                                                                    placeholder="Color">
-                                                            </div>
-                                                        </div>
-                                                    
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <!-- Pin -->
-                                                        
-                                                        <div *ngIf="!otherOption[6]" class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label>Pin:</label>
-                                                                <select (change)="test(6, f.pin.value)" formControlName="pin" class="select">
-                                                                    <option *ngFor="let option of pin" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <div *ngIf="submitted && f.pin.errors">
-                                                                    <div *ngIf="f.pin.errors.required" class="errors"> * Pin is required</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[6]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label>Pin:</label>
-                                                                <select (change)="test(6, f.pin.value)" formControlName="pin" class="select">
-                                                                    <option *ngFor="let option of pin" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <div *ngIf="submitted && f.pin.errors">
-                                                                    <div *ngIf="f.pin.errors.required" class="errors"> * Pin is required</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[6]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label for=""></label>
-                                                                <input formControlName="pin" class="form-control" type="text" 
-                                                                    placeholder="Color">
-                                                            </div>
-                                                        </div>
-                                                    
-                                                        <!-- OS -->
-                                                        
-                                                        <div *ngIf="!otherOption[7]" class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label>Operating System:</label>
-                                                                <select (change)="test(7, f.os.value)" formControlName="os" class="select">
-                                                                    <option *ngFor="let option of os" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <div *ngIf="submitted && f.os.errors">
-                                                                    <div *ngIf="f.os.errors.required" class="errors"> * Operating System is required</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[7]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label>Operating System:</label>
-                                                                <select (change)="test(7, f.os.value)" formControlName="os" class="select">
-                                                                    <option *ngFor="let option of os" [ngValue]="option">
-                                                                        {{option}}
-                                                                    </option>
-                                                                </select>
-                                                                <div *ngIf="submitted && f.os.errors">
-                                                                    <div *ngIf="f.os.errors.required" class="errors"> * Operating System is required</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div *ngIf="otherOption[7]" class="col-sm-2">
-                                                            <div class="form-group">
-                                                                <label for=""></label>
-                                                                <input formControlName="os" class="form-control" type="text" 
-                                                                    placeholder="Color">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-sm-4">
-                                                            <div class="form-group">
-                                                                <label for="">Quantity</label>
-                                                                <input class="form-control" formControlName="quantity" type="number">
-                                                                <div *ngIf="submitted && f.quantity.errors">
-                                                                    <div *ngIf="f.quantity.errors.required" class="errors"> * Quantity is required</div>
-                                                                    <div *ngIf="f.quantity.errors.min" class="errors"> * Quantity must be bigger than 0</div>
-                                                                    <div *ngIf="f.quantity.errors.max" class="errors"> * Quantity maximum is 10</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    
-                                                    </div>
-    
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <label for="">Note</label>
-                                                            <textarea formControlName="note" name="" id="" cols="30" rows="2"></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group mt-20" style="width: 10%; margin: auto;">
-                                                        <button type="submit" class="btn btn-primary btn-rounded"  
-                                                            >
-                                                            <i class="fa fa-plus"></i> Add</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            
-                        </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Hover Data Table</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="content">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <a (click)="toggleForm[0] = !toggleForm[0]" class="btn btn-primary btn-rounded float-right">
+                        <i class="fa fa-plus"></i> Add product</a>
                     </div>
+                  </div>
+                </div>
+                <div class="row" style="margin-top: 1rem;">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+                      <table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" datatable>
+                        <thead>
+                        <tr>
+                          <th>Code</th>
+                          <th>Product</th>
+                          <th>Quantity</th>
+                          <th>Amount</th>
+                          <th class="text-right">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngIf="listImportDetail?.length == 0">
+                        <tr>
+                          <td class="no-data-available" colspan="3">No data!</td>
+                        </tr>
+                        </tbody>
+                        <tbody *ngIf="listImportDetail?.length != 0">
+                        <tr *ngFor="let import of listImportDetail" data-toggle="modal">
+                          <td>{{import.id}}</td>
+                          <td>{{import.productName}}</td>
+                          <td>{{import.quantity}}</td>
+                          <td>{{import.price | currency}}</td>
+                          <td class="text-right">
+                            <div class="dropdown dropdown-action">
+                              <a aria-expanded="false" class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                 href="#"><i class="fa fa-ellipsis-v"></i></a>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="edit-expense.html"><i class="fa fa-pencil m-r-5"></i>
+                                  Edit</a>
+                                <a class="dropdown-item" data-target="#delete_expense" data-toggle="modal" href="#"><i
+                                  class="fa fa-trash-o m-r-5"></i> Delete</a>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="listImportDetail?.length != 0" class="m-t-20 text-center">
+                  <button (click)="doneCreateImport()" class="btn btn-primary submit-btn" routerLink="../">Create
+                    Expense
+                  </button>
+                </div>
+                <div style="height: 100%; overflow: auto;">
+                  <form (ngSubmit)="onSubmit()" [formGroup]="this.dataForm" style="overflow: auto;">
+                    <div [ngClass]="{show: toggleForm[0]}" class="modal fade modal-wrapper" id="exampleModalCenter">
+                      <div class="modal-dialog modal-dialog-centered" role="document" style="width: 900px !important;">
+                        <div class="modal-content mt-150">
+                                                <span style="z-index: 100;"><a (click)="toggleForm[0] = !toggleForm[0]"
+                                                                               class="btn float-right"
+                                                                               style="margin-top: 15px; z-index: 100;">
+                                                    <i aria-hidden="true" class="fa fa-window-close"></i></a></span>
+                          <div class="modal-body" style="margin-top: -60px;">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <h2 class="text-center">PRODUCT DETAIL</h2>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6" style="margin: auto;">
+                                <div class="form-group">
+                                  <label>Product</label>
+                                  <select class="select" formControlName="productId">
+                                    <option *ngFor="let product of products" [ngValue]="product.id">
+                                      {{product.name}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="submitted && f.productId.errors">
+                                    <div *ngIf="f.productId.errors.required" class="errors"> * Product is required</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <!-- Color -->
+
+                              <div *ngIf="!otherOption[0]" class="col-sm-4">
+                                <div class="form-group">
+                                  <label>Color:</label>
+                                  <select (change)="test(0, f.color.value)" class="select" formControlName="color">
+                                    <option *ngFor="let option of color" [ngValue]="option">
+                                      {{option}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="submitted && f.color.errors">
+                                    <div *ngIf="f.color.errors.required" class="errors"> * Color is required</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="otherOption[0]" class="col-sm-2">
+                                <div class="form-group">
+                                  <label>Color:</label>
+                                  <select (change)="test(0, f.color.value)" class="select" formControlName="color">
+                                    <option *ngFor="let option of color" [ngValue]="option">
+                                      {{option}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="submitted && f.color.errors">
+                                    <div *ngIf="f.color.errors.required" class="errors"> * Color is required</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="otherOption[0]" class="col-sm-2">
+                                <div class="form-group">
+                                  <label for=""></label>
+                                  <input class="form-control" formControlName="color" placeholder="Color"
+                                         type="text">
+                                </div>
+                              </div>
+
+
+                              <!-- RAM -->
+
+                              <div *ngIf="!otherOption[1]" class="col-sm-4">
+                                <div class="form-group">
+                                  <label>RAM:</label>
+                                  <select (change)="test(1, f.ram.value)" class="select" formControlName="ram">
+                                    <option *ngFor="let option of ram" [ngValue]="option">
+                                      {{option}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="submitted && f.ram.errors">
+                                    <div *ngIf="f.ram.errors.required" class="errors"> * RAM is required</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="otherOption[1]" class="col-sm-2">
+                                <div class="form-group">
+                                  <label>RAM:</label>
+                                  <select (change)="test(1, f.ram.value)" class="select" formControlName="ram">
+                                    <option *ngFor="let option of ram" [ngValue]="option">
+                                      {{option}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="submitted && f.ram.errors">
+                                    <div *ngIf="f.ram.errors.required" class="errors"> * RAM is required</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="otherOption[1]" class="col-sm-2">
+                                <div class="form-group">
+                                  <label for=""></label>
+                                  <input class="form-control" formControlName="ram" placeholder="Color"
+                                         type="text">
+                                </div>
+                              </div>
+
+                              <!-- CPU -->
+
+                              <div *ngIf="!otherOption[2]" class="col-sm-4">
+                                <div class="form-group">
+                                  <label>CPU:</label>
+                                  <select (change)="test(2, f.cpu.value)" class="select" formControlName="cpu">
+                                    <option *ngFor="let option of cpu" [ngValue]="option">
+                                      {{option}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="submitted && f.cpu.errors">
+                                    <div *ngIf="f.cpu.errors.required" class="errors"> * CPU is required</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="otherOption[2]" class="col-sm-2">
+                                <div class="form-group">
+                                  <label>CPU:</label>
+                                  <select (change)="test(2, f.cpu.value)" class="select" formControlName="cpu">
+                                    <option *ngFor="let option of cpu" [ngValue]="option">
+                                      {{option}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="submitted && f.cpu.errors">
+                                    <div *ngIf="f.cpu.errors.required" class="errors"> * CPU is required</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="otherOption[2]" class="col-sm-2">
+                                <div class="form-group">
+                                  <label for=""></label>
+                                  <input class="form-control" formControlName="cpu" placeholder="Color"
+                                         type="text">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+
+                              <!-- Screen -->
+
+                              <div *ngIf="!otherOption[3]" class="col-sm-4">
+                                <div class="form-group">
+                                  <label>Screen:</label>
+                                  <select (change)="test(3, f.screen.value)" class="select" formControlName="screen">
+                                    <option *ngFor="let option of screen" [ngValue]="option">
+                                      {{option}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="submitted && f.screen.errors">
+                                    <div *ngIf="f.screen.errors.required" class="errors"> * Screen is required</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="otherOption[3]" class="col-sm-2">
+                                <div class="form-group">
+                                  <label>Screen:</label>
+                                  <select (change)="test(3, f.screen.value)" class="select" formControlName="screen">
+                                    <option *ngFor="let option of screen" [ngValue]="option">
+                                      {{option}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="submitted && f.screen.errors">
+                                    <div *ngIf="f.screen.errors.required" class="errors"> * Screen is required</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="otherOption[3]" class="col-sm-2">
+                                <div class="form-group">
+                                  <label for=""></label>
+                                  <input class="form-control" formControlName="screen" placeholder="Color"
+                                         type="text">
+                                </div>
+                              </div>
+
+
+                              <!-- Memmory -->
+
+                              <div *ngIf="!otherOption[4]" class="col-sm-4">
+                                <div class="form-group">
+                                  <label>Memory:</label>
+                                  <select (change)="test(4, f.memmory.value)" class="select" formControlName="memmory">
+                                    <option *ngFor="let option of memmory" [ngValue]="option">
+                                      {{option}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="submitted && f.memmory.errors">
+                                    <div *ngIf="f.memmory.errors.required" class="errors"> * Memory is required</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="otherOption[4]" class="col-sm-2">
+                                <div class="form-group">
+                                  <label>Memory:</label>
+                                  <select (change)="test(4, f.screen.value)" class="select" formControlName="memmory">
+                                    <option *ngFor="let option of memmory" [ngValue]="option">
+                                      {{option}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="submitted && f.memmory.errors">
+                                    <div *ngIf="f.memmory.errors.required" class="errors"> * Memory is required</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="otherOption[4]" class="col-sm-2">
+                                <div class="form-group">
+                                  <label for=""></label>
+                                  <input class="form-control" formControlName="memmory" placeholder="Color"
+                                         type="text">
+                                </div>
+                              </div>
+
+
+                              <!-- Camera -->
+
+                              <div *ngIf="!otherOption[5]" class="col-sm-4">
+                                <div class="form-group">
+                                  <label>Camera:</label>
+                                  <select (change)="test(5, f.camera.value)" class="select" formControlName="camera">
+                                    <option *ngFor="let option of camera" [ngValue]="option">
+                                      {{option}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="submitted && f.camera.errors">
+                                    <div *ngIf="f.camera.errors.required" class="errors"> * Camera is required</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="otherOption[5]" class="col-sm-2">
+                                <div class="form-group">
+                                  <label>Camera:</label>
+                                  <select (change)="test(5, f.camera.value)" class="select" formControlName="camera">
+                                    <option *ngFor="let option of camera" [ngValue]="option">
+                                      {{option}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="submitted && f.camera.errors">
+                                    <div *ngIf="f.camera.errors.required" class="errors"> * Camera is required</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="otherOption[5]" class="col-sm-2">
+                                <div class="form-group">
+                                  <label for=""></label>
+                                  <input class="form-control" formControlName="camera" placeholder="Color"
+                                         type="text">
+                                </div>
+                              </div>
+
+                            </div>
+
+                            <div class="row">
+                              <!-- Pin -->
+
+                              <div *ngIf="!otherOption[6]" class="col-sm-4">
+                                <div class="form-group">
+                                  <label>Pin:</label>
+                                  <select (change)="test(6, f.pin.value)" class="select" formControlName="pin">
+                                    <option *ngFor="let option of pin" [ngValue]="option">
+                                      {{option}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="submitted && f.pin.errors">
+                                    <div *ngIf="f.pin.errors.required" class="errors"> * Pin is required</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="otherOption[6]" class="col-sm-2">
+                                <div class="form-group">
+                                  <label>Pin:</label>
+                                  <select (change)="test(6, f.pin.value)" class="select" formControlName="pin">
+                                    <option *ngFor="let option of pin" [ngValue]="option">
+                                      {{option}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="submitted && f.pin.errors">
+                                    <div *ngIf="f.pin.errors.required" class="errors"> * Pin is required</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="otherOption[6]" class="col-sm-2">
+                                <div class="form-group">
+                                  <label for=""></label>
+                                  <input class="form-control" formControlName="pin" placeholder="Color"
+                                         type="text">
+                                </div>
+                              </div>
+
+                              <!-- OS -->
+
+                              <div *ngIf="!otherOption[7]" class="col-sm-4">
+                                <div class="form-group">
+                                  <label>Operating System:</label>
+                                  <select (change)="test(7, f.os.value)" class="select" formControlName="os">
+                                    <option *ngFor="let option of os" [ngValue]="option">
+                                      {{option}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="submitted && f.os.errors">
+                                    <div *ngIf="f.os.errors.required" class="errors"> * Operating System is required
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="otherOption[7]" class="col-sm-2">
+                                <div class="form-group">
+                                  <label>Operating System:</label>
+                                  <select (change)="test(7, f.os.value)" class="select" formControlName="os">
+                                    <option *ngFor="let option of os" [ngValue]="option">
+                                      {{option}}
+                                    </option>
+                                  </select>
+                                  <div *ngIf="submitted && f.os.errors">
+                                    <div *ngIf="f.os.errors.required" class="errors"> * Operating System is required
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="otherOption[7]" class="col-sm-2">
+                                <div class="form-group">
+                                  <label for=""></label>
+                                  <input class="form-control" formControlName="os" placeholder="Color"
+                                         type="text">
+                                </div>
+                              </div>
+
+                              <div class="col-sm-4">
+                                <div class="form-group">
+                                  <label for="">Quantity</label>
+                                  <input class="form-control" formControlName="quantity" type="number">
+                                  <div *ngIf="submitted && f.quantity.errors">
+                                    <div *ngIf="f.quantity.errors.required" class="errors"> * Quantity is required</div>
+                                    <div *ngIf="f.quantity.errors.min" class="errors"> * Quantity must be bigger than
+                                      0
+                                    </div>
+                                    <div *ngIf="f.quantity.errors.max" class="errors"> * Quantity maximum is 10</div>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <label for="">Note</label>
+                                <textarea cols="30" formControlName="note" id="" name="" rows="2"></textarea>
+                              </div>
+                            </div>
+                            <div class="form-group mt-20" style="width: 10%; margin: auto;">
+                              <button class="btn btn-primary btn-rounded" type="submit"
+                              >
+                                <i class="fa fa-plus"></i> Add
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
                 </div>
 
-                <!-- Form Serial -->
-                <form [formGroup]="this.testForm" >
-                    <div class="modal fade modal-wrapper" id="exampleModalCenter1" [ngClass]="{show: toggleForm[1]}">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content mt-100">
-                                <span style="z-index: 100;"><a class="btn float-right" style="margin-top: 15px; z-index: 100;"
-                                    (click)="toggleForm[1] = !toggleForm[1]">
-                                    <i class="fa fa-window-close" aria-hidden="true"></i></a></span>
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h2 class="text-center">SERIAL</h2>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div formArrayName="serialForm">
-                                                <div *ngFor="let sf of array.controls; index as idx">
-                                                    <div [formGroupName]="idx" class="row">
-                                                        <label class="col-md-2" for="">Serial: </label>
-                                                        <input class="form-control col-md-10" type="text" formControlName="serial">
-                                                        <div *ngIf="submitted1 && sf.value.serial.errors">
-                                                            <div *ngIf="sf.value.serial.errors.required" class="errors"> * Operating System is required</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>     
-                                    <div class="col-sm-12">
-                                        <div class="form-group mt-20" style="width: 10%; margin: auto;">
-                                            <button type="submit" class="btn btn-primary btn-rounded float-right" 
-                                                (click)="toggleForm[1] = !toggleForm[1]; onSubmitSubForm()" style="margin-top: 1.8rem;"><i class="fa fa-plus"></i> Add</button>
-                                        </div>
-                                    </div>           
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+              </div>
             </div>
           </div>
+
+          <!-- Form Serial -->
+          <form [formGroup]="this.testForm">
+            <div [ngClass]="{show: toggleForm[1]}" class="modal fade modal-wrapper" id="exampleModalCenter1">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content mt-100">
+                                <span style="z-index: 100;"><a (click)="toggleForm[1] = !toggleForm[1]"
+                                                               class="btn float-right"
+                                                               style="margin-top: 15px; z-index: 100;">
+                                    <i aria-hidden="true" class="fa fa-window-close"></i></a></span>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h2 class="text-center">SERIAL</h2>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div formArrayName="serialForm">
+                          <div *ngFor="let sf of array.controls; index as idx">
+                            <div [formGroupName]="idx" class="row">
+                              <label class="col-md-2" for="">Serial: </label>
+                              <input class="form-control col-md-10" formControlName="serial" type="text">
+                              <div *ngIf="submitted1 && sf.value.serial.errors">
+                                <div *ngIf="sf.value.serial.errors.required" class="errors"> * Operating System is
+                                  required
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
+                      <div class="form-group mt-20" style="width: 10%; margin: auto;">
+                        <button (click)="toggleForm[1] = !toggleForm[1]; onSubmitSubForm()"
+                                class="btn btn-primary btn-rounded float-right"
+                                style="margin-top: 1.8rem;" type="submit">
+                          <i class="fa fa-plus"></i> Add
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
 </section>

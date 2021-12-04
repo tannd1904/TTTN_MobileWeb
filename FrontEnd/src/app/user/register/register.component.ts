@@ -1,21 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  AsyncValidatorFn,
-  FormBuilder,
-  FormGroup,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/service/auth.service';
-import { TokenStorageService } from 'src/app/service/token-storage.service';
-import { UserService } from 'src/app/service/user.service';
-import { Observable, of } from 'rxjs';
-import { delay, map, switchMap } from 'rxjs/operators';
-import { ClassBodyService } from 'src/app/service/class-body.service';
-import { CountService } from 'src/app/service/count.service';
-import { PageService } from 'src/app/service/page.service';
+import {Component, OnInit} from '@angular/core';
+import {AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, ValidationErrors, Validators,} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthService} from 'src/app/service/auth.service';
+import {TokenStorageService} from 'src/app/service/token-storage.service';
+import {UserService} from 'src/app/service/user.service';
+import {Observable, of} from 'rxjs';
+import {delay, map, switchMap} from 'rxjs/operators';
+import {ClassBodyService} from 'src/app/service/class-body.service';
+import {PageService} from 'src/app/service/page.service';
 
 @Component({
   selector: 'app-register',
@@ -39,7 +31,12 @@ export class RegisterComponent implements OnInit {
     private userService: UserService,
     private classBodyService: ClassBodyService,
     private pageService: PageService
-  ) {}
+  ) {
+  }
+
+  get f() {
+    return this.dataForm.controls;
+  }
 
   ngOnInit(): void {
     this.classBodyService.changeClass(this.classBody);
@@ -62,7 +59,7 @@ export class RegisterComponent implements OnInit {
             Validators.required,
             Validators.pattern(
               '^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@' +
-                '[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$'
+              '[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$'
             ),
           ],
           [this.emailExistsValidator()],
@@ -75,10 +72,6 @@ export class RegisterComponent implements OnInit {
         validators: this.MustMatch('password', 'cfmPassword'),
       }
     );
-  }
-
-  get f() {
-    return this.dataForm.controls;
   }
 
   onSubmit() {
@@ -100,21 +93,6 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  private emailExistsValidator(): AsyncValidatorFn {
-    return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      return of(control.value).pipe(
-        delay(500),
-        switchMap((email: any) =>
-          this.userService
-            .doesEmailExist(email)
-            .pipe(
-              map((emailExists) => (emailExists ? { emailExists: true } : null))
-            )
-        )
-      );
-    };
-  }
-
   MustMatch(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
       const control = formGroup.controls[controlName];
@@ -123,7 +101,7 @@ export class RegisterComponent implements OnInit {
         return;
       }
       if (control.value !== matchingControl.value) {
-        matchingControl.setErrors({ MustMatch: true });
+        matchingControl.setErrors({MustMatch: true});
       } else {
         matchingControl.setErrors(null);
       }
@@ -132,5 +110,20 @@ export class RegisterComponent implements OnInit {
 
   reloadPage(): void {
     window.location.reload();
+  }
+
+  private emailExistsValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      return of(control.value).pipe(
+        delay(500),
+        switchMap((email: any) =>
+          this.userService
+            .doesEmailExist(email)
+            .pipe(
+              map((emailExists) => (emailExists ? {emailExists: true} : null))
+            )
+        )
+      );
+    };
   }
 }

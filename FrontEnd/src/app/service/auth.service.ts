@@ -1,13 +1,13 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { UserLogin } from '../model/userLogin';
-import { TokenStorageService } from './token-storage.service';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {UserLogin} from '../model/userLogin';
+import {TokenStorageService} from './token-storage.service';
 
 const AUTH_API = 'http://localhost:8080/api/auth/';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 
 @Injectable({
@@ -17,17 +17,17 @@ export class AuthService {
   user!: UserLogin;
 
   constructor(private http: HttpClient,
-              private tokenStorageService: TokenStorageService) { }
+              private tokenStorageService: TokenStorageService) {
+  }
 
   isAdmin() {
-    if (this.tokenStorageService.getToken() == '{}' ) {
+    if (this.tokenStorageService.getToken() == '{}') {
       return false;
-    }
-    else {
+    } else {
       if (this.tokenStorageService.getUser() != null) {
         this.user = this.tokenStorageService.getUser();
       }
-      if (this.user.role === "ROLE_ADMIN" || this.user.role === "ROLE_EMPLOYEE") {
+      if (this.user.role === 'ROLE_ADMIN' || this.user.role === 'ROLE_EMPLOYEE') {
         return true;
       }
       return false;
@@ -61,5 +61,5 @@ export class AuthService {
       role: role
     }, httpOptions);
   }
-  
+
 }

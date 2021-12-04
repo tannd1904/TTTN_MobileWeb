@@ -1,138 +1,142 @@
-<section class="content-header"> 
-    <h1>
-      Order Detail
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">Order</a></li>
-      <li class="active">Detail</li>
-    </ol>
+<section class="content-header">
+  <h1>
+    Order Detail
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="#">Order</a></li>
+    <li class="active">Detail</li>
+  </ol>
 </section>
 
 
 <section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Order Detail</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <!--Shopping Cart Area Strat-->
-                <div class="Shopping-cart-area">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="table-content table-responsive">
-                                    <h4>Information of Delivery</h4>
-                                    <table class="table">
-                                        <tbody>
-                                            <tr class="table-row">
-                                                <th><strong>Full Name: </strong></th>
-                                                <td>{{order.firstNameOfReceiver}} {{order.lastNameOfReceiver}}</td>
-                                            </tr>
-                                            <tr class="table-row">
-                                                <th><strong>Phone Number: </strong></th>
-                                                <td>{{order.phoneOfReceiver}}</td>
-                                            </tr>
-                                            <tr class="table-row">
-                                                <th><strong>Address: </strong></th>
-                                                <td>{{order.addressOfReceiver}}</td>
-                                            </tr>
-                                            <tr class="table-row">
-                                                <th><strong>Order Date: </strong></th>
-                                                <td>{{order.dateOfOrder | date}}</td>
-                                            </tr>
-                                            <tr class="table-row">
-                                                <th><strong>Status: </strong></th>
-                                                <td *ngIf="order.status == 0">Unconfirmed</td>
-                                                <td *ngIf="order.status == 1">Delivering</td>
-                                                <td *ngIf="order.status == 2">Delivered</td>
-                                                <td *ngIf="order.status == 3">Cancelled</td>
-                                            </tr>
-                                            <tr *ngIf="order.status != 0">
-                                                <th *ngIf="(order.status == 1) || (order.status == 2)"><strong>Confirmed By: </strong></th>
-                                                <th *ngIf="order.status == 3"><strong>Cancelled By: </strong></th>
-                                                <td *ngIf="order.employeeId == null">User Cancelled</td>
-                                                <td *ngIf="order.employeeId != null">{{order.employee.firstname}} {{order.employee.lastname}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="row">
-                                    <div *ngIf="order.status == 0" class="col-md-6 mt-20">
-                                        <button (click)="confirmOrder(order.id)" class="btn btn-primary">Confirm Order</button>
-                                    </div>
-                                    <div *ngIf="order.status == 0" class="col-md-6 mt-20">
-                                        <button data-toggle="modal" data-target="#delete_expense" 
-                                            class="btn btn-danger">Cancel Order</button>
-                                    </div>
-                                    <div class="col-md-12 ml-auto">
-                                        <div class="cart-page-total">
-                                            <h2>Totals</h2>
-                                            <ul>
-                                                <li>Subtotal <span>{{order.total / 1.1 | currency}}</span></li>
-                                                <li>VAT (10%) <span>{{(order.total / 1.1) * 0.1 | currency}}</span></li>
-                                                <li>Total <span>{{order.total | currency}}</span></li>
-                                            </ul>
-                                            <!-- <a style="color: white;" (click)="processToCheckout()">Proceed to checkout</a> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <h4>Order Detail</h4>
-                                <form action="#">
-                                    <div class="table-content table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th class="li-product-thumbnail">images</th>
-                                                    <th class="cart-product-name">Product</th>
-                                                    <th class="cart-product-name">Modal</th>
-                                                    <th class="li-product-price">Unit Price</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let od of listOrderDetail">
-                                                    <td class="li-product-thumbnail">
-                                                        <a href="#">
-                                                            <img height="100px" src="http://localhost:8080/api/image/{{od.productId}}" alt="Li's Product Image">
-                                                        </a>
-                                                    </td>
-                                                    <td class="li-product-name"><a href="#">{{od.product.name}}</a></td>
-                                                    <td class="li-product-name">
-                                                        <a href="#">{{od.productDetail.color}} - {{od.productDetail.ram}} RAM - {{od.productDetail.memmory}}</a>
-                                                    </td>
-                                                    <td class="li-product-price"><span class="amount">{{od.product.price | currency}}</span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Order Detail</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <!--Shopping Cart Area Strat-->
+          <div class="Shopping-cart-area">
+            <div class="container">
+              <div class="row">
+                <div class="col-4">
+                  <div class="table-content table-responsive">
+                    <h4>Information of Delivery</h4>
+                    <table class="table">
+                      <tbody>
+                      <tr class="table-row">
+                        <th><strong>Full Name: </strong></th>
+                        <td>{{order.firstNameOfReceiver}} {{order.lastNameOfReceiver}}</td>
+                      </tr>
+                      <tr class="table-row">
+                        <th><strong>Phone Number: </strong></th>
+                        <td>{{order.phoneOfReceiver}}</td>
+                      </tr>
+                      <tr class="table-row">
+                        <th><strong>Address: </strong></th>
+                        <td>{{order.addressOfReceiver}}</td>
+                      </tr>
+                      <tr class="table-row">
+                        <th><strong>Order Date: </strong></th>
+                        <td>{{order.dateOfOrder | date}}</td>
+                      </tr>
+                      <tr class="table-row">
+                        <th><strong>Status: </strong></th>
+                        <td *ngIf="order.status == 0">Unconfirmed</td>
+                        <td *ngIf="order.status == 1">Delivering</td>
+                        <td *ngIf="order.status == 2">Delivered</td>
+                        <td *ngIf="order.status == 3">Cancelled</td>
+                      </tr>
+                      <tr *ngIf="order.status != 0">
+                        <th *ngIf="(order.status == 1) || (order.status == 2)"><strong>Confirmed By: </strong></th>
+                        <th *ngIf="order.status == 3"><strong>Cancelled By: </strong></th>
+                        <td *ngIf="order.employeeId == null">User Cancelled</td>
+                        <td
+                          *ngIf="order.employeeId != null">{{order.employee.firstname}} {{order.employee.lastname}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="row">
+                    <div *ngIf="order.status == 0" class="col-md-6 mt-20">
+                      <button (click)="confirmOrder(order.id)" class="btn btn-primary">Confirm Order</button>
                     </div>
+                    <div *ngIf="order.status == 0" class="col-md-6 mt-20">
+                      <button class="btn btn-danger" data-target="#delete_expense"
+                              data-toggle="modal">Cancel Order
+                      </button>
+                    </div>
+                    <div class="col-md-12 ml-auto">
+                      <div class="cart-page-total">
+                        <h2>Totals</h2>
+                        <ul>
+                          <li>Subtotal <span>{{order.total / 1.1 | currency}}</span></li>
+                          <li>VAT (10%) <span>{{(order.total / 1.1) * 0.1 | currency}}</span></li>
+                          <li>Total <span>{{order.total | currency}}</span></li>
+                        </ul>
+                        <!-- <a style="color: white;" (click)="processToCheckout()">Proceed to checkout</a> -->
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <!--Shopping Cart Area End-->
+                <div class="col-8">
+                  <h4>Order Detail</h4>
+                  <form action="#">
+                    <div class="table-content table-responsive">
+                      <table class="table">
+                        <thead>
+                        <tr>
+                          <th class="li-product-thumbnail">images</th>
+                          <th class="cart-product-name">Product</th>
+                          <th class="cart-product-name">Modal</th>
+                          <th class="li-product-price">Unit Price</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let od of listOrderDetail">
+                          <td class="li-product-thumbnail">
+                            <a href="#">
+                              <img alt="Li's Product Image" height="100px"
+                                   src="http://localhost:8080/api/image/{{od.productId}}">
+                            </a>
+                          </td>
+                          <td class="li-product-name"><a href="#">{{od.product.name}}</a></td>
+                          <td class="li-product-name">
+                            <a href="#">{{od.productDetail.color}} - {{od.productDetail.ram}} RAM
+                              - {{od.productDetail.memmory}}</a>
+                          </td>
+                          <td class="li-product-price"><span class="amount">{{od.product.price | currency}}</span></td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
+          <!--Shopping Cart Area End-->
         </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<div id="delete_expense" class="modal fade modal-wrapper" role="dialog">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <img src="../../../../assets/admin/images/sent.png" alt="" width="50" height="46">
-                <h3>Are you sure want to Cancel this Order?</h3>
-                <div class="m-t-20"> 
-                    <button (click)="cancelOrder(order.id)" type="submit" class="btn btn-danger">Yes</button>
-                    <a href="#" class="btn btn-primary" data-dismiss="modal">No</a>
-                </div>
-            </div>
+<div class="modal fade modal-wrapper" id="delete_expense" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <img alt="" height="46" src="../../../../assets/admin/images/sent.png" width="50">
+        <h3>Are you sure want to Cancel this Order?</h3>
+        <div class="m-t-20">
+          <button (click)="cancelOrder(order.id)" class="btn btn-danger" type="submit">Yes</button>
+          <a class="btn btn-primary" data-dismiss="modal" href="#">No</a>
         </div>
+      </div>
     </div>
+  </div>
 </div>
