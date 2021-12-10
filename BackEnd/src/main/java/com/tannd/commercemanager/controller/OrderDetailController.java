@@ -85,7 +85,7 @@ public class OrderDetailController extends
         var order = orderService.findEntityById(dto.getOrderId());
         entity.setOrder(order);
         var productDetail = productDetailService
-                .findEntityById(dto.getProductDetailId());
+                .findEntityById(dto.getProductDetailSerial());
         var listSameProductDetail = productDetailService.getProductDetailEntityByProductIdAndDetail(
                 productDetail.getImportVoucherDetail().getProduct().getId(),
 //                dto.getProductId(),
@@ -116,7 +116,7 @@ public class OrderDetailController extends
                 var order = orderService.findEntityById(dto.getOrderId());
                 entity.setOrder(order);
                 var productDetail = productDetailService
-                        .findEntityById(dto.getProductDetailId());
+                        .findEntityById(dto.getProductDetailSerial());
                 var listSameProductDetail = productDetailService.getProductDetailEntityByProductIdAndDetail(
                         productDetail.getImportVoucherDetail().getProduct().getId(),
 //                dto.getProductId(),

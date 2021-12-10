@@ -17,11 +17,12 @@ import javax.persistence.*;
 public class ProductDetail extends AuditableEntity {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(name = "MASP", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+//    @Id
+//    @Column(name = "MASP", nullable = false)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
 
+    @Id
     @Column(name = "SERIAL")
     private String serial;
 

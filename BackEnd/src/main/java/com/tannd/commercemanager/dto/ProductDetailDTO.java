@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class ProductDetailDTO extends AbstractDTO {
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+//    private Long id;
 
     private String serial;
 

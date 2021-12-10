@@ -3,20 +3,21 @@ package com.tannd.commercemanager.dto;
 import lombok.*;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
 @Accessors(chain = true)
-public class OrderDetailDTO extends AbstractDTO {
+public class PropertyDTO extends AbstractDTO {
+
     private static final long serialVersionUID = 1L;
 
-    private Integer id;
+    private Long id;
 
-    private String productDetailSerial;
+    private String description;
 
     private Long productId;
-
-    private Long orderId;
 }

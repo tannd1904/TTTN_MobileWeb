@@ -14,7 +14,9 @@ public interface ProductMapper extends AbstractMapper<ProductDTO, Product>{
             @Mapping(source = "category.id", target = "categoryId"),
             @Mapping(target = "importVoucherDetails", ignore = true),
             @Mapping(target = "wishlists", ignore = true),
-            @Mapping(target = "reviews", ignore = true)
+            @Mapping(target = "reviews", ignore = true),
+            @Mapping(target = "promotions", ignore = true),
+            @Mapping(target = "properties", ignore = true)
     })
     ProductDTO toDtoWithoutList(Product entity, @Context CycleAvoidingMappingContext context);
 

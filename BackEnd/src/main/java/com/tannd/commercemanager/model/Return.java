@@ -25,7 +25,7 @@ public class Return extends AuditableEntity {
     private Date date;
 
     @OneToOne
-    @JoinColumn(name = "MASP")
+    @JoinColumn(name = "SERIAL")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private ProductDetail productDetail;

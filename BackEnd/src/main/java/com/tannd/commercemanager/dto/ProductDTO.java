@@ -47,4 +47,8 @@ public class ProductDTO extends AbstractDTO {
 
     private List<ReviewDTO> reviews;
 
+    private List<PromotionDTO> promotions;
+
+    private List<PropertyDTO> properties;
+
 }

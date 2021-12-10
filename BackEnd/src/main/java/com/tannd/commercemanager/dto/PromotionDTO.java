@@ -9,14 +9,12 @@ import lombok.experimental.Accessors;
 @Setter
 @ToString
 @Accessors(chain = true)
-public class OrderDetailDTO extends AbstractDTO {
+public class PromotionDTO extends AbstractDTO {
+
     private static final long serialVersionUID = 1L;
-
-    private Integer id;
-
-    private String productDetailSerial;
 
     private Long productId;
 
-    private Long orderId;
+    private Long accessoryId;
+
 }

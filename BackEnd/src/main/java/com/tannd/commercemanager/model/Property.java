@@ -4,32 +4,30 @@ import com.tannd.commercemanager.model.audit.AuditableEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import java.util.Collection;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name="ct_phieudat")
+@Table(name= "thuoctinh")
 @ToString
-public class OrderDetail extends AuditableEntity {
+public class Property extends AuditableEntity {
+
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "MACTPD", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MATT", nullable = false)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "SERIAL")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private ProductDetail productDetail;
+    @Column(name = "MOTA", nullable = false)
+    private String description;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "MAPD")
+    @JoinColumn(name = "MADONGSP")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Order order;
+    private Product product;
 }

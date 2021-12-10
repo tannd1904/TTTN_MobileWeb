@@ -64,4 +64,14 @@ public class Product extends AuditableEntity {
     @ToString.Exclude
     private Collection<Review> reviews;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Collection<Promotion> promotions;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Collection<Property> properties;
+
 }

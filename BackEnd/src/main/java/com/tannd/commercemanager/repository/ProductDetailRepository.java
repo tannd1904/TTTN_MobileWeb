@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProductDetailRepository extends AbstractRepository<ProductDetail, Long> {
+public interface ProductDetailRepository extends AbstractRepository<ProductDetail, String> {
     @Query(value = "select s.* " +
             "from sanpham s " +
             "inner join ct_phieunhap cp " +

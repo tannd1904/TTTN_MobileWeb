@@ -12,7 +12,7 @@ public interface OrderDetailMapper extends AbstractMapper<OrderDetailDTO, OrderD
 
     @Mappings({
             @Mapping(source = "order.id", target = "orderId"),
-            @Mapping(source = "productDetail.id", target = "productDetailId")
+            @Mapping(source = "productDetail.serial", target = "productDetailSerial")
     })
     OrderDetailDTO toDtoWithAll(OrderDetail entity, @Context CycleAvoidingMappingContext context);
 
