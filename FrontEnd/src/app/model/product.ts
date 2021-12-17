@@ -1,6 +1,7 @@
 import {ImportDetail} from './import-detail';
 import {ProductDetail} from './product-detail';
 import {Review} from './review';
+import {Property} from './property';
 
 export class Product {
   id!: number;
@@ -19,4 +20,6 @@ export class Product {
   productDetails: ProductDetail[] = [];
   promotion!: any;
   quantity!: number;
+  madeIn!: string;
+  properties: Property[] = [];
 }

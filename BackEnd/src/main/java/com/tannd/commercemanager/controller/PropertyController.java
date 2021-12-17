@@ -2,12 +2,18 @@ package com.tannd.commercemanager.controller;
 
 import com.tannd.commercemanager.dto.*;
 import com.tannd.commercemanager.maper.*;
+import com.tannd.commercemanager.message.response.CustomResponse;
 import com.tannd.commercemanager.model.*;
 import com.tannd.commercemanager.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collections;
 
 @RestController
 @RequestMapping("/api/property")
@@ -39,5 +45,16 @@ public class PropertyController extends AbstractController<PropertyService, Prop
     public PropertyMapper getMapper() {
         initMapper(thisMapper.INSTANCE);
         return mapper;
+    }
+
+    @GetMapping("/get-all")
+    public ResponseEntity<?> getAllCategory() {
+        return getAll();
+    }
+
+    @GetMapping("/get-by-product-id/{id}")
+    public ResponseEntity<?> getByProductId(@PathVariable Long id) {
+        return ResponseEntity.ok(new CustomResponse(200, "Request Get Property By Product Id Ok",
+                getService().findByProductId(id).isEmpty() ? Collections.emptyList() : getService().findByProductId(id)));
     }
 }

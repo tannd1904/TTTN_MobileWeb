@@ -17,4 +17,6 @@ public class PromotionDTO extends AbstractDTO {
 
     private Long accessoryId;
 
+    private Integer discount;
+
 }

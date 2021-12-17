@@ -192,13 +192,11 @@
             <h2>Brand</h2>
           </div>
           <div class="category-tags">
-            <ul>
-              <li *ngFor="let category of categories">
-                <a (click)="getProductByCategoryId(category.id)">
-                  {{category.name}}
-                </a>
-              </li>
-            </ul>
+            <select (change)="chooseBrand($event)" id="sort-by">
+              <option disabled hidden selected value="">Select a Brand</option>
+              <option *ngFor="let category of categories"
+                      [value]="category.id">{{category.name}}</option>
+            </select>
           </div>
           <!-- category-sub-menu end -->
         </div>
@@ -206,6 +204,7 @@
         <!--sidebar-categores-box start  -->
         <div class="sidebar-categores-box">
           <div class="sidebar-title">
+            <button data-target="#filterModal" data-toggle="modal" style="alignment: center">Advance Filters</button>
             <h2>Filter By</h2>
           </div>
           <!-- btn-clear-all start -->
@@ -379,3 +378,73 @@
   </div>
 </div>
 <!-- Quick View | Modal Area End Here -->
+
+<!--Filter By Modal-->
+<div class="modal fade modal-wrapper" id="filterModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="modal-inner-area row">
+          <h3 style="align-items: center; margin: auto;">FILTER</h3>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <label>Memory:</label>
+            <br>
+            <select [(ngModel)]="operatorArr[0]" class="select-logic">
+              <option value="-999">Choose an operator</option>
+              <option value="-1"> < </option>
+              <option value="0"> = </option>
+              <option value="1"> > </option>
+            </select>
+            <input [(ngModel)]="valueArr[0]" class="text-box" type="number"/>
+
+            <label>RAM:</label>
+            <br>
+            <select [(ngModel)]="operatorArr[1]" class="select-logic">
+              <option value="-999">Choose an operator</option>
+              <option value="-1"> < </option>
+              <option value="0"> = </option>
+              <option value="1"> > </option>
+            </select>
+            <input [(ngModel)]="valueArr[1]" class="text-box" type="number"/>
+
+            <label>PIN:</label>
+            <br>
+            <select [(ngModel)]="operatorArr[2]" class="select-logic">
+              <option value="-999">Choose an operator</option>
+              <option value="-1"> < </option>
+              <option value="0"> = </option>
+              <option value="1"> > </option>
+            </select>
+            <input [(ngModel)]="valueArr[2]" class="text-box" type="number"/>
+
+            <label>Product weight:</label>
+            <br>
+            <select [(ngModel)]="operatorArr[3]" class="select-logic">
+              <option value="-999">Choose an operator</option>
+              <option value="-1"> < </option>
+              <option value="0"> = </option>
+              <option value="1"> > </option>
+            </select>
+            <input [(ngModel)]="valueArr[3]" class="text-box" type="number"/>
+
+            <label>SIM Card slots:</label>
+            <select [(ngModel)]="operatorArr[4]">
+              <option value="-999">Choose an operator</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+
+
+          </div>
+        </div>
+        <button style="width: 20%; margin-left: 40%; margin-top: 30px;"
+                data-dismiss="modal" (click)="applyFilter()">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Quick View | Modal Area End Here -->
+

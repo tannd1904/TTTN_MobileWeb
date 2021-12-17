@@ -5,7 +5,9 @@ import com.tannd.commercemanager.maper.*;
 import com.tannd.commercemanager.model.*;
 import com.tannd.commercemanager.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,5 +41,10 @@ public class PromotionController extends AbstractController<PromotionService, Pr
     public PromotionMapper getMapper() {
         initMapper(thisMapper.INSTANCE);
         return mapper;
+    }
+
+    @GetMapping("/get-all")
+    public ResponseEntity<?> getAllCategory() {
+        return getAll();
     }
 }

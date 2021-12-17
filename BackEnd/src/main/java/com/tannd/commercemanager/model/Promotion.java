@@ -32,4 +32,6 @@ public class Promotion extends AuditableEntity {
   @ToString.Exclude
   private Accessory accessory;
 
+  @Column(name = "GIAMGIA")
+  private Integer discount;
 }

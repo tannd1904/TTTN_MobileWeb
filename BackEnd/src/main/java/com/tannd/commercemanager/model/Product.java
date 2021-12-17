@@ -44,6 +44,9 @@ public class Product extends AuditableEntity {
     @Column(name = "GIAMGIA", nullable = true)
     private Double promotion;
 
+    @Column(name = "NGUONGOC")
+    private String madeIn;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "MAHANG")
     @EqualsAndHashCode.Exclude

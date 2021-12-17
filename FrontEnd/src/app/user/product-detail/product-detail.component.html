@@ -156,6 +156,14 @@
                   <th>OPERATING SYSTEM</th>
                   <td>{{selectedProductDetail.os}}</td>
                 </tr>
+                <tr *ngFor="let property of product.properties">
+                  <th>{{property.name}}</th>
+                  <td>{{property.description}}</td>
+                </tr>
+                <tr>
+                  <th>MADE IN</th>
+                  <td>{{product.madeIn}}</td>
+                </tr>
                 </thead>
               </table>
             </div>

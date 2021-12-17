@@ -22,6 +22,9 @@ public class Property extends AuditableEntity {
     @Column(name = "MATT", nullable = false)
     private Long id;
 
+    @Column(name = "TENTT")
+    private String name;
+
     @Column(name = "MOTA", nullable = false)
     private String description;
 

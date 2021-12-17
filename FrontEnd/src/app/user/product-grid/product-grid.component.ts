@@ -12,6 +12,8 @@ import {ClassBodyService} from 'src/app/service/class-body.service';
 import {PageService} from 'src/app/service/page.service';
 import {ProductService} from 'src/app/service/product.service';
 import {TokenStorageService} from 'src/app/service/token-storage.service';
+import {Property} from '../../model/property';
+import {PropertyService} from '../../service/property.service';
 
 @Component({
   selector: 'app-product-grid',
@@ -29,6 +31,9 @@ export class ProductGridComponent implements OnInit {
   products: Array<Product> = [];
   listProductDetail: ProductDetail[] = [];
   displayProductList: Product[] = [];
+  operatorArr = [-999,-999,-999,-999,-999];
+  valueArr = ['','','','',''];
+  flagArr = [false, false, false, false, false];
   token!: string;
   config!: any;
 
@@ -161,6 +166,7 @@ export class ProductGridComponent implements OnInit {
     private pageService: PageService,
     private tokenStorageService: TokenStorageService,
     private productService: ProductService,
+    private propertyService: PropertyService,
     private categoryService: CategoryService,
     private cartService: CartService,
     private route: ActivatedRoute,
@@ -296,6 +302,13 @@ export class ProductGridComponent implements OnInit {
                 console.log(err);
               }
             );
+          s.properties = new Array<Property>();
+          this.propertyService.getPropertyByProductId(this.token, s.id)
+            .subscribe((d: Response) => {
+              s.properties = d.data;
+            }, (err) => {
+              console.log(err);
+            });
         });
         this.allProducts = this.products;
         this.products = this.products.sort(function(high, low) {
@@ -332,14 +345,22 @@ export class ProductGridComponent implements OnInit {
               }
             );
           s.productDetails = new Array<ProductDetail>();
-          this.productService.getProductDetailByProductId(this.token, s.id)
+          this.productService.getAllProductDetailByProductId(this.token, s.id)
             .subscribe((d: Response) => {
                 s.productDetails = d.data;
               }, (err) => {
                 console.log(err);
               }
             );
+          s.properties = new Array<Property>();
+          this.propertyService.getPropertyByProductId(this.token, s.id)
+            .subscribe((d: Response) => {
+              s.properties = d.data;
+            }, (err) => {
+              console.log(err);
+            });
         });
+        this.allProducts = this.products;
         console.log(this.products[0].importVoucherDetails[0].productDetails);
       },
       (error) => {
@@ -372,6 +393,11 @@ export class ProductGridComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+
+  chooseBrand(event: any) {
+    console.log(event.target.value);
+    this.getProductByCategoryId(event.target.value);
   }
 
   sort(event: any) {
@@ -815,5 +841,141 @@ export class ProductGridComponent implements OnInit {
     this.memmories.forEach(s => {
       s.checked = false;
     });
+    window.location.reload();
+  }
+
+  applyFilter() {
+    console.log(this.operatorArr);
+    console.log(this.valueArr);
+    this.displayProductList = [];
+    this.operatorArr.forEach((item, index) => {
+      console.log(item);
+      if ((item != -999) && (this.valueArr[index] != '')) {
+        switch (index) {
+          case 0:
+            if (item == 0) {
+              console.log(123);
+              var lst = this.allProducts.filter(x => x.productDetails[0].memmory.includes(this.valueArr[index].toString()));
+              for (var j = 0; j < lst.length; j++) {
+                this.displayProductList.push(lst[j]);
+              }
+            }
+            if (item == -1) {
+              var lst = this.allProducts.filter(x => {
+                const mem = parseInt(x.productDetails[0].memmory.substring(0, 3));
+                return (parseInt(this.valueArr[index]) > mem);
+              });
+              for (var j = 0; j < lst.length; j++) {
+                this.displayProductList.push(lst[j]);
+              }
+            }
+            if (item == 1) {
+              var lst = this.allProducts.filter(x => {
+                const mem = parseInt(x.productDetails[0].memmory.substring(0, 3));
+                return (parseInt(this.valueArr[index]) < mem);
+              });
+              for (var j = 0; j < lst.length; j++) {
+                this.displayProductList.push(lst[j]);
+              }
+            }
+            break;
+          case 1:
+            if (item == 0) {
+              var lst = this.allProducts.filter(x => x.productDetails[0].ram.includes(this.valueArr[index].toString()));
+              for (var j = 0; j < lst.length; j++) {
+                this.displayProductList.push(lst[j]);
+              }
+            }
+            if (item == -1) {
+              var lst = this.allProducts.filter(x => {
+                const ram = parseInt(x.productDetails[0].ram.substring(0, 2));
+                return (parseInt(this.valueArr[index]) > ram);
+              });
+              for (var j = 0; j < lst.length; j++) {
+                this.displayProductList.push(lst[j]);
+              }
+            }
+            if (item == 1) {
+              var lst = this.allProducts.filter(x => {
+                const ram = parseInt(x.productDetails[0].memmory.substring(0, 2));
+                console.log(ram);
+                return (parseInt(this.valueArr[index]) < ram);
+              });
+              for (var j = 0; j < lst.length; j++) {
+                this.displayProductList.push(lst[j]);
+              }
+            }
+            break;
+          case 2:
+            if (item == 0) {
+              var lst = this.allProducts.filter(x => x.productDetails[0].pin.includes(this.valueArr[index].toString()));
+              for (var j = 0; j < lst.length; j++) {
+                this.displayProductList.push(lst[j]);
+              }
+            }
+            if (item == -1) {
+              var lst = this.allProducts.filter(x => {
+                const pin = parseInt(x.productDetails[0].pin.substring(
+                  x.productDetails[0].pin.length - 8, x.productDetails[0].pin.length -4));
+                return (parseInt(this.valueArr[index]) > pin);
+              });
+              for (var j = 0; j < lst.length; j++) {
+                this.displayProductList.push(lst[j]);
+              }
+            }
+            if (item == 1) {
+              var lst = this.allProducts.filter(x => {
+                const pin = parseInt(x.productDetails[0].pin.substring(
+                  x.productDetails[0].pin.length - 8, x.productDetails[0].pin.length -4));
+                return (parseInt(this.valueArr[index]) < pin);
+              });
+              for (var j = 0; j < lst.length; j++) {
+                this.displayProductList.push(lst[j]);
+              }
+            }
+            break;
+          case 3:
+            if (item == 0) {
+              var lst = this.allProducts.filter(x =>
+                (x.properties.filter(y => (y.name == 'Product Weight')
+                  && (y.description.includes(this.valueArr[index].toString())))).length > 0);
+              for (var j = 0; j < lst.length; j++) {
+                this.displayProductList.push(lst[j]);
+              }
+            }
+            if (item == -1) {
+              var lst = this.allProducts.filter(x =>
+                (x.properties.filter(y => {
+                  const weight = parseInt(y.description.substring(0, 3));
+                  return (y.name == 'Product Weight') && (parseInt(this.valueArr[index]) > weight);
+                })).length > 0);
+              for (var j = 0; j < lst.length; j++) {
+                this.displayProductList.push(lst[j]);
+              }
+            }
+            if (item == 1) {
+              var lst = this.allProducts.filter(x =>
+                (x.properties.filter(y => {
+                  const weight = parseInt(y.description.substring(0, 3));
+                  return (y.name == 'Product Weight') && (parseInt(this.valueArr[index]) < weight);
+                })).length > 0);
+              for (var j = 0; j < lst.length; j++) {
+                this.displayProductList.push(lst[j]);
+              }
+            }
+            break;
+        }
+      } else if ((item !== -999) && (this.valueArr[index] === '')) {
+        this.flagArr[index] = true;
+      } else if (index == 4) {
+        var lst = this.allProducts.filter(x =>
+            (x.properties.filter(y => (y.name == 'SIM Card Slots')
+              && (y.description.includes(item.toString())))).length > 0);
+          for (var j = 0; j < lst.length; j++) {
+            this.displayProductList.push(lst[j]);
+          }
+      }
+    });
+    this.products = Array.from(new Set(this.displayProductList));
   }
 }

@@ -39,6 +39,8 @@ public class ProductDTO extends AbstractDTO {
 
     private Double promotion;
 
+    private String madeIn;
+
     private Long categoryId;
 
     private List<ImportVoucherDetailDTO> importVoucherDetails;

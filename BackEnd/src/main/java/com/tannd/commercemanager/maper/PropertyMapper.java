@@ -18,15 +18,11 @@ public interface PropertyMapper extends AbstractMapper<PropertyDTO, Property>{
     })
     PropertyDTO toDtoWithoutDetails(Property entity, @Context CycleAvoidingMappingContext context);
 
-    @Mappings({
-            @Mapping(source = "product.id", target = "productId"),
-    })
-    PropertyDTO toDtoWithDetails(Property entity, @Context CycleAvoidingMappingContext context);
+    @Override
+    default PropertyDTO toDto(Property entity, @Context CycleAvoidingMappingContext context) {
+        return toDtoWithoutDetails(entity, context);
+    }
 
-//    @Override
-//    default ImportVoucherDTO toDto(ImportVoucher entity, @Context CycleAvoidingMappingContext context) {
-//        return toDtoWithoutDetails(entity, context);
-//    }
     @Mappings({
             @Mapping(source = "productId", target = "product.id")
     })

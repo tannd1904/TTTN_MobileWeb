@@ -16,6 +16,7 @@ import {PageService} from 'src/app/service/page.service';
 import {ProductService} from 'src/app/service/product.service';
 import {TokenStorageService} from 'src/app/service/token-storage.service';
 import {UserService} from 'src/app/service/user.service';
+import {PropertyService} from '../../service/property.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -51,6 +52,7 @@ export class ProductDetailComponent implements OnInit {
     private authService: AuthService,
     private productService: ProductService,
     private categoryService: CategoryService,
+    private propertyService: PropertyService,
     private orderService: OrderService,
     private userService: UserService,
     private cartService: CartService,
@@ -100,6 +102,11 @@ export class ProductDetailComponent implements OnInit {
                     this.listUserReview.push(d.data);
                   });
               });
+            });
+          this.propertyService.getPropertyByProductId(this.token, this.product.id)
+            .subscribe((data: Response) => {
+              this.product.properties = data.data;
+              console.log(data);
             });
         },
         error => {
