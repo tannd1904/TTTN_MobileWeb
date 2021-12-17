@@ -12,3 +12,17 @@
   width: 320px;
   z-index: 999;
 }
+
+.select-logic {
+  width: 35%;
+  text-align: center;
+  align-content: center;
+  align-items: center;
+  margin-left: 5%;
+}
+
+.text-box {
+  width: 50%;
+  margin: 0 5% 0 5%;
+  text-align: center;
+}
