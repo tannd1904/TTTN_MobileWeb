@@ -4,7 +4,7 @@
     <div class="breadcrumb-content">
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li class="active">{{product.name}}</li>
+        <li class="active">{{accessory.name}}</li>
       </ul>
     </div>
   </div>
@@ -20,50 +20,17 @@
           <div class="product-details-images slider-navigation-1">
             <div class="lg-image">
               <a class="popup-img venobox vbox-item" data-gall="myGallery" href="images/product/large-size/1.jpg">
-                <img alt="product image" src="http://localhost:8080/api/image/{{product.id}}">
+                <img alt="product image" src="http://localhost:8080/api/image/accessory/{{accessory.id}}">
               </a>
             </div>
-            <!-- <div class="lg-image">
-                <a class="popup-img venobox vbox-item" href="images/product/large-size/2.jpg" data-gall="myGallery">
-                    <img src="../../../assets/site/images/product/large-size/2.jpg" alt="product image">
-                </a>
-            </div>
-            <div class="lg-image">
-                <a class="popup-img venobox vbox-item" href="images/product/large-size/3.jpg" data-gall="myGallery">
-                    <img src="../../../assets/site/images/product/large-size/3.jpg" alt="product image">
-                </a>
-            </div>
-            <div class="lg-image">
-                <a class="popup-img venobox vbox-item" href="images/product/large-size/4.jpg" data-gall="myGallery">
-                    <img src="../../../assets/site/images/product/large-size/4.jpg" alt="product image">
-                </a>
-            </div>
-            <div class="lg-image">
-                <a class="popup-img venobox vbox-item" href="images/product/large-size/5.jpg" data-gall="myGallery">
-                    <img src="../../../assets/site/images/product/large-size/5.jpg" alt="product image">
-                </a>
-            </div>
-            <div class="lg-image">
-                <a class="popup-img venobox vbox-item" href="images/product/large-size/6.jpg" data-gall="myGallery">
-                    <img src="../../../assets/site/images/product/large-size/6.jpg" alt="product image">
-                </a>
-            </div> -->
           </div>
-          <!-- <div class="product-details-thumbs">
-              <div class="sm-image"><img src="../../../assets/site/images/product/small-size/1.jpg" alt="product image thumb"></div> -->
-          <!-- <div class="sm-image"><img src="../../../assets/site/images/product/small-size/2.jpg" alt="product image thumb"></div>
-          <div class="sm-image"><img src="../../../assets/site/images/product/small-size/3.jpg" alt="product image thumb"></div>
-          <div class="sm-image"><img src="../../../assets/site/images/product/small-size/4.jpg" alt="product image thumb"></div>
-          <div class="sm-image"><img src="../../../assets/site/images/product/small-size/5.jpg" alt="product image thumb"></div>
-          <div class="sm-image"><img src="../../../assets/site/images/product/small-size/6.jpg" alt="product image thumb"></div> -->
-          <!-- </div> -->
 
           <div class="single-add-to-cart" style="margin-left: 5vw;">
             <form action="#" class="cart-quantity">
-              <button (click)="addToWishList()" class="add-to-cart" style="margin: 10px;">
+              <button class="add-to-cart" style="margin: 10px;">
                 <i class="fa fa-heart-o"></i>
               </button>
-              <button (click)="addToCart()" *ngIf="!selectedProductDetail.status" class="add-to-cart"
+              <button class="add-to-cart"
                       style="margin: 10px;">
                 <i class="fa fa-cart-plus"></i>
               </button>
@@ -80,16 +47,6 @@
               </ul>
             </div>
           </div>
-
-          <div *ngIf="product.promotions.length != 0" class="product-details-images slider-navigation-1">
-            <div class="lg-image">
-              <h4 style="text-align: center">BUY ONE DISCOUNT ONE</h4>
-              <a class="popup-img venobox vbox-item" data-gall="myGallery" routerLink="../../accessory-detail/{{product.promotions[0].accessoryId}}">
-                <span style="float: right" class="image-promo">-{{product.promotions[0].discount}}%</span>
-                <img alt="product image" src="http://localhost:8080/api/image/accessory/{{product.promotions[0].accessoryId}}">
-              </a>
-            </div>
-          </div>
         </div>
         <!--// Product Details Left -->
       </div>
@@ -97,8 +54,8 @@
       <div class="col-lg-7 col-md-6">
         <div class="product-details-view-content pt-60">
           <div class="product-info">
-            <h3 style="color: blue;">{{product.name}}</h3>
-            <span class="product-details-ref">Reference: {{product.categoryName}}</span>
+            <h3 style="color: blue;">{{accessory.name}}</h3>
+            <span class="product-details-ref">Reference: {{accessory.accessoryCateName}}</span>
             <div class="rating-box pt-20">
               <ul class="rating rating-with-review-item">
                 <li><i class="fa fa-star-o"></i></li>
@@ -111,72 +68,19 @@
               </ul>
             </div>
             <div class="price-box pt-20">
-                            <span *ngIf="!selectedProductDetail.status" class="new-price new-price-2"
+                            <span *ngIf="!accessory.status" class="new-price new-price-2"
                                   style="font-size: xx-large;">
-                                {{product.price | currency}}</span>
-              <span *ngIf="selectedProductDetail.status" class="new-price new-price-2" style="font-size: xx-large;">
+                                {{accessory.price | currency}}</span>
+              <span *ngIf="accessory.status" class="new-price new-price-2" style="font-size: xx-large;">
                                 Sold Out</span>
             </div>
             <div class="product-desc">
               <p>
-                                <span>{{product.description}}
-                                </span>
+
               </p>
             </div>
-            <div class="product-variants">
-              <div *ngIf="productDetailString?.length != 1" class="produt-variants-size">
-                <h4>Models</h4>
-                <button (click)="changeProductDetail(i)" *ngFor="let detail of productDetailString; index as i"
-                        class="dimension" style="margin: 10px;">{{detail}}</button>
-              </div>
-            </div>
-            <div class="product-desc table-responsive mt-75">
-              <h4>Specification </h4>
-              <table class="table table-bordered table-hover mb-0">
-                <thead>
-                <tr>
-                  <th>COLOR</th>
-                  <td>{{selectedProductDetail.color}}</td>
-                </tr>
-                <tr>
-                  <th>CPU</th>
-                  <td>{{selectedProductDetail.cpu}}</td>
-                </tr>
-                <tr>
-                  <th>RAM</th>
-                  <td>{{selectedProductDetail.ram}}</td>
-                </tr>
-                <tr>
-                  <th>SCREEN</th>
-                  <td>{{selectedProductDetail.screen}}</td>
-                </tr>
-                <tr>
-                  <th>MEMORY</th>
-                  <td>{{selectedProductDetail.memmory}}</td>
-                </tr>
-                <tr>
-                  <th>CAMERA</th>
-                  <td>{{selectedProductDetail.camera}}</td>
-                </tr>
-                <tr>
-                  <th>BATTERY</th>
-                  <td>{{selectedProductDetail.pin}}</td>
-                </tr>
-                <tr>
-                  <th>OPERATING SYSTEM</th>
-                  <td>{{selectedProductDetail.os}}</td>
-                </tr>
-                <tr *ngFor="let property of product.properties">
-                  <th>{{property.name}}</th>
-                  <td>{{property.description}}</td>
-                </tr>
-                <tr>
-                  <th>MADE IN</th>
-                  <td>{{product.madeIn}}</td>
-                </tr>
-                </thead>
-              </table>
-            </div>
+
+
             <div class="block-reassurance">
               <ul>
                 <li>
@@ -241,62 +145,62 @@
       <div class="tab-pane active show" id="reviews" role="tabpanel">
         <div class="product-reviews">
           <div class="product-details-comment-block">
-            <div *ngFor="let review of product.reviews; index as i" class="row"
-                 style="font-size: larger; width: 80%; margin: auto;">
-              <div class="col-md-3">
-                <img *ngIf="listUserReview[i].gender == 'Nữ'" alt="User Avatar"
-                     height="100px" src="../../../assets/site/images/femail-avatar.jpg" style="border-radius: 50%;">
-                <img *ngIf="listUserReview[i].gender == 'Nam'" alt="User Avatar"
-                     height="100px" src="../../../assets/site/images/male-avatar.jpg" style="border-radius: 50%;">
-                <div>{{listUserReview[i].firstname}} {{listUserReview[i].lastname}}</div>
-              </div>
-              <div class="col-md-6 text-left">
-                <div>{{review.content}}</div>
-                <div class="comment-review mt-30 mb-30" style="font-size: larger;">
-                  <span>Rating</span>
-                  <ul *ngIf="review.rating == 5" class="rating">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                  </ul>
-                  <ul *ngIf="review.rating == 4" class="rating">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li class="no-star"><i class="fa fa-star "></i></li>
-                  </ul>
-                  <ul *ngIf="review.rating == 3" class="rating">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li class="no-star"><i class="fa fa-star"></i></li>
-                    <li class="no-star"><i class="fa fa-star"></i></li>
-                  </ul>
-                  <ul *ngIf="review.rating == 2" class="rating">
-                    <li><i class="fa fa-star"></i></li>
-                    <li><i class="fa fa-star"></i></li>
-                    <li class="no-star"><i class="fa fa-star"></i></li>
-                    <li class="no-star"><i class="fa fa-star"></i></li>
-                    <li class="no-star"><i class="fa fa-star"></i></li>
-                  </ul>
-                  <ul *ngIf="review.rating == 1" class="rating">
-                    <li><i class="fa fa-star"></i></li>
-                    <li class="no-star"><i class="fa fa-star"></i></li>
-                    <li class="no-star"><i class="fa fa-star"></i></li>
-                    <li class="no-star"><i class="fa fa-star"></i></li>
-                    <li class="no-star"><i class="fa fa-star"></i></li>
-                  </ul>
-                </div>
-                <img alt="review image" height="200px" src="http://localhost:8080/api/image/review/{{review.id}}">
-              </div>
-              <div class="col-md-3 text-right" style="float: right;">
-                <button class="btn mr-10"><i aria-hidden="true" class="fa fa-thumbs-up"></i></button>
-                <button class="btn"><i aria-hidden="true" class="fa fa-thumbs-down"></i></button>
-              </div>
-            </div>
+<!--            <div *ngFor="let review of product.reviews; index as i" class="row"-->
+<!--                 style="font-size: larger; width: 80%; margin: auto;">-->
+<!--              <div class="col-md-3">-->
+<!--                <img *ngIf="listUserReview[i].gender == 'Nữ'" alt="User Avatar"-->
+<!--                     height="100px" src="../../../assets/site/images/femail-avatar.jpg" style="border-radius: 50%;">-->
+<!--                <img *ngIf="listUserReview[i].gender == 'Nam'" alt="User Avatar"-->
+<!--                     height="100px" src="../../../assets/site/images/male-avatar.jpg" style="border-radius: 50%;">-->
+<!--                <div>{{listUserReview[i].firstname}} {{listUserReview[i].lastname}}</div>-->
+<!--              </div>-->
+<!--              <div class="col-md-6 text-left">-->
+<!--                <div>{{review.content}}</div>-->
+<!--                <div class="comment-review mt-30 mb-30" style="font-size: larger;">-->
+<!--                  <span>Rating</span>-->
+<!--                  <ul *ngIf="review.rating == 5" class="rating">-->
+<!--                    <li><i class="fa fa-star"></i></li>-->
+<!--                    <li><i class="fa fa-star"></i></li>-->
+<!--                    <li><i class="fa fa-star"></i></li>-->
+<!--                    <li><i class="fa fa-star"></i></li>-->
+<!--                    <li><i class="fa fa-star"></i></li>-->
+<!--                  </ul>-->
+<!--                  <ul *ngIf="review.rating == 4" class="rating">-->
+<!--                    <li><i class="fa fa-star"></i></li>-->
+<!--                    <li><i class="fa fa-star"></i></li>-->
+<!--                    <li><i class="fa fa-star"></i></li>-->
+<!--                    <li><i class="fa fa-star"></i></li>-->
+<!--                    <li class="no-star"><i class="fa fa-star "></i></li>-->
+<!--                  </ul>-->
+<!--                  <ul *ngIf="review.rating == 3" class="rating">-->
+<!--                    <li><i class="fa fa-star"></i></li>-->
+<!--                    <li><i class="fa fa-star"></i></li>-->
+<!--                    <li><i class="fa fa-star"></i></li>-->
+<!--                    <li class="no-star"><i class="fa fa-star"></i></li>-->
+<!--                    <li class="no-star"><i class="fa fa-star"></i></li>-->
+<!--                  </ul>-->
+<!--                  <ul *ngIf="review.rating == 2" class="rating">-->
+<!--                    <li><i class="fa fa-star"></i></li>-->
+<!--                    <li><i class="fa fa-star"></i></li>-->
+<!--                    <li class="no-star"><i class="fa fa-star"></i></li>-->
+<!--                    <li class="no-star"><i class="fa fa-star"></i></li>-->
+<!--                    <li class="no-star"><i class="fa fa-star"></i></li>-->
+<!--                  </ul>-->
+<!--                  <ul *ngIf="review.rating == 1" class="rating">-->
+<!--                    <li><i class="fa fa-star"></i></li>-->
+<!--                    <li class="no-star"><i class="fa fa-star"></i></li>-->
+<!--                    <li class="no-star"><i class="fa fa-star"></i></li>-->
+<!--                    <li class="no-star"><i class="fa fa-star"></i></li>-->
+<!--                    <li class="no-star"><i class="fa fa-star"></i></li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--                <img alt="review image" height="200px" src="http://localhost:8080/api/image/review/{{review.id}}">-->
+<!--              </div>-->
+<!--              <div class="col-md-3 text-right" style="float: right;">-->
+<!--                <button class="btn mr-10"><i aria-hidden="true" class="fa fa-thumbs-up"></i></button>-->
+<!--                <button class="btn"><i aria-hidden="true" class="fa fa-thumbs-down"></i></button>-->
+<!--              </div>-->
+<!--            </div>-->
             <!-- <div class="review-btn">
                 <a class="review-links" href="#" data-toggle="modal" data-target="#mymodal">Write Your Review!</a>
             </div> -->

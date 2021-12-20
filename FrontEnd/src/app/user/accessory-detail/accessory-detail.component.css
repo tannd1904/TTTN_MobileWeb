@@ -38,20 +38,3 @@ table tr td {
   color: #fff;
   background-color: black;
 }
-
-.image-promo {
-  float: right;
-  font-size: 20px;
-  top: -25px;
-  left: -60px;
-  display: block;
-  overflow: hidden;
-  min-width: 26px;
-  line-height: 26px;
-  font-size: 12px;
-  font-weight: 400;
-  color: #242424;
-  background: #fed700;
-  text-align: center;
-  border-radius: 50%;
-}

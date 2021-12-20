@@ -120,7 +120,7 @@ export class CheckoutComponent implements OnInit {
                 console.log('begin saving order detail...');
                 var orderDetail = new OrderDetail();
                 orderDetail.orderId = this.orderId;
-                orderDetail.productDetailId = c.product.productDetails[0].id;
+                orderDetail.productDetailId = c.product.productDetails[0].serial;
                 orderDetail.productId = c.product.id;
                 listOrderDetail.push(orderDetail);
                 // console.log(orderDetail);
@@ -143,6 +143,7 @@ export class CheckoutComponent implements OnInit {
             console.log(listOrderDetail);
             this.orderService.createListOrderDetail(this.token, listOrderDetail)
               .subscribe((data: Response) => {
+                console.log(data);
                 if (data.status !== 200) {
                   window.alert('Somethings went wrong! Your order will be remove!');
                   var mess = 'Create List Order Detail Unsuccessfully';

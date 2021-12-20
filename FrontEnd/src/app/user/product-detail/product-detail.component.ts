@@ -17,6 +17,7 @@ import {ProductService} from 'src/app/service/product.service';
 import {TokenStorageService} from 'src/app/service/token-storage.service';
 import {UserService} from 'src/app/service/user.service';
 import {PropertyService} from '../../service/property.service';
+import {PromotionService} from '../../service/promotion.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -53,6 +54,7 @@ export class ProductDetailComponent implements OnInit {
     private productService: ProductService,
     private categoryService: CategoryService,
     private propertyService: PropertyService,
+    private promotionService: PromotionService,
     private orderService: OrderService,
     private userService: UserService,
     private cartService: CartService,
@@ -107,6 +109,10 @@ export class ProductDetailComponent implements OnInit {
             .subscribe((data: Response) => {
               this.product.properties = data.data;
               console.log(data);
+            });
+          this.promotionService.getPromotionByProductId(this.token, this.product.id)
+            .subscribe((data: Response) => {
+              this.product.promotions = data.data;
             });
         },
         error => {

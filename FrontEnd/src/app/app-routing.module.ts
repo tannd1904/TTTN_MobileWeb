@@ -11,6 +11,7 @@ import { ListOrderComponent } from './user/list-order/list-order.component';
 import { LoginComponent } from './user/login/login.component';
 import { OrderDetailComponent } from './user/order-detail/order-detail.component';
 import { ProductDetailComponent } from './user/product-detail/product-detail.component';
+import { AccessoryDetailComponent } from './user/accessory-detail/accessory-detail.component';
 import { ProductGridComponent } from './user/product-grid/product-grid.component';
 import { RegisterComponent } from './user/register/register.component';
 import { SearchComponent } from './user/search/search.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'changeInfo', component: ChangeInfoComponent },
   { path: 'product-grid', component: ProductGridComponent },
   { path: 'product-detail/:id', component: ProductDetailComponent},
+  { path: 'accessory-detail/:id', component: AccessoryDetailComponent},
   { path: 'checkout', component: CheckoutComponent},
   { path: 'compare', component: CompareComponent},
   { path: 'cart', component: CartComponent},

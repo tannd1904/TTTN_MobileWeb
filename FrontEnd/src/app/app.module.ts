@@ -16,6 +16,7 @@ import {RegisterComponent} from './user/register/register.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {ProductGridComponent} from './user/product-grid/product-grid.component';
 import {ProductDetailComponent} from './user/product-detail/product-detail.component';
+import {AccessoryDetailComponent} from './user/accessory-detail/accessory-detail.component';
 import {CheckoutComponent} from './user/checkout/checkout.component';
 import {CompareComponent} from './user/compare/compare.component';
 import {CartComponent} from './user/cart/cart.component';
@@ -41,6 +42,7 @@ import {ChangeInfoComponent} from './user/change-info/change-info.component';
     PageNotFoundComponent,
     ProductGridComponent,
     ProductDetailComponent,
+    AccessoryDetailComponent,
     CheckoutComponent,
     CompareComponent,
     CartComponent,
